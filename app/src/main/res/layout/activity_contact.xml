@@ -21,15 +21,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            style="@style/Custom_TextView_Big"
             android:id="@+id/ContactText"
+            style="@style/Custom_TextView_Big"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
             android:layout_marginTop="220dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginRight="32dp"
             android:text="@string/ContactInfo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -37,11 +33,12 @@
             app:layout_constraintTop_toBottomOf="@+id/include" />
 
         <TextView
-            style="@style/Custom_TextView_Normal"
             android:id="@+id/SendEmail"
+            style="@style/Custom_TextView_Normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
+            android:textSize="24dp"
             android:text="EasyLearnSCE@gmail.com"
             app:layout_constraintTop_toBottomOf="@+id/ContactText" />
 

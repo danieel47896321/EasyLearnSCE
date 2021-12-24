@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.easylearnsce.Class.GuestLagnuage;
 import com.example.easylearnsce.Class.GuestNavView;
 import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.User;
@@ -45,7 +46,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class SignIn extends AppCompatActivity {
-    private TextView Title;
+    private TextView Title, TextViewSearchLanguage;
     private DrawerLayout drawerLayout;
     private ImageView BackIcon, MenuIcon;
     private NavigationView GuestNavView;
@@ -57,8 +58,7 @@ public class SignIn extends AppCompatActivity {
     private Loading loading;
     private Intent intent;
     private User user = new User();
-    private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-    private StorageReference storageReference;
+    private GuestLagnuage lagnuage;
     private FirebaseUser firebaseUser;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -70,6 +70,7 @@ public class SignIn extends AppCompatActivity {
     }
     private void init(){
         setID();
+        setLanguage();
         MenuItem();
         BackIcon();
         MenuIcon();
@@ -93,6 +94,14 @@ public class SignIn extends AppCompatActivity {
         TextInputLayoutEmail = findViewById(R.id.TextInputLayoutEmail);
         TextInputLayoutPassword = findViewById(R.id.TextInputLayoutPassword);
         ButtonSignIn = findViewById(R.id.ButtonSignIn);
+        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
+        lagnuage = new GuestLagnuage(SignIn.this);
+    }
+    private void setLanguage(){
+        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { lagnuage.setDialog(); }
+        });
     }
     private void MenuItem(){
         Menu menu= GuestNavView.getMenu();
@@ -159,7 +168,7 @@ public class SignIn extends AppCompatActivity {
                 if(firebaseAuth.getCurrentUser() != null)
                     firebaseAuth.getInstance().signOut();
                 CheckValues();
-                if(TextInputLayoutEmail.getEditText().getText().length() > 0 && isEmailValid(TextInputLayoutEmail.getEditText().getText().toString()) && TextInputLayoutPassword.getEditText().getText().length() > 0)
+                if(TextInputLayoutEmail.getEditText().getText().length() > 0 && TextInputLayoutPassword.getEditText().getText().length() > 5 && isEmailValid(TextInputLayoutEmail.getEditText().getText().toString()) && TextInputLayoutPassword.getEditText().getText().length() > 0)
                     SignIn();
             }
         });
@@ -235,8 +244,10 @@ public class SignIn extends AppCompatActivity {
                             }
                             getUser();
                         }
-                        else
+                        else {
+                            loading.stop();
                             finish();
+                        }
                     }
                 });
     }
@@ -244,9 +255,9 @@ public class SignIn extends AppCompatActivity {
         firebaseAuth.signInWithEmailAndPassword(TextInputLayoutEmail.getEditText().getText().toString(), TextInputLayoutPassword.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                loading = new Loading(SignIn.this);
                 if (task.isSuccessful()) {
                     if(firebaseAuth.getCurrentUser().isEmailVerified()) {
-                        loading = new Loading(SignIn.this);
                         getUser();
                     }
                     else {

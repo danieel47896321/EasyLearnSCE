@@ -189,4 +189,7 @@ public class Home extends AppCompatActivity {
             }
         });
     }
+    public void onBackPressed() {
+
+    }
 }

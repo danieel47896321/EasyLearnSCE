@@ -48,6 +48,7 @@ import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserMenuAdapter;
 import com.example.easylearnsce.Class.UserNavView;
+import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.SelectFunc.GenericEngineering;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -396,6 +397,13 @@ public class Profile extends AppCompatActivity {
     }
     private void StartActivity(Class Destination){
         intent = new Intent(Profile.this, Destination);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        finish();
+    }
+    @Override
+    public void onBackPressed() {
+        intent = new Intent(Profile.this, Home.class);
         intent.putExtra("user", user);
         startActivity(intent);
         finish();

@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.easylearnsce.Class.GuestLagnuage;
 import com.example.easylearnsce.Class.GuestNavView;
 import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.PopUpMSG;
@@ -49,12 +50,13 @@ public class CreateAccount extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView GuestNavView;
     private TextInputLayout TextInputLayoutFirstName, TextInputLayoutLastName ,TextInputLayoutEmail, TextInputLayoutPassword, TextInputLayoutPasswordConfirm;
-    private TextView Title, SignIn, TextViewSearchCity, TextViewSearchAge, TextViewSearchGender,TextViewSearch, gender_vali, age_vali, city_vali;
+    private TextView Title, SignIn, TextViewSearchCity, TextViewSearchAge, TextViewSearchGender,TextViewSearch, gender_vali, age_vali, city_vali, TextViewSearchLanguage;
     private Dialog dialog;
     private ListView ListViewSearch;
     private EditText EditTextSearch;
     private Button ButtonNext, next_btn;
     private Loading loading;
+    private GuestLagnuage lagnuage;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance() ;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference().child("Users");
@@ -68,6 +70,7 @@ public class CreateAccount extends AppCompatActivity {
     }
     private void init(){
         setID();
+        setLanguage();
         MenuItem();
         BackIcon();
         MenuIcon();
@@ -91,6 +94,14 @@ public class CreateAccount extends AppCompatActivity {
         TextInputLayoutPassword = findViewById(R.id.TextInputLayoutPassword);
         TextInputLayoutPasswordConfirm = findViewById(R.id.TextInputLayoutPasswordConfirm);
         ButtonNext = findViewById(R.id.ButtonNext);
+        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
+        lagnuage = new GuestLagnuage(CreateAccount.this);
+    }
+    private void setLanguage(){
+        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { lagnuage.setDialog(); }
+        });
     }
     private void MenuItem(){
         Menu menu= GuestNavView.getMenu();
@@ -147,9 +158,9 @@ public class CreateAccount extends AppCompatActivity {
         firebaseAuth.fetchSignInMethodsForEmail(TextInputLayoutEmail.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
             @Override
             public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                loading.stop();
                 if(!task.getResult().getSignInMethods().isEmpty()){
                     TextInputLayoutEmail.setHelperText(getResources().getString(R.string.EmailExist));
-                    loading.stop();
                 }
                 else {
                     TextInputLayoutEmail.setHelperText("");
@@ -280,7 +291,6 @@ public class CreateAccount extends AppCompatActivity {
                     alertDialog.cancel();
                     CreateAccount();
                 }
-
             }
         });
     }
@@ -323,8 +333,8 @@ public class CreateAccount extends AppCompatActivity {
         });
     }
     private void AgePick(){
-        String age[] = new String[5];
-        for(int i=0; i<103 ; i++)
+        String age[] = new String[102];
+        for(int i=0; i < age.length ; i++)
             age[i] = ""+(i+18);
         TextViewSearchAge.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -370,11 +380,6 @@ public class CreateAccount extends AppCompatActivity {
                 textViewPick.setText(adapterView.getItemAtPosition(i).toString());
             }
         });
-    }
-    private String GenerateCode(){
-        Random random = new Random();
-        int Code = random.nextInt(999999);
-        return String.format("%06d", Code);
     }
     private void BackIcon(){
         BackIcon.setOnClickListener(new View.OnClickListener() {

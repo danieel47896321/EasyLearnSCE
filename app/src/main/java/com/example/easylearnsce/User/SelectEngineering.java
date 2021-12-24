@@ -22,6 +22,7 @@ import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserImage;
 import com.example.easylearnsce.Class.UserMenuAdapter;
 import com.example.easylearnsce.Class.UserNavView;
+import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -110,6 +111,13 @@ public class SelectEngineering extends AppCompatActivity {
     }
     private void StartActivity(Class Destination){
         intent = new Intent(SelectEngineering.this, Destination);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        finish();
+    }
+    @Override
+    public void onBackPressed() {
+        intent = new Intent(SelectEngineering.this, Home.class);
         intent.putExtra("user", user);
         startActivity(intent);
         finish();

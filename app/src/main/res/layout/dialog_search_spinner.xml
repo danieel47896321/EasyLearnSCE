@@ -26,7 +26,6 @@
         android:hint="@string/Search"
         android:padding="12dp"
         android:singleLine="true"
-        android:textColorHint="@color/black"
         android:textStyle="bold" />
     <ListView
         android:layout_width="match_parent"

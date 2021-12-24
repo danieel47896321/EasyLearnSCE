@@ -20,6 +20,7 @@ import com.example.easylearnsce.Class.UserNavView;
 import com.example.easylearnsce.Class.ViewPagerAdapter;
 import com.example.easylearnsce.Fragments.ChatsFragment;
 import com.example.easylearnsce.Fragments.UsersFragment;
+import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -97,6 +98,12 @@ public class EasyLearnChat extends AppCompatActivity {
     }
     private void StartActivity(Class Destination){
         intent = new Intent(EasyLearnChat.this, Destination);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        finish();
+    }
+    public void onBackPressed() {
+        intent = new Intent(EasyLearnChat.this, Home.class);
         intent.putExtra("user", user);
         startActivity(intent);
         finish();

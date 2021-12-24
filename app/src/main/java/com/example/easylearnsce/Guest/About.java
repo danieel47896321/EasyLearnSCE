@@ -1,26 +1,40 @@
 package com.example.easylearnsce.Guest;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.easylearnsce.Class.GuestLagnuage;
 import com.example.easylearnsce.Class.GuestNavView;
+import com.example.easylearnsce.Class.Language;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class About extends AppCompatActivity {
-    private TextView Title;
+    private TextView Title, TextViewSearchLanguage;
     private ImageView BackIcon, MenuIcon;
     private NavigationView GuestNavView;
     private DrawerLayout drawerLayout;
+    private GuestLagnuage lagnuage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +47,7 @@ public class About extends AppCompatActivity {
         BackIcon();
         MenuIcon();
         NavView();
+        setLanguage();
     }
     private void setID(){
         MenuIcon = findViewById(R.id.MenuIcon);
@@ -41,6 +56,14 @@ public class About extends AppCompatActivity {
         Title = findViewById(R.id.Title);
         GuestNavView = findViewById(R.id.GuestNavView);
         Title.setText(R.string.About);
+        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
+        lagnuage = new GuestLagnuage(About.this);
+    }
+    private void setLanguage(){
+        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { lagnuage.setDialog(); }
+        });
     }
     private void MenuItem(){
         Menu menu= GuestNavView.getMenu();

@@ -19,28 +19,6 @@
             android:id="@+id/include"
             layout="@layout/toolbar" />
 
-        <TextView
-            android:id="@+id/TextViewSearchLanguage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginRight="100dp"
-            android:background="@android:drawable/editbox_background"
-            android:drawableEnd="@drawable/drop_down"
-            android:drawableRight="@drawable/drop_down"
-            android:gravity="center"
-            android:hint="@string/SelectLanguage"
-            android:padding="10dp"
-            android:textColorHint="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include" />
-
         <LinearLayout
             android:id="@+id/LayoutTags"
             android:layout_width="0dp"
@@ -50,7 +28,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TextViewSearchLanguage">
+            app:layout_constraintTop_toBottomOf="@+id/include">
 
 
             <androidx.recyclerview.widget.RecyclerView

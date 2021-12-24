@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.easylearnsce.Class.GuestLagnuage;
 import com.example.easylearnsce.Class.GuestNavView;
 import com.example.easylearnsce.Class.Language;
 import com.example.easylearnsce.Class.Select;
@@ -42,11 +43,8 @@ public class EasyLearnSCE extends AppCompatActivity {
     private List<Select> Selects;
     private NavigationView GuestNavView;
     private TextView Title, TextViewSearchLanguage, TextViewSearch;
-    private Dialog dialog;
-    private EditText EditTextSearch;
-    private ListView ListViewSearch;
     private ImageView BackIcon, MenuIcon;
-    private AutoCompleteTextView AutoCompleteTextViewLanguage;
+    private GuestLagnuage lagnuage;
     private final int SIZE = 5;
     private String EasyLearnSCETagsName[] = new String[SIZE];
     private int TagsPhoto[] = {R.drawable.login,R.drawable.register,R.drawable.forgotpassword,R.drawable.about,R.drawable.contact};
@@ -73,9 +71,16 @@ public class EasyLearnSCE extends AppCompatActivity {
         Title = findViewById(R.id.Title);
         Title.setText("");
         TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
+        lagnuage = new GuestLagnuage(EasyLearnSCE.this);
         GuestNavView = findViewById(R.id.GuestNavView);
         Tags = findViewById(R.id.Tags);
         EasyLearnSCETagsName = getResources().getStringArray(R.array.EasyLearnSCETagsName);
+    }
+    private void setLanguage(){
+        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { lagnuage.setDialog(); }
+        });
     }
     private void MenuItem(){
         Menu menu= GuestNavView.getMenu();
@@ -83,12 +88,6 @@ public class EasyLearnSCE extends AppCompatActivity {
         menuItem.setCheckable(false);
         menuItem.setChecked(true);
         menuItem.setEnabled(false);
-    }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { setDialog(); }
-        });
     }
     private void MenuIcon(){
         MenuIcon.setOnClickListener(new View.OnClickListener() {
@@ -114,36 +113,5 @@ public class EasyLearnSCE extends AppCompatActivity {
         SelectView Select = new SelectView(this,selects);
         Tags.setLayoutManager(new GridLayoutManager(this,1));
         Tags.setAdapter(Select);
-    }
-    private void setDialog(){
-        dialog = new Dialog(EasyLearnSCE.this);
-        dialog.setContentView(R.layout.dialog_search_spinner);
-        dialog.getWindow().setLayout(800,800);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-        EditTextSearch = dialog.findViewById(R.id.EditTextSearch);
-        ListViewSearch = dialog.findViewById(R.id.ListViewSearch);
-        TextViewSearch = dialog.findViewById(R.id.TextViewSearch);
-        TextViewSearch.setText(getResources().getString(R.string.SelectLanguage));
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(EasyLearnSCE.this, R.layout.dropdown_item, getResources().getStringArray(R.array.Lagnuage));
-        ListViewSearch.setAdapter(adapter);
-        EditTextSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                adapter.getFilter().filter(charSequence);
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
-        ListViewSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                dialog.dismiss();
-                new Language(EasyLearnSCE.this,adapterView.getItemAtPosition(i).toString());
-            }
-        });
     }
 }

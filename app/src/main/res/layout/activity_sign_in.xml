@@ -159,6 +159,7 @@
             android:layout_marginTop="4dp"
             android:clickable="true"
             android:text="@string/RecoverPassword"
+            android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutPassword"
             app:layout_constraintStart_toStartOf="@+id/TextInputLayoutPassword"
             app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutPassword" />
@@ -170,6 +171,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:clickable="true"
+            android:textSize="18dp"
             android:text="@string/DontHaveAccountCreateAccount"
             app:layout_constraintEnd_toEndOf="@+id/ButtonSignIn"
             app:layout_constraintStart_toStartOf="@+id/ButtonSignIn"

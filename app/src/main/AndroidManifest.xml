@@ -16,7 +16,6 @@
         android:theme="@style/Theme.EasyLearnSCE">
         <activity android:name=".User.Message"></activity>
         <activity android:name=".User.EasyLearnChat" />
-        <activity android:name=".Guest.CreateAccountValidation" />
         <activity
             android:name=".User.Profile"
             android:windowSoftInputMode="adjustPan" />
