@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- All Pages -->
+    <string name="Open" translatable="true">פתוח</string>
+    <string name="Close" translatable="true">סגור</string>
+    <string name="Title" translatable="true">כותרת</string>
+    <string name="Required" translatable="true">*חובה</string>
+    <string name="InvalidEmail" translatable="true">אימייל לא חוקי</string>
+    <string name="Must6Chars" translatable="true">חובה לפחות 6 תווים</string>
+    <string name="Must9Chars" translatable="true">חובה 9 תווים</string>
+    <string name="EmailNotExist" translatable="true">האימייל לא קיים במערכת</string>
+    <string name="EmailExist" translatable="true">האימייל כבר קיים במערכת</string>
+    <string name="PhoneExist" translatable="true">הטלפון כבר קיים במערכת</string>
+    <string name="WrongPassword" translatable="true">סיסמה שגויה</string>
+    <string name="Next" translatable="true">הבא</string>
+    <string name="DifferentPassword" translatable="true">סיסמה לא תואמת</string>
+    <string name="OK" translatable="true">אישור</string>
+    <string name="Loading" translatable="true">טוען</string>
+    <string name="Finish" translatable="true">סיום</string>
+    <string name="DontHaveAccountCreateAccount" translatable="true">אין לך משתמש? צור חשבון</string>
+    <string name="AreaCode" translatable="true">קידומת</string>
+    <string name="Search" translatable="true">חיפוש</string>
+    <string name="Select" translatable="true">בחר</string>
+    <string name="Other" translatable="true">אחר</string>
+    <string name="Error" translatable="true">שגיאה במערכת בבקשה נסה שוב בעוד כמה דקות</string>
+    <!-- EasyLearnSCE Page -->
+    <string name="app_name" translatable="true">EasyLearnSCE</string>
+    <string name="SignIn" translatable="true">כניסה</string>
+    <string name="CreateAccount" translatable="true">צור חשבון</string>
+    <string name="ResetPassword" translatable="true">איפוס סיסמה</string>
+    <string name="About" translatable="true">אודות</string>
+    <string name="Contact" translatable="true">צור קשר</string>
+    <string name="Language" translatable="true">שפה</string>
+    <string name="SelectLanguage" translatable="true">בחר שפה</string>
+    <string name="English" translatable="true">אנגלית</string>
+    <string name="Hebrew" translatable="true">עברית</string>
+    <!-- SignIn Page -->
+    <string name="Email" translatable="true">אימייל</string>
+    <string name="CheckEmailVerify" translatable="true">חשבון זה עדיין לא אומת, בבקשה בדוק את הקישור שנשלח לאימייל שלך ואמת את החשבון.</string>
+    <string name="Password" translatable="true">סיסמה</string>
+    <string name="RecoverPassword" translatable="true">שכחת את הסיסמה? איפוס סיסמה</string>
+    <string name="Google" translatable="true">גוגל</string>
+    <string name="Facebook" translatable="true">פייסבוק</string>
+    <string name="OR" translatable="true">או</string>
+    <!-- CreateAccount Page -->
+    <string name="FirstName" translatable="true">שם פרטי</string>
+    <string name="LastName" translatable="true">שם משפחה</string>
+    <string name="Phone" translatable="true">טלפון</string>
+    <string name="PhoneLenth" translatable="true">חובה להזין 10 ספרות</string>
+    <string name="ConfirmPassword" translatable="true">אימות</string>
+    <string name="AlreadyHaveAccount" translatable="true">קיים כבר משתמש? כניסה</string>
+    <!-- CreateAccountValidation Page -->
+    <string name="CreateAccountValidation" translatable="true">אימות צור חשבון</string>
+    <string name="CodeText" translatable="true">שלום, שלחנו אליך קוד חד פעמי לטלפון:</string>
+    <string name="Code" translatable="true">קוד</string>
+    <string name="FinishCreateAccount" translatable="true">נשלחה הודעה לאימייל שלך לאימות וסיום ההרשמה</string>
+    <string name="WrongCode" translatable="true">קוד שגוי</string>
+    <string name="CompleteCreateAccount" translatable="true">נרשמת בהצלחה, בבקשה אמת את חשבונך בעזרת קישור אימות שנשלח לאיימיל שלך.</string>
+    <string name="VerifyTitle" translatable="true">Verify your email for EasyLearnSCE</string>
+    <string name="VerifyStartMsg" translatable="true">היי,</string>
+    <string name="VerifyMidMsg" translatable="true">הכנס את הקוד הבא:</string>
+    <string name="VerifyEndMsg" translatable="true">כדי לאמת את כתובת האימייל שלך.</string>
+    <!-- ResetPassword Page -->
+    <string name="ForgotPasswordInfo" translatable="true">נא הזן את כתובת האימייל שברצונך לשחזר את הסיסמה עבורו</string>
+    <string name="ResetLink" translatable="true">קישור לאיפוס הסיסמה נשלח לאימייל</string>
+    <!-- About Page -->
+    <string name="AboutVersion" translatable="true"> גרסה 1.1.0</string>
+    <string name="Copyright" translatable="true"> זכויות יוצרים &#169; 2021 דניאל אלמליח</string>
+    <string name="AboutInfo" translatable="true">האפליקציה פותחה במסגרת פרויקט גמר על ידי דניאל אלמליח כאשר המטרה ליצור סביבה נוחה לצפיה בהרצאות ולמידה נוחה ומתן פידבק למרצים לגבי קטעים שהיו פחות ברורים על ידי הוספת תגובה תוך ציון קטע הזמן הרצוי עבור הקלטה מסוימת </string>
+    <!-- Contact Page -->
+    <string name="ContactInfo" translatable="true">האם נתקלת בבעיה כלשהי? צוות הפיתוח זמין לשירותך </string>
+    <string name="ContactSubject" translatable="true">יצירת קשר - App EasyLearnSCE</string>
+    <string name="ContactText" translatable="true">צוות EasyLearnSCE, </string>
+    <string name="ContactEmailChooser" translatable="true">בחר אפליקציית דוא"ל</string>
+    <!-- Home Page -->
+    <string name="Home" translatable="true">ראשי</string>
+    <string name="SelectEngineering" translatable="true">בחר הנדסה</string>
+    <string name="Profile" translatable="true">פרופיל</string>
+    <string name="ChangePassword" translatable="true">שינוי סיסמה</string>
+    <string name="SignOut" translatable="true">התנתק</string>
+    <string name="Friends" translatable="true">חברים</string>
+    <string name="EasyLearnChat" translatable="true">EasyLearnChat</string>
+    <!-- SelectEngineering Page -->
+    <string name="StructuralEngineering" translatable="true">הנדסת בניין</string>
+    <string name="MechanicalEngineering" translatable="true">הנדסת מכונות</string>
+    <string name="ElectricalEngineering" translatable="true">הנדסת חשמל ואלקטרוניקה</string>
+    <string name="SoftwareEngineering" translatable="true">הנדסת תוכנה</string>
+    <string name="IndustrialEngineering" translatable="true">הנדסת תעשייה וניהול</string>
+    <string name="ChemicalEngineering" translatable="true">הנדסת כימיה</string>
+    <string name="PreEngineering" translatable="true">מכינה</string>
+    <string name="SelectYear" translatable="true">בחר שנה</string>
+    <string name="SelectSemester" translatable="true">בחר סמסטר</string>
+    <string name="SelectCourse" translatable="true">בחר קורס</string>
+    <string name="FirstYear" translatable="true">שנה ראשונה</string>
+    <string name="SecondYear" translatable="true">שנה שניה</string>
+    <string name="ThirdYear" translatable="true">שנה שלישית</string>
+    <string name="FourthYear" translatable="true">שנה רביעית</string>
+    <string name="FirstSemester" translatable="true">סמסטר א</string>
+    <string name="SecondSemester" translatable="true">סמסטר ב</string>
+    <string name="SummerSemester" translatable="true">סמסטר קיץ</string>
+    <!-- EasyLearnChat Page -->
+    <string name="Chats" translatable="true">"צ'אטים"</string>
+    <string name="Users" translatable="true">משתמשים</string>
+    <string name="Send" translatable="true">שלח</string>
+    <string name="TypeaMessage" translatable="true">הודעה</string>
+    <!-- Profile Page -->
+    <string name="CantChangeEmail" translatable="true">לא ניתן לשנות אימייל</string>
+    <string name="Cammera" translatable="true">מצלמה</string>
+    <string name="Gallery" translatable="true">גלריה</string>
+    <string name="SelectAge" translatable="true">בחר גיל</string>
+    <string name="SelectGender" translatable="true">בחר מגדר</string>
+    <string name="Male" translatable="true">זכר</string>
+    <string name="Female" translatable="true">נקבה</string>
+    <string name="CanNotChange" translatable="true">לא ניתן לשינוי</string>
+    <string name="UpdateProfile" translatable="true">עדכן פרופיל</string>
+    <string name="SelectCity" translatable="true">בחר עיר</string>
+    <string name="BeerSheva" translatable="true">באר שבע</string>
+    <string name="TelAviv" translatable="true">תל אביב</string>
+    <string name="Haifa" translatable="true">חיפה</string>
+    <!-- ChangePassword Page -->
+    <string name="CurrentPassword" translatable="true">סיסמה נוכחית</string>
+    <string name="NewPassword" translatable="true">סיסמה חדשה</string>
+    <string name="ConfirmNewPassword" translatable="true">אימות סיסמה</string>
+    <string name="Change" translatable="true">שינוי</string>
+    <string name="PasswordChanged" translatable="true">הסיסמה השתנתה</string>
+
+
+
+    <string name="Type" translatable="true">סוג</string>
+    <string name="Student" translatable="true">סטודנט</string>
+    <string name="Teacher" translatable="true">מרצה</string>
+    <string name="Admin" translatable="true">אדמין</string>
+
+
+</resources>

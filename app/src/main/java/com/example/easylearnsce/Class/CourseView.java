@@ -1,0 +1,91 @@
+package com.example.easylearnsce.Class;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.easylearnsce.Guest.ResetPassword;
+import com.example.easylearnsce.Guest.SignIn;
+import com.example.easylearnsce.R;
+import com.example.easylearnsce.SelectFunc.GenericCourse;
+
+import java.util.List;
+
+public class CourseView extends RecyclerView.Adapter<CourseView.MyViewHolder> {
+    private Context context;
+    private List<Course> courses;
+    private User user;
+    public CourseView(Context context, List<Course> course) {
+        this.context = context;
+        this.courses = course;
+    }
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
+        TextView course_name;
+        TextView course_teacher_name;
+        TextView course_year;
+        TextView course_semester;
+        TextView course_engineering;
+        ConstraintLayout course_card_view;
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            course_name = itemView.findViewById(R.id.course_name);
+            course_teacher_name = itemView.findViewById(R.id.course_teacher_name);
+            course_year = itemView.findViewById(R.id.course_year);
+            course_semester = itemView.findViewById(R.id.course_semester);
+            course_engineering = itemView.findViewById(R.id.course_engineering);
+            course_card_view = itemView.findViewById(R.id.course_view);
+        }
+    }
+    public CourseView.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view;
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        view = layoutInflater.inflate(R.layout.course_item,parent,false);
+        return new CourseView.MyViewHolder(view);
+    }
+    public void onBindViewHolder(@NonNull CourseView.MyViewHolder holder, int position) {
+        holder.course_name.setText(courses.get(position).getCourse_Name());
+        holder.course_teacher_name.setText(courses.get(position).getCourse_Teacher_name());
+        holder.course_year.setText(courses.get(position).getCourse_Year());
+        holder.course_semester.setText(courses.get(position).getCourse_Semester());
+        holder.course_engineering.setText(courses.get(position).getCourse_Engineering());
+        holder.course_card_view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                holder.course_card_view.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
+                return false;
+            }
+        });
+        holder.course_card_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                holder.course_card_view.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
+                //EasyLearnSCE
+                /*
+                if(holder.textView.getText().equals(context.getResources().getString(R.string.ResetPassword)))
+                    intent = new Intent(context, ResetPassword.class);
+                else if(holder.textView.getText().equals(context.getResources().getString(R.string.SignIn)))
+                    intent = new Intent(context, SignIn.class);
+                else
+                    intent = new Intent(context, GenericCourse.class);
+                intent.putExtra("title",holder.textView.getText());
+                intent.putExtra("user",user);
+                context.startActivity(intent);
+                ((Activity)context).finish();
+
+                 */
+            }
+        });
+    }
+    public void setUser(User user){ this.user = user; }
+    public int getItemCount() { return courses.size(); }
+}

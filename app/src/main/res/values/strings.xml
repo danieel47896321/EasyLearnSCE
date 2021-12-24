@@ -1,0 +1,181 @@
+<resources>
+    <!-- All Pages -->
+    <string name="Open" translatable="true">Open</string>
+    <string name="Close" translatable="true">Close</string>
+    <string name="Title" translatable="false">Title</string>
+    <string name="Required" translatable="true">*Required</string>
+    <string name="InvalidEmail" translatable="true">Invalid Email</string>
+    <string name="Must6Chars" translatable="true">Must 6 or more chars</string>
+    <string name="Must9Chars" translatable="true">Must 9 chars</string>
+    <string name="EmailNotExist" translatable="true">Email not exist in the system</string>
+    <string name="EmailExist" translatable="true">Email exist in the system</string>
+    <string name="PhoneExist" translatable="true">Phone exist in the system</string>
+    <string name="WrongPassword" translatable="true">Wrong Password</string>
+    <string name="Next" translatable="true">Next</string>
+    <string name="DifferentPassword" translatable="true">Comfirm Not match</string>
+    <string name="OK" translatable="true">Ok</string>
+    <string name="Loading" translatable="true">Loading</string>
+    <string name="Finish" translatable="true">Finish</string>
+    <string name="DontHaveAccountCreateAccount" translatable="true">Dont have account? Create Account</string>
+    <string name="AreaCode" translatable="true">Area Code</string>
+    <string name="Other" translatable="true">Other</string>
+    <string name="Select" translatable="true">Select</string>
+    <string name="Search" translatable="true">Search</string>
+    <string name="Error" translatable="true">System Error please try again in a few minutes</string>
+    <!-- EasyLearnSCE Page -->
+    <string name="app_name" translatable="true">EasyLearnSCE</string>
+    <string name="SignIn" translatable="true">Sign In</string>
+    <string name="CreateAccount" translatable="true">Create Account</string>
+    <string name="ResetPassword" translatable="true">Reset Password</string>
+    <string name="About" translatable="true">About</string>
+    <string name="Contact" translatable="true">Contact</string>
+    <string name="Language" translatable="true">Language</string>
+    <string name="SelectLanguage" translatable="true">Select Language</string>
+    <string name="English" translatable="true">English</string>
+    <string name="Hebrew" translatable="true">Hebrew</string>
+    <!-- SignIn Page -->
+    <string name="Email" translatable="true">Email</string>
+    <string name="CheckEmailVerify" translatable="true">This account not verify yet, please check the link sent to your email to verify this account.</string>
+    <string name="Password" translatable="true">Password</string>
+    <string name="RecoverPassword" translatable="true">Forgot password? Reset Password</string>
+    <string name="Google" translatable="true">Google</string>
+    <string name="Facebook" translatable="true">Facebook</string>
+    <string name="OR" translatable="true">OR</string>
+    <!-- CreateAccount Page -->
+    <string name="FirstName" translatable="true">First Name</string>
+    <string name="LastName" translatable="true">Last Name</string>
+    <string name="Phone" translatable="true">Phone</string>
+    <string name="PhoneLenth" translatable="true">Required 10 digits</string>
+    <string name="ConfirmPassword" translatable="true">Confirm</string>
+    <string name="AlreadyHaveAccount" translatable="true">Already Have Account? Sign In</string>
+    <!-- CreateAccountValidation Page -->
+    <string name="CreateAccountValidation" translatable="true">Create Account Validation</string>
+    <string name="CodeText" translatable="true">Hello, We have sent you a one time code to Phone:</string>
+    <string name="Code" translatable="true">Code</string>
+    <string name="FinishCreateAccount" translatable="true">A message has been sent to your email to verify and complete the registration</string>
+    <string name="WrongCode" translatable="true">Wrong code</string>
+    <string name="CompleteCreateAccount" translatable="true">Successfully registered, Please verify your email with link sent to your email.</string>
+    <string name="VerifyTitle" translatable="true">Verify your email for EasyLearnSCE</string>
+    <string name="VerifyStartMsg" translatable="true">Hey, </string>
+    <string name="VerifyMidMsg" translatable="true">Enter this Code: </string>
+    <string name="VerifyEndMsg" translatable="true"> to verify your email address</string>
+    <!-- ResetPassword Page -->
+    <string name="ForgotPasswordInfo" translatable="true">Please enter the email address for which you want to reset the password</string>
+    <string name="ResetLink" translatable="true">Reset Link has been send to your Email</string>
+    <!-- About Page -->
+    <string name="AboutVersion" translatable="true">Version 1.1.0</string>
+    <string name="Copyright" translatable="true">Copyright &#169; 2021 Daniel Elmaliach</string>
+    <string name="AboutInfo" translatable="true">The app was developed as part of a final project by Daniel Elmaleh with the goal of creating a comfortable environment for watching lectures and learning comfortably and providing feedback to lecturers about excerpts that were less clear by adding a comment while specifying the desired time segment for a particular recording</string>
+    <!-- Contact Page -->
+    <string name="ContactInfo" translatable="true">Have you encountered any problem? The development team is at your service</string>
+    <string name="ContactSubject" translatable="true">Contact - App EasyLearnSCE</string>
+    <string name="ContactText" translatable="true">Team EasyLearnSCE, </string>
+    <string name="ContactEmailChooser" translatable="true">Choose an Email App</string>
+    <!-- Home Page -->
+    <string name="Home" translatable="true">Home</string>
+    <string name="SelectEngineering" translatable="true">Select Engineering</string>
+    <string name="Profile" translatable="true">Profile</string>
+    <string name="ChangePassword" translatable="true">Change Password</string>
+    <string name="SignOut" translatable="true">Sign Out</string>
+    <string name="Friends" translatable="true">Friends</string>
+    <string name="EasyLearnChat" translatable="true">EasyLearnChat</string>
+    <!-- SelectEngineering Page -->
+    <string name="StructuralEngineering" translatable="true">Structural Engineering</string>
+    <string name="MechanicalEngineering" translatable="true">Mechanical Engineering</string>
+    <string name="ElectricalEngineering" translatable="true">Electrical Engineering</string>
+    <string name="SoftwareEngineering" translatable="true">Software Engineering</string>
+    <string name="IndustrialEngineering" translatable="true">Industrial Engineering</string>
+    <string name="ChemicalEngineering" translatable="true">Chemical Engineering</string>
+    <string name="PreEngineering" translatable="true">Pre Engineering</string>
+    <string name="SelectYear" translatable="true">Select Year</string>
+    <string name="SelectSemester" translatable="true">Select Semester</string>
+    <string name="SelectCourse" translatable="true">Select Course</string>
+    <string name="FirstYear" translatable="true">First Year</string>
+    <string name="SecondYear" translatable="true">Second Year</string>
+    <string name="ThirdYear" translatable="true">Third Year</string>
+    <string name="FourthYear" translatable="true">Fourth Year</string>
+    <string name="FirstSemester" translatable="true">First Semester</string>
+    <string name="SecondSemester" translatable="true">Second Semester</string>
+    <string name="SummerSemester" translatable="true">Summer Semester</string>
+    <!-- EasyLearnChat Page -->
+    <string name="Chats" translatable="true">Chats</string>
+    <string name="Users" translatable="true">Users</string>
+    <string name="Send" translatable="true">Send</string>
+    <string name="TypeaMessage" translatable="true">Message</string>
+
+    <!-- Profile Page -->
+    <string name="CantChangeEmail" translatable="true">Cant Change Email</string>
+    <string name="Cammera" translatable="true">Cammera</string>
+    <string name="Gallery" translatable="true">Gallery</string>
+    <string name="SelectAge" translatable="true">Select Age</string>
+    <string name="SelectGender" translatable="true">Select Gender</string>
+    <string name="Male" translatable="true">Male</string>
+    <string name="Female" translatable="true">Female</string>
+    <string name="CanNotChange" translatable="true">Can not change</string>
+    <string name="UpdateProfile" translatable="true">Update Profile</string>
+    <string name="SelectCity" translatable="true">Select City</string>
+    <string name="BeerSheva" translatable="true">Beer Sheva</string>
+    <string name="TelAviv" translatable="true">Tel Aviv</string>
+    <string name="Haifa" translatable="true">Haifa</string>
+    <!-- ChangePassword Page -->
+    <string name="CurrentPassword" translatable="true">Current Password</string>
+    <string name="NewPassword" translatable="true">New Password</string>
+    <string name="ConfirmNewPassword" translatable="true">Confirm Password</string>
+    <string name="Change" translatable="true">Change</string>
+    <string name="PasswordChanged" translatable="true">Password Changed</string>
+    <!-- Arrays -->
+    <string-array name="Lagnuage">
+        <item>@string/Hebrew</item>
+        <item>@string/English</item>
+    </string-array>
+    <string-array name="EasyLearnSCETagsName">
+        <item>@string/SignIn</item>
+        <item>@string/CreateAccount</item>
+        <item>@string/ResetPassword</item>
+        <item>@string/About</item>
+        <item>@string/Contact</item>
+    </string-array>
+    <string-array name="HomeTagsName">
+        <item>@string/SelectEngineering</item>
+        <item>@string/EasyLearnChat</item>
+        <item>@string/Profile</item>
+        <item>@string/ChangePassword</item>
+        <item>@string/SignOut</item>
+    </string-array>
+    <string-array name="Engineerings">
+        <item>@string/StructuralEngineering</item>
+        <item>@string/MechanicalEngineering</item>
+        <item>@string/ElectricalEngineering</item>
+        <item>@string/SoftwareEngineering</item>
+        <item>@string/IndustrialEngineering</item>
+        <item>@string/ChemicalEngineering</item>
+        <item>@string/PreEngineering</item>
+    </string-array>
+    <string-array name="Gender">
+        <item>@string/Male</item>
+        <item>@string/Female</item>
+        <item>@string/Other</item>
+    </string-array>
+    <string-array name="Year">
+        <item>@string/FirstYear</item>
+        <item>@string/SecondYear</item>
+        <item>@string/ThirdYear</item>
+        <item>@string/FourthYear</item>
+    </string-array>
+    <string-array name="Semester">
+        <item>@string/FirstSemester</item>
+        <item>@string/SecondSemester</item>
+        <item>@string/SummerSemester</item>
+    </string-array>
+    <string-array name="City">
+        <item>@string/BeerSheva</item>
+        <item>@string/TelAviv</item>
+        <item>@string/Haifa</item>
+    </string-array>
+
+    <string name="Type" translatable="true">Type</string>
+    <string name="Student" translatable="true">Student</string>
+    <string name="Teacher" translatable="true">Teacher</string>
+    <string name="Admin" translatable="true">Admin</string>
+
+</resources>

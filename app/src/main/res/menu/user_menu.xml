@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/ItemHome"
+        android:icon="@drawable/home"
+        android:title="@string/Home" />
+    <item
+        android:id="@+id/ItemSelectEngineering"
+        android:icon="@drawable/engineering"
+        android:title="@string/SelectEngineering"/>
+    <item
+        android:id="@+id/ItemEasyLearnChat"
+        android:icon="@drawable/message"
+        android:title="@string/EasyLearnChat" />
+    <item
+        android:id="@+id/ItemProfile"
+        android:icon="@drawable/person"
+        android:title="@string/Profile" />
+    <item
+        android:id="@+id/ItemChangePassword"
+        android:icon="@drawable/forgotpassword"
+        android:title="@string/ChangePassword" />
+    <item
+        android:id="@+id/ItemSignOut"
+        android:icon="@drawable/signout"
+        android:title="@string/SignOut" />
+</menu>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerLayout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    tools:context=".User.Home">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/sky">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/toolbar" />
+
+        <TextView
+            android:id="@+id/TextViewSearchLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginRight="100dp"
+            android:background="@android:drawable/editbox_background"
+            android:drawableEnd="@drawable/drop_down"
+            android:drawableRight="@drawable/drop_down"
+            android:gravity="center"
+            android:hint="@string/SelectLanguage"
+            android:padding="10dp"
+            android:textColorHint="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include" />
+
+        <LinearLayout
+            android:id="@+id/LayoutTags"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="120dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TextViewSearchLanguage">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/MainScreenRV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/UserNavigationView"
+        android:layout_width="220dp"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/user_nav_header"
+        app:menu="@menu/user_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
