@@ -20,17 +20,23 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.easylearnsce.Guest.Contact;
+import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
+import com.example.easylearnsce.User.Home;
 
 import java.util.Locale;
-
-public class GuestLagnuage {
+public class UserLanguage {
     private EditText EditTextSearch;
     private TextView TextViewSearch;
     private Dialog dialog;
     private ListView ListViewSearch;
     private Context context;
-    public GuestLagnuage(Context context){ this.context = context; }
+    private User user;
+    public UserLanguage(Context context, User user){
+        this.context = context;
+        this.user = user;
+    }
     public void setDialog(){
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_search_spinner);
@@ -66,7 +72,9 @@ public class GuestLagnuage {
                 Configuration configuration = resources.getConfiguration();
                 configuration.setLocale(locale);
                 resources.updateConfiguration(configuration,resources.getDisplayMetrics());
-                context.startActivity(new Intent(context, context.getClass()));
+                Intent intent = new Intent(context, context.getClass());
+                intent.putExtra("user", user);
+                context.startActivity(intent);
                 ((Activity)context).finish();
             }
         });

@@ -19,6 +19,7 @@ import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.PopUpMSG;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserImage;
+import com.example.easylearnsce.Class.UserLanguage;
 import com.example.easylearnsce.Class.UserMenuAdapter;
 import com.example.easylearnsce.Class.UserNavView;
 import com.example.easylearnsce.Guest.About;
@@ -36,6 +37,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class ChangePassword extends AppCompatActivity {
     private TextInputLayout TextInputLayoutCurrentPassword, TextInputLayoutNewPassword, TextInputLayoutPasswordConfirm;
     private Button ButtonSaveChanges;
+    private UserLanguage lagnuage;
     private DrawerLayout drawerLayout;
     private Loading loading;
     private Intent intent;
@@ -45,7 +47,6 @@ public class ChangePassword extends AppCompatActivity {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseUser currentUser = firebaseAuth.getCurrentUser();
     private NavigationView UserNavigationView;
-    private GuestLagnuage lagnuage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,14 +78,12 @@ public class ChangePassword extends AppCompatActivity {
         user = (User)intent.getSerializableExtra("user");
         new UserMenuAdapter(user,ChangePassword.this);
         TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        lagnuage = new GuestLagnuage(ChangePassword .this);
+        lagnuage = new UserLanguage(ChangePassword.this, user);
     }
     private void setLanguage(){
         TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-              //  lagnuage.setDialog();
-            }
+            public void onClick(View view) { lagnuage.setDialog(); }
         });
     }
     private void MenuItem(){

@@ -20,6 +20,7 @@ import com.example.easylearnsce.Class.Select;
 import com.example.easylearnsce.Class.SelectView;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserImage;
+import com.example.easylearnsce.Class.UserLanguage;
 import com.example.easylearnsce.Class.UserMenuAdapter;
 import com.example.easylearnsce.Class.UserNavView;
 import com.example.easylearnsce.Guest.EasyLearnSCE;
@@ -32,16 +33,16 @@ import java.util.List;
 
 public class SelectEngineering extends AppCompatActivity {
     private User user = new User();
-    private TextView Title;
+    private TextView Title, TextViewSearchLanguage;
+    private UserLanguage lagnuage;
     private ImageView BackIcon, MenuIcon;
     private DrawerLayout drawerLayout;
     private NavigationView UserNavigationView;
     private RecyclerView viewList;
     private List<Select> selects;
     private Intent intent;
-    private final int SIZE = 7;
-    private String Engineerings[] = new String[SIZE];
-    private int EngineeringsIcon[] = {R.drawable.build,R.drawable.machines,R.drawable.electronics,R.drawable.software,R.drawable.nihol,R.drawable.chemistry,R.drawable.mehina};
+    private int EngineeringsIcon[] = {R.drawable.build,R.drawable.machines,R.drawable.electronics,R.drawable.software,R.drawable.nihol,R.drawable.chemistry,R.drawable.software,R.drawable.mehina};
+    private String Engineerings[] = new String[EngineeringsIcon.length];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +51,7 @@ public class SelectEngineering extends AppCompatActivity {
     }
     private void init(){
         setID();
+        setLanguage();
         setTags();
         MenuItem();
         BackIcon();
@@ -69,6 +71,14 @@ public class SelectEngineering extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         Engineerings = getResources().getStringArray(R.array.Engineerings);
         new UserMenuAdapter(user,SelectEngineering.this);
+        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
+        lagnuage = new UserLanguage(SelectEngineering.this, user);
+    }
+    private void setLanguage(){
+        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { lagnuage.setDialog(); }
+        });
     }
     private void MenuItem(){
         Menu menu= UserNavigationView.getMenu();
@@ -99,7 +109,7 @@ public class SelectEngineering extends AppCompatActivity {
         });
     }
     private void setTags(){
-        for(int i=0; i<SIZE; i++)
+        for(int i=0; i<Engineerings.length; i++)
             selects.add(new Select(Engineerings[i], EngineeringsIcon[i]));
         ShowTags(selects);
     }

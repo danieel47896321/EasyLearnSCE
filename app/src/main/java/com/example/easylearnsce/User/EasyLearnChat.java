@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserImage;
+import com.example.easylearnsce.Class.UserLanguage;
 import com.example.easylearnsce.Class.UserMenuAdapter;
 import com.example.easylearnsce.Class.UserNavView;
 import com.example.easylearnsce.Class.ViewPagerAdapter;
@@ -28,7 +29,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class EasyLearnChat extends AppCompatActivity {
     private User user = new User();
-    private TextView Title;
+    private TextView Title, TextViewSearchLanguage;
+    private UserLanguage lagnuage;
     private ImageView BackIcon, MenuIcon;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -45,6 +47,7 @@ public class EasyLearnChat extends AppCompatActivity {
     }
     private void init(){
         setID();
+        setLanguage();
         MenuItem();
         BackIcon();
         MenuIcon();
@@ -67,6 +70,14 @@ public class EasyLearnChat extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         new UserMenuAdapter(user,EasyLearnChat.this);
+        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
+        lagnuage = new UserLanguage(EasyLearnChat.this, user);
+    }
+    private void setLanguage(){
+        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { lagnuage.setDialog(); }
+        });
     }
     private void MenuItem(){
         Menu menu= UserNavigationView.getMenu();

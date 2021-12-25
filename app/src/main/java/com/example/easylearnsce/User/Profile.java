@@ -46,6 +46,7 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.User;
+import com.example.easylearnsce.Class.UserLanguage;
 import com.example.easylearnsce.Class.UserMenuAdapter;
 import com.example.easylearnsce.Class.UserNavView;
 import com.example.easylearnsce.Guest.EasyLearnSCE;
@@ -72,14 +73,14 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class Profile extends AppCompatActivity {
-    private TextView Title,TextViewSearchCity, TextViewSearchAge, TextViewSearchGender,TextViewSearch;
+    private TextView Title,TextViewSearchCity, TextViewSearchAge, TextViewSearchGender,TextViewSearch, TextViewSearchLanguage;
     private TextInputLayout TextInputLayoutFirstName, TextInputLayoutLastName ,TextInputLayoutEmail;
     private Button Confirm;
     private DrawerLayout drawerLayout;
     private ImageView BackIcon, MenuIcon,addImage;
-    private UserMenuAdapter userMenuAdapter;
     private Loading loading;
     private Intent intent;
+    private UserLanguage lagnuage;
     private View UserProfileImage, UserImage;
     private NavigationView UserNavigationView;
     private Dialog dialog;
@@ -99,6 +100,7 @@ public class Profile extends AppCompatActivity {
     }
     void init(){
         setID();
+        setLanguage();
         MenuItem();
         BackIcon();
         MenuIcon();
@@ -126,7 +128,15 @@ public class Profile extends AppCompatActivity {
         Title.setText(getResources().getString(R.string.Profile));
         user = (User)intent.getSerializableExtra("user");
         drawerLayout = findViewById(R.id.drawerLayout);
-        userMenuAdapter = new UserMenuAdapter(user,Profile.this);
+        new UserMenuAdapter(user,Profile.this);
+        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
+        lagnuage = new UserLanguage(Profile.this, user);
+    }
+    private void setLanguage(){
+        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { lagnuage.setDialog(); }
+        });
     }
     private void MenuItem(){
         Menu menu= UserNavigationView.getMenu();

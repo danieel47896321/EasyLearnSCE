@@ -111,15 +111,10 @@ public class SelectView extends RecyclerView.Adapter<SelectView.MyViewHolder> {
                     intent = new Intent(context, GenericEngineering.class);
                 else if(holder.textView.getText().equals(context.getResources().getString(R.string.ChemicalEngineering)))
                     intent = new Intent(context, GenericEngineering.class);
+                else if(holder.textView.getText().equals(context.getResources().getString(R.string.ProgrammingComputer)))
+                    intent = new Intent(context, GenericEngineering.class);
                 else if(holder.textView.getText().equals(context.getResources().getString(R.string.PreEngineering)))
                     intent = new Intent(context, GenericEngineering.class);
-                //lechtuers
-                else if(holder.textView.getText().equals("הרצאה 1")|holder.textView.getText().equals("הרצאה 2")|holder.textView.getText().equals("הרצאה 3")
-                |holder.textView.getText().equals("הרצאה 4")|holder.textView.getText().equals("הרצאה 5")|holder.textView.getText().equals("הרצאה 6")|holder.textView.getText().equals("הרצאה 7")
-                |holder.textView.getText().equals("הרצאה 8")|holder.textView.getText().equals("הרצאה 9")|holder.textView.getText().equals("הרצאה 10")|holder.textView.getText().equals("הרצאה 11")|holder.textView.getText().equals("הרצאה 12")
-                        |holder.textView.getText().equals("הרצאה 13")|holder.textView.getText().equals("הרצאה 14")|holder.textView.getText().equals("הרצאה 15")) {
-                    intent = new Intent(context, Lecture.class);
-                }
                 //generic Course
                 else
                     intent = new Intent(context, GenericCourse.class);

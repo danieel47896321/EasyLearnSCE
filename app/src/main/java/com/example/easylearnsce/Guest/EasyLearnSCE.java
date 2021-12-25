@@ -1,38 +1,23 @@
 package com.example.easylearnsce.Guest;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.easylearnsce.Class.GuestLagnuage;
 import com.example.easylearnsce.Class.GuestNavView;
-import com.example.easylearnsce.Class.Language;
 import com.example.easylearnsce.Class.Select;
 import com.example.easylearnsce.Class.SelectView;
-import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.R;
-import com.example.easylearnsce.SelectFunc.GenericEngineering;
 import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.List;

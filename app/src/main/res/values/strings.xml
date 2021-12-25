@@ -86,6 +86,7 @@
     <string name="SoftwareEngineering" translatable="true">Software Engineering</string>
     <string name="IndustrialEngineering" translatable="true">Industrial Engineering</string>
     <string name="ChemicalEngineering" translatable="true">Chemical Engineering</string>
+    <string name="ProgrammingComputer" translatable="true">Programming Computer</string>
     <string name="PreEngineering" translatable="true">Pre Engineering</string>
     <string name="SelectYear" translatable="true">Select Year</string>
     <string name="SelectSemester" translatable="true">Select Semester</string>
@@ -149,6 +150,7 @@
         <item>@string/SoftwareEngineering</item>
         <item>@string/IndustrialEngineering</item>
         <item>@string/ChemicalEngineering</item>
+        <item>@string/ProgrammingComputer</item>
         <item>@string/PreEngineering</item>
     </string-array>
     <string-array name="Gender">

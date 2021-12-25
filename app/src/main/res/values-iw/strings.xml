@@ -87,6 +87,7 @@
     <string name="SoftwareEngineering" translatable="true">הנדסת תוכנה</string>
     <string name="IndustrialEngineering" translatable="true">הנדסת תעשייה וניהול</string>
     <string name="ChemicalEngineering" translatable="true">הנדסת כימיה</string>
+    <string name="ProgrammingComputer" translatable="true">מדעי המחשב</string>
     <string name="PreEngineering" translatable="true">מכינה</string>
     <string name="SelectYear" translatable="true">בחר שנה</string>
     <string name="SelectSemester" translatable="true">בחר סמסטר</string>

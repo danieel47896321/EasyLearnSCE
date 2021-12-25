@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,17 +22,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.easylearnsce.Class.Language;
+import com.example.easylearnsce.Class.GuestLagnuage;
 import com.example.easylearnsce.Class.Select;
 import com.example.easylearnsce.Class.SelectView;
 import com.example.easylearnsce.Class.User;
-import com.example.easylearnsce.Class.UserImage;
+import com.example.easylearnsce.Class.UserLanguage;
 import com.example.easylearnsce.Class.UserMenuAdapter;
 import com.example.easylearnsce.Class.UserNavView;
 import com.example.easylearnsce.Guest.EasyLearnSCE;
@@ -46,10 +44,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class Home extends AppCompatActivity {
-    private TextView Title, TextViewSearchLanguage, TextViewSearch;
-    private Dialog dialog;
-    private EditText EditTextSearch;
-    private ListView ListViewSearch;
+    private TextView Title, TextViewSearchLanguage;
+    private UserLanguage lagnuage;
     private DrawerLayout drawerLayout;
     private ImageView BackIcon, MenuIcon;
     private User user = new User();
@@ -86,11 +82,19 @@ public class Home extends AppCompatActivity {
         UserNavigationView = findViewById(R.id.UserNavigationView);
         Title = findViewById(R.id.Title);
         Title.setText(getResources().getString(R.string.Home));
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
         drawerLayout = findViewById(R.id.drawerLayout);
         viewList = findViewById(R.id.MainScreenRV);
         HomeTagsName = getResources().getStringArray(R.array.HomeTagsName);
         new UserMenuAdapter(user,Home.this);
+        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
+        lagnuage = new UserLanguage(Home.this, user);
+
+    }
+    private void setLanguage(){
+        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { lagnuage.setDialog(); }
+        });
     }
     private void MenuItem(){
         Menu menu= UserNavigationView.getMenu();
@@ -98,12 +102,6 @@ public class Home extends AppCompatActivity {
         menuItem.setCheckable(false);
         menuItem.setChecked(true);
         menuItem.setEnabled(false);
-    }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { setDialog(); }
-        });
     }
     private void MenuIcon(){
         MenuIcon.setOnClickListener(new View.OnClickListener() {
@@ -148,6 +146,7 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    /*
     private void setDialog(){
         dialog = new Dialog(Home.this);
         dialog.setContentView(R.layout.dialog_search_spinner);
@@ -188,7 +187,7 @@ public class Home extends AppCompatActivity {
                 StartActivity(Home.class);
             }
         });
-    }
+    }*/
     public void onBackPressed() {
 
     }
