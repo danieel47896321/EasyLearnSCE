@@ -17,14 +17,14 @@
     <LinearLayout
         android:id="@+id/linearLayoutMessage"
         android:layout_width="match_parent"
-        android:layout_height="531dp"
+        android:layout_height="match_parent"
         android:layout_above="@+id/SendBar"
         android:layout_below="@+id/include"
+        android:layout_marginBottom="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutLanguage">
+        app:layout_constraintStart_toStartOf="parent">
 
 
         <androidx.recyclerview.widget.RecyclerView

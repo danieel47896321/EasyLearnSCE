@@ -16,15 +16,5 @@
         app:srcCompat="@drawable/openingscreen"
         tools:ignore="VectorDrawableCompat" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/EasyLearnScreen"
-        app:layout_constraintEnd_toStartOf="@+id/EasyLearnScreen"
-        app:layout_constraintStart_toEndOf="@+id/EasyLearnScreen"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,6 +32,8 @@ import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserMenuAdapter;
 import com.example.easylearnsce.Class.UserNavView;
 import com.example.easylearnsce.R;
+import com.example.easylearnsce.User.Home;
+import com.example.easylearnsce.User.Profile;
 import com.example.easylearnsce.User.SelectEngineering;
 import com.google.android.material.navigation.NavigationView;
 
@@ -279,5 +281,13 @@ public class GenericEngineering extends AppCompatActivity {
                     TextViewSearchCourse.setText("");
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        intent = new Intent(GenericEngineering.this, SelectEngineering.class);
+        user.setEngineering("null");
+        intent.putExtra("user", user);
+        startActivity(intent);
+        finish();
     }
 }

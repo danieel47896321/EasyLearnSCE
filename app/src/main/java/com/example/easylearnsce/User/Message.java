@@ -24,7 +24,6 @@ import com.example.easylearnsce.Class.MessageAdapter;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,7 +47,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Message extends AppCompatActivity {
     private TextView username, TextSend;
-    private FirebaseUser firebaseUser;
     private DatabaseReference reference;
     private CircleImageView profileImage;
     private ImageView BackIcon, ButtonSend;
@@ -56,7 +54,8 @@ public class Message extends AppCompatActivity {
     private MessageAdapter messageAdapter;
     private List<Chat> chats;
     private RecyclerView recyclerView;
-    private byte encryptionKey[] = {9,115,51,86,105,4,-31,-23,-68,88,17,20,3,-105,119,-53};
+    private String PublicKey, PrivateKey, Key;
+    private byte secretKey[];
     private Cipher cipher,decipher;
     private SecretKeySpec secretKeySpec;
     private User user = new User();
@@ -84,9 +83,26 @@ public class Message extends AppCompatActivity {
         try{
             cipher = Cipher.getInstance("AES");
             decipher = Cipher.getInstance("AES");
-        }catch (NoSuchAlgorithmException e){}
+        }
+        catch (NoSuchAlgorithmException e){}
         catch (NoSuchPaddingException e){}
-        secretKeySpec = new SecretKeySpec(encryptionKey,"AES");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Key");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                PublicKey = snapshot.child("PublicKey").getValue().toString();
+                PrivateKey = ", -68, 88, 17, 20, 3, -105, 119, -53]";
+                Key = PublicKey.subSequence(0,PublicKey.length()-1) + PrivateKey;
+                String[] byteValues = Key.substring(1, Key.length() - 1).split(",");
+                secretKey = new byte[byteValues.length];
+                for (int i=0; i<secretKey.length; i++)
+                    secretKey[i] = Byte.parseByte(byteValues[i].trim());
+                secretKeySpec = new SecretKeySpec(secretKey,"AES");
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
         if(!user.getImage().equals("Image")) {
             Glide.with(Message.this).asBitmap().load(user.getImage()).into(new CustomTarget<Bitmap>() {
                 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
