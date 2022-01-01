@@ -24,7 +24,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private Context context;
     private List<User> users;
     private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-    private StorageReference storageReference;
     public UserAdapter(Context context, List<User> users){
         this.context = context;
         this.users = users;

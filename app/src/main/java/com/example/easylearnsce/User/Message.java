@@ -98,24 +98,25 @@ public class Message extends AppCompatActivity {
                 for (int i=0; i<secretKey.length; i++)
                     secretKey[i] = Byte.parseByte(byteValues[i].trim());
                 secretKeySpec = new SecretKeySpec(secretKey,"AES");
+                if(!user.getImage().equals("Image")) {
+                    Glide.with(Message.this).asBitmap().load(user.getImage()).into(new CustomTarget<Bitmap>() {
+                        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) { profileImage.setImageBitmap(resource); }
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) { }
+                    });
+                }
+                else
+                    profileImage.setImageResource(R.mipmap.ic_launcher);
+                username.setText(user.getFirstname()+" "+ user.getLastname());
+                readMessage(firebaseAuth.getCurrentUser().getUid(), user.getUid());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        if(!user.getImage().equals("Image")) {
-            Glide.with(Message.this).asBitmap().load(user.getImage()).into(new CustomTarget<Bitmap>() {
-                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-                @Override
-                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) { profileImage.setImageBitmap(resource); }
-                @Override
-                public void onLoadCleared(@Nullable Drawable placeholder) { }
-            });
-        }
-        else
-            profileImage.setImageResource(R.mipmap.ic_launcher);
-        username.setText(user.getFirstname()+" "+ user.getLastname());
-        readMessage(firebaseAuth.getCurrentUser().getUid(), user.getUid());
+
     }
     private String AESEncryptionMethod(String msg){
         byte[] stringByte = msg.getBytes();

@@ -81,7 +81,6 @@ public class CourseView extends RecyclerView.Adapter<CourseView.MyViewHolder> {
                 intent.putExtra("user",user);
                 context.startActivity(intent);
                 ((Activity)context).finish();
-
                  */
             }
         });
