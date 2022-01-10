@@ -11,6 +11,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -84,12 +86,14 @@ public class Profile extends AppCompatActivity {
     private View UserProfileImage, UserImage;
     private NavigationView UserNavigationView;
     private Dialog dialog;
+    private ImageView Cammera;
     private EditText EditTextSearch;
     private ListView ListViewSearch;
     private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private Uri uri = null;
+    private static final int MY_CAMERA_PERMISSION_CODE = 100;
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
     private User user, newUser = new User();
     @Override
@@ -192,6 +196,7 @@ public class Profile extends AppCompatActivity {
                     newUser.setGender(TextViewSearchGender.getText().toString());
                     newUser.setAge(TextViewSearchAge.getText().toString());
                     newUser.setCity(TextViewSearchCity.getText().toString());
+                    newUser.setFullName(newUser.getFirstname()+" "+newUser.getLastname());
                     if(uri != null)
                         UploadImage();
                     else {
@@ -208,7 +213,6 @@ public class Profile extends AppCompatActivity {
             public void onSuccess(Void aVoid) {
                 loading.stop();
                 user = newUser;
-                StartActivity(Home.class);
             }
         });
     }
@@ -274,16 +278,22 @@ public class Profile extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.dialog_profile_picture,null);
         builder.setCancelable(false);
         builder.setView(dialogView);
-        ImageView Cammera = dialogView.findViewById(R.id.Cammera);
+        Cammera = dialogView.findViewById(R.id.Cammera);
         ImageView Gallery = dialogView.findViewById(R.id.Gallery);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
         Cammera.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                if(checkAndRequestPermissions())
-                    CammeraPicture();
+                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+                }
+                else {
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, 2);
+                }
                 alertDialog.cancel();
             }
         });
@@ -303,6 +313,7 @@ public class Profile extends AppCompatActivity {
     private void CammeraPicture(){
         Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if(takePicture.resolveActivity(getPackageManager()) != null){
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
             startActivityForResult(takePicture, 2);
         }
     }
@@ -322,36 +333,26 @@ public class Profile extends AppCompatActivity {
                 break;
             case 2:
                 if(resultCode == RESULT_OK){
-                    Bundle bundle = data.getExtras();
-                    Bitmap bitmap = (Bitmap) bundle.get("data");
+                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                     UserProfileImage.setBackground(new BitmapDrawable(getResources(), bitmap));
                     UserImage.setBackground(new BitmapDrawable(getResources(), bitmap));
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                    try {
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 500, bytes);
-                        String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, user.getUid(), null);
-                        uri = Uri.parse(path);
-                    }catch (Exception e) { e.printStackTrace(); }
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                    String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Title", null);
+                    uri = Uri.parse(path);
                 }
                 break;
         }
     }
-    private Boolean checkAndRequestPermissions(){
-        if(Build.VERSION.SDK_INT >= 23 ){
-            int cameraPermission = ActivityCompat.checkSelfPermission(Profile.this, Manifest.permission.CAMERA);
-            if(cameraPermission == PackageManager.PERMISSION_DENIED){
-                ActivityCompat.requestPermissions(Profile.this,new String[]{Manifest.permission.CAMERA},20);
-                return false;
-            }
-        }
-        return true;
-    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == 20 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            CammeraPicture();
-        else{ }
+        if (requestCode == MY_CAMERA_PERMISSION_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, 2);
+            }
+        }
     }
     private void UploadImage(){
         storageReference = firebaseStorage.getReference();

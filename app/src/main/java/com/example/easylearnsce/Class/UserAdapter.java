@@ -13,18 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.User.Message;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private Context context;
     private List<User> users;
-    private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-    public UserAdapter(Context context, List<User> users){
+    public UserAdapter(Context context, List<User> users ){
         this.context = context;
         this.users = users;
     }

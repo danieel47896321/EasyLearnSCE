@@ -88,7 +88,6 @@ public class Home extends AppCompatActivity {
         new UserMenuAdapter(user,Home.this);
         TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
         lagnuage = new UserLanguage(Home.this, user);
-
     }
     private void setLanguage(){
         TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
@@ -146,48 +145,6 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    /*
-    private void setDialog(){
-        dialog = new Dialog(Home.this);
-        dialog.setContentView(R.layout.dialog_search_spinner);
-        dialog.getWindow().setLayout(800,800);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-        EditTextSearch = dialog.findViewById(R.id.EditTextSearch);
-        ListViewSearch = dialog.findViewById(R.id.ListViewSearch);
-        TextViewSearch = dialog.findViewById(R.id.TextViewSearch);
-        TextViewSearch.setText(getResources().getString(R.string.SelectLanguage));
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(Home.this, R.layout.dropdown_item, getResources().getStringArray(R.array.Lagnuage));
-        ListViewSearch.setAdapter(adapter);
-        EditTextSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                adapter.getFilter().filter(charSequence);
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
-        ListViewSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                dialog.dismiss();
-                Locale locale;
-                if(adapterView.getItemAtPosition(i).toString().equals(getResources().getString(R.string.English)))
-                    locale = new Locale("en");
-                else
-                    locale = new Locale("he");
-                Locale.setDefault(locale);
-                Resources resources = Home.this.getResources();
-                Configuration configuration = resources.getConfiguration();
-                configuration.setLocale(locale);
-                resources.updateConfiguration(configuration,resources.getDisplayMetrics());
-                StartActivity(Home.class);
-            }
-        });
-    }*/
     public void onBackPressed() {
 
     }

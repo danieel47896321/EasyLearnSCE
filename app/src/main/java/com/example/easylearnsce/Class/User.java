@@ -13,7 +13,7 @@ import java.security.PublicKey;
 public class User implements Serializable {
     private String Uid = "Uid";
     private String Email = "test@email.com";
-    private String Phone = "Phone";
+    private String FullName = "FullName";
     private String Firstname = "FirstName";
     private String Lastname = "LastName";
     private String Gender = "Male";
@@ -53,6 +53,7 @@ public class User implements Serializable {
     public String getEngineering() { return Engineering; }
     public String getCourse() { return Course; }
     public String getLecture() { return Lecture; }
+    public String getFullName() { return FullName; }
     //setters
     public void setEmail(String email) { Email = email; }
     public void setFirstname(String firstname) { Firstname = firstname; }
@@ -66,4 +67,5 @@ public class User implements Serializable {
     public void setEngineering(String engineering) { Engineering = engineering; }
     public void setCourse(String course) { Course = course; }
     public void setLecture(String lecture) { Lecture = lecture; }
+    public void setFullName(String fullName) { FullName = fullName; }
 }

@@ -103,12 +103,18 @@
     <string name="Chats" translatable="true">"צ'אטים"</string>
     <string name="Users" translatable="true">משתמשים</string>
     <string name="Send" translatable="true">שלח</string>
+    <string name="Online" translatable="true">מחובר/ת</string>
+    <string name="Offline" translatable="true">מנותק/ת</string>
     <string name="TypeaMessage" translatable="true">הודעה</string>
     <!-- Profile Page -->
     <string name="CantChangeEmail" translatable="true">לא ניתן לשנות אימייל</string>
+    <string name="CameraPermissionDenied" translatable="true">ההרשאה למצלמה נדחתה</string>
     <string name="Cammera" translatable="true">מצלמה</string>
     <string name="Gallery" translatable="true">גלריה</string>
     <string name="SelectAge" translatable="true">בחר גיל</string>
+    <string name="Age" translatable="true">גיל</string>
+    <string name="Gender" translatable="true">מגדר</string>
+    <string name="City" translatable="true">עיר</string>
     <string name="SelectGender" translatable="true">בחר מגדר</string>
     <string name="Male" translatable="true">זכר</string>
     <string name="Female" translatable="true">נקבה</string>

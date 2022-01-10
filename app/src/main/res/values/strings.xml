@@ -102,12 +102,17 @@
     <string name="Chats" translatable="true">Chats</string>
     <string name="Users" translatable="true">Users</string>
     <string name="Send" translatable="true">Send</string>
+    <string name="Online" translatable="true">Online</string>
+    <string name="Offline" translatable="true">Offline</string>
     <string name="TypeaMessage" translatable="true">Message</string>
-
     <!-- Profile Page -->
     <string name="CantChangeEmail" translatable="true">Cant Change Email</string>
+    <string name="CameraPermissionDenied" translatable="true">Camera Permission Denied</string>
     <string name="Cammera" translatable="true">Cammera</string>
     <string name="Gallery" translatable="true">Gallery</string>
+    <string name="Age" translatable="true">Age</string>
+    <string name="Gender" translatable="true">Gender</string>
+    <string name="City" translatable="true">City</string>
     <string name="SelectAge" translatable="true">Select Age</string>
     <string name="SelectGender" translatable="true">Select Gender</string>
     <string name="Male" translatable="true">Male</string>

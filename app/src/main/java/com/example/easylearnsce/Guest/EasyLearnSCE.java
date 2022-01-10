@@ -27,7 +27,7 @@ public class EasyLearnSCE extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private List<Select> Selects;
     private NavigationView GuestNavView;
-    private TextView Title, TextViewSearchLanguage, TextViewSearch;
+    private TextView Title, TextViewSearchLanguage;
     private ImageView BackIcon, MenuIcon;
     private GuestLagnuage lagnuage;
     private final int SIZE = 5;

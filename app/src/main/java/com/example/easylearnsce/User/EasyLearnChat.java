@@ -2,10 +2,12 @@ package com.example.easylearnsce.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,18 +16,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.easylearnsce.Class.User;
-import com.example.easylearnsce.Class.UserImage;
 import com.example.easylearnsce.Class.UserLanguage;
 import com.example.easylearnsce.Class.UserMenuAdapter;
 import com.example.easylearnsce.Class.UserNavView;
-import com.example.easylearnsce.Class.ViewPagerAdapter;
 import com.example.easylearnsce.Fragments.ChatsFragment;
 import com.example.easylearnsce.Fragments.UsersFragment;
-import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class EasyLearnChat extends AppCompatActivity {
     private User user = new User();
@@ -33,12 +37,12 @@ public class EasyLearnChat extends AppCompatActivity {
     private UserLanguage lagnuage;
     private ImageView BackIcon, MenuIcon;
     private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private ViewPagerAdapter viewPagerAdapter;
+    private ViewPager2 viewPager2;
+    private ViewPagerAdapter fragmentPager;
     private androidx.drawerlayout.widget.DrawerLayout drawerLayout;
     private NavigationView UserNavigationView;
     private Intent intent;
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private String[] titles;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,18 +61,19 @@ public class EasyLearnChat extends AppCompatActivity {
         intent = getIntent();
         user = (User)intent.getSerializableExtra("user");
         tabLayout = findViewById(R.id.tabLayout);
-        viewPager = findViewById(R.id.viewPager);
+        viewPager2 = findViewById(R.id.viewPager);
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
         UserNavigationView = findViewById(R.id.UserNavigationView);
         Title = findViewById(R.id.Title);
         Title.setText(getResources().getString(R.string.EasyLearnChat));
         drawerLayout = findViewById(R.id.drawerLayout);
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new ChatsFragment(), getResources().getString(R.string.Chats));
-        viewPagerAdapter.addFragment(new UsersFragment(), getResources().getString(R.string.Users));
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+        fragmentPager = new ViewPagerAdapter(EasyLearnChat.this);
+        viewPager2.setAdapter(fragmentPager);
+        titles = new String[2];
+        titles[0] = getResources().getString(R.string.Chats);
+        titles[1] = getResources().getString(R.string.Users);
+        new TabLayoutMediator(tabLayout,viewPager2,((tab, position) -> tab.setText(titles[position]))).attach();
         new UserMenuAdapter(user,EasyLearnChat.this);
         TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
         lagnuage = new UserLanguage(EasyLearnChat.this, user);
@@ -118,5 +123,24 @@ public class EasyLearnChat extends AppCompatActivity {
         intent.putExtra("user", user);
         startActivity(intent);
         finish();
+    }
+    public static class ViewPagerAdapter extends FragmentStateAdapter {
+        private String[] titles = {"Chats","Users"};
+        public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+            super(fragmentActivity);
+        }
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            switch (position){
+                case 0:
+                    return  new ChatsFragment();
+                case 1:
+                    return new UsersFragment();
+            }
+            return new ChatsFragment();
+        }
+        @Override
+        public int getItemCount() { return titles.length; }
     }
 }

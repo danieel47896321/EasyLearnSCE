@@ -37,6 +37,24 @@
             app:layout_constraintTop_toTopOf="@+id/ProfileImage"
             app:layout_constraintVertical_bias="0.0" />
 
+        <TextView
+            android:id="@+id/Status"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="@string/Online"
+            android:textColor="#03FF0D"
+            android:visibility="gone"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/userName"
+            app:layout_constraintStart_toEndOf="@+id/userName"
+            app:layout_constraintTop_toTopOf="@+id/userName" />
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ProfileImage"
             android:layout_width="60dp"
@@ -49,6 +67,7 @@
             app:layout_constraintTop_toTopOf="@+id/BackIcon"
             app:layout_constraintVertical_bias="0.0"
             android:layout_marginLeft="-20dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

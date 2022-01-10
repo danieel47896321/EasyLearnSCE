@@ -45,7 +45,7 @@ public class UserMenuAdapter {
         UserFullName.setText(user.getFirstname()+" "+user.getLastname());
         UserEmail.setText(user.getEmail());
         if(user.getImage().equals("Image")){
-
+            UserImage.setBackground(new BitmapDrawable(context.getResources(), String.valueOf(R.mipmap.ic_launcher)));
         }
         else{
             Glide.with(context).asBitmap().load(user.getImage()).into(new CustomTarget<Bitmap>() {

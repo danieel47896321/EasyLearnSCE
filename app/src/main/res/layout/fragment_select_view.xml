@@ -6,7 +6,7 @@
     android:id="@+id/engineeringview_id"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/sky"
+    android:background="@android:color/transparent"
     android:clickable="true">
 
     <TextView
@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
-        android:text="טקסט"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -70,6 +69,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.347"
         tools:srcCompat="@tools:sample/avatars" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

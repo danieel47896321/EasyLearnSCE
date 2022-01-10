@@ -307,22 +307,14 @@ public class CreateAccount extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             user.setUid(firebaseAuth.getUid());
+                            user.setFullName(user.getFirstname()+" "+user.getLastname());
                             databaseReference.child(firebaseAuth.getCurrentUser().getUid()).setValue(user);
                             new PopUpMSG(CreateAccount.this, getResources().getString(R.string.CreateAccount), getResources().getString(R.string.CompleteCreateAccount), SignIn.class);
-
                         }
                     });
                 }
             }
         });
-
-        /*
-        intent = new Intent(CreateAccount.this,CreateAccountValidation.class);
-
-        intent.putExtra("User", user);
-        intent.putExtra("Password", TextInputLayoutPassword.getEditText().getText().toString());
-        startActivity(intent);
-        finish();*/
     }
     private void CityPick(){
         TextViewSearchCity.setOnClickListener(new View.OnClickListener() {

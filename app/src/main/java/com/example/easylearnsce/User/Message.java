@@ -46,7 +46,7 @@ import javax.crypto.spec.SecretKeySpec;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Message extends AppCompatActivity {
-    private TextView username, TextSend;
+    private TextView username, TextSend, Status;
     private DatabaseReference reference;
     private CircleImageView profileImage;
     private ImageView BackIcon, ButtonSend;
@@ -78,6 +78,7 @@ public class Message extends AppCompatActivity {
         TextSend = findViewById(R.id.TextSend);
         ButtonSend = findViewById(R.id.ButtonSend);
         profileImage = findViewById(R.id.ProfileImage);
+        Status = findViewById(R.id.Status);
         BackIcon = findViewById(R.id.BackIcon);
         username = findViewById(R.id.userName);
         try{
@@ -110,7 +111,7 @@ public class Message extends AppCompatActivity {
                 else
                     profileImage.setImageResource(R.mipmap.ic_launcher);
                 username.setText(user.getFirstname()+" "+ user.getLastname());
-                readMessage(firebaseAuth.getCurrentUser().getUid(), user.getUid());
+                readMessage(firebaseAuth.getCurrentUser().getUid(), user.getUid(),user.getImage());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -168,7 +169,7 @@ public class Message extends AppCompatActivity {
         }
         catch (Exception ignored){}
     }
-    private void readMessage(String sender, String receiver){
+    private void readMessage(String sender, String receiver, String imageUrl){
         chats = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
@@ -185,7 +186,7 @@ public class Message extends AppCompatActivity {
 
                         } catch (Exception e) { e.printStackTrace(); }
                     }
-                    messageAdapter = new MessageAdapter(Message.this, chats);
+                    messageAdapter = new MessageAdapter(Message.this, chats, imageUrl);
                     recyclerView.setAdapter(messageAdapter);
                 }
             }
@@ -193,6 +194,7 @@ public class Message extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) { }
         });
     }
+
     private void BackIcon(){
         BackIcon.setOnClickListener(new View.OnClickListener() {
             @Override

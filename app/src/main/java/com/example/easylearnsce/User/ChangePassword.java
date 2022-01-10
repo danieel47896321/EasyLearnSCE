@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,17 +13,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.easylearnsce.Class.GuestLagnuage;
 import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.PopUpMSG;
 import com.example.easylearnsce.Class.User;
-import com.example.easylearnsce.Class.UserImage;
 import com.example.easylearnsce.Class.UserLanguage;
 import com.example.easylearnsce.Class.UserMenuAdapter;
 import com.example.easylearnsce.Class.UserNavView;
-import com.example.easylearnsce.Guest.About;
-import com.example.easylearnsce.Guest.EasyLearnSCE;
-import com.example.easylearnsce.Guest.SignIn;
 import com.example.easylearnsce.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -142,7 +136,7 @@ public class ChangePassword extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     currentUser.updatePassword(TextInputLayoutNewPassword.getEditText().getText().toString());
                                     loading.stop();
-                                    new PopUpMSG(ChangePassword.this,getResources().getString(R.string.ChangePassword),getResources().getString(R.string.PasswordChanged), Home.class);
+                                    new PopUpMSG(ChangePassword.this,getResources().getString(R.string.ChangePassword),getResources().getString(R.string.PasswordChanged), Home.class,user);
                                 } else {
                                     loading.stop();
                                     TextInputLayoutCurrentPassword.setHelperText(getResources().getString(R.string.WrongPassword));
