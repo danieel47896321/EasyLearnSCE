@@ -20,10 +20,7 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.easylearnsce.Guest.Contact;
-import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
-import com.example.easylearnsce.User.Home;
 
 import java.util.Locale;
 public class UserLanguage {
@@ -33,10 +30,14 @@ public class UserLanguage {
     private ListView ListViewSearch;
     private Context context;
     private User user;
+    private String Engineering = "Engineering";
+    private String Course = "Course";
     public UserLanguage(Context context, User user){
         this.context = context;
         this.user = user;
     }
+    public void setEngineering(String Engineering){ this.Engineering = Engineering; }
+    public void setCourse(String Course){ this.Course = Course; }
     public void setDialog(){
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_search_spinner);
@@ -63,20 +64,37 @@ public class UserLanguage {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 dialog.dismiss();
                 Locale locale;
-                if(adapterView.getItemAtPosition(i).toString().equals(context.getResources().getString(R.string.English)))
-                    locale = new Locale("en");
-                else
-                    locale = new Locale("he");
-                Locale.setDefault(locale);
-                Resources resources = context.getResources();
-                Configuration configuration = resources.getConfiguration();
-                configuration.setLocale(locale);
-                resources.updateConfiguration(configuration,resources.getDisplayMetrics());
-                Intent intent = new Intent(context, context.getClass());
-                intent.putExtra("user", user);
-                context.startActivity(intent);
-                ((Activity)context).finish();
+                if(adapterView.getItemAtPosition(i).toString().equals("English") || adapterView.getItemAtPosition(i).toString().equals("אנגלית")) {
+                    if(!context.getResources().getConfiguration().locale.getDisplayName().equals("English")) {
+                        locale = new Locale("en");
+                        Locale.setDefault(locale);
+                        Resources resources = context.getResources();
+                        Configuration configuration = resources.getConfiguration();
+                        configuration.setLocale(locale);
+                        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+                        StartActivity(locale);
+                    }
+                }
+                else if(adapterView.getItemAtPosition(i).toString().equals("Hebrew") || adapterView.getItemAtPosition(i).toString().equals("עברית")) {
+                    if(!context.getResources().getConfiguration().locale.getDisplayName().equals("Hebrew")) {
+                        locale = new Locale("he");
+                        Locale.setDefault(locale);
+                        Resources resources = context.getResources();
+                        Configuration configuration = resources.getConfiguration();
+                        configuration.setLocale(locale);
+                        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+                        StartActivity(locale);
+                    }
+                }
             }
         });
+    }
+    public void StartActivity(Locale locale){
+        Intent intent = new Intent(context, context.getClass());
+        intent.putExtra("user", user);
+        intent.putExtra("Engineering", Engineering);
+        intent.putExtra("Course", Course);
+        context.startActivity(intent);
+        ((Activity)context).finish();
     }
 }

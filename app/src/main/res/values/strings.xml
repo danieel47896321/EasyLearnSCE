@@ -79,6 +79,9 @@
     <string name="SignOut" translatable="true">Sign Out</string>
     <string name="Friends" translatable="true">Friends</string>
     <string name="EasyLearnChat" translatable="true">EasyLearnChat</string>
+    <string name="Yes" translatable="true">Yes</string>
+    <string name="No" translatable="true">No</string>
+    <string name="AreYouSure" translatable="true">Are you sure you want to Sign Out?</string>
     <!-- SelectEngineering Page -->
     <string name="StructuralEngineering" translatable="true">Structural Engineering</string>
     <string name="MechanicalEngineering" translatable="true">Mechanical Engineering</string>
@@ -129,6 +132,11 @@
     <string name="ConfirmNewPassword" translatable="true">Confirm Password</string>
     <string name="Change" translatable="true">Change</string>
     <string name="PasswordChanged" translatable="true">Password Changed</string>
+    <!-- GenericEngineering Page -->
+    <string name="Course" translatable="true">Course</string>
+    <string name="Department" translatable="true">Department</string>
+    <string name="Year" translatable="true">Year</string>
+    <string name="Semester" translatable="true">Semester</string>
     <!-- Arrays -->
     <string-array name="Lagnuage">
         <item>@string/Hebrew</item>

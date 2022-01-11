@@ -17,6 +17,7 @@ import com.example.easylearnsce.Guest.ResetPassword;
 import com.example.easylearnsce.Guest.SignIn;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.SelectFunc.GenericCourse;
+import com.example.easylearnsce.SelectFunc.Lecture;
 
 import java.util.List;
 
@@ -24,9 +25,11 @@ public class CourseView extends RecyclerView.Adapter<CourseView.MyViewHolder> {
     private Context context;
     private List<Course> courses;
     private User user;
-    public CourseView(Context context, List<Course> course) {
+    private String Engineering = "Engineering";
+    public CourseView(Context context, List<Course> course, String Engineering) {
         this.context = context;
         this.courses = course;
+        this.Engineering = Engineering;
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView course_name;
@@ -57,31 +60,17 @@ public class CourseView extends RecyclerView.Adapter<CourseView.MyViewHolder> {
         holder.course_year.setText(courses.get(position).getCourse_Year());
         holder.course_semester.setText(courses.get(position).getCourse_Semester());
         holder.course_engineering.setText(courses.get(position).getCourse_Engineering());
-        holder.course_card_view.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                holder.course_card_view.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
-                return false;
-            }
-        });
         holder.course_card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
                 holder.course_card_view.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
-                //EasyLearnSCE
-                /*
-                if(holder.textView.getText().equals(context.getResources().getString(R.string.ResetPassword)))
-                    intent = new Intent(context, ResetPassword.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.SignIn)))
-                    intent = new Intent(context, SignIn.class);
-                else
-                    intent = new Intent(context, GenericCourse.class);
-                intent.putExtra("title",holder.textView.getText());
+                Intent intent;
+                intent = new Intent(context, GenericCourse.class);
+                intent.putExtra("Course",holder.course_name.getText().toString());
+                intent.putExtra("Engineering",Engineering);
                 intent.putExtra("user",user);
                 context.startActivity(intent);
                 ((Activity)context).finish();
-                 */
             }
         });
     }

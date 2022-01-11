@@ -1,58 +1,56 @@
 package com.example.easylearnsce.SelectFunc;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.easylearnsce.Class.AddCourseDialog;
 import com.example.easylearnsce.Class.AllCourses;
 import com.example.easylearnsce.Class.Course;
 import com.example.easylearnsce.Class.CourseView;
-import com.example.easylearnsce.Class.Select;
-import com.example.easylearnsce.Class.SelectView;
+import com.example.easylearnsce.Class.Engineering;
 import com.example.easylearnsce.Class.User;
+import com.example.easylearnsce.Class.UserLanguage;
 import com.example.easylearnsce.Class.UserMenuAdapter;
 import com.example.easylearnsce.Class.UserNavView;
+import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.User.Home;
-import com.example.easylearnsce.User.Profile;
 import com.example.easylearnsce.User.SelectEngineering;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GenericEngineering extends AppCompatActivity {
-    private ImageView BackIcon, MenuIcon, ClearYear, ClearSemester, ClearCourse;
+    private ImageView BackIcon, MenuIcon, addCourse, removeCourse;
     private DrawerLayout drawerLayout;
     private NavigationView UserNavigationView;
-    private TextView title,user_fullname,user_email,TextViewSearch, TextViewSearchYear,TextViewSearchSemester,TextViewSearchCourse;
+    private UserLanguage lagnuage;
+    private TextView title,user_fullname,user_email,TextViewSearchLanguage, User_search;
     private User user = new User();
+    private String Engineering = "Engineering";
     private RecyclerView viewList;
     private NavigationView user_navView;
     private List<Course> courses;
     private Intent intent;
-    private Dialog dialog;
-    private EditText EditTextSearch;
-    private ListView ListViewSearch;
     private AllCourses allCourses = new AllCourses();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,23 +63,25 @@ public class GenericEngineering extends AppCompatActivity {
         ChoseEngineering();
         BackIcon();
         MenuIcon();
+        setLanguage();
         NavView();
-        YearFiltter();
-        SemesterFiltter();
-        CourseFiltter();
+        setCourses();
+        addCourse();
+        removeCourse();
     }
     public void setID(){
         intent = getIntent();
         courses = new ArrayList<>();
         title = findViewById(R.id.Title);
+        addCourse = findViewById(R.id.addCourse);
+        removeCourse = findViewById(R.id.removeCourse);
+        User_search = findViewById(R.id.User_search);
         viewList = findViewById(R.id.CoursesRV);
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
-        ClearYear = findViewById(R.id.ClearYear);
-        ClearSemester = findViewById(R.id.ClearSemester);
-        ClearCourse = findViewById(R.id.ClearCourse);
         user_navView = findViewById(R.id.UserNavigationView);
-        title.setText((String)intent.getSerializableExtra("title"));
+        Engineering = (String)intent.getSerializableExtra("Engineering");
+        title.setText(Engineering);
         user = (User)intent.getSerializableExtra("user");
         user.setEngineering(title.getText().toString());
         user_fullname = user_navView.getHeaderView(0).findViewById(R.id.user_fullname);
@@ -90,11 +90,9 @@ public class GenericEngineering extends AppCompatActivity {
         user_email.setText(user.getEmail());
         UserNavigationView = findViewById(R.id.UserNavigationView);
         drawerLayout = findViewById(R.id.drawerLayout);
-        TextViewSearchYear = findViewById(R.id.TextViewSearchYear);
-        TextViewSearchSemester = findViewById(R.id.TextViewSearchSemester);
-        TextViewSearchCourse = findViewById(R.id.TextViewSearchCourse);
         new UserMenuAdapter(user,GenericEngineering.this);
-
+        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
+        lagnuage = new UserLanguage(GenericEngineering.this, user);
     }
     private void MenuItem(){
         Menu menu= UserNavigationView.getMenu();
@@ -102,6 +100,29 @@ public class GenericEngineering extends AppCompatActivity {
         menuItem.setCheckable(false);
         menuItem.setChecked(true);
         menuItem.setEnabled(false);
+    }
+    private void addCourse(){
+        if(user.getType().equals("Admin") || user.getType().equals("Teacher")) {
+            addCourse.setVisibility(View.VISIBLE);
+            addCourse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AddCourseDialog addCourseDialog = new AddCourseDialog();
+                    addCourseDialog.show(getSupportFragmentManager(), "Add Course");
+                }
+            });
+        }
+    }
+    private void removeCourse(){
+        if(user.getType().equals("Admin") || user.getType().equals("Teacher")) {
+            removeCourse.setVisibility(View.VISIBLE);
+            removeCourse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        }
     }
     private void MenuIcon(){
         MenuIcon.setOnClickListener(new View.OnClickListener() {
@@ -123,62 +144,66 @@ public class GenericEngineering extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(GenericEngineering.this, SelectEngineering.class);
-                user.setEngineering("null");
                 intent.putExtra("user", user);
                 startActivity(intent);
                 finish();
             }
         });
     }
-    private String Engineering(){
-        if(title.getText().equals(getResources().getString(R.string.StructuralEngineering)))
-            return "Structural Engineering";
-        else if(title.getText().equals(getResources().getString(R.string.MechanicalEngineering)))
-            return "Mechanical Engineering";
-        else if(title.getText().equals(getResources().getString(R.string.ElectricalEngineering)))
-            return "Electrical Engineering";
-        else if(title.getText().equals(getResources().getString(R.string.SoftwareEngineering)))
-            return "Software Engineering";
-        else if(title.getText().equals(getResources().getString(R.string.IndustrialEngineering)))
-            return "Industrial Engineering";
-        else if(title.getText().equals(getResources().getString(R.string.ChemicalEngineering)))
-            return "Chemical Engineering";
-        else if(title.getText().equals(getResources().getString(R.string.PreEngineering)))
-            return "Pre Engineering";
-        return "other";
-    }
-    private Course[] CoursesEngineering(){
-        if(title.getText().equals(getResources().getString(R.string.StructuralEngineering)))
-            return allCourses.getStructural_Engineering();
-        else if(title.getText().equals(getResources().getString(R.string.MechanicalEngineering)))
-            return allCourses.getMechanical_Engineering();
-        else if(title.getText().equals(getResources().getString(R.string.ElectricalEngineering)))
-            return allCourses.getElectrical_Engineering();
-        else if(title.getText().equals(getResources().getString(R.string.SoftwareEngineering)))
-            return allCourses.getSoftware_Engineering();
-        else if(title.getText().equals(getResources().getString(R.string.IndustrialEngineering)))
-            return allCourses.getIndustrial_Engineering();
-        else if(title.getText().equals(getResources().getString(R.string.ChemicalEngineering)))
-            return allCourses.getChemical_Engineering();
-        else if(title.getText().equals(getResources().getString(R.string.PreEngineering)))
-            return allCourses.getPre_Engineering();
-        return allCourses.getStructural_Engineering();
+    private void setLanguage(){
+        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lagnuage.setEngineering(Engineering);
+                lagnuage.setDialog();
+            }
+        });
     }
     private void ChoseEngineering(){
-        if(title.getText().equals(getResources().getString(R.string.StructuralEngineering)))
+        if(title.getText().equals("Structural Engineering") || title.getText().equals("הנדסת בניין"))
             SetTags(allCourses.getChemical_Engineering());
-        else if(title.getText().equals(getResources().getString(R.string.MechanicalEngineering)))
+        else if(title.getText().equals("Mechanical Engineering") || title.getText().equals("הנדסת מכונות"))
             SetTags(allCourses.getMechanical_Engineering());
-        else if(title.getText().equals(getResources().getString(R.string.ElectricalEngineering)))
+        else if(title.getText().equals("Electrical Engineering") || title.getText().equals("הנדסת חשמל ואלקטרוניקה"))
             SetTags(allCourses.getElectrical_Engineering());
-        else if(title.getText().equals(getResources().getString(R.string.SoftwareEngineering)))
+        else if(title.getText().equals("Software Engineering") || title.getText().equals("הנדסת תוכנה"))
             SetTags(allCourses.getSoftware_Engineering());
-        else if(title.getText().equals(getResources().getString(R.string.IndustrialEngineering)))
+        else if(title.getText().equals("Industrial Engineering") || title.getText().equals("הנדסת תעשייה וניהול"))
             SetTags(allCourses.getIndustrial_Engineering());
-        else if(title.getText().equals(getResources().getString(R.string.ChemicalEngineering)))
+        else if(title.getText().equals("Chemical Engineering") || title.getText().equals("הנדסת כימיה"))
             SetTags(allCourses.getChemical_Engineering());
-        else if(title.getText().equals(getResources().getString(R.string.PreEngineering)))
+        else if(title.getText().equals("Programming Computer ") || title.getText().equals("מדעי המחשב"))
+            SetTags(allCourses.getPrograming_computer());
+        else if(title.getText().equals("Pre Engineering") || title.getText().equals("מכינה"))
             SetTags(allCourses.getPre_Engineering());
+    }
+    private void setCourses(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference;
+        if (getResources().getConfiguration().locale.getDisplayName().equals("Hebrew"))
+            reference = database.getReference().child("Courses").child(getEngineeringName()).child("Hebrew");
+        else
+            reference = database.getReference().child("Courses").child(getEngineeringName()).child("English");
+        reference.setValue(courses);
+    }
+    private String getEngineeringName(){
+        if(Engineering.equals("Structural Engineering") || Engineering.equals("הנדסת בניין"))
+            return "Structural Engineering";
+        else if(Engineering.equals("Mechanical Engineering") || Engineering.equals("הנדסת מכונות"))
+            return "Mechanical Engineering";
+        else if(Engineering.equals("Electrical Engineering") || Engineering.equals("הנדסת חשמל ואלקטרוניקה"))
+            return "Electrical Engineering";
+        else if(Engineering.equals("Software Engineering") || Engineering.equals("הנדסת תוכנה"))
+            return "Software Engineering";
+        else if(Engineering.equals("Industrial Engineering") || Engineering.equals("הנדסת תעשייה וניהול"))
+            return "Industrial Engineering";
+        else if(Engineering.equals("Chemical Engineering") || Engineering.equals("הנדסת כימיה"))
+            return "Chemical Engineering";
+        else if(Engineering.equals("Programming Computer ") || Engineering.equals("מדעי המחשב"))
+            return "Programming Engineering";
+        else if(Engineering.equals("Pre Engineering") || Engineering.equals("מכינה"))
+            return "Pre Engineering";
+        return "Other";
     }
     private void SetTags(Course[] Courses){
         for(int i=0; i<Courses.length; i++)
@@ -186,106 +211,14 @@ public class GenericEngineering extends AppCompatActivity {
         ShowTags(courses);
     }
     private void ShowTags(List<Course> selects){
-        CourseView mySelects = new CourseView(this,selects);
+        CourseView mySelects = new CourseView(this,selects,Engineering);
         mySelects.setUser(user);
         viewList.setLayoutManager(new GridLayoutManager(this,1));
         viewList.setAdapter(mySelects);
     }
-    private void StartActivity(Class Destination){
-        intent = new Intent(GenericEngineering.this, Destination);
-        intent.putExtra("user", user);
-        startActivity(intent);
-        finish();
-    }
-    private void setDialog(String[] array, String title,TextView textViewPick){
-        dialog = new Dialog(GenericEngineering.this);
-        dialog.setContentView(R.layout.dialog_search_spinner);
-        dialog.getWindow().setLayout(1200,1500);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-        EditTextSearch = dialog.findViewById(R.id.EditTextSearch);
-        ListViewSearch = dialog.findViewById(R.id.ListViewSearch);
-        TextViewSearch = dialog.findViewById(R.id.TextViewSearch);
-        TextViewSearch.setText(title);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(GenericEngineering.this, R.layout.dropdown_item, array);
-        ListViewSearch.setAdapter(adapter);
-        EditTextSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                adapter.getFilter().filter(charSequence);
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
-        ListViewSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                dialog.dismiss();
-                textViewPick.setText(adapterView.getItemAtPosition(i).toString());
-            }
-        });
-    }
-    private void YearFiltter(){
-        TextViewSearchYear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setDialog(getResources().getStringArray(R.array.Year),getResources().getString(R.string.SelectYear),TextViewSearchYear);
-                ShowTags(courses);
-                ClearYear.setVisibility(View.VISIBLE);
-            }
-        });
-        ClearYear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ClearYear.setVisibility(View.INVISIBLE);
-                if(!TextViewSearchYear.getText().toString().equals(""))
-                    TextViewSearchYear.setText("");
-            }
-        });
-    }
-    private void SemesterFiltter(){
-        TextViewSearchSemester.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setDialog(getResources().getStringArray(R.array.Semester),getResources().getString(R.string.SelectSemester),TextViewSearchSemester);
-                ClearSemester.setVisibility(View.VISIBLE);
-            }
-        });
-        ClearSemester.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ClearSemester.setVisibility(View.INVISIBLE);
-                if(!TextViewSearchSemester.getText().toString().equals(""))
-                    TextViewSearchSemester.setText("");
-            }
-        });
-    }
-    private void CourseFiltter(){
-        TextViewSearchCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String courses_list[] = new String[CoursesEngineering().length];
-                for(int i=0;i<CoursesEngineering().length;i++)
-                    courses_list[i] = CoursesEngineering()[i].getCourse_Name();
-                setDialog(courses_list,getResources().getString(R.string.SelectCourse),TextViewSearchCourse);
-                ClearCourse.setVisibility(View.VISIBLE);
-            }
-        });
-        ClearCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ClearCourse.setVisibility(View.INVISIBLE);
-                if(!TextViewSearchCourse.getText().toString().equals(""))
-                    TextViewSearchCourse.setText("");
-            }
-        });
-    }
     @Override
     public void onBackPressed() {
         intent = new Intent(GenericEngineering.this, SelectEngineering.class);
-        user.setEngineering("null");
         intent.putExtra("user", user);
         startActivity(intent);
         finish();

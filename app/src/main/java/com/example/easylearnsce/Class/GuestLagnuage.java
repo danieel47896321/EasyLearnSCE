@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -57,17 +58,31 @@ public class GuestLagnuage {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 dialog.dismiss();
                 Locale locale;
-                if(adapterView.getItemAtPosition(i).toString().equals(context.getResources().getString(R.string.English)))
-                    locale = new Locale("en");
-                else
-                    locale = new Locale("he");
-                Locale.setDefault(locale);
-                Resources resources = context.getResources();
-                Configuration configuration = resources.getConfiguration();
-                configuration.setLocale(locale);
-                resources.updateConfiguration(configuration,resources.getDisplayMetrics());
-                context.startActivity(new Intent(context, context.getClass()));
-                ((Activity)context).finish();
+                if(adapterView.getItemAtPosition(i).toString().equals("English") || adapterView.getItemAtPosition(i).toString().equals("אנגלית")) {
+                    if (!context.getResources().getConfiguration().locale.getDisplayName().equals("English")) {
+                        Toast.makeText(context, context.getResources().getConfiguration().locale.getDisplayName(), Toast.LENGTH_SHORT).show();
+                        locale = new Locale("en");
+                        Locale.setDefault(locale);
+                        Resources resources = context.getResources();
+                        Configuration configuration = resources.getConfiguration();
+                        configuration.setLocale(locale);
+                        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+                        context.startActivity(new Intent(context, context.getClass()));
+                        ((Activity) context).finish();
+                    }
+                }
+                else if(adapterView.getItemAtPosition(i).toString().equals("Hebrew") || adapterView.getItemAtPosition(i).toString().equals("עברית")) {
+                    if (!context.getResources().getConfiguration().locale.getDisplayName().equals("Hebrew")) {
+                        locale = new Locale("he");
+                        Locale.setDefault(locale);
+                        Resources resources = context.getResources();
+                        Configuration configuration = resources.getConfiguration();
+                        configuration.setLocale(locale);
+                        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+                        context.startActivity(new Intent(context, context.getClass()));
+                        ((Activity) context).finish();
+                    }
+                }
             }
         });
     }

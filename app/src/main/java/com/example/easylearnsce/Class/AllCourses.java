@@ -7,6 +7,7 @@ public class AllCourses {
     private Course software_Engineering[];
     private Course industrial_Engineering[];
     private Course chemical_Engineering[];
+    private Course programing_computer[];
     private Course pre_Engineering[];
     public AllCourses() {
         structural_Engineering = new Course[1];
@@ -15,6 +16,7 @@ public class AllCourses {
         software_Engineering = new Course[10];
         industrial_Engineering = new Course[1];
         chemical_Engineering = new Course[1];
+        programing_computer = new Course[1];
         pre_Engineering = new Course[1];
         setStructural_Engineering();
         setMechanical_Engineering();
@@ -64,6 +66,10 @@ public class AllCourses {
         structural_Engineering[0] = new Course("בטיחות תוכנה","מיכאל קיפרברג","רביעית","א'","הנדסת תוכנה");
 
     }
+    private void setPrograming_computer() {
+        programing_computer[0] = new Course("בטיחות תוכנה","מיכאל קיפרברג","רביעית","א'","הנדסת תוכנה");
+
+    }
 
     public Course[] getStructural_Engineering() { return structural_Engineering; }
     public Course[] getMechanical_Engineering() { return mechanical_Engineering; }
@@ -71,5 +77,6 @@ public class AllCourses {
     public Course[] getSoftware_Engineering() { return software_Engineering; }
     public Course[] getIndustrial_Engineering() { return industrial_Engineering; }
     public Course[] getChemical_Engineering() { return chemical_Engineering; }
+    public Course[] getPrograming_computer() { return programing_computer; }
     public Course[] getPre_Engineering() { return pre_Engineering; }
 }

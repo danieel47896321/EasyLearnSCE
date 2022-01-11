@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.easylearnsce.Class.GuestLagnuage;
 import com.example.easylearnsce.Class.GuestNavView;
-import com.example.easylearnsce.Class.Select;
+import com.example.easylearnsce.Class.Engineering;
 import com.example.easylearnsce.Class.SelectView;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
@@ -25,7 +25,7 @@ import java.util.List;
 public class EasyLearnSCE extends AppCompatActivity {
     private RecyclerView Tags;
     private DrawerLayout drawerLayout;
-    private List<Select> Selects;
+    private List<Engineering> Selects;
     private NavigationView GuestNavView;
     private TextView Title, TextViewSearchLanguage;
     private ImageView BackIcon, MenuIcon;
@@ -91,10 +91,10 @@ public class EasyLearnSCE extends AppCompatActivity {
     }
     private void setTags(){
         for(int i=0; i<SIZE; i++)
-            Selects.add(new Select(EasyLearnSCETagsName[i], TagsPhoto[i]));
+            Selects.add(new Engineering(EasyLearnSCETagsName[i], TagsPhoto[i]));
         ShowTags(Selects);
     }
-    private void ShowTags(List<Select> selects){
+    private void ShowTags(List<Engineering> selects){
         SelectView Select = new SelectView(this,selects);
         Tags.setLayoutManager(new GridLayoutManager(this,1));
         Tags.setAdapter(Select);

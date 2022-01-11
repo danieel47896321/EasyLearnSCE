@@ -59,17 +59,19 @@ public class UsersFragment extends Fragment {
 
     private void UserSearch(String text) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        Query query = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("fullName").startAt(text).endAt(text+"\uf8ff");
+        Query query = FirebaseDatabase.getInstance().getReference().child("Users");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userList.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     User user = dataSnapshot.getValue(User.class);
-                    assert user != null;
-                    assert firebaseUser != null;
-                    if(!user.getUid().equals(firebaseUser.getUid()))
-                        userList.add(user);
+                    if (user.getFullName().toLowerCase().contains(text.toLowerCase())) {
+                        assert user != null;
+                        assert firebaseUser != null;
+                        if (!user.getUid().equals(firebaseUser.getUid()))
+                            userList.add(user);
+                    }
                 }
                 userAdapter = new UserAdapter(getContext(),userList);
                 recyclerView.setAdapter(userAdapter);

@@ -1,10 +1,10 @@
 package com.example.easylearnsce.Class;
 
-public class Select {
+public class Engineering {
     private String Engineeringname;
     private int Photo;
-    public Select() { }
-    public Select(String engineeringname, int photo) {
+    public Engineering() { }
+    public Engineering(String engineeringname, int photo) {
         this.Engineeringname = engineeringname;
         this.Photo = photo;
     }

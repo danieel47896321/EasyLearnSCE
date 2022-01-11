@@ -2,6 +2,7 @@ package com.example.easylearnsce.Class;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,9 +24,9 @@ import com.example.easylearnsce.Guest.CreateAccount;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.SelectFunc.GenericCourse;
 import com.example.easylearnsce.SelectFunc.GenericEngineering;
-import com.example.easylearnsce.SelectFunc.Lecture;
 import com.example.easylearnsce.User.ChangePassword;
 import com.example.easylearnsce.User.EasyLearnChat;
+import com.example.easylearnsce.User.Home;
 import com.example.easylearnsce.User.Profile;
 import com.example.easylearnsce.User.SelectEngineering;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,10 +35,11 @@ import java.util.List;
 
 public class SelectView extends RecyclerView.Adapter<SelectView.MyViewHolder> {
     private Context context;
-    private List<Select> Select;
+    private List<Engineering> Select;
     private User user;
+    private Intent intent;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    public SelectView(Context context, List<Select> select) {
+    public SelectView(Context context, List<Engineering> select) {
         this.context = context;
         this.Select = select;
     }
@@ -71,7 +74,6 @@ public class SelectView extends RecyclerView.Adapter<SelectView.MyViewHolder> {
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
                 holder.cardView.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
                 //EasyLearnSCE
                 if(holder.textView.getText().equals(context.getResources().getString(R.string.ResetPassword)))
@@ -93,35 +95,32 @@ public class SelectView extends RecyclerView.Adapter<SelectView.MyViewHolder> {
                     intent = new Intent(context, Profile.class);
                 else if(holder.textView.getText().equals(context.getResources().getString(R.string.ChangePassword)))
                     intent = new Intent(context, ChangePassword.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.SignOut))) {
-                    if(firebaseAuth.getCurrentUser() != null)
-                        firebaseAuth.signOut();
+                else
+                    intent = new Intent(context, Home.class);
+                if(holder.textView.getText().equals(context.getResources().getString(R.string.SignOut))) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle(context.getResources().getString(R.string.SignOut)).setMessage(context.getResources().getString(R.string.AreYouSure)).setCancelable(true).setPositiveButton(context.getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(firebaseAuth.getCurrentUser() != null)
+                                firebaseAuth.signOut();
+                            intent = new Intent(context, EasyLearnSCE.class);
+                            context.startActivity(intent);
+                            ((Activity) context).finish();
+                        }
+                    }).setNegativeButton(context.getResources().getString(R.string.No), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            holder.cardView.setBackgroundColor(context.getResources().getColor(R.color.sky));
+                        }
+                    }).show();
                     intent = new Intent(context, EasyLearnSCE.class);
                 }
-                //SelectEngineering
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.StructuralEngineering)))
-                    intent = new Intent(context, GenericEngineering.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.MechanicalEngineering)))
-                    intent = new Intent(context, GenericEngineering.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.ElectricalEngineering)))
-                    intent = new Intent(context, GenericEngineering.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.SoftwareEngineering)))
-                    intent = new Intent(context, GenericEngineering.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.IndustrialEngineering)))
-                    intent = new Intent(context, GenericEngineering.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.ChemicalEngineering)))
-                    intent = new Intent(context, GenericEngineering.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.ProgrammingComputer)))
-                    intent = new Intent(context, GenericEngineering.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.PreEngineering)))
-                    intent = new Intent(context, GenericEngineering.class);
-                //generic Course
-                else
-                    intent = new Intent(context, GenericCourse.class);
-                intent.putExtra("title",holder.textView.getText());
-                intent.putExtra("user",user);
-                context.startActivity(intent);
-                ((Activity)context).finish();
+                else {
+                    intent.putExtra("user", user);
+                    context.startActivity(intent);
+                    ((Activity) context).finish();
+                }
             }
         });
     }

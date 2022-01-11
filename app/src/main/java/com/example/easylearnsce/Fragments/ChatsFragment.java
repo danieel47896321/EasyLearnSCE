@@ -81,19 +81,21 @@ public class ChatsFragment extends Fragment {
     }
     private void UserSearch(String text) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        Query query = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("fullName").startAt(text).endAt(text+"\uf8ff");
+        Query query = FirebaseDatabase.getInstance().getReference().child("Users");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mUsers.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     User user = dataSnapshot.getValue(User.class);
-                    assert user != null;
-                    for (String id : usersList) {
-                        if (user.getUid().equals(id)) {
-                            if (mUsers.contains(user)) {
-                            } else {
-                                mUsers.add(user);
+                    if (user.getFullName().toLowerCase().contains(text.toLowerCase())) {
+                        assert user != null;
+                        for (String id : usersList) {
+                            if (user.getUid().equals(id)) {
+                                if (mUsers.contains(user)) {
+                                } else {
+                                    mUsers.add(user);
+                                }
                             }
                         }
                     }

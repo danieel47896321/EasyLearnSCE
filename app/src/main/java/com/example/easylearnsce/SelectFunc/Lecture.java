@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.easylearnsce.Class.Select;
+import com.example.easylearnsce.Class.Engineering;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
@@ -29,8 +29,9 @@ public class Lecture extends AppCompatActivity {
     private User user = new User();
     private NavigationView user_navView;
     private RecyclerView viewList;
-    private List<Select> selects;
+    private List<Engineering> selects;
     private Intent intent;
+    private String Course = "Course";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +50,13 @@ public class Lecture extends AppCompatActivity {
         selects = new ArrayList<>();
         title = findViewById(R.id.Title);
         user = (User)intent.getSerializableExtra("user");
-        title.setText(user.getEngineering()+"\n"+user.getCourse()+"\n"+(String)intent.getSerializableExtra("title"));
+        Course = (String)intent.getSerializableExtra("CourseName");
+        title.setText(user.getEngineering()+" - "+Course);
         viewList = findViewById(R.id.MainScreenRV);
         menu_icon = findViewById(R.id.MenuIcon);
         back_icon = findViewById(R.id.BackIcon);
         user_navView = findViewById(R.id.UserNavigationView);
-        user.setLecture((String)intent.getSerializableExtra("title"));
+
         user_fullname = user_navView.getHeaderView(0).findViewById(R.id.user_fullname);
         user_email = user_navView.getHeaderView(0).findViewById(R.id.user_email);
         user_fullname.setText(user.getFirstname()+" "+user.getLastname());

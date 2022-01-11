@@ -18,15 +18,57 @@
             android:id="@+id/include"
             layout="@layout/toolbar" />
 
+        <EditText
+            android:id="@+id/User_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_background"
+            android:hint="@string/Search"
+            android:paddingStart="15dp"
+            android:paddingLeft="15dp"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/removeCourse"
+            app:layout_constraintTop_toBottomOf="@+id/include" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/addCourse"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="5dp"
+            android:clickable="true"
+            android:visibility="gone"
+            android:src="@drawable/add"
+            app:layout_constraintBottom_toBottomOf="@+id/removeCourse"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/removeCourse"
+            android:layout_marginLeft="5dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/removeCourse"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:visibility="gone"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/remove"
+            app:layout_constraintBottom_toBottomOf="@+id/User_search"
+            app:layout_constraintStart_toEndOf="@+id/addCourse"
+            app:layout_constraintTop_toTopOf="@+id/User_search" />
+
         <LinearLayout
             android:id="@+id/LayoutTags"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="5dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TextViewSearchCourse">
+            app:layout_constraintTop_toBottomOf="@+id/User_search">
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -35,96 +77,14 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/TextViewSearchYear"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="35dp"
-            android:layout_marginRight="35dp"
-            android:background="@android:drawable/editbox_background"
-            android:drawableEnd="@drawable/drop_down"
-            android:drawableRight="@drawable/drop_down"
-            android:gravity="center"
-            android:hint="@string/SelectYear"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ClearYear"
-            app:layout_constraintTop_toBottomOf="@+id/include" />
-
-        <TextView
-            android:id="@+id/TextViewSearchSemester"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/editbox_background"
-            android:drawableEnd="@drawable/drop_down"
-            android:drawableRight="@drawable/drop_down"
-            android:gravity="center"
-            android:hint="@string/SelectSemester"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/TextViewSearchYear"
-            app:layout_constraintStart_toEndOf="@+id/ClearSemester"
-            app:layout_constraintTop_toBottomOf="@+id/TextViewSearchYear" />
-
-        <TextView
-            android:id="@+id/TextViewSearchCourse"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/editbox_background"
-            android:drawableEnd="@drawable/drop_down"
-            android:drawableRight="@drawable/drop_down"
-            android:gravity="center"
-            android:hint="@string/SelectCourse"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/TextViewSearchSemester"
-            app:layout_constraintStart_toEndOf="@+id/ClearCourse"
-            app:layout_constraintTop_toBottomOf="@+id/TextViewSearchSemester" />
-
-        <ImageView
-            android:id="@+id/ClearYear"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:visibility="invisible"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="@+id/TextViewSearchYear"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/TextViewSearchYear"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
-
-        <ImageView
-            android:id="@+id/ClearSemester"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:visibility="invisible"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="@+id/TextViewSearchSemester"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TextViewSearchYear"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
-
         <ImageView
             android:id="@+id/ClearCourse"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:visibility="invisible"
             android:clickable="true"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/LayoutTags"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TextViewSearchSemester"
-            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

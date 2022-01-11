@@ -33,9 +33,7 @@ import java.net.URL;
 
 
 public class UserMenuAdapter {
-    private Context context;
     public UserMenuAdapter(User user, Context context){
-        this.context = context;
         NavigationView UserNavigationView = ((Activity) context).findViewById(R.id.UserNavigationView);
         View UserImage = UserNavigationView.getHeaderView(0).findViewById(R.id.UserImage);
         TextView UserFullName = UserNavigationView.getHeaderView(0).findViewById(R.id.user_fullname);

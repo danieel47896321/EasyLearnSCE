@@ -5,7 +5,8 @@ public class Course {
     private String Course_Teacher_name = "teacher";
     private String Course_Year = "year";
     private String Course_Semester = "semester";
-    private String Course_Engineering = "semester";
+    private String Course_Engineering = "Engineering";
+
     public Course() { }
     public Course(String course_Name, String course_Teacher_name, String course_Year, String course_Semester, String course_Engineering) {
         Course_Name = course_Name;

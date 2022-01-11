@@ -1,34 +1,22 @@
 package com.example.easylearnsce.User;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.easylearnsce.Class.GuestLagnuage;
-import com.example.easylearnsce.Class.Select;
+import com.example.easylearnsce.Class.Engineering;
 import com.example.easylearnsce.Class.SelectView;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserLanguage;
@@ -41,7 +29,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class Home extends AppCompatActivity {
     private TextView Title, TextViewSearchLanguage;
@@ -50,7 +37,7 @@ public class Home extends AppCompatActivity {
     private ImageView BackIcon, MenuIcon;
     private User user = new User();
     private RecyclerView viewList;
-    private List<Select> selects;
+    private List<Engineering> selects;
     private NavigationView UserNavigationView;
     private Intent intent;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -121,31 +108,35 @@ public class Home extends AppCompatActivity {
         BackIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(firebaseAuth.getCurrentUser() != null)
-                    firebaseAuth.signOut();
-                startActivity(new Intent(Home.this, EasyLearnSCE.class));
-                finish();
+                onBackPressed();
             }
         });
     }
     private void setTags(){
         for(int i=0; i<SIZE; i++)
-            selects.add(new Select(HomeTagsName[i], EngineeringsPhotos[i]));
+            selects.add(new Engineering(HomeTagsName[i], EngineeringsPhotos[i]));
         ShowTags(selects);
     }
-    private void ShowTags(List<Select> selects){
+    private void ShowTags(List<Engineering> selects){
         SelectView Select = new SelectView(this,selects);
         Select.setUser(user);
         viewList.setLayoutManager(new GridLayoutManager(this,1));
         viewList.setAdapter(Select);
     }
-    private void StartActivity(Class Destination){
-        intent = new Intent(Home.this, Destination);
-        intent.putExtra("user", user);
-        startActivity(intent);
-        finish();
-    }
     public void onBackPressed() {
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
+        builder.setTitle(getResources().getString(R.string.SignOut)).setMessage(getResources().getString(R.string.AreYouSure)).setCancelable(true)
+                .setPositiveButton(getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(firebaseAuth.getCurrentUser() != null)
+                    firebaseAuth.signOut();
+                startActivity(new Intent(Home.this, EasyLearnSCE.class));
+                finish();
+            }
+        }).setNegativeButton(getResources().getString(R.string.No), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) { }
+        }).show();
     }
 }

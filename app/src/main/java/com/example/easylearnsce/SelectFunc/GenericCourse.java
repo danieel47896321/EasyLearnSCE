@@ -2,6 +2,7 @@ package com.example.easylearnsce.SelectFunc;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,27 +13,30 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.easylearnsce.Class.Select;
+import com.example.easylearnsce.Class.Engineering;
 import com.example.easylearnsce.Class.SelectView;
 import com.example.easylearnsce.Class.User;
-import com.example.easylearnsce.Guest.EasyLearnSCE;
+import com.example.easylearnsce.Class.UserLanguage;
+import com.example.easylearnsce.Class.UserMenuAdapter;
+import com.example.easylearnsce.Class.UserNavView;
 import com.example.easylearnsce.R;
-import com.example.easylearnsce.User.Home;
-import com.example.easylearnsce.User.Profile;
-import com.example.easylearnsce.User.SelectEngineering;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GenericCourse extends AppCompatActivity {
-    private ImageView back_icon,menu_icon;
-    private TextView title,user_fullname,user_email;
+    private ImageView BackIcon, MenuIcon;
+    private TextView title,user_fullname,user_email,TextViewSearchLanguage;
+    private UserLanguage lagnuage;
     private User user = new User();
-    private NavigationView user_navView;
+    private DrawerLayout drawerLayout;
+    private NavigationView UserNavigationView;
     private RecyclerView viewList;
-    private List<Select> selects;
+    private List<com.example.easylearnsce.Class.Engineering> selects;
     private Intent intent;
+    private String Course = "Course";
+    private String Engineering = "Engineering";
     private String lectures[] = {"הרצאה 1","הרצאה 2","הרצאה 3","הרצאה 4","הרצאה 5","הרצאה 6","הרצאה 7","הרצאה 8","הרצאה 9","הרצאה 10"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,88 +46,79 @@ public class GenericCourse extends AppCompatActivity {
     }
     public void init(){
         setID();
-        ReturnBack();
         ChoseEngineering();
-        Menu();
+        BackIcon();
+        MenuIcon();
         NavView();
+        setLanguage();
     }
     public void setID(){
         intent = getIntent();
         selects = new ArrayList<>();
         title = findViewById(R.id.Title);
-        menu_icon = findViewById(R.id.MenuIcon);
-        back_icon = findViewById(R.id.BackIcon);
-        user_navView = findViewById(R.id.UserNavigationView);
+        MenuIcon = findViewById(R.id.MenuIcon);
+        BackIcon = findViewById(R.id.BackIcon);
         viewList = findViewById(R.id.MainScreenRV);
         user = (User)intent.getSerializableExtra("user");
-        title.setText(user.getEngineering()+"\n"+(String)intent.getSerializableExtra("title"));
-        user.setCourse((String)intent.getSerializableExtra("title"));
-        user_fullname = user_navView.getHeaderView(0).findViewById(R.id.user_fullname);
-        user_email = user_navView.getHeaderView(0).findViewById(R.id.user_email);
+        Engineering = (String)intent.getSerializableExtra("Engineering");
+        Course = (String)intent.getSerializableExtra("Course");
+        title.setText(Engineering+"\n"+Course);
+        UserNavigationView = findViewById(R.id.UserNavigationView);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        user_fullname = UserNavigationView.getHeaderView(0).findViewById(R.id.user_fullname);
+        user_email = UserNavigationView.getHeaderView(0).findViewById(R.id.user_email);
         user_fullname.setText(user.getFirstname()+" "+user.getLastname());
         user_email.setText(user.getEmail());
+        new UserMenuAdapter(user,GenericCourse.this);
+        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
+        lagnuage = new UserLanguage(GenericCourse.this, user);
     }
-    public void Menu(){
-        menu_icon.setOnClickListener(new View.OnClickListener() {
+    private void MenuIcon(){
+        MenuIcon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if(user_navView.getVisibility() == View.INVISIBLE)
-                    user_navView.setVisibility(View.VISIBLE);
-                else
-                    user_navView.setVisibility(View.INVISIBLE);
-            }
+            public void onClick(View v) { drawerLayout.open(); }
         });
     }
-    public void NavView(){
-        user_navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+    private void NavView(){
+        UserNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if(id == R.id.ItemHome){
-                    intent = new Intent(GenericCourse.this, Home.class);
-                    intent.putExtra("user", user);
-                    startActivity(intent);
-                }
-                else if(id == R.id.ItemSelectEngineering){
-                    intent = new Intent(GenericCourse.this, SelectEngineering.class);
-                    intent.putExtra("user", user);
-                    startActivity(intent);
-                }
-                else if(id == R.id.ItemProfile) {
-                    intent = new Intent(GenericCourse.this, Profile.class);
-                    intent.putExtra("user", user);
-                    startActivity(intent);
-                }
-
-                else if(id == R.id.ItemSignOut)
-                    startActivity(new Intent(GenericCourse.this, EasyLearnSCE.class));
-                finish();
+                new UserNavView(GenericCourse.this, item.getItemId(), user);
                 return false;
             }
         });
     }
-    public void ReturnBack(){
-        back_icon.setOnClickListener(new View.OnClickListener() {
+    private void BackIcon(){
+        BackIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intent = new Intent(GenericCourse.this, GenericEngineering.class);
-                user.setCourse("null");
                 intent.putExtra("user", user);
-                intent.putExtra("title", user.getEngineering());
+                intent.putExtra("Engineering", Engineering);
                 startActivity(intent);
                 finish();
             }
         });
     }
+    private void setLanguage(){
+        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lagnuage.setEngineering(Engineering);
+                lagnuage.setCourse(Course);
+                lagnuage.setDialog();
+            }
+        });
+    }
     public void SetTags(String[] engineering){
         for(int i=0; i<engineering.length; i++)
-            selects.add(new Select(engineering[i],R.drawable.book));
+            selects.add(new Engineering(engineering[i],R.drawable.book));
         ShowTags(selects);
     }
     public void ChoseEngineering(){
         SetTags(lectures);
     }
-    public void ShowTags(List<Select> selects){
+    public void ShowTags(List<com.example.easylearnsce.Class.Engineering> selects){
         SelectView mySelects = new SelectView(this,selects);
         mySelects.setUser(user);
         viewList.setLayoutManager(new GridLayoutManager(this,1));

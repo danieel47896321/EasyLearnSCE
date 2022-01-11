@@ -80,6 +80,9 @@
     <string name="SignOut" translatable="true">התנתק</string>
     <string name="Friends" translatable="true">חברים</string>
     <string name="EasyLearnChat" translatable="true">EasyLearnChat</string>
+    <string name="Yes" translatable="true">כן</string>
+    <string name="No" translatable="true">לא</string>
+    <string name="AreYouSure" translatable="true">האם אתה בטוח שברצונך להתנתק?</string>
     <!-- SelectEngineering Page -->
     <string name="StructuralEngineering" translatable="true">הנדסת בניין</string>
     <string name="MechanicalEngineering" translatable="true">הנדסת מכונות</string>
@@ -130,6 +133,11 @@
     <string name="ConfirmNewPassword" translatable="true">אימות סיסמה</string>
     <string name="Change" translatable="true">שינוי</string>
     <string name="PasswordChanged" translatable="true">הסיסמה השתנתה</string>
+    <!-- GenericEngineering Page -->
+    <string name="Course" translatable="true">קורס</string>
+    <string name="Department" translatable="true">מחלקה</string>
+    <string name="Year" translatable="true">שנה</string>
+    <string name="Semester" translatable="true">סמסטר</string>
 
 
 
