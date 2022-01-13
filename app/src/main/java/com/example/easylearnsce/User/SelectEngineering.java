@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.easylearnsce.Class.Engineering;
 import com.example.easylearnsce.Class.EngineeringAdapter;
@@ -119,7 +120,7 @@ public class SelectEngineering extends AppCompatActivity {
     private void setEngineering(){
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference reference;
-            if (getResources().getConfiguration().locale.getDisplayName().equals("Hebrew"))
+            if (getResources().getConfiguration().locale.getDisplayName().equals("Hebrew") || getResources().getConfiguration().locale.getDisplayName().equals("עברית (ישראל)"))
                 reference = database.getReference().child("Engineering").child("Hebrew");
             else
                 reference = database.getReference().child("Engineering").child("English");

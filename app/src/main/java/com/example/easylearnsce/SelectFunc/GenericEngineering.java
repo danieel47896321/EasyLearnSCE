@@ -21,6 +21,7 @@ import com.example.easylearnsce.Class.AllCourses;
 import com.example.easylearnsce.Class.Course;
 import com.example.easylearnsce.Class.CourseView;
 import com.example.easylearnsce.Class.Engineering;
+import com.example.easylearnsce.Class.RemoveCourseDialog;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserLanguage;
 import com.example.easylearnsce.Class.UserMenuAdapter;
@@ -119,7 +120,8 @@ public class GenericEngineering extends AppCompatActivity {
             removeCourse.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    RemoveCourseDialog addCourseDialog = new RemoveCourseDialog();
+                    addCourseDialog.show(getSupportFragmentManager(), "Remove Course");
                 }
             });
         }

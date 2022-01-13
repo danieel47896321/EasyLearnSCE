@@ -34,6 +34,8 @@
     <string name="SelectLanguage" translatable="true">בחר שפה</string>
     <string name="English" translatable="true">אנגלית</string>
     <string name="Hebrew" translatable="true">עברית</string>
+    <string name="Exit" translatable="true">יציאה</string>
+    <string name="AreYouSureToExit" translatable="true">האם אתה בטוח שברצונך לצאת?</string>
     <!-- SignIn Page -->
     <string name="Email" translatable="true">אימייל</string>
     <string name="CheckEmailVerify" translatable="true">חשבון זה עדיין לא אומת, בבקשה בדוק את הקישור שנשלח לאימייל שלך ואמת את החשבון.</string>
@@ -64,11 +66,11 @@
     <string name="ForgotPasswordInfo" translatable="true">נא הזן את כתובת האימייל שברצונך לשחזר עבורו את הסיסמה</string>
     <string name="ResetLink" translatable="true">קישור לאיפוס הסיסמה נשלח לאימייל</string>
     <!-- About Page -->
-    <string name="AboutVersion" translatable="true"> גרסה 1.1.0</string>
+    <string name="AboutVersion" translatable="true">גרסה 1.1.0</string>
     <string name="Copyright" translatable="true"> זכויות יוצרים &#169; 2021 דניאל אלמליח</string>
     <string name="AboutInfo" translatable="true">האפליקציה פותחה במסגרת פרויקט גמר על ידי דניאל אלמליח כאשר המטרה ליצור סביבה נוחה לצפיה בהרצאות ולמידה נוחה ומתן פידבק למרצים לגבי קטעים שהיו פחות ברורים על ידי הוספת תגובה תוך ציון קטע הזמן הרצוי עבור הקלטה מסוימת </string>
     <!-- Contact Page -->
-    <string name="ContactInfo" translatable="true">האם נתקלת בבעיה כלשהי?\n צוות הפיתוח זמין לשירותך </string>
+    <string name="ContactInfo" translatable="true">האם נתקלת בבעיה כלשהי?\n צוות הפיתוח זמין לשירותך</string>
     <string name="ContactSubject" translatable="true">יצירת קשר - App EasyLearnSCE</string>
     <string name="ContactText" translatable="true">צוות EasyLearnSCE, </string>
     <string name="ContactEmailChooser" translatable="true">בחר אפליקציית דוא"ל</string>
@@ -111,6 +113,7 @@
     <string name="TypeaMessage" translatable="true">הודעה</string>
     <!-- Profile Page -->
     <string name="CantChangeEmail" translatable="true">לא ניתן לשנות אימייל</string>
+    <string name="ProfileUpdated" translatable="true">הפרופיל עודכן בהצלחה!</string>
     <string name="CameraPermissionDenied" translatable="true">ההרשאה למצלמה נדחתה</string>
     <string name="Cammera" translatable="true">מצלמה</string>
     <string name="Gallery" translatable="true">גלריה</string>
@@ -138,6 +141,8 @@
     <string name="Department" translatable="true">מחלקה</string>
     <string name="Year" translatable="true">שנה</string>
     <string name="Semester" translatable="true">סמסטר</string>
+    <string name="AddCourse" translatable="true">הוסף קורס</string>
+    <string name="RemoveCourse" translatable="true">הסר קורס</string>
 
 
 

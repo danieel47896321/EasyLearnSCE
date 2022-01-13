@@ -21,11 +21,16 @@ import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.User.Home;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class Contact extends AppCompatActivity {
-    private TextView SendEmail, Title, TextViewSearchLanguage;
+    private TextView SendEmail, Title, TextViewSearchLanguage, ContactText;
     private ImageView BackIcon, MenuIcon;
     private NavigationView GuestNavView;
     private DrawerLayout drawerLayout;
@@ -47,12 +52,15 @@ public class Contact extends AppCompatActivity {
         NavView();
         SendEmail();
         setLanguage();
+        Info();
+        Email();
     }
     private void setID() {
         intent = getIntent();
         user = (User)intent.getSerializableExtra("user");
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
+        ContactText = findViewById(R.id.ContactText);
         drawerLayout = findViewById(R.id.drawerLayout);
         Title = findViewById(R.id.Title);
         GuestNavView = findViewById(R.id.GuestNavView);
@@ -65,6 +73,32 @@ public class Contact extends AppCompatActivity {
         TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { lagnuage.setDialog(); }
+        });
+    }
+    private void Email(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference().child("Contact").child("Email");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) { SendEmail.setText((String)snapshot.getValue()); }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+    private void Info(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference().child("About");
+        if (getResources().getConfiguration().locale.getDisplayLanguage().equals("English") || getResources().getConfiguration().locale.getDisplayLanguage().equals("אנגלית"))
+            ref = database.getReference().child("Contact").child("Info").child("English");
+        else if(getResources().getConfiguration().locale.getDisplayLanguage().equals("Hebrew") || getResources().getConfiguration().locale.getDisplayLanguage().equals("עברית"))
+            ref = database.getReference().child("Contact").child("Info").child("Hebrew");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) { ContactText.setText((String)snapshot.getValue()); }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
         });
     }
     private void MenuItem(){
@@ -96,6 +130,7 @@ public class Contact extends AppCompatActivity {
             public void onClick(View v) {
                 intent = new Intent(intent.ACTION_SEND);
                 String toArray[] = new String[1];
+                Email = SendEmail.getText().toString();
                 toArray[0] = Email;
                 intent.putExtra(intent.EXTRA_EMAIL, toArray);
                 intent.putExtra(intent.EXTRA_SUBJECT, getResources().getString(R.string.ContactSubject));

@@ -59,8 +59,7 @@ public class GuestLagnuage {
                 dialog.dismiss();
                 Locale locale;
                 if(adapterView.getItemAtPosition(i).toString().equals("English") || adapterView.getItemAtPosition(i).toString().equals("אנגלית")) {
-                    if (!context.getResources().getConfiguration().locale.getDisplayName().equals("English")) {
-                        Toast.makeText(context, context.getResources().getConfiguration().locale.getDisplayName(), Toast.LENGTH_SHORT).show();
+                    if (!context.getResources().getConfiguration().locale.getDisplayLanguage().equals("English") && !context.getResources().getConfiguration().locale.getDisplayLanguage().equals("אנגלית")) {
                         locale = new Locale("en");
                         Locale.setDefault(locale);
                         Resources resources = context.getResources();
@@ -72,7 +71,7 @@ public class GuestLagnuage {
                     }
                 }
                 else if(adapterView.getItemAtPosition(i).toString().equals("Hebrew") || adapterView.getItemAtPosition(i).toString().equals("עברית")) {
-                    if (!context.getResources().getConfiguration().locale.getDisplayName().equals("Hebrew")) {
+                    if (!context.getResources().getConfiguration().locale.getDisplayLanguage().equals("Hebrew") && !context.getResources().getConfiguration().locale.getDisplayLanguage().equals("עברית")) {
                         locale = new Locale("he");
                         Locale.setDefault(locale);
                         Resources resources = context.getResources();

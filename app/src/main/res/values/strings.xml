@@ -33,6 +33,9 @@
     <string name="SelectLanguage" translatable="true">Select Language</string>
     <string name="English" translatable="true">English</string>
     <string name="Hebrew" translatable="true">Hebrew</string>
+    <string name="Exit" translatable="true">Exit</string>
+    <string name="AreYouSureToExit" translatable="true">Are you sure you want to Exit?</string>
+
     <!-- SignIn Page -->
     <string name="Email" translatable="true">Email</string>
     <string name="CheckEmailVerify" translatable="true">This account not verify yet, please check the link sent to your email to verify this account.</string>
@@ -110,6 +113,7 @@
     <string name="TypeaMessage" translatable="true">Message</string>
     <!-- Profile Page -->
     <string name="CantChangeEmail" translatable="true">Cant Change Email</string>
+    <string name="ProfileUpdated" translatable="true">Profile successfully updated!</string>
     <string name="CameraPermissionDenied" translatable="true">Camera Permission Denied</string>
     <string name="Cammera" translatable="true">Cammera</string>
     <string name="Gallery" translatable="true">Gallery</string>
@@ -137,6 +141,8 @@
     <string name="Department" translatable="true">Department</string>
     <string name="Year" translatable="true">Year</string>
     <string name="Semester" translatable="true">Semester</string>
+    <string name="AddCourse" translatable="true">Add Course</string>
+    <string name="RemoveCourse" translatable="true">Remove Course</string>
     <!-- Arrays -->
     <string-array name="Lagnuage">
         <item>@string/Hebrew</item>

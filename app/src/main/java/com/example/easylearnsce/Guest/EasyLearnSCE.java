@@ -1,11 +1,14 @@
 package com.example.easylearnsce.Guest;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +21,7 @@ import com.example.easylearnsce.Class.GuestNavView;
 import com.example.easylearnsce.Class.Engineering;
 import com.example.easylearnsce.Class.SelectView;
 import com.example.easylearnsce.R;
+import com.example.easylearnsce.User.Home;
 import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,5 +102,19 @@ public class EasyLearnSCE extends AppCompatActivity {
         SelectView Select = new SelectView(this,selects);
         Tags.setLayoutManager(new GridLayoutManager(this,1));
         Tags.setAdapter(Select);
+    }
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(EasyLearnSCE.this);
+        builder.setTitle(getResources().getString(R.string.Exit)).setMessage(getResources().getString(R.string.AreYouSureToExit)).setCancelable(true)
+                .setPositiveButton(getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        System.exit(0);
+                    }
+                }).setNegativeButton(getResources().getString(R.string.No), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) { }
+        }).show();
     }
 }

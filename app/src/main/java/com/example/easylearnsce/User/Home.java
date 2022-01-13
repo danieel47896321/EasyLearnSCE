@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.easylearnsce.Class.Engineering;
 import com.example.easylearnsce.Class.SelectView;
@@ -29,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Home extends AppCompatActivity {
     private TextView Title, TextViewSearchLanguage;

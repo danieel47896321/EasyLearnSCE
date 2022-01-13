@@ -20,12 +20,12 @@ public class AddCourseDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.add_course,null);
-        builder.setView(view).setTitle("Add course").setNegativeButton("no",new DialogInterface.OnClickListener(){
+        builder.setView(view).setTitle(getResources().getString(R.string.Yes)).setNegativeButton(getResources().getString(R.string.AddCourse),new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
             }
-        }).setPositiveButton("yes", new DialogInterface.OnClickListener() {
+        }).setPositiveButton(getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 

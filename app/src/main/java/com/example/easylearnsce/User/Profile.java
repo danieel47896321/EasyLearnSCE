@@ -10,9 +10,11 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -187,7 +189,6 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(CheckInput()){
-                    loading = new Loading(Profile.this);
                     newUser.setEmail(user.getEmail());
                     newUser.setType(user.getType());
                     newUser.setUid(user.getUid());
@@ -201,7 +202,17 @@ public class Profile extends AppCompatActivity {
                         UploadImage();
                     else {
                         newUser.setImage(user.getImage());
-                        updateData();
+                        AlertDialog.Builder Builder;
+                        Builder = new AlertDialog.Builder(Profile.this, R.style.AppCompatAlertDialogStyle);
+                        Builder.setTitle(getResources().getString(R.string.Profile));
+                        Builder.setMessage(getResources().getString(R.string.ProfileUpdated));
+                        Builder.setPositiveButton(getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                updateData();
+                            }
+                        });
+                        Builder.setCancelable(false);
+                        Builder.create().show();
                     }
                 }
             }
@@ -211,7 +222,6 @@ public class Profile extends AppCompatActivity {
         databaseReference.child(user.getUid()).setValue(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                loading.stop();
                 user = newUser;
             }
         });
