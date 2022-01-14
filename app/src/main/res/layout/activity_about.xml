@@ -16,44 +16,53 @@
 
         <include
             android:id="@+id/include"
-            layout="@layout/toolbar" />
-
-        <TextView
-            android:id="@+id/Version"
-            style="@style/Custom_TextView_Big"
-            android:layout_width="0dp"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:text="@string/AboutVersion"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            style="@style/Custom_TextView_Big"
-            android:id="@+id/Copyright"
+        <ScrollView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/Copyright"
-            android:textSize="24dp"
-            app:layout_constraintEnd_toEndOf="@+id/Version"
-            app:layout_constraintStart_toStartOf="@+id/Version"
-            app:layout_constraintTop_toBottomOf="@+id/Version" />
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include">
 
-        <TextView
-            android:id="@+id/About"
-            style="@style/Custom_TextView_Big"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/AboutInfo"
-            android:textSize="24dp"
-            app:layout_constraintEnd_toEndOf="@+id/Version"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/Version"
-            app:layout_constraintTop_toBottomOf="@+id/Copyright" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/Version"
+                    style="@style/Custom_TextView_Big"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/AboutVersion" />
+
+                <TextView
+                    android:id="@+id/Copyright"
+                    style="@style/Custom_TextView_Big"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Copyright"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/About"
+                    style="@style/Custom_TextView_Big"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/AboutInfo"
+                    android:textSize="24dp" />
+            </LinearLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -65,4 +74,5 @@
         app:headerLayout="@layout/guest_nav_header"
         app:itemBackground="@drawable/drawer_list_selector"
         app:menu="@menu/guest_menu" />
+
 </androidx.drawerlayout.widget.DrawerLayout>

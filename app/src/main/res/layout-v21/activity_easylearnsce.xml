@@ -13,29 +13,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/sky">
+
         <include
             android:id="@+id/include"
-            layout="@layout/toolbar" />
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/LayoutTags"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="120dp"
-            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include"
-            app:layout_constraintVertical_bias="0.308">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/Tags"
+            app:layout_constraintTop_toBottomOf="@+id/include">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/Tags"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

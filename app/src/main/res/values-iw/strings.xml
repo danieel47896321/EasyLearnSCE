@@ -13,7 +13,7 @@
     <string name="PhoneExist" translatable="true">הטלפון כבר קיים במערכת</string>
     <string name="WrongPassword" translatable="true">סיסמה שגויה</string>
     <string name="Next" translatable="true">הבא</string>
-    <string name="DifferentPassword" translatable="true">סיסמה לא תואמת</string>
+    <string name="DifferentPassword" translatable="true">אימות סיסמה לא תואמת</string>
     <string name="OK" translatable="true">אישור</string>
     <string name="Loading" translatable="true">טוען</string>
     <string name="Finish" translatable="true">סיום</string>
@@ -49,7 +49,7 @@
     <string name="LastName" translatable="true">שם משפחה</string>
     <string name="Phone" translatable="true">טלפון</string>
     <string name="PhoneLenth" translatable="true">חובה להזין 10 ספרות</string>
-    <string name="ConfirmPassword" translatable="true">אימות</string>
+    <string name="ConfirmPassword" translatable="true">אימות סיסמה</string>
     <string name="AlreadyHaveAccount" translatable="true">קיים כבר משתמש? כניסה</string>
     <!-- CreateAccountValidation Page -->
     <string name="CreateAccountValidation" translatable="true">אימות צור חשבון</string>

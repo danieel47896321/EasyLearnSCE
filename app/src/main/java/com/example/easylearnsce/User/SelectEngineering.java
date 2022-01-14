@@ -94,10 +94,10 @@ public class SelectEngineering extends AppCompatActivity {
         });
     }
     private void UserSearch(String text) {
-        Query query;
-        if (getResources().getConfiguration().locale.getDisplayName().equals("Hebrew"))
+        Query query = FirebaseDatabase.getInstance().getReference().child("Engineering").child("Hebrew");
+        if(getResources().getConfiguration().locale.getDisplayName().equals("Hebrew") || getResources().getConfiguration().locale.getDisplayName().equals("עברית"))
             query = FirebaseDatabase.getInstance().getReference().child("Engineering").child("Hebrew");
-        else
+        else if (getResources().getConfiguration().locale.getDisplayName().equals("English") || getResources().getConfiguration().locale.getDisplayName().equals("אנגלית"))
             query = FirebaseDatabase.getInstance().getReference().child("Engineering").child("English");
         query.addValueEventListener(new ValueEventListener() {
             @Override

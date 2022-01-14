@@ -12,7 +12,7 @@
     <string name="PhoneExist" translatable="true">Phone exist in the system</string>
     <string name="WrongPassword" translatable="true">Wrong Password</string>
     <string name="Next" translatable="true">Next</string>
-    <string name="DifferentPassword" translatable="true">Comfirm Not match</string>
+    <string name="DifferentPassword" translatable="true">Comfirm Password Not match</string>
     <string name="OK" translatable="true">Ok</string>
     <string name="Loading" translatable="true">Loading</string>
     <string name="Finish" translatable="true">Finish</string>
@@ -49,7 +49,7 @@
     <string name="LastName" translatable="true">Last Name</string>
     <string name="Phone" translatable="true">Phone</string>
     <string name="PhoneLenth" translatable="true">Required 10 digits</string>
-    <string name="ConfirmPassword" translatable="true">Confirm</string>
+    <string name="ConfirmPassword" translatable="true">Confirm Password</string>
     <string name="AlreadyHaveAccount" translatable="true">Already Have Account? Sign In</string>
     <!-- CreateAccountValidation Page -->
     <string name="CreateAccountValidation" translatable="true">Create Account Validation</string>
