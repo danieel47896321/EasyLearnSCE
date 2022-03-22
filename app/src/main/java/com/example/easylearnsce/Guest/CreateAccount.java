@@ -1,14 +1,17 @@
 package com.example.easylearnsce.Guest;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,13 +22,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.easylearnsce.Class.GuestLagnuage;
-import com.example.easylearnsce.Class.GuestNavView;
+import com.example.easylearnsce.Class.GuestNavigationView;
 import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.PopUpMSG;
 import com.example.easylearnsce.Class.User;
@@ -34,33 +39,35 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Random;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class CreateAccount extends AppCompatActivity {
     private ImageView BackIcon, MenuIcon;
     private DrawerLayout drawerLayout;
-    private NavigationView GuestNavView;
-    private TextInputLayout TextInputLayoutFirstName, TextInputLayoutLastName ,TextInputLayoutEmail, TextInputLayoutPassword, TextInputLayoutPasswordConfirm;
-    private TextView Title, SignIn, TextViewSearchCity, TextViewSearchAge, TextViewSearchGender,TextViewSearch, gender_vali, age_vali, city_vali, TextViewSearchLanguage;
+    private NavigationView navigationView;
+    private TextInputLayout TextInputLayoutFirstName, TextInputLayoutLastName ,TextInputLayoutEmail, TextInputLayoutPassword, TextInputLayoutPasswordConfirm, TextInputLayoutGender, TextInputLayoutAge, TextInputLayoutCity;
+    private TextView Title, SignIn, TextViewSearchCity, TextViewSearchAge, TextViewSearchGender,TextViewSearch, TextViewSearchLanguage;
     private Dialog dialog;
+    private Calendar calendar = Calendar.getInstance();
+    private int Year = calendar.get(Calendar.YEAR), Month = calendar.get(Calendar.MONTH), Day = calendar.get(Calendar.DAY_OF_MONTH), UserYear, UserMonth, UserDay;
     private ListView ListViewSearch;
     private EditText EditTextSearch;
-    private Button ButtonNext, next_btn;
+    private Button ButtonNext, NextButtonFinish;
     private Loading loading;
-    private GuestLagnuage lagnuage;
+    private GuestLagnuage guestLagnuage;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance() ;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference().child("Users");
-    private Intent intent;
     private User user = new User();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +82,7 @@ public class CreateAccount extends AppCompatActivity {
         BackIcon();
         MenuIcon();
         EndIcon();
-        NavView();
+        NavigationView();
         SignOut();
         AlreadyHaveAccount();
         CreateAccountCheck();
@@ -85,7 +92,7 @@ public class CreateAccount extends AppCompatActivity {
         BackIcon = findViewById(R.id.BackIcon);
         drawerLayout = findViewById(R.id.drawerLayout);
         Title = findViewById(R.id.Title);
-        GuestNavView = findViewById(R.id.GuestNavView);
+        navigationView = findViewById(R.id.navigationView);
         Title.setText(R.string.CreateAccount);
         SignIn = findViewById(R.id.SignIn);
         TextInputLayoutFirstName = findViewById(R.id.TextInputLayoutFirstName);
@@ -95,16 +102,16 @@ public class CreateAccount extends AppCompatActivity {
         TextInputLayoutPasswordConfirm = findViewById(R.id.TextInputLayoutPasswordConfirm);
         ButtonNext = findViewById(R.id.ButtonNext);
         TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        lagnuage = new GuestLagnuage(CreateAccount.this);
+        guestLagnuage = new GuestLagnuage(CreateAccount.this);
     }
     private void setLanguage(){
         TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { lagnuage.setDialog(); }
+            public void onClick(View view) { guestLagnuage.setDialog(); }
         });
     }
     private void MenuItem(){
-        Menu menu= GuestNavView.getMenu();
+        Menu menu= navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.ItemCreateAccount);
         menuItem.setCheckable(false);
         menuItem.setChecked(true);
@@ -138,11 +145,11 @@ public class CreateAccount extends AppCompatActivity {
             public void onClick(View v) { drawerLayout.open(); }
         });
     }
-    private void NavView(){
-        GuestNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+    private void NavigationView(){
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                new GuestNavView(CreateAccount.this, item.getItemId());
+                new GuestNavigationView(CreateAccount.this, item.getItemId());
                 return false;
             }
         });
@@ -159,9 +166,8 @@ public class CreateAccount extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
                 loading.stop();
-                if(!task.getResult().getSignInMethods().isEmpty()){
+                if(!task.getResult().getSignInMethods().isEmpty())
                     TextInputLayoutEmail.setHelperText(getResources().getString(R.string.EmailExist));
-                }
                 else {
                     TextInputLayoutEmail.setHelperText("");
                     fillInfo();
@@ -169,7 +175,6 @@ public class CreateAccount extends AppCompatActivity {
             }
         });
     }
-
     private boolean CheckEmail(){
         if(TextInputLayoutEmail.getEditText().getText().length()<1) {
             TextInputLayoutEmail.setHelperText(getResources().getString(R.string.Required));
@@ -256,38 +261,38 @@ public class CreateAccount extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.dialog_createaccount,null);
         builder.setCancelable(false);
         builder.setView(dialogView);
+        TextInputLayoutGender = dialogView.findViewById(R.id.TextInputLayoutGender);
+        TextInputLayoutCity = dialogView.findViewById(R.id.TextInputLayoutCity);
+        TextInputLayoutAge = dialogView.findViewById(R.id.TextInputLayoutAge);
         TextViewSearchCity = dialogView.findViewById(R.id.TextViewSearchCity);
         TextViewSearchAge = dialogView.findViewById(R.id.TextViewSearchAge);
         TextViewSearchGender = dialogView.findViewById(R.id.TextViewSearchGender);
-        next_btn  = dialogView.findViewById(R.id.next_btn);
-        age_vali = dialogView.findViewById(R.id.age_vali);
-        city_vali = dialogView.findViewById(R.id.city_vali);
-        gender_vali = dialogView.findViewById(R.id.gender_vali);
-        city_vali.setVisibility(View.INVISIBLE);
-        age_vali.setVisibility(View.INVISIBLE);
-        gender_vali.setVisibility(View.INVISIBLE);
+        NextButtonFinish = dialogView.findViewById(R.id.NextButtonFinish);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
         CityPick();
         AgePick();
         GenderPick();
-        next_btn.setOnClickListener(new View.OnClickListener() {
+        NextButtonFinish.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                if(TextViewSearchCity.getText().toString().equals(""))
-                    city_vali.setVisibility(View.VISIBLE);
+                if(TextInputLayoutGender.getEditText().getText().toString().equals(""))
+                    TextInputLayoutGender.setHelperText(getResources().getString(R.string.Required));
                 else
-                    city_vali.setVisibility(View.INVISIBLE);
-                if(TextViewSearchAge.getText().toString().equals(""))
-                    age_vali.setVisibility(View.VISIBLE);
+                    TextInputLayoutGender.setHelperText("");
+                if(TextInputLayoutAge.getEditText().getText().toString().equals(""))
+                    TextInputLayoutAge.setHelperText(getResources().getString(R.string.Required));
+                else if(Period.between(LocalDate.of(Integer.valueOf(user.getYear()), Integer.valueOf(user.getMonth()), Integer.valueOf(user.getDay())),LocalDate.of(Year, Month+1, Day)).getYears() < 18)
+                    TextInputLayoutAge.setHelperText(getResources().getString(R.string.RequiredAge18OrMore));
                 else
-                    age_vali.setVisibility(View.INVISIBLE);
-                if(TextViewSearchGender.getText().toString().equals(""))
-                    gender_vali.setVisibility(View.VISIBLE);
+                    TextInputLayoutAge.setHelperText("");
+                if(TextInputLayoutCity.getEditText().getText().toString().equals(""))
+                    TextInputLayoutCity.setHelperText(getResources().getString(R.string.Required));
                 else
-                    gender_vali.setVisibility(View.INVISIBLE);
-                if(!(TextViewSearchCity.getText().toString().equals("")) && !(TextViewSearchAge.getText().toString().equals("")) && !(TextViewSearchGender.getText().toString().equals(""))){
+                    TextInputLayoutCity.setHelperText("");
+                if(!(TextInputLayoutCity.getEditText().getText().toString().equals("")) && !(TextInputLayoutAge.getEditText().getText().toString().equals("")) && !(TextInputLayoutGender.getEditText().getText().toString().equals(""))){
                     alertDialog.cancel();
                     CreateAccount();
                 }
@@ -296,9 +301,12 @@ public class CreateAccount extends AppCompatActivity {
     }
     private void CreateAccount(){
         user = new User(TextInputLayoutFirstName.getEditText().getText().toString(), TextInputLayoutLastName.getEditText().getText().toString(), TextInputLayoutEmail.getEditText().getText().toString());
-        user.setCity(TextViewSearchCity.getText().toString());
-        user.setAge(TextViewSearchAge.getText().toString());
-        user.setGender(TextViewSearchGender.getText().toString());
+        user.setCity(TextInputLayoutCity.getEditText().getText().toString());
+        user.setGender(TextInputLayoutGender.getEditText().getText().toString());
+        user.setDay(UserDay+"");
+        user.setMonth(UserMonth+"");
+        user.setYear(UserYear+"");
+        user.setBirthDay(UserDay + "/" + UserMonth + "/" + UserYear);
         firebaseAuth.createUserWithEmailAndPassword(user.getEmail(),TextInputLayoutPassword.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -307,7 +315,7 @@ public class CreateAccount extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             user.setUid(firebaseAuth.getUid());
-                            user.setFullName(user.getFirstname()+" "+user.getLastname());
+                            user.setFullName(user.getFirstName()+" "+user.getLastName());
                             databaseReference.child(firebaseAuth.getCurrentUser().getUid()).setValue(user);
                             new PopUpMSG(CreateAccount.this, getResources().getString(R.string.CreateAccount), getResources().getString(R.string.CompleteCreateAccount), SignIn.class);
                         }
@@ -317,29 +325,36 @@ public class CreateAccount extends AppCompatActivity {
         });
     }
     private void CityPick(){
-        TextViewSearchCity.setOnClickListener(new View.OnClickListener() {
+        TextInputLayoutCity.getEditText().setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                setDialog(getResources().getStringArray(R.array.City),getResources().getString(R.string.SelectCity),TextViewSearchCity);
-            }
+            public void onClick(View view) { setDialog(getResources().getStringArray(R.array.City),getResources().getString(R.string.SelectCity),TextInputLayoutCity.getEditText()); }
         });
     }
     private void AgePick(){
-        String age[] = new String[102];
-        for(int i=0; i < age.length ; i++)
-            age[i] = ""+(i+18);
-        TextViewSearchAge.setOnClickListener(new View.OnClickListener() {
+        TextInputLayoutAge.getEditText().setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                setDialog(age ,getResources().getString(R.string.SelectAge),TextViewSearchAge);
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(CreateAccount.this, new DatePickerDialog.OnDateSetListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month = month + 1;
+                        UserMonth = month;
+                        UserYear = year;
+                        UserDay = dayOfMonth;
+                        String Date = dayOfMonth + "/" + month + "/" + year;
+                        TextInputLayoutAge.getEditText().setText(Date);
+                    }
+                },Year, Month, Day);
+                datePickerDialog.show();
             }
         });
     }
     private void GenderPick(){
-        TextViewSearchGender.setOnClickListener(new View.OnClickListener() {
+        TextInputLayoutGender.getEditText().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setDialog(getResources().getStringArray(R.array.Gender),getResources().getString(R.string.SelectGender),TextViewSearchGender);
+                setDialog(getResources().getStringArray(R.array.Gender),getResources().getString(R.string.SelectGender),TextInputLayoutGender.getEditText());
             }
         });
     }

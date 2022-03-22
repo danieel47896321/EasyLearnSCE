@@ -45,7 +45,7 @@ public class GenericEngineering extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView UserNavigationView;
     private UserLanguage lagnuage;
-    private TextView title,user_fullname,user_email,TextViewSearchLanguage, User_search;
+    private TextView title, TextViewSearchLanguage, User_search;
     private User user = new User();
     private String Engineering = "Engineering";
     private RecyclerView viewList;
@@ -61,7 +61,7 @@ public class GenericEngineering extends AppCompatActivity {
     }
     public void init(){
         setID();
-        ChoseEngineering();
+        MenuItem();
         BackIcon();
         MenuIcon();
         setLanguage();
@@ -82,13 +82,8 @@ public class GenericEngineering extends AppCompatActivity {
         BackIcon = findViewById(R.id.BackIcon);
         user_navView = findViewById(R.id.UserNavigationView);
         Engineering = (String)intent.getSerializableExtra("Engineering");
-        title.setText(Engineering);
         user = (User)intent.getSerializableExtra("user");
         user.setEngineering(title.getText().toString());
-        user_fullname = user_navView.getHeaderView(0).findViewById(R.id.user_fullname);
-        user_email = user_navView.getHeaderView(0).findViewById(R.id.user_email);
-        user_fullname.setText(user.getFirstname()+" "+user.getLastname());
-        user_email.setText(user.getEmail());
         UserNavigationView = findViewById(R.id.UserNavigationView);
         drawerLayout = findViewById(R.id.drawerLayout);
         new UserMenuAdapter(user,GenericEngineering.this);
@@ -97,10 +92,59 @@ public class GenericEngineering extends AppCompatActivity {
     }
     private void MenuItem(){
         Menu menu= UserNavigationView.getMenu();
-        MenuItem menuItem = menu.findItem(R.id.ItemSelectEngineering);
+        MenuItem Item1 = menu.findItem(R.id.StructuralEngineering);
+        MenuItem Item2 = menu.findItem(R.id.MechanicalEngineering);
+        MenuItem Item3 = menu.findItem(R.id.ElectricalEngineering);
+        MenuItem Item4 = menu.findItem(R.id.SoftwareEngineering);
+        MenuItem Item5 = menu.findItem(R.id.IndustrialEngineering);
+        MenuItem Item6 = menu.findItem(R.id.ChemicalEngineering);
+        MenuItem Item7 = menu.findItem(R.id.ProgrammingComputer);
+        MenuItem Item8 = menu.findItem(R.id.PreEngineering);
+        Item1.setVisible(true);
+        Item2.setVisible(true);
+        Item3.setVisible(true);
+        Item4.setVisible(true);
+        Item5.setVisible(true);
+        Item6.setVisible(true);
+        Item7.setVisible(true);
+        Item8.setVisible(true);
+        MenuItem menuItem = menu.findItem(R.id.StructuralEngineering);
+        if(Engineering.equals("Structural Engineering") || Engineering.equals("הנדסת בניין")) {
+            menuItem = menu.findItem(R.id.StructuralEngineering);
+            title.setText(getResources().getString(R.string.StructuralEngineering));
+        }
+        else if(Engineering.equals("Mechanical Engineering") || Engineering.equals("הנדסת מכונות")) {
+            menuItem = menu.findItem(R.id.MechanicalEngineering);
+            title.setText(getResources().getString(R.string.MechanicalEngineering));
+        }
+        else if(Engineering.equals("Electrical Engineering") || Engineering.equals("הנדסת חשמל ואלקטרוניקה")){
+            menuItem = menu.findItem(R.id.ElectricalEngineering);
+            title.setText(getResources().getString(R.string.ElectricalEngineering));
+        }
+        else if(Engineering.equals("Software Engineering") || Engineering.equals("הנדסת תוכנה")){
+            menuItem = menu.findItem(R.id.SoftwareEngineering);
+            title.setText(getResources().getString(R.string.SoftwareEngineering));
+        }
+        else if(Engineering.equals("Industrial Engineering") || Engineering.equals("הנדסת תעשייה וניהול")){
+            menuItem = menu.findItem(R.id.IndustrialEngineering);
+            title.setText(getResources().getString(R.string.IndustrialEngineering));
+        }
+        else if(Engineering.equals("Chemical Engineering") || Engineering.equals("הנדסת כימיה")){
+            menuItem = menu.findItem(R.id.ChemicalEngineering);
+            title.setText(getResources().getString(R.string.ChemicalEngineering));
+        }
+        else if(Engineering.equals("Programming Engineering") || Engineering.equals("מדעי המחשב")){
+            menuItem = menu.findItem(R.id.ProgrammingComputer);
+            title.setText(getResources().getString(R.string.ProgrammingComputer));
+        }
+        else if(Engineering.equals("Pre Engineering") || Engineering.equals("מכינה")){
+            menuItem = menu.findItem(R.id.PreEngineering);
+            title.setText(getResources().getString(R.string.PreEngineering));
+        }
         menuItem.setCheckable(false);
         menuItem.setChecked(true);
         menuItem.setEnabled(false);
+        ChoseEngineering();
     }
     private void addCourse(){
         if(user.getType().equals("Admin") || user.getType().equals("Teacher")) {
@@ -181,10 +225,10 @@ public class GenericEngineering extends AppCompatActivity {
     }
     private void setCourses(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference;
-        if (getResources().getConfiguration().locale.getDisplayName().equals("Hebrew"))
+        DatabaseReference reference = database.getReference().child("Courses").child(getEngineeringName()).child("Hebrew");;
+        if (getResources().getConfiguration().locale.getDisplayLanguage().equals("Hebrew") || getResources().getConfiguration().locale.getDisplayLanguage().equals("עברית"))
             reference = database.getReference().child("Courses").child(getEngineeringName()).child("Hebrew");
-        else
+        else if (getResources().getConfiguration().locale.getDisplayLanguage().equals("English") || getResources().getConfiguration().locale.getDisplayLanguage().equals("אנגלית"))
             reference = database.getReference().child("Courses").child(getEngineeringName()).child("English");
         reference.setValue(courses);
     }

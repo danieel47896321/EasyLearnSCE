@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "844764264617",
+    "firebase_url": "https://easylearnsce-default-rtdb.firebaseio.com",
+    "project_id": "easylearnsce",
+    "storage_bucket": "easylearnsce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844764264617:android:4ccc117b20efebacee11b8",
+        "android_client_info": {
+          "package_name": "com.example.easylearnsce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "844764264617-qr5u9sb8jebd00chka6vh7j1npjpq9p1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.easylearnsce",
+            "certificate_hash": "6671ac57bdcdff727ecbd5b22190c4065db055a1"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwgouOE-EGANd6yUk8NxgJCag7may6Iqc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "844764264617-mlpg7t7cm17pgtr2ui7i05e8rtpk3e87.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

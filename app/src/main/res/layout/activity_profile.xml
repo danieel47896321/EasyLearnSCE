@@ -14,235 +14,263 @@
         android:layout_height="match_parent"
         android:background="@color/sky">
 
-
         <include
-            android:id="@+id/include"
-            layout="@layout/toolbar" />
+            android:id="@+id/header"
+            layout="@layout/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-        <View
-            android:id="@+id/UserProfileImage"
+        <ScrollView
             android:layout_width="0dp"
-            android:layout_height="210dp"
-            android:background="@color/blue"
+            android:layout_height="0dp"
+            android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/header">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TextInputLayoutFirstName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="168dp"
-            android:layout_height="90dp"
-            android:layout_marginTop="16dp"
-            android:gravity="start"
-            android:hint="@string/FirstName"
-            android:textColorHint="@color/white"
-            app:boxStrokeColor="@color/white"
-            app:boxStrokeWidth="3dp"
-            app:boxStrokeWidthFocused="3dp"
-            app:counterEnabled="false"
-            app:counterOverflowTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:counterTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:counterTextColor="@color/white"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/white"
-            app:helperTextTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:helperTextTextColor="@color/red"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
-            app:hintTextColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/TextInputLayoutEmail"
-            app:layout_constraintTop_toBottomOf="@+id/UserProfileImage"
-            app:startIconTint="@color/white">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/TextInputEditTextInputFirstName"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:gravity="start"
-                android:inputType="textPersonName"
-                android:textAlignment="viewStart"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TextInputLayoutLastName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="90dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:gravity="start"
-            android:hint="@string/LastName"
-            android:textColorHint="@color/white"
-            app:boxStrokeColor="@color/white"
-            app:boxStrokeWidth="3dp"
-            app:boxStrokeWidthFocused="3dp"
-            app:counterEnabled="false"
-            app:counterOverflowTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:counterTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:counterTextColor="@color/white"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/white"
-            app:helperTextTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:helperTextTextColor="@color/red"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
-            app:hintTextColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/TextInputLayoutFirstName"
-            app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutEmail"
-            app:layout_constraintHorizontal_bias="0.619"
-            app:layout_constraintStart_toEndOf="@+id/TextInputLayoutFirstName"
-            app:layout_constraintTop_toTopOf="@+id/TextInputLayoutFirstName"
-            app:layout_constraintVertical_bias="0.0"
-            app:startIconTint="@color/white">
+                <View
+                    android:id="@+id/UserProfileImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:background="@drawable/openingscreen"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/TextInputEditTextInputLastName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:gravity="start"
-                android:inputType="textPersonName"
-                android:textAlignment="viewStart"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/addImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:layout_gravity="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/UserProfileImage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/add_photo"
+                    tools:ignore="VectorDrawableCompat" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TextInputLayoutFirstName"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"
+                    android:gravity="start"
+                    android:hint="@string/FirstName"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/white"
+                    app:boxStrokeWidth="3dp"
+                    app:boxStrokeWidthFocused="3dp"
+                    app:counterEnabled="false"
+                    app:counterOverflowTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:counterTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:counterTextColor="@color/white"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/white"
+                    app:helperTextTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:helperTextTextColor="@color/red"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:hintTextColor="@color/white"
+                    app:startIconTint="@color/white">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TextInputLayoutEmail"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="90dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginRight="32dp"
-            android:gravity="start"
-            android:hint="@string/Email"
-            android:textColorHint="@color/white"
-            app:boxStrokeColor="@color/white"
-            app:boxStrokeWidth="3dp"
-            app:boxStrokeWidthFocused="3dp"
-            app:counterEnabled="false"
-            app:endIconMode="none"
-            app:endIconTint="@color/white"
-            app:helperText="@string/CantChangeEmail"
-            app:helperTextTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:helperTextTextColor="@color/yellow"
-            app:hintTextColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutFirstName">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TextInputEditTextInputFirstName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:inputType="textPersonName"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/TextInputEditTextInputEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:enabled="false"
-                android:gravity="start"
-                android:inputType="none"
-                android:textAlignment="viewStart"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TextInputLayoutLastName"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"
+                    android:gravity="start"
+                    android:hint="@string/LastName"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/white"
+                    app:boxStrokeWidth="3dp"
+                    app:boxStrokeWidthFocused="3dp"
+                    app:counterEnabled="false"
+                    app:counterOverflowTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:counterTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:counterTextColor="@color/white"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/white"
+                    app:helperTextTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:helperTextTextColor="@color/red"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:hintTextColor="@color/white"
+                    app:startIconTint="@color/white">
 
-        <TextView
-            android:id="@+id/TextViewSearchCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/drop_down"
-            android:drawableRight="@drawable/drop_down"
-            android:gravity="center"
-            android:hint="@string/City"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/TextViewSearchAge"
-            app:layout_constraintEnd_toStartOf="@+id/TextViewSearchAge"
-            app:layout_constraintTop_toTopOf="@+id/TextViewSearchAge" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TextInputEditTextInputLastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:inputType="textPersonName"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/TextViewSearchAge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:drawableEnd="@drawable/drop_down"
-            android:drawableRight="@drawable/drop_down"
-            android:gravity="center"
-            android:hint="@string/Age"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutEmail"
-            app:layout_constraintStart_toStartOf="@+id/TextInputLayoutEmail"
-            app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutEmail" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/TextViewSearchGender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/drop_down"
-            android:drawableRight="@drawable/drop_down"
-            android:gravity="center"
-            android:hint="@string/Gender"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/TextViewSearchAge"
-            app:layout_constraintStart_toEndOf="@+id/TextViewSearchAge"
-            app:layout_constraintTop_toTopOf="@+id/TextViewSearchAge"
-            app:layout_constraintVertical_bias="0.0" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TextInputLayoutEmail"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"
+                    android:gravity="start"
+                    android:hint="@string/Email"
+                    android:textColorHint="@color/white"
+                    app:boxStrokeColor="@color/white"
+                    app:boxStrokeWidth="3dp"
+                    app:boxStrokeWidthFocused="3dp"
+                    app:counterEnabled="false"
+                    app:endIconMode="none"
+                    app:endIconTint="@color/white"
+                    app:helperText="@string/CantChangeEmail"
+                    app:helperTextTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:helperTextTextColor="@color/yellow"
+                    app:hintTextColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutFirstName">
 
-        <Button
-            android:id="@+id/confirm"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/button_background"
-            android:paddingLeft="10dp"
-            android:paddingTop="0dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            android:text="@string/UpdateProfile"
-            android:textAllCaps="false"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:backgroundTint="@color/blue"
-            app:iconPadding="0dp"
-            app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutEmail"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/TextInputLayoutEmail"
-            app:layout_constraintTop_toBottomOf="@+id/TextViewSearchGender" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TextInputEditTextInputEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:enabled="false"
+                        android:gravity="start"
+                        android:inputType="none"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageView
-            android:id="@+id/addImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="@+id/UserProfileImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/add_photo"
-            tools:ignore="VectorDrawableCompat" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
+                        <TextView
+                            android:id="@+id/TextViewSearchCity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/drop_down"
+                            android:drawableRight="@drawable/drop_down"
+                            android:gravity="center"
+                            android:hint="@string/City"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/TextViewSearchAge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/drop_down"
+                            android:drawableRight="@drawable/drop_down"
+                            android:gravity="center"
+                            android:hint="@string/Age"
+                            android:padding="10dp"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/TextViewSearchCity"
+                            app:layout_constraintEnd_toStartOf="@+id/TextViewSearchGender"
+                            app:layout_constraintStart_toEndOf="@+id/TextViewSearchCity"
+                            app:layout_constraintTop_toTopOf="@+id/TextViewSearchCity" />
+
+                        <TextView
+                            android:id="@+id/TextViewSearchGender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/drop_down"
+                            android:drawableRight="@drawable/drop_down"
+                            android:gravity="center"
+                            android:hint="@string/Gender"
+                            android:padding="10dp"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/TextViewSearchAge"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/TextViewSearchAge" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"
+                    android:background="@drawable/button_background"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="0dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/UpdateProfile"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/blue" />
+
+            </LinearLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

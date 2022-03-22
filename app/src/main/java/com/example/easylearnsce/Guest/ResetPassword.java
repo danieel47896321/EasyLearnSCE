@@ -13,11 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.easylearnsce.Class.GuestLagnuage;
-import com.example.easylearnsce.Class.GuestNavView;
+import com.example.easylearnsce.Class.GuestNavigationView;
 import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.PopUpMSG;
 import com.example.easylearnsce.R;
-import com.example.easylearnsce.User.ChangePassword;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -29,10 +28,10 @@ public class ResetPassword extends AppCompatActivity {
     private Button ButtonFinish;
     private TextInputLayout TextInputLayoutEmail;
     private DrawerLayout drawerLayout;
-    private NavigationView GuestNavView;
+    private NavigationView navigationView;
     private ImageView BackIcon, MenuIcon;
     private TextView CreateAccount, Title, TextViewSearchLanguage;
-    private GuestLagnuage lagnuage;
+    private GuestLagnuage guestLagnuage;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance() ;
     private Loading loading;
     @Override
@@ -48,7 +47,7 @@ public class ResetPassword extends AppCompatActivity {
         BackIcon();
         MenuIcon();
         EndIcon();
-        NavView();
+        NavigationView();
         ResetPassword();
         CreateAccount();
     }
@@ -57,22 +56,22 @@ public class ResetPassword extends AppCompatActivity {
         BackIcon = findViewById(R.id.BackIcon);
         drawerLayout = findViewById(R.id.drawerLayout);
         Title = findViewById(R.id.Title);
-        GuestNavView = findViewById(R.id.GuestNavView);
+        navigationView = findViewById(R.id.navigationView);
         Title.setText(R.string.ResetPassword);
         ButtonFinish = findViewById(R.id.ButtonFinish);
         CreateAccount = findViewById(R.id.CreateAccount);
         TextInputLayoutEmail = findViewById(R.id.TextInputLayoutEmail);
         TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        lagnuage = new GuestLagnuage(ResetPassword .this);
+        guestLagnuage = new GuestLagnuage(ResetPassword .this);
     }
     private void setLanguage(){
         TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { lagnuage.setDialog(); }
+            public void onClick(View view) { guestLagnuage.setDialog(); }
         });
     }
     private void MenuItem(){
-        Menu menu= GuestNavView.getMenu();
+        Menu menu= navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.ItemResetPassword);
         menuItem.setCheckable(false);
         menuItem.setChecked(true);
@@ -94,11 +93,11 @@ public class ResetPassword extends AppCompatActivity {
             public void onClick(View v) { drawerLayout.open(); }
         });
     }
-    private void NavView(){
-        GuestNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+    private void NavigationView(){
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                new GuestNavView(ResetPassword.this, item.getItemId());
+                new GuestNavigationView(ResetPassword.this, item.getItemId());
                 return false;
             }
         });
@@ -109,31 +108,28 @@ public class ResetPassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(TextInputLayoutEmail.getEditText().getText().length() > 0) {
-                    String Email = TextInputLayoutEmail.getEditText().getText().toString();
-                     if(!isEmailValid(Email))
+                    if(!isEmailValid(TextInputLayoutEmail.getEditText().getText().toString()))
                         TextInputLayoutEmail.setHelperText(getResources().getString(R.string.InvalidEmail));
                     else {
-                         loading = new Loading(ResetPassword.this);
-                         firebaseAuth.fetchSignInMethodsForEmail(TextInputLayoutEmail.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
-                             @Override
-                             public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                                 loading.stop();
-                                 if(!task.getResult().getSignInMethods().isEmpty()) {
-                                     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                                     firebaseAuth.sendPasswordResetEmail(Email);
-                                     new PopUpMSG(ResetPassword.this,getResources().getString(R.string.ResetPassword),getResources().getString(R.string.ResetLink),SignIn.class);
-                                 }
-                                 else
-                                     TextInputLayoutEmail.setHelperText(getResources().getString(R.string.EmailNotExist));
-                             }
-                         });
+                        loading = new Loading(ResetPassword.this);
+                        firebaseAuth.fetchSignInMethodsForEmail(TextInputLayoutEmail.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                                loading.stop();
+                                if(!task.getResult().getSignInMethods().isEmpty()) {
+                                    FirebaseAuth.getInstance().sendPasswordResetEmail(TextInputLayoutEmail.getEditText().getText().toString());
+                                    new PopUpMSG(ResetPassword.this,getResources().getString(R.string.ResetPassword),getResources().getString(R.string.ResetLink),SignIn.class);
+                                }
+                                else
+                                    TextInputLayoutEmail.setHelperText(getResources().getString(R.string.EmailNotExist));
+                            }
+                        });
                     }
                 }
-                if(TextInputLayoutEmail.getEditText().getText().length() < 1)
+                else
                     TextInputLayoutEmail.setHelperText(getResources().getString(R.string.Required));
             }
         });
-
     }
     private void CreateAccount(){
         CreateAccount.setOnClickListener(new View.OnClickListener() {

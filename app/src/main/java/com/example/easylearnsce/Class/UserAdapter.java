@@ -32,12 +32,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = users.get(position);
-        holder.FragmentUserName.setText(user.getFirstname()+" "+user.getLastname());
-        holder.FragmentUserInfo.setText(user.getGender()+", "+user.getAge()+", "+user.getCity());
+        holder.FragmentUserName.setText(user.getFirstName()+" "+user.getLastName());
+        //holder.FragmentUserInfo.setText(user.getGender()+", "+user.getAge()+", "+user.getCity());
         if(!user.getImage().equals("Image"))
             Glide.with(context).load(user.getImage()).into(holder.FragmentUserImage);
-        else
-            holder.FragmentUserImage.setImageResource(R.mipmap.ic_launcher);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

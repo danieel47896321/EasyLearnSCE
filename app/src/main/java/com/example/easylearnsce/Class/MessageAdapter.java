@@ -49,13 +49,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         if(chats.get(position).getSender().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
             holder.sender_image.setVisibility(View.GONE);
         else {
-            if (imageUrl.equals("Image"))
-                holder.sender_image.setImageResource(R.mipmap.ic_launcher);
-            else
+            if(!imageUrl.equals("Image"))
                 Glide.with(context).load(imageUrl).into(holder.sender_image);
         }
-
-
     }
     @Override
     public int getItemViewType(int position) {

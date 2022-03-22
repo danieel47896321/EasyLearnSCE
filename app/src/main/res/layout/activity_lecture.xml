@@ -8,8 +8,8 @@
     android:background="@color/sky">
 
     <include
-        android:id="@+id/include"
-        layout="@layout/toolbar" />
+        android:id="@+id/header"
+        layout="@layout/header" />
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/UserNavigationView"
@@ -18,7 +18,7 @@
         android:visibility="invisible"
         app:headerLayout="@layout/user_nav_header"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintTop_toBottomOf="@+id/header"
         app:menu="@menu/user_menu"
         tools:ignore="MissingConstraints" />
 

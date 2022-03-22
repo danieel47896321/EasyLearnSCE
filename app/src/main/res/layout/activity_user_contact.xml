@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,12 +6,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sky"
-    tools:context=".Guest.About">
+    tools:context=".User.UserContact">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/sky">
 
         <include
             android:id="@+id/header"
@@ -35,48 +34,40 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:gravity="center_vertical"
-                android:orientation="vertical">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/header">
 
                 <TextView
-                    android:id="@+id/Version"
+                    android:id="@+id/ContactText"
                     style="@style/Custom_TextView_Big"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/AboutVersion" />
+                    android:text="@string/ContactInfo" />
 
                 <TextView
-                    android:id="@+id/Copyright"
-                    style="@style/Custom_TextView_Big"
+                    android:id="@+id/SendEmail"
+                    style="@style/Custom_TextView_Normal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/Copyright"
-                    android:textSize="24dp" />
+                    android:textSize="24dp"
+                    android:layout_marginTop="30dp"
+                    android:text="EasyLearnSCE@gmail.com"
+                    app:layout_constraintTop_toBottomOf="@+id/ContactText" />
 
-                <TextView
-                    android:id="@+id/About"
-                    style="@style/Custom_TextView_Big"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginRight="12dp"
-                    android:text="@string/AboutInfo"
-                    android:textSize="24dp" />
             </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigationView"
-        android:layout_width="200dp"
+        android:id="@+id/UserNavigationView"
+        android:layout_width="220dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/guest_nav_header"
-        app:itemBackground="@drawable/drawer_list_selector"
-        app:menu="@menu/guest_menu" />
+        android:layout_gravity="start"
+        app:headerLayout="@layout/user_nav_header"
+        app:menu="@menu/user_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

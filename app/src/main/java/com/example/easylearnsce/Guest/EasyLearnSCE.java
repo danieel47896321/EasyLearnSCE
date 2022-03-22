@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,11 +16,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.easylearnsce.Class.GuestLagnuage;
-import com.example.easylearnsce.Class.GuestNavView;
+import com.example.easylearnsce.Class.GuestNavigationView;
 import com.example.easylearnsce.Class.Engineering;
 import com.example.easylearnsce.Class.SelectView;
 import com.example.easylearnsce.R;
-import com.example.easylearnsce.User.Home;
 import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +28,10 @@ public class EasyLearnSCE extends AppCompatActivity {
     private RecyclerView Tags;
     private DrawerLayout drawerLayout;
     private List<Engineering> Selects;
-    private NavigationView GuestNavView;
+    private NavigationView navigationView;
     private TextView Title, TextViewSearchLanguage;
     private ImageView BackIcon, MenuIcon;
-    private GuestLagnuage lagnuage;
+    private GuestLagnuage guestLagnuage;
     private final int SIZE = 5;
     private String EasyLearnSCETagsName[] = new String[SIZE];
     private int TagsPhoto[] = {R.drawable.login,R.drawable.register,R.drawable.forgotpassword,R.drawable.about,R.drawable.contact};
@@ -50,7 +48,7 @@ public class EasyLearnSCE extends AppCompatActivity {
         setLanguage();
         MenuItem();
         MenuIcon();
-        NavView();
+        NavigationView();
     }
     private void setID(){
         MenuIcon = findViewById(R.id.MenuIcon);
@@ -60,19 +58,19 @@ public class EasyLearnSCE extends AppCompatActivity {
         Title = findViewById(R.id.Title);
         Title.setText("");
         TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        lagnuage = new GuestLagnuage(EasyLearnSCE.this);
-        GuestNavView = findViewById(R.id.GuestNavView);
+        guestLagnuage = new GuestLagnuage(EasyLearnSCE.this);
+        navigationView = findViewById(R.id.navigationView);
         Tags = findViewById(R.id.Tags);
         EasyLearnSCETagsName = getResources().getStringArray(R.array.EasyLearnSCETagsName);
     }
     private void setLanguage(){
         TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { lagnuage.setDialog(); }
+            public void onClick(View view) { guestLagnuage.setDialog(); }
         });
     }
     private void MenuItem(){
-        Menu menu= GuestNavView.getMenu();
+        Menu menu= navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.ItemEasyLearnSCE);
         menuItem.setCheckable(false);
         menuItem.setChecked(true);
@@ -84,11 +82,11 @@ public class EasyLearnSCE extends AppCompatActivity {
             public void onClick(View v) { drawerLayout.open(); }
         });
     }
-    private void NavView(){
-        GuestNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+    private void NavigationView(){
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                new GuestNavView(EasyLearnSCE.this, item.getItemId());
+                new GuestNavigationView(EasyLearnSCE.this, item.getItemId());
                 return false;
             }
         });
@@ -105,14 +103,13 @@ public class EasyLearnSCE extends AppCompatActivity {
     }
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(EasyLearnSCE.this);
-        builder.setTitle(getResources().getString(R.string.Exit)).setMessage(getResources().getString(R.string.AreYouSureToExit)).setCancelable(true)
-                .setPositiveButton(getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {
+        builder.setTitle(getResources().getString(R.string.Exit)).setMessage(getResources().getString(R.string.AreYouSureToExit)).setCancelable(true).setPositiveButton(getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                         System.exit(0);
                     }
-                }).setNegativeButton(getResources().getString(R.string.No), new DialogInterface.OnClickListener() {
+        }).setNegativeButton(getResources().getString(R.string.No), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) { }
         }).show();

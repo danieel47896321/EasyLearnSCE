@@ -5,11 +5,51 @@
     <item
         android:id="@+id/ItemHome"
         android:icon="@drawable/home"
-        android:title="@string/Home" />
+        android:title="@string/Home"/>
     <item
         android:id="@+id/ItemSelectEngineering"
         android:icon="@drawable/engineering"
         android:title="@string/SelectEngineering"/>
+    <item
+        android:id="@+id/StructuralEngineering"
+        android:icon="@drawable/structural"
+        android:visible="false"
+        android:title="@string/StructuralEngineering"/>
+    <item
+        android:id="@+id/MechanicalEngineering"
+        android:icon="@drawable/mechanical"
+        android:visible="false"
+        android:title="@string/MechanicalEngineering"/>
+    <item
+        android:id="@+id/ElectricalEngineering"
+        android:icon="@drawable/electrical"
+        android:visible="false"
+        android:title="@string/ElectricalEngineering"/>
+    <item
+        android:id="@+id/SoftwareEngineering"
+        android:icon="@drawable/software"
+        android:visible="false"
+        android:title="@string/SoftwareEngineering"/>
+    <item
+        android:id="@+id/IndustrialEngineering"
+        android:icon="@drawable/nihol"
+        android:visible="false"
+        android:title="@string/IndustrialEngineering"/>
+    <item
+        android:id="@+id/ChemicalEngineering"
+        android:icon="@drawable/chemistry"
+        android:visible="false"
+        android:title="@string/ChemicalEngineering"/>
+    <item
+        android:id="@+id/ProgrammingComputer"
+        android:icon="@drawable/software"
+        android:visible="false"
+        android:title="@string/ProgrammingComputer"/>
+    <item
+        android:id="@+id/PreEngineering"
+        android:icon="@drawable/mehina"
+        android:visible="false"
+        android:title="@string/PreEngineering"/>
     <item
         android:id="@+id/ItemEasyLearnChat"
         android:icon="@drawable/message"
@@ -22,6 +62,14 @@
         android:id="@+id/ItemChangePassword"
         android:icon="@drawable/forgotpassword"
         android:title="@string/ChangePassword" />
+    <item
+        android:id="@+id/ItemAbout"
+        android:icon="@drawable/about"
+        android:title="@string/About" />
+    <item
+        android:id="@+id/ItemContact"
+        android:icon="@drawable/contact"
+        android:title="@string/Contact" />
     <item
         android:id="@+id/ItemSignOut"
         android:icon="@drawable/signout"

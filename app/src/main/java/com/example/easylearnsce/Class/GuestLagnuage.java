@@ -17,7 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -42,7 +41,7 @@ public class GuestLagnuage {
         ListViewSearch = dialog.findViewById(R.id.ListViewSearch);
         TextViewSearch = dialog.findViewById(R.id.TextViewSearch);
         TextViewSearch.setText(context.getResources().getString(R.string.SelectLanguage));
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.dropdown_item, context.getResources().getStringArray(R.array.Lagnuage));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.dropdown_item, context.getResources().getStringArray(R.array.Language));
         ListViewSearch.setAdapter(adapter);
         EditTextSearch.addTextChangedListener(new TextWatcher() {
             @Override

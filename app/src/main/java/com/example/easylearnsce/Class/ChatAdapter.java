@@ -2,9 +2,6 @@ package com.example.easylearnsce.Class;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.User.Message;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,12 +52,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ChatAdapter.ViewHolder holder, int position) {
         User user = users.get(position);
-        holder.FragmentUserName.setText(user.getFirstname()+" "+user.getLastname());
+        holder.FragmentUserName.setText(user.getFirstName()+" "+user.getLastName());
         //holder.FragmentUserInfo.setText(user.getGender()+", "+user.getAge()+", "+user.getCity());
         if(!user.getImage().equals("Image"))
             Glide.with(context).load(user.getImage()).into(holder.FragmentUserImage);
-        else
-            holder.FragmentUserImage.setImageResource(R.mipmap.ic_launcher);
         lastMsg(user.getUid(),holder.FragmentUserInfo);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

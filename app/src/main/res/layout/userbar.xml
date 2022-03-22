@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="20dp"
+            android:clickable="true"
             android:src="@drawable/back"
             android:rotation="180"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -61,12 +62,24 @@
             android:layout_height="0dp"
             android:layout_marginStart="-20dp"
             android:padding="10dp"
-            android:src="@drawable/ic_launcher_background"
+            android:clickable="true"
+            android:src="@drawable/openingscreen"
             app:layout_constraintBottom_toBottomOf="@+id/BackIcon"
             app:layout_constraintStart_toEndOf="@+id/BackIcon"
             app:layout_constraintTop_toTopOf="@+id/BackIcon"
             app:layout_constraintVertical_bias="0.0"
             android:layout_marginLeft="-20dp" />
+
+        <ImageView
+            android:id="@+id/MoreVert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:clickable="true"
+            android:src="@drawable/more_vert"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -108,9 +108,7 @@ public class Message extends AppCompatActivity {
                         public void onLoadCleared(@Nullable Drawable placeholder) { }
                     });
                 }
-                else
-                    profileImage.setImageResource(R.mipmap.ic_launcher);
-                username.setText(user.getFirstname()+" "+ user.getLastname());
+                username.setText(user.getFirstName()+" "+ user.getLastName());
                 readMessage(firebaseAuth.getCurrentUser().getUid(), user.getUid(),user.getImage());
             }
             @Override

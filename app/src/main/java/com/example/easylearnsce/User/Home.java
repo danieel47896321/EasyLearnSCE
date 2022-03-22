@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.easylearnsce.Class.Engineering;
+import com.example.easylearnsce.Class.HomeSelectView;
 import com.example.easylearnsce.Class.SelectView;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserLanguage;
@@ -26,6 +27,9 @@ import com.example.easylearnsce.Class.UserMenuAdapter;
 import com.example.easylearnsce.Class.UserNavView;
 import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -44,9 +48,8 @@ public class Home extends AppCompatActivity {
     private NavigationView UserNavigationView;
     private Intent intent;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private final int SIZE = 5;
-    private String HomeTagsName[] = new String[SIZE] ;
-    private int EngineeringsPhotos[] = {R.drawable.engineering, R.drawable.message, R.drawable.person, R.drawable.forgotpassword ,R.drawable.signout};
+    private String HomeTagsName[] ;
+    private int EngineeringsPhotos[] = {R.drawable.engineering, R.drawable.message, R.drawable.person, R.drawable.forgotpassword, R.drawable.about, R.drawable.contact ,R.drawable.signout};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +66,7 @@ public class Home extends AppCompatActivity {
         NavView();
     }
     private void setID(){
+        HomeTagsName = new String[EngineeringsPhotos.length];
         intent = getIntent();
         selects = new ArrayList<>();
         user = (User)intent.getSerializableExtra("user");
@@ -110,18 +114,16 @@ public class Home extends AppCompatActivity {
     private void SignOutIcon(){
         BackIcon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
+            public void onClick(View v) { onBackPressed(); }
         });
     }
     private void setTags(){
-        for(int i=0; i<SIZE; i++)
+        for(int i=0; i<EngineeringsPhotos.length; i++)
             selects.add(new Engineering(HomeTagsName[i], EngineeringsPhotos[i]));
         ShowTags(selects);
     }
     private void ShowTags(List<Engineering> selects){
-        SelectView Select = new SelectView(this,selects);
+        HomeSelectView Select = new HomeSelectView(this,selects);
         Select.setUser(user);
         viewList.setLayoutManager(new GridLayoutManager(this,1));
         viewList.setAdapter(Select);
@@ -134,6 +136,10 @@ public class Home extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 if(firebaseAuth.getCurrentUser() != null)
                     firebaseAuth.signOut();
+                GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(Home.this.getString(R.string.default_web_client_id)).requestEmail().build();
+                GoogleSignInClient googleClient = GoogleSignIn.getClient(Home.this, options);
+                googleClient.signOut();
                 startActivity(new Intent(Home.this, EasyLearnSCE.class));
                 finish();
             }

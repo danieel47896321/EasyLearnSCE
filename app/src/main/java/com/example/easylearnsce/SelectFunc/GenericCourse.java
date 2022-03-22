@@ -67,7 +67,7 @@ public class GenericCourse extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         user_fullname = UserNavigationView.getHeaderView(0).findViewById(R.id.user_fullname);
         user_email = UserNavigationView.getHeaderView(0).findViewById(R.id.user_email);
-        user_fullname.setText(user.getFirstname()+" "+user.getLastname());
+        user_fullname.setText(user.getFirstName()+" "+user.getLastName());
         user_email.setText(user.getEmail());
         new UserMenuAdapter(user,GenericCourse.this);
         TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);

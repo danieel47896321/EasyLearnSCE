@@ -1,10 +1,15 @@
 package com.example.easylearnsce.Guest;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,8 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.easylearnsce.Class.GuestLagnuage;
-import com.example.easylearnsce.Class.GuestNavView;
+import com.example.easylearnsce.Class.GuestNavigationView;
 import com.example.easylearnsce.Class.Loading;
+import com.example.easylearnsce.Class.PopUpMSG;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.User.Home;
@@ -44,16 +50,17 @@ public class SignIn extends AppCompatActivity {
     private TextView Title, TextViewSearchLanguage;
     private DrawerLayout drawerLayout;
     private ImageView BackIcon, MenuIcon;
-    private NavigationView GuestNavView;
+    private NavigationView navigationView;
     private TextView ResetPassword, CreateAccount;
     private TextInputLayout TextInputLayoutEmail, TextInputLayoutPassword;
     private Button ButtonSignIn, Google;
-    private GoogleSignInClient googleSignInClient;
-    private static final int RcSignIn = 101;
+    private GoogleSignInClient mGoogleSignInClient;
+    private static final int RC_SIGN_IN = 4;
+    private static final String TAG = "GoogleActivity";
     private Loading loading;
     private Intent intent;
     private User user = new User();
-    private GuestLagnuage lagnuage;
+    private GuestLagnuage guestLagnuage;
     private FirebaseUser firebaseUser;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -70,18 +77,19 @@ public class SignIn extends AppCompatActivity {
         BackIcon();
         MenuIcon();
         EndIcon();
-        NavView();
+        NavigationView();
         SignInCheck();
         ResetPassword();
         CreateAccount();
         Google();
     }
     private void setID(){
+        firebaseAuth = FirebaseAuth.getInstance();
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
         drawerLayout = findViewById(R.id.drawerLayout);
         Title = findViewById(R.id.Title);
-        GuestNavView = findViewById(R.id.GuestNavView);
+        navigationView = findViewById(R.id.navigationView);
         Title.setText(R.string.SignIn);
         CreateAccount = findViewById(R.id.CreateAccount);
         Google = findViewById(R.id.Google);
@@ -90,16 +98,16 @@ public class SignIn extends AppCompatActivity {
         TextInputLayoutPassword = findViewById(R.id.TextInputLayoutPassword);
         ButtonSignIn = findViewById(R.id.ButtonSignIn);
         TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        lagnuage = new GuestLagnuage(SignIn.this);
+        guestLagnuage = new GuestLagnuage(SignIn.this);
     }
     private void setLanguage(){
         TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { lagnuage.setDialog(); }
+            public void onClick(View view) { guestLagnuage.setDialog(); }
         });
     }
     private void MenuItem(){
-        Menu menu= GuestNavView.getMenu();
+        Menu menu= navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.ItemSignIn);
         menuItem.setCheckable(false);
         menuItem.setChecked(true);
@@ -126,11 +134,11 @@ public class SignIn extends AppCompatActivity {
             public void onClick(View v) { drawerLayout.open(); }
         });
     }
-    private void NavView(){
-        GuestNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+    private void NavigationView(){
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                new GuestNavView(SignIn.this, item.getItemId());
+                new GuestNavigationView(SignIn.this, item.getItemId());
                 return false;
             }
         });
@@ -194,23 +202,22 @@ public class SignIn extends AppCompatActivity {
                 if(firebaseAuth.getCurrentUser() != null)
                     firebaseAuth.getInstance().signOut();
                 GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(getString(R.string.About)).requestEmail().build();
-                googleSignInClient = GoogleSignIn.getClient(SignIn.this, gso);
-                Intent signInIntent = googleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, RcSignIn);
+                        .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
+                mGoogleSignInClient = GoogleSignIn.getClient(SignIn.this, gso);
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
             }
         });
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RcSignIn) {
+        if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 loading = new Loading(SignIn.this);
-                // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) { loading.stop(); }
         }
@@ -227,11 +234,11 @@ public class SignIn extends AppCompatActivity {
                             if(task.getResult().getAdditionalUserInfo().isNewUser()){
                                 int firstSpace = firebaseUser.getDisplayName().indexOf(" ");
                                 user.setEmail(firebaseUser.getEmail());
-                                user.setFirstname(firebaseUser.getDisplayName().substring(0,firstSpace));
-                                user.setLastname(firebaseUser.getDisplayName().substring(firstSpace+1));
+                                user.setFirstName(firebaseUser.getDisplayName().substring(0,firstSpace));
+                                user.setLastName(firebaseUser.getDisplayName().substring(firstSpace+1));
+                                user.setFullName(user.getFirstName()+" "+user.getLastName());
                                 user.setUid(firebaseAuth.getCurrentUser().getUid());
                                 databaseReference.child(firebaseUser.getUid()).setValue(user);
-                                loading.stop();
                                 intent = new Intent(SignIn.this, Home.class);
                                 intent.putExtra("user", user);
                                 startActivity(intent);
@@ -240,7 +247,7 @@ public class SignIn extends AppCompatActivity {
                             getUser();
                         }
                         else {
-                            loading.stop();
+                            Toast.makeText(SignIn.this, "signInWithCredential:failure", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     }
@@ -252,11 +259,11 @@ public class SignIn extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 loading = new Loading(SignIn.this);
                 if (task.isSuccessful()) {
-                    if(firebaseAuth.getCurrentUser().isEmailVerified()) {
+                    if(firebaseAuth.getCurrentUser().isEmailVerified())
                         getUser();
-                    }
                     else {
-                        Toast.makeText(SignIn.this, R.string.CheckEmailVerify, Toast.LENGTH_LONG).show();
+                        new PopUpMSG(SignIn.this,getResources().getString(R.string.SignIn),getResources().getString(R.string.CheckEmailVerify));
+                        loading.stop();
                     }
                 } else
                     CheckEmailExists();

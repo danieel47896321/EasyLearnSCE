@@ -1,126 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="300dp"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="360dp"
     android:background="@color/sky">
 
-    <TextView
-        android:id="@+id/TextViewSearchCity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/TextInputLayoutCity"
+        style="@style/Custom_TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:background="@android:drawable/editbox_background"
-        android:backgroundTint="@color/sky"
-        android:drawableEnd="@drawable/drop_down"
-        android:drawableRight="@drawable/drop_down"
-        android:gravity="center"
-        android:hint="@string/SelectCity"
-        android:padding="10dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="18dp"
-        android:textStyle="bold"
+        android:hint="@string/City"
+        app:endIconDrawable="@drawable/drop_down"
+        app:endIconMode="custom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/TextViewSearchAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@android:drawable/editbox_background"
-        android:backgroundTint="@color/sky"
-        android:drawableEnd="@drawable/drop_down"
-        android:drawableRight="@drawable/drop_down"
-        android:gravity="center"
-        android:hint="@string/SelectAge"
-        android:padding="10dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextViewSearchCity" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/TextInputEditTextInputCity"
+            style="@style/Custom_TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false" />
 
-    <TextView
-        android:id="@+id/TextViewSearchGender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@android:drawable/editbox_background"
-        android:backgroundTint="@color/sky"
-        android:drawableEnd="@drawable/drop_down"
-        android:drawableRight="@drawable/drop_down"
-        android:gravity="center"
-        android:hint="@string/SelectGender"
-        android:padding="10dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextViewSearchAge" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/city_vali"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Required"
-        android:textColor="@color/red"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/age_vali"
-        app:layout_constraintStart_toStartOf="@+id/age_vali"
-        app:layout_constraintTop_toBottomOf="@+id/TextViewSearchCity" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/TextInputLayoutAge"
+        style="@style/Custom_TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="4dp"
+        android:hint="@string/BirthDay"
+        app:endIconDrawable="@drawable/drop_down"
+        app:endIconMode="custom"
+        app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutCity"
+        app:layout_constraintStart_toStartOf="@+id/TextInputLayoutCity"
+        app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutCity">
 
-    <TextView
-        android:id="@+id/age_vali"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Required"
-        android:textColor="@color/red"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/gender_vali"
-        app:layout_constraintStart_toStartOf="@+id/gender_vali"
-        app:layout_constraintTop_toBottomOf="@+id/TextViewSearchAge" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/TextInputEditTextInputAge"
+            style="@style/Custom_TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/gender_vali"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Required"
-        android:textColor="@color/red"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/TextViewSearchCity"
-        app:layout_constraintStart_toStartOf="@+id/TextViewSearchGender"
-        app:layout_constraintTop_toBottomOf="@+id/TextViewSearchGender" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/TextInputLayoutGender"
+        style="@style/Custom_TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="4dp"
+        android:hint="@string/Gender"
+        app:endIconDrawable="@drawable/drop_down"
+        app:endIconMode="custom"
+        app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutAge"
+        app:layout_constraintStart_toStartOf="@+id/TextInputLayoutAge"
+        app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutAge">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/TextInputEditTextInputGender"
+            style="@style/Custom_TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/next_btn"
+        android:id="@+id/NextButtonFinish"
+        style="@style/Custom_Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="4dp"
         android:text="@string/Finish"
-        android:textAllCaps="false"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/TextViewSearchGender"
+        app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutGender"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/TextViewSearchGender"
-        app:layout_constraintTop_toBottomOf="@+id/TextViewSearchGender"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintStart_toStartOf="@+id/TextInputLayoutGender"
+        app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutGender" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

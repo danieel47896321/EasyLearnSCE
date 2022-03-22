@@ -5,20 +5,14 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -33,17 +27,13 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -53,11 +43,8 @@ import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserLanguage;
 import com.example.easylearnsce.Class.UserMenuAdapter;
 import com.example.easylearnsce.Class.UserNavView;
-import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
-import com.example.easylearnsce.SelectFunc.GenericEngineering;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -71,10 +58,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 
 public class Profile extends AppCompatActivity {
     private TextView Title,TextViewSearchCity, TextViewSearchAge, TextViewSearchGender,TextViewSearch, TextViewSearchLanguage;
@@ -167,19 +150,21 @@ public class Profile extends AppCompatActivity {
         });
     }
     private void ShowInfo(){
-        TextInputLayoutFirstName.getEditText().setText(user.getFirstname());
-        TextInputLayoutLastName.getEditText().setText(user.getLastname());
+        TextInputLayoutFirstName.getEditText().setText(user.getFirstName());
+        TextInputLayoutLastName.getEditText().setText(user.getLastName());
         TextInputLayoutEmail.getEditText().setText(user.getEmail());
         TextViewSearchCity.setText(user.getCity());
-        TextViewSearchAge.setText(user.getAge());
+        TextViewSearchAge.setText(user.getBirthDay().toString());
         TextViewSearchGender.setText(user.getGender());
-        Glide.with(Profile.this).asBitmap().load(user.getImage()).into(new CustomTarget<Bitmap>() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-            @Override
-            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) { UserProfileImage.setBackground(new BitmapDrawable(getResources(), resource)); }
-            @Override
-            public void onLoadCleared(@Nullable Drawable placeholder) { }
-        });
+        if(!user.getImage().equals("Image")) {
+            Glide.with(Profile.this).asBitmap().load(user.getImage()).into(new CustomTarget<Bitmap>() {
+                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                @Override
+                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) { UserProfileImage.setBackground(new BitmapDrawable(getResources(), resource)); }
+                @Override
+                public void onLoadCleared(@Nullable Drawable placeholder) { }
+            });
+        }
         CityPick();
         AgePick();
         GenderPick();
@@ -192,12 +177,12 @@ public class Profile extends AppCompatActivity {
                     newUser.setEmail(user.getEmail());
                     newUser.setType(user.getType());
                     newUser.setUid(user.getUid());
-                    newUser.setFirstname(TextInputLayoutFirstName.getEditText().getText().toString());
-                    newUser.setLastname(TextInputLayoutLastName.getEditText().getText().toString());
+                    newUser.setFirstName(TextInputLayoutFirstName.getEditText().getText().toString());
+                    newUser.setLastName(TextInputLayoutLastName.getEditText().getText().toString());
                     newUser.setGender(TextViewSearchGender.getText().toString());
-                    newUser.setAge(TextViewSearchAge.getText().toString());
+                    //newUser.setBirthDay(TextViewSearchAge.getText().toString());
                     newUser.setCity(TextViewSearchCity.getText().toString());
-                    newUser.setFullName(newUser.getFirstname()+" "+newUser.getLastname());
+                    newUser.setFullName(newUser.getFirstName()+" "+newUser.getLastName());
                     if(uri != null)
                         UploadImage();
                     else {

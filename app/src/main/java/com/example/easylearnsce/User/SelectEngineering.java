@@ -39,7 +39,7 @@ import java.util.List;
 
 public class SelectEngineering extends AppCompatActivity {
     private User user = new User();
-    private TextView Title, TextViewSearchLanguage, User_search,user_fullname,user_email;
+    private TextView Title, TextViewSearchLanguage, User_search;
     private UserLanguage lagnuage;
     private ImageView BackIcon, MenuIcon;
     private DrawerLayout drawerLayout;
@@ -74,10 +74,6 @@ public class SelectEngineering extends AppCompatActivity {
         Title.setText(getResources().getString(R.string.SelectEngineering));
         user = (User)intent.getSerializableExtra("user");
         UserNavigationView = findViewById(R.id.UserNavigationView);
-        user_fullname = UserNavigationView.getHeaderView(0).findViewById(R.id.user_fullname);
-        user_email = UserNavigationView.getHeaderView(0).findViewById(R.id.user_email);
-        user_fullname.setText(user.getFirstname()+" "+user.getLastname());
-        user_email.setText(user.getEmail());
         drawerLayout = findViewById(R.id.drawerLayout);
         new UserMenuAdapter(user,SelectEngineering.this);
         TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
@@ -95,9 +91,9 @@ public class SelectEngineering extends AppCompatActivity {
     }
     private void UserSearch(String text) {
         Query query = FirebaseDatabase.getInstance().getReference().child("Engineering").child("Hebrew");
-        if(getResources().getConfiguration().locale.getDisplayName().equals("Hebrew") || getResources().getConfiguration().locale.getDisplayName().equals("עברית"))
+        if(getResources().getConfiguration().locale.getDisplayLanguage().equals("Hebrew") || getResources().getConfiguration().locale.getDisplayLanguage().equals("עברית"))
             query = FirebaseDatabase.getInstance().getReference().child("Engineering").child("Hebrew");
-        else if (getResources().getConfiguration().locale.getDisplayName().equals("English") || getResources().getConfiguration().locale.getDisplayName().equals("אנגלית"))
+        else if (getResources().getConfiguration().locale.getDisplayLanguage().equals("English") || getResources().getConfiguration().locale.getDisplayLanguage().equals("אנגלית"))
             query = FirebaseDatabase.getInstance().getReference().child("Engineering").child("English");
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -112,34 +108,32 @@ public class SelectEngineering extends AppCompatActivity {
                 ShowTags(Engineerings);
             }
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
     }
     private void setEngineering(){
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference reference;
-            if (getResources().getConfiguration().locale.getDisplayName().equals("Hebrew") || getResources().getConfiguration().locale.getDisplayName().equals("עברית (ישראל)"))
-                reference = database.getReference().child("Engineering").child("Hebrew");
-            else
-                reference = database.getReference().child("Engineering").child("English");
-            reference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(User_search.getText().toString().equals("")) {
-                        Engineerings.clear();
-                        for (DataSnapshot eng : snapshot.getChildren()) {
-                            Engineering get_engineering = eng.getValue(Engineering.class);
-                            Engineerings.add(get_engineering);
-                        }
-                        ShowTags(Engineerings);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference().child("Engineering").child("Hebrew");;
+        if (getResources().getConfiguration().locale.getDisplayLanguage().equals("Hebrew") || getResources().getConfiguration().locale.getDisplayLanguage().equals("עברית"))
+            reference = database.getReference().child("Engineering").child("Hebrew");
+        else if (getResources().getConfiguration().locale.getDisplayLanguage().equals("English") || getResources().getConfiguration().locale.getDisplayLanguage().equals("אנגלית"))
+            reference = database.getReference().child("Engineering").child("English");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(User_search.getText().toString().equals("")) {
+                    Engineerings.clear();
+                    for (DataSnapshot eng : snapshot.getChildren()) {
+                        Engineering get_engineering = eng.getValue(Engineering.class);
+                        Engineerings.add(get_engineering);
                     }
+                    ShowTags(Engineerings);
                 }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
     private void setLanguage(){
         TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {

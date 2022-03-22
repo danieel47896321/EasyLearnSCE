@@ -15,8 +15,8 @@
         android:background="@color/sky">
 
         <include
-            android:id="@+id/include"
-            layout="@layout/toolbar" />
+            android:id="@+id/header"
+            layout="@layout/header" />
 
         <EditText
             android:id="@+id/User_search"
@@ -31,7 +31,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/removeCourse"
-            app:layout_constraintTop_toBottomOf="@+id/include" />
+            app:layout_constraintTop_toBottomOf="@+id/header" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/addCourse"
@@ -91,7 +91,7 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/UserNavigationView"
-        android:layout_width="220dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:layout_gravity="start"

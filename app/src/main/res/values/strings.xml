@@ -47,8 +47,9 @@
     <!-- CreateAccount Page -->
     <string name="FirstName" translatable="true">First Name</string>
     <string name="LastName" translatable="true">Last Name</string>
-    <string name="Phone" translatable="true">Phone</string>
-    <string name="PhoneLenth" translatable="true">Required 10 digits</string>
+    <string name="BirthDay" translatable="true">BirthDay</string>
+    <string name="RequiredAge18OrMore" translatable="true">Required Age 18 Or More</string>
+    <string name="InvalidDateOfBirth" translatable="true">Invalid Date Of BirthDay</string>
     <string name="ConfirmPassword" translatable="true">Confirm Password</string>
     <string name="AlreadyHaveAccount" translatable="true">Already Have Account? Sign In</string>
     <!-- CreateAccountValidation Page -->
@@ -119,15 +120,24 @@
     <string name="Gallery" translatable="true">Gallery</string>
     <string name="Age" translatable="true">Age</string>
     <string name="Gender" translatable="true">Gender</string>
-    <string name="City" translatable="true">City</string>
     <string name="SelectAge" translatable="true">Select Age</string>
     <string name="SelectGender" translatable="true">Select Gender</string>
     <string name="Male" translatable="true">Male</string>
     <string name="Female" translatable="true">Female</string>
     <string name="CanNotChange" translatable="true">Can not change</string>
     <string name="UpdateProfile" translatable="true">Update Profile</string>
+    <string name="City" translatable="true">City</string>
     <string name="SelectCity" translatable="true">Select City</string>
+    <string name="Ashqelon" translatable="true">Ashqelon</string>
     <string name="BeerSheva" translatable="true">Beer Sheva</string>
+    <string name="BetShean" translatable="true">Bet Shean</string>
+    <string name="BetShemesh" translatable="true">Bet Shemesh</string>
+    <string name="BeneBeraq" translatable="true">Bene Beraq</string>
+    <string name="Elat" translatable="true">Elat</string>
+    <string name="Givatayim" translatable="true">Givatayim</string>
+    <string name="KafarQasem" translatable="true">Kafar Qasem</string>
+    <string name="Ofaqim" translatable="true">Ofaqim</string>
+    <string name="PetahTiqwa" translatable="true">Petah Tiqwa</string>
     <string name="TelAviv" translatable="true">Tel Aviv</string>
     <string name="Haifa" translatable="true">Haifa</string>
     <!-- ChangePassword Page -->
@@ -144,7 +154,7 @@
     <string name="AddCourse" translatable="true">Add Course</string>
     <string name="RemoveCourse" translatable="true">Remove Course</string>
     <!-- Arrays -->
-    <string-array name="Lagnuage">
+    <string-array name="Language">
         <item>@string/Hebrew</item>
         <item>@string/English</item>
     </string-array>
@@ -160,6 +170,8 @@
         <item>@string/EasyLearnChat</item>
         <item>@string/Profile</item>
         <item>@string/ChangePassword</item>
+        <item>@string/About</item>
+        <item>@string/Contact</item>
         <item>@string/SignOut</item>
     </string-array>
     <string-array name="Engineerings">
@@ -189,7 +201,16 @@
         <item>@string/SummerSemester</item>
     </string-array>
     <string-array name="City">
+        <item>@string/Ashqelon</item>
         <item>@string/BeerSheva</item>
+        <item>@string/BetShean</item>
+        <item>@string/BetShemesh</item>
+        <item>@string/BeneBeraq</item>
+        <item>@string/Elat</item>
+        <item>@string/Givatayim</item>
+        <item>@string/KafarQasem</item>
+        <item>@string/Ofaqim</item>
+        <item>@string/PetahTiqwa</item>
         <item>@string/TelAviv</item>
         <item>@string/Haifa</item>
     </string-array>

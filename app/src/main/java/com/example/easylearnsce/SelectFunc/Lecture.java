@@ -59,7 +59,7 @@ public class Lecture extends AppCompatActivity {
 
         user_fullname = user_navView.getHeaderView(0).findViewById(R.id.user_fullname);
         user_email = user_navView.getHeaderView(0).findViewById(R.id.user_email);
-        user_fullname.setText(user.getFirstname()+" "+user.getLastname());
+        user_fullname.setText(user.getFirstName()+" "+user.getLastName());
         user_email.setText(user.getEmail());
     }
     public void ShowLecture(){

@@ -17,30 +17,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.easylearnsce.Guest.About;
 import com.example.easylearnsce.Guest.Contact;
-import com.example.easylearnsce.Guest.ResetPassword;
-import com.example.easylearnsce.Guest.EasyLearnSCE;
-import com.example.easylearnsce.Guest.SignIn;
 import com.example.easylearnsce.Guest.CreateAccount;
+import com.example.easylearnsce.Guest.EasyLearnSCE;
+import com.example.easylearnsce.Guest.ResetPassword;
+import com.example.easylearnsce.Guest.SignIn;
 import com.example.easylearnsce.R;
-import com.example.easylearnsce.SelectFunc.GenericCourse;
-import com.example.easylearnsce.SelectFunc.GenericEngineering;
 import com.example.easylearnsce.User.ChangePassword;
 import com.example.easylearnsce.User.EasyLearnChat;
 import com.example.easylearnsce.User.Home;
-import com.example.easylearnsce.User.Message;
 import com.example.easylearnsce.User.Profile;
 import com.example.easylearnsce.User.SelectEngineering;
+import com.example.easylearnsce.User.UserAbout;
+import com.example.easylearnsce.User.UserContact;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
-public class SelectView extends RecyclerView.Adapter<SelectView.MyViewHolder> {
+public class HomeSelectView extends RecyclerView.Adapter<HomeSelectView.MyViewHolder> {
     private Context context;
     private List<Engineering> Select;
     private User user;
     private Intent intent;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    public SelectView(Context context, List<Engineering> select) {
+    public HomeSelectView(Context context, List<Engineering> select) {
         this.context = context;
         this.Select = select;
     }
@@ -56,13 +55,13 @@ public class SelectView extends RecyclerView.Adapter<SelectView.MyViewHolder> {
         }
     }
     public void setUser(User user){ this.user = user; }
-    public SelectView.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HomeSelectView.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         view = layoutInflater.inflate(R.layout.select_view,parent,false);
-        return new SelectView.MyViewHolder(view);
+        return new HomeSelectView.MyViewHolder(view);
     }
-    public void onBindViewHolder(@NonNull SelectView.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HomeSelectView.MyViewHolder holder, int position) {
         holder.textView.setText(Select.get(position).getEngineeringname());
         holder.imageView.setImageResource(Select.get(position).getPhoto());
         holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -76,19 +75,8 @@ public class SelectView extends RecyclerView.Adapter<SelectView.MyViewHolder> {
             @Override
             public void onClick(View v) {
                 holder.cardView.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
-                //EasyLearnSCE
-                if(holder.textView.getText().equals(context.getResources().getString(R.string.ResetPassword)))
-                    intent = new Intent(context, ResetPassword.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.SignIn)))
-                    intent = new Intent(context, SignIn.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.CreateAccount)))
-                    intent = new Intent(context, CreateAccount.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.Contact)))
-                    intent = new Intent(context, Contact.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.About)))
-                    intent = new Intent(context, About.class);
                 //Home
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.SelectEngineering)))
+                 if(holder.textView.getText().equals(context.getResources().getString(R.string.SelectEngineering)))
                     intent = new Intent(context, SelectEngineering.class);
                 else if(holder.textView.getText().equals(context.getResources().getString(R.string.EasyLearnChat)))
                     intent = new Intent(context, EasyLearnChat.class);
@@ -96,6 +84,10 @@ public class SelectView extends RecyclerView.Adapter<SelectView.MyViewHolder> {
                     intent = new Intent(context, Profile.class);
                 else if(holder.textView.getText().equals(context.getResources().getString(R.string.ChangePassword)))
                     intent = new Intent(context, ChangePassword.class);
+                else if(holder.textView.getText().equals(context.getResources().getString(R.string.Contact)))
+                    intent = new Intent(context, UserContact.class);
+                else if(holder.textView.getText().equals(context.getResources().getString(R.string.About)))
+                    intent = new Intent(context, UserAbout.class);
                 else
                     intent = new Intent(context, Home.class);
                 if(holder.textView.getText().equals(context.getResources().getString(R.string.SignOut))) {
@@ -118,7 +110,7 @@ public class SelectView extends RecyclerView.Adapter<SelectView.MyViewHolder> {
                     intent = new Intent(context, EasyLearnSCE.class);
                 }
                 else {
-                    intent.putExtra("user",user);
+                    intent.putExtra("user", user);
                     context.startActivity(intent);
                     ((Activity) context).finish();
                 }
