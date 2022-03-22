@@ -1,4 +1,4 @@
-package com.example.easylearnsce.SelectFunc;
+package com.example.easylearnsce.EngineeringFunc;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,12 +13,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.easylearnsce.Class.Engineering;
+import com.example.easylearnsce.Class.Tag;
 import com.example.easylearnsce.Class.SelectView;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserLanguage;
-import com.example.easylearnsce.Class.UserMenuAdapter;
-import com.example.easylearnsce.Class.UserNavView;
+import com.example.easylearnsce.Adapters.UserMenuAdapter;
+import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
 
@@ -33,10 +33,10 @@ public class GenericCourse extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView UserNavigationView;
     private RecyclerView viewList;
-    private List<com.example.easylearnsce.Class.Engineering> selects;
+    private List<Tag> selects;
     private Intent intent;
     private String Course = "Course";
-    private String Engineering = "Engineering";
+    private String Engineering = "Tag";
     private String lectures[] = {"הרצאה 1","הרצאה 2","הרצאה 3","הרצאה 4","הרצאה 5","הרצאה 6","הרצאה 7","הרצאה 8","הרצאה 9","הרצאה 10"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class GenericCourse extends AppCompatActivity {
         BackIcon = findViewById(R.id.BackIcon);
         viewList = findViewById(R.id.MainScreenRV);
         user = (User)intent.getSerializableExtra("user");
-        Engineering = (String)intent.getSerializableExtra("Engineering");
+        Engineering = (String)intent.getSerializableExtra("Tag");
         Course = (String)intent.getSerializableExtra("Course");
         title.setText(Engineering+"\n"+Course);
         UserNavigationView = findViewById(R.id.UserNavigationView);
@@ -83,7 +83,7 @@ public class GenericCourse extends AppCompatActivity {
         UserNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                new UserNavView(GenericCourse.this, item.getItemId(), user);
+                new UserNavigationView(GenericCourse.this, item.getItemId(), user);
                 return false;
             }
         });
@@ -94,7 +94,7 @@ public class GenericCourse extends AppCompatActivity {
             public void onClick(View v) {
                 intent = new Intent(GenericCourse.this, GenericEngineering.class);
                 intent.putExtra("user", user);
-                intent.putExtra("Engineering", Engineering);
+                intent.putExtra("Tag", Engineering);
                 startActivity(intent);
                 finish();
             }
@@ -112,13 +112,13 @@ public class GenericCourse extends AppCompatActivity {
     }
     public void SetTags(String[] engineering){
         for(int i=0; i<engineering.length; i++)
-            selects.add(new Engineering(engineering[i],R.drawable.book));
+            selects.add(new Tag(engineering[i],R.drawable.book));
         ShowTags(selects);
     }
     public void ChoseEngineering(){
         SetTags(lectures);
     }
-    public void ShowTags(List<com.example.easylearnsce.Class.Engineering> selects){
+    public void ShowTags(List<Tag> selects){
         SelectView mySelects = new SelectView(this,selects);
         mySelects.setUser(user);
         viewList.setLayoutManager(new GridLayoutManager(this,1));

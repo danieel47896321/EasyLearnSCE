@@ -20,7 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.easylearnsce.Class.Chat;
-import com.example.easylearnsce.Class.MessageAdapter;
+import com.example.easylearnsce.Adapters.MessageAdapter;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.R;
 import com.google.firebase.auth.FirebaseAuth;

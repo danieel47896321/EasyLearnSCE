@@ -56,7 +56,7 @@ public class CreateAccount extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private TextInputLayout TextInputLayoutFirstName, TextInputLayoutLastName ,TextInputLayoutEmail, TextInputLayoutPassword, TextInputLayoutPasswordConfirm, TextInputLayoutGender, TextInputLayoutAge, TextInputLayoutCity;
-    private TextView Title, SignIn, TextViewSearchCity, TextViewSearchAge, TextViewSearchGender,TextViewSearch, TextViewSearchLanguage;
+    private TextView Title, SignIn,TextViewSearch, TextViewSearchLanguage;
     private Dialog dialog;
     private Calendar calendar = Calendar.getInstance();
     private int Year = calendar.get(Calendar.YEAR), Month = calendar.get(Calendar.MONTH), Day = calendar.get(Calendar.DAY_OF_MONTH), UserYear, UserMonth, UserDay;
@@ -264,9 +264,6 @@ public class CreateAccount extends AppCompatActivity {
         TextInputLayoutGender = dialogView.findViewById(R.id.TextInputLayoutGender);
         TextInputLayoutCity = dialogView.findViewById(R.id.TextInputLayoutCity);
         TextInputLayoutAge = dialogView.findViewById(R.id.TextInputLayoutAge);
-        TextViewSearchCity = dialogView.findViewById(R.id.TextViewSearchCity);
-        TextViewSearchAge = dialogView.findViewById(R.id.TextViewSearchAge);
-        TextViewSearchGender = dialogView.findViewById(R.id.TextViewSearchGender);
         NextButtonFinish = dialogView.findViewById(R.id.NextButtonFinish);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
@@ -284,7 +281,7 @@ public class CreateAccount extends AppCompatActivity {
                     TextInputLayoutGender.setHelperText("");
                 if(TextInputLayoutAge.getEditText().getText().toString().equals(""))
                     TextInputLayoutAge.setHelperText(getResources().getString(R.string.Required));
-                else if(Period.between(LocalDate.of(Integer.valueOf(user.getYear()), Integer.valueOf(user.getMonth()), Integer.valueOf(user.getDay())),LocalDate.of(Year, Month+1, Day)).getYears() < 18)
+                else if(getYears(new Date(Integer.valueOf(user.getYear()),Integer.valueOf(user.getMonth()),Integer.valueOf(user.getDay()))) < 18)
                     TextInputLayoutAge.setHelperText(getResources().getString(R.string.RequiredAge18OrMore));
                 else
                     TextInputLayoutAge.setHelperText("");
@@ -298,6 +295,14 @@ public class CreateAccount extends AppCompatActivity {
                 }
             }
         });
+    }
+    private int getYears(Date date){
+        int years = Calendar.getInstance().get(Calendar.YEAR) - date.getYear();
+        if(date.getMonth() >  Calendar.getInstance().get(Calendar.MONTH) ||
+                (date.getMonth() ==  Calendar.getInstance().get(Calendar.MONTH) &&
+                        date.getDate() > Calendar.getInstance().get(Calendar.DAY_OF_WEEK)))
+            years -=1;
+        return years;
     }
     private void CreateAccount(){
         user = new User(TextInputLayoutFirstName.getEditText().getText().toString(), TextInputLayoutLastName.getEditText().getText().toString(), TextInputLayoutEmail.getEditText().getText().toString());

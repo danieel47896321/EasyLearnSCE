@@ -14,17 +14,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyLearnSCE">
-        <activity android:name=".User.UserContact"></activity>
-        <activity android:name=".User.UserAbout" />
         <activity android:name=".User.Message" />
         <activity android:name=".User.EasyLearnChat" />
         <activity
             android:name=".User.Profile"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".SelectFunc.GenericCourse" />
+        <activity android:name=".EngineeringFunc.GenericCourse" />
         <activity android:name=".User.ChangePassword" />
-        <activity android:name=".SelectFunc.Lecture" />
-        <activity android:name=".SelectFunc.GenericEngineering" />
+        <activity android:name=".EngineeringFunc.Lecture" />
+        <activity android:name=".EngineeringFunc.GenericEngineering" />
         <activity android:name=".User.SelectEngineering" />
         <activity android:name=".User.Home" />
         <activity android:name=".Guest.EasyLearnSCE" />

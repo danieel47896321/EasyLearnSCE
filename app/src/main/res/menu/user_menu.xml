@@ -63,14 +63,6 @@
         android:icon="@drawable/forgotpassword"
         android:title="@string/ChangePassword" />
     <item
-        android:id="@+id/ItemAbout"
-        android:icon="@drawable/about"
-        android:title="@string/About" />
-    <item
-        android:id="@+id/ItemContact"
-        android:icon="@drawable/contact"
-        android:title="@string/Contact" />
-    <item
         android:id="@+id/ItemSignOut"
         android:icon="@drawable/signout"
         android:title="@string/SignOut" />

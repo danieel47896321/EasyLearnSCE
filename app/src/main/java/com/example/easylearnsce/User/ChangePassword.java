@@ -17,8 +17,8 @@ import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.PopUpMSG;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserLanguage;
-import com.example.easylearnsce.Class.UserMenuAdapter;
-import com.example.easylearnsce.Class.UserNavView;
+import com.example.easylearnsce.Adapters.UserMenuAdapter;
+import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,7 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class ChangePassword extends AppCompatActivity {
     private TextInputLayout TextInputLayoutCurrentPassword, TextInputLayoutNewPassword, TextInputLayoutPasswordConfirm;
     private Button ButtonSaveChanges;
-    private UserLanguage lagnuage;
+    private UserLanguage userLanguage;
     private DrawerLayout drawerLayout;
     private Loading loading;
     private Intent intent;
@@ -54,7 +54,7 @@ public class ChangePassword extends AppCompatActivity {
         MenuItem();
         BackIcon();
         MenuIcon();
-        NavView();
+        NavigationView();
     }
     private void setID(){
         TextInputLayoutCurrentPassword = findViewById(R.id.TextInputLayoutCurrentPassword);
@@ -72,12 +72,12 @@ public class ChangePassword extends AppCompatActivity {
         user = (User)intent.getSerializableExtra("user");
         new UserMenuAdapter(user,ChangePassword.this);
         TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        lagnuage = new UserLanguage(ChangePassword.this, user);
+        userLanguage = new UserLanguage(ChangePassword.this, user);
     }
     private void setLanguage(){
         TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { lagnuage.setDialog(); }
+            public void onClick(View view) { userLanguage.setDialog(); }
         });
     }
     private void MenuItem(){
@@ -93,11 +93,11 @@ public class ChangePassword extends AppCompatActivity {
             public void onClick(View v) { drawerLayout.open(); }
         });
     }
-    private void NavView(){
+    private void NavigationView(){
         UserNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                new UserNavView(ChangePassword.this, item.getItemId(), user);
+                new UserNavigationView(ChangePassword.this, item.getItemId(), user);
                 return false;
             }
         });

@@ -170,8 +170,6 @@
         <item>@string/EasyLearnChat</item>
         <item>@string/Profile</item>
         <item>@string/ChangePassword</item>
-        <item>@string/About</item>
-        <item>@string/Contact</item>
         <item>@string/SignOut</item>
     </string-array>
     <string-array name="Engineerings">

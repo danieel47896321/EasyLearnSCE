@@ -36,7 +36,7 @@
                 android:layout_gravity="center"
                 android:gravity="center">
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/Tags"
+                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
@@ -50,7 +50,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:itemBackground="@drawable/drawer_list_selector"
-        app:headerLayout="@layout/guest_nav_header"
+        app:headerLayout="@layout/guest_navigation_header"
         app:menu="@menu/guest_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

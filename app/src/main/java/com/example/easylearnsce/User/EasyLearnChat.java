@@ -17,24 +17,19 @@ import android.widget.TextView;
 
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserLanguage;
-import com.example.easylearnsce.Class.UserMenuAdapter;
-import com.example.easylearnsce.Class.UserNavView;
+import com.example.easylearnsce.Adapters.UserMenuAdapter;
+import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.Fragments.ChatsFragment;
 import com.example.easylearnsce.Fragments.UsersFragment;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
 
 public class EasyLearnChat extends AppCompatActivity {
     private User user = new User();
     private TextView Title, TextViewSearchLanguage;
-    private UserLanguage lagnuage;
+    private UserLanguage userLanguage;
     private ImageView BackIcon, MenuIcon;
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
@@ -55,7 +50,7 @@ public class EasyLearnChat extends AppCompatActivity {
         MenuItem();
         BackIcon();
         MenuIcon();
-        NavView();
+        NavigationView();
     }
     private void setID(){
         intent = getIntent();
@@ -76,12 +71,12 @@ public class EasyLearnChat extends AppCompatActivity {
         new TabLayoutMediator(tabLayout,viewPager2,((tab, position) -> tab.setText(titles[position]))).attach();
         new UserMenuAdapter(user,EasyLearnChat.this);
         TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        lagnuage = new UserLanguage(EasyLearnChat.this, user);
+        userLanguage = new UserLanguage(EasyLearnChat.this, user);
     }
     private void setLanguage(){
         TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { lagnuage.setDialog(); }
+            public void onClick(View view) { userLanguage.setDialog(); }
         });
     }
     private void MenuItem(){
@@ -97,11 +92,11 @@ public class EasyLearnChat extends AppCompatActivity {
             public void onClick(View v) { drawerLayout.open(); }
         });
     }
-    private void NavView(){
+    private void NavigationView(){
         UserNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                new UserNavView(EasyLearnChat.this, item.getItemId(), user);
+                new UserNavigationView(EasyLearnChat.this, item.getItemId(), user);
                 return false;
             }
         });

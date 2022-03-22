@@ -15,9 +15,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.easylearnsce.Class.Chat;
-import com.example.easylearnsce.Class.ChatAdapter;
+import com.example.easylearnsce.Adapters.ChatAdapter;
 import com.example.easylearnsce.Class.User;
-import com.example.easylearnsce.Class.UserAdapter;
 import com.example.easylearnsce.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -54,12 +53,10 @@ public class ChatsFragment extends Fragment {
                 usersList.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Chat chat = snapshot.getValue(Chat.class);
-                    if(chat.getSender().equals(fuser.getUid())){
+                    if(chat.getSender().equals(fuser.getUid()))
                         usersList.add(chat.getReceiver());
-                    }
-                    if(chat.getReceiver().equals(fuser.getUid())){
+                    if(chat.getReceiver().equals(fuser.getUid()))
                         usersList.add(chat.getSender());
-                    }
                 }
                 readChats();
             }
@@ -80,7 +77,6 @@ public class ChatsFragment extends Fragment {
         return view;
     }
     private void UserSearch(String text) {
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         Query query = FirebaseDatabase.getInstance().getReference().child("Users");
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -92,10 +88,9 @@ public class ChatsFragment extends Fragment {
                         assert user != null;
                         for (String id : usersList) {
                             if (user.getUid().equals(id)) {
-                                if (mUsers.contains(user)) {
-                                } else {
+                                if (mUsers.contains(user)) { }
+                                else
                                     mUsers.add(user);
-                                }
                             }
                         }
                     }
@@ -120,10 +115,9 @@ public class ChatsFragment extends Fragment {
                         assert user != null;
                         for (String id : usersList) {
                             if (user.getUid().equals(id)) {
-                                if (mUsers.contains(user)) {
-                                } else {
+                                if (mUsers.contains(user)) { }
+                                else
                                     mUsers.add(user);
-                                }
                             }
                         }
                     }

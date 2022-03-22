@@ -1,4 +1,4 @@
-package com.example.easylearnsce.Class;
+package com.example.easylearnsce.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.easylearnsce.Class.Chat;
+import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.User.Message;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,7 +55,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ChatAdapter.ViewHolder holder, int position) {
         User user = users.get(position);
         holder.FragmentUserName.setText(user.getFirstName()+" "+user.getLastName());
-        //holder.FragmentUserInfo.setText(user.getGender()+", "+user.getAge()+", "+user.getCity());
         if(!user.getImage().equals("Image"))
             Glide.with(context).load(user.getImage()).into(holder.FragmentUserImage);
         lastMsg(user.getUid(),holder.FragmentUserInfo);

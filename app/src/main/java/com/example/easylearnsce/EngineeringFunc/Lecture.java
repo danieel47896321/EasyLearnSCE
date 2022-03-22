@@ -1,4 +1,4 @@
-package com.example.easylearnsce.SelectFunc;
+package com.example.easylearnsce.EngineeringFunc;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.easylearnsce.Class.Engineering;
+import com.example.easylearnsce.Class.Tag;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
@@ -29,7 +29,7 @@ public class Lecture extends AppCompatActivity {
     private User user = new User();
     private NavigationView user_navView;
     private RecyclerView viewList;
-    private List<Engineering> selects;
+    private List<Tag> selects;
     private Intent intent;
     private String Course = "Course";
     @Override

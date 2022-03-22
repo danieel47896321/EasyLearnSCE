@@ -1,4 +1,4 @@
-package com.example.easylearnsce.Class;
+package com.example.easylearnsce.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,6 +17,7 @@ import androidx.annotation.RequiresApi;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
 

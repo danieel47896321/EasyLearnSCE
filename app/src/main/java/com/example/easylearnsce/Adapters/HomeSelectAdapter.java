@@ -1,4 +1,4 @@
-package com.example.easylearnsce.Class;
+package com.example.easylearnsce.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,31 +15,26 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.easylearnsce.Guest.About;
-import com.example.easylearnsce.Guest.Contact;
-import com.example.easylearnsce.Guest.CreateAccount;
+import com.example.easylearnsce.Class.Tag;
+import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Guest.EasyLearnSCE;
-import com.example.easylearnsce.Guest.ResetPassword;
-import com.example.easylearnsce.Guest.SignIn;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.User.ChangePassword;
 import com.example.easylearnsce.User.EasyLearnChat;
 import com.example.easylearnsce.User.Home;
 import com.example.easylearnsce.User.Profile;
 import com.example.easylearnsce.User.SelectEngineering;
-import com.example.easylearnsce.User.UserAbout;
-import com.example.easylearnsce.User.UserContact;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
-public class HomeSelectView extends RecyclerView.Adapter<HomeSelectView.MyViewHolder> {
+public class HomeSelectAdapter extends RecyclerView.Adapter<HomeSelectAdapter.MyViewHolder> {
     private Context context;
-    private List<Engineering> Select;
+    private List<Tag> Select;
     private User user;
     private Intent intent;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    public HomeSelectView(Context context, List<Engineering> select) {
+    public HomeSelectAdapter(Context context, List<Tag> select) {
         this.context = context;
         this.Select = select;
     }
@@ -55,26 +50,20 @@ public class HomeSelectView extends RecyclerView.Adapter<HomeSelectView.MyViewHo
         }
     }
     public void setUser(User user){ this.user = user; }
-    public HomeSelectView.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HomeSelectAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         view = layoutInflater.inflate(R.layout.select_view,parent,false);
-        return new HomeSelectView.MyViewHolder(view);
+        return new HomeSelectAdapter.MyViewHolder(view);
     }
-    public void onBindViewHolder(@NonNull HomeSelectView.MyViewHolder holder, int position) {
-        holder.textView.setText(Select.get(position).getEngineeringname());
+    public void onBindViewHolder(@NonNull HomeSelectAdapter.MyViewHolder holder, int position) {
+        holder.textView.setText(Select.get(position).getTagName());
         holder.imageView.setImageResource(Select.get(position).getPhoto());
-        holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                holder.cardView.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
-                return false;
-            }
-        });
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 holder.cardView.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
+                intent = new Intent(context, Home.class);
                 //Home
                  if(holder.textView.getText().equals(context.getResources().getString(R.string.SelectEngineering)))
                     intent = new Intent(context, SelectEngineering.class);
@@ -84,12 +73,6 @@ public class HomeSelectView extends RecyclerView.Adapter<HomeSelectView.MyViewHo
                     intent = new Intent(context, Profile.class);
                 else if(holder.textView.getText().equals(context.getResources().getString(R.string.ChangePassword)))
                     intent = new Intent(context, ChangePassword.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.Contact)))
-                    intent = new Intent(context, UserContact.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.About)))
-                    intent = new Intent(context, UserAbout.class);
-                else
-                    intent = new Intent(context, Home.class);
                 if(holder.textView.getText().equals(context.getResources().getString(R.string.SignOut))) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle(context.getResources().getString(R.string.SignOut)).setMessage(context.getResources().getString(R.string.AreYouSure)).setCancelable(true).setPositiveButton(context.getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {

@@ -9,15 +9,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.easylearnsce.Guest.ResetPassword;
-import com.example.easylearnsce.Guest.SignIn;
 import com.example.easylearnsce.R;
-import com.example.easylearnsce.SelectFunc.GenericCourse;
-import com.example.easylearnsce.SelectFunc.Lecture;
+import com.example.easylearnsce.EngineeringFunc.GenericCourse;
 
 import java.util.List;
 
@@ -25,7 +21,7 @@ public class CourseView extends RecyclerView.Adapter<CourseView.MyViewHolder> {
     private Context context;
     private List<Course> courses;
     private User user;
-    private String Engineering = "Engineering";
+    private String Engineering = "Tag";
     public CourseView(Context context, List<Course> course, String Engineering) {
         this.context = context;
         this.courses = course;
@@ -67,7 +63,7 @@ public class CourseView extends RecyclerView.Adapter<CourseView.MyViewHolder> {
                 Intent intent;
                 intent = new Intent(context, GenericCourse.class);
                 intent.putExtra("Course",holder.course_name.getText().toString());
-                intent.putExtra("Engineering",Engineering);
+                intent.putExtra("Tag",Engineering);
                 intent.putExtra("user",user);
                 context.startActivity(intent);
                 ((Activity)context).finish();

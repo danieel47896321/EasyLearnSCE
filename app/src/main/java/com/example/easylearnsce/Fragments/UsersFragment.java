@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.easylearnsce.Class.User;
-import com.example.easylearnsce.Class.UserAdapter;
+import com.example.easylearnsce.Adapters.UserAdapter;
 import com.example.easylearnsce.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,7 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public class UsersFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -48,9 +47,7 @@ public class UsersFragment extends Fragment {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                UserSearch(s.toString());
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) { UserSearch(s.toString()); }
             @Override
             public void afterTextChanged(Editable s) { }
         });

@@ -13,19 +13,19 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.easylearnsce.Class.Engineering;
-import com.example.easylearnsce.Class.EngineeringAdapter;
-import com.example.easylearnsce.Class.SelectView;
+import com.example.easylearnsce.Adapters.ChatAdapter;
+import com.example.easylearnsce.Class.Tag;
+import com.example.easylearnsce.Adapters.EngineeringAdapter;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserLanguage;
-import com.example.easylearnsce.Class.UserMenuAdapter;
-import com.example.easylearnsce.Class.UserNavView;
+import com.example.easylearnsce.Adapters.UserMenuAdapter;
+import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.R;
-import com.example.easylearnsce.SelectFunc.GenericEngineering;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,13 +39,16 @@ import java.util.List;
 
 public class SelectEngineering extends AppCompatActivity {
     private User user = new User();
-    private TextView Title, TextViewSearchLanguage, User_search;
-    private UserLanguage lagnuage;
+    private TextView Title, TextViewSearchLanguage;
+    private UserLanguage userLanguage;
     private ImageView BackIcon, MenuIcon;
     private DrawerLayout drawerLayout;
     private NavigationView UserNavigationView;
-    private RecyclerView viewList;
-    private List<Engineering> Engineerings;
+    private RecyclerView recyclerView;
+    private List<Tag> tags;
+    private EditText User_search;
+    private String HomeTags[];
+    private int TagsPhotos[] = {R.drawable.structural, R.drawable.mechanical, R.drawable.electrical, R.drawable.software,R.drawable.nihol,R.drawable.chemistry,R.drawable.software,R.drawable.mehina};
     private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +63,14 @@ public class SelectEngineering extends AppCompatActivity {
         MenuItem();
         BackIcon();
         MenuIcon();
-        NavView();
-        User_Search();
+        NavigationView();
+        UserSearch();
     }
     private void setID(){
-        Engineerings = new ArrayList<>();
+        tags = new ArrayList<>();
         intent = getIntent();
         User_search = findViewById(R.id.User_search);
-        viewList = findViewById(R.id.EngineeringRV);
+        recyclerView = findViewById(R.id.recyclerView);
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
         Title = findViewById(R.id.Title);
@@ -77,68 +80,37 @@ public class SelectEngineering extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         new UserMenuAdapter(user,SelectEngineering.this);
         TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        lagnuage = new UserLanguage(SelectEngineering.this, user);
+        userLanguage = new UserLanguage(SelectEngineering.this, user);
+        HomeTags = new String[TagsPhotos.length];
+        HomeTags = getResources().getStringArray(R.array.Engineerings);
     }
-    private void User_Search() {
+    private void UserSearch() {
         User_search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { UserSearch(s.toString()); }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() > 0)
+                    EngineeringSearch(s.toString());
+                else
+                    setEngineering();
+            }
             @Override
             public void afterTextChanged(Editable s) { }
         });
     }
-    private void UserSearch(String text) {
-        Query query = FirebaseDatabase.getInstance().getReference().child("Engineering").child("Hebrew");
-        if(getResources().getConfiguration().locale.getDisplayLanguage().equals("Hebrew") || getResources().getConfiguration().locale.getDisplayLanguage().equals("עברית"))
-            query = FirebaseDatabase.getInstance().getReference().child("Engineering").child("Hebrew");
-        else if (getResources().getConfiguration().locale.getDisplayLanguage().equals("English") || getResources().getConfiguration().locale.getDisplayLanguage().equals("אנגלית"))
-            query = FirebaseDatabase.getInstance().getReference().child("Engineering").child("English");
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Engineerings.clear();
-                for (DataSnapshot eng : snapshot.getChildren()) {
-                    Engineering get_engineering = eng.getValue(Engineering.class);
-                    if(get_engineering.getEngineeringname().toLowerCase().contains(text.toLowerCase())){
-                        Engineerings.add(get_engineering);
-                    }
-                }
-                ShowTags(Engineerings);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
-        });
-    }
-    private void setEngineering(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference().child("Engineering").child("Hebrew");;
-        if (getResources().getConfiguration().locale.getDisplayLanguage().equals("Hebrew") || getResources().getConfiguration().locale.getDisplayLanguage().equals("עברית"))
-            reference = database.getReference().child("Engineering").child("Hebrew");
-        else if (getResources().getConfiguration().locale.getDisplayLanguage().equals("English") || getResources().getConfiguration().locale.getDisplayLanguage().equals("אנגלית"))
-            reference = database.getReference().child("Engineering").child("English");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(User_search.getText().toString().equals("")) {
-                    Engineerings.clear();
-                    for (DataSnapshot eng : snapshot.getChildren()) {
-                        Engineering get_engineering = eng.getValue(Engineering.class);
-                        Engineerings.add(get_engineering);
-                    }
-                    ShowTags(Engineerings);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+    private void EngineeringSearch(String Text) {
+        tags.clear();
+        for(int i = 0; i< TagsPhotos.length; i++) {
+            if(HomeTags[i].toLowerCase().contains(Text.toLowerCase()))
+                tags.add(new Tag(HomeTags[i], TagsPhotos[i]));
+        }
+        ShowTags(tags);
     }
     private void setLanguage(){
         TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { lagnuage.setDialog(); }
+            public void onClick(View view) { userLanguage.setDialog(); }
         });
     }
     private void MenuItem(){
@@ -154,11 +126,11 @@ public class SelectEngineering extends AppCompatActivity {
             public void onClick(View v) { drawerLayout.open(); }
         });
     }
-    private void NavView(){
+    private void NavigationView(){
         UserNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                new UserNavView(SelectEngineering.this, item.getItemId(), user);
+                new UserNavigationView(SelectEngineering.this, item.getItemId(), user);
                 return false;
             }
         });
@@ -169,11 +141,17 @@ public class SelectEngineering extends AppCompatActivity {
             public void onClick(View v) { StartActivity(Home.class); }
         });
     }
-    private void ShowTags(List<Engineering> engineeringsList){
+    private void setEngineering(){
+        tags.clear();
+        for(int i = 0; i< TagsPhotos.length; i++)
+            tags.add(new Tag(HomeTags[i], TagsPhotos[i]));
+        ShowTags(tags);
+    }
+    private void ShowTags(List<Tag> engineeringsList){
         EngineeringAdapter myEngineerings = new EngineeringAdapter(this,engineeringsList);
         myEngineerings.setUser(user);
-        viewList.setLayoutManager(new GridLayoutManager(this,1));
-        viewList.setAdapter(myEngineerings);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,1));
+        recyclerView.setAdapter(myEngineerings);
     }
     private void StartActivity(Class Destination){
         intent = new Intent(SelectEngineering.this, Destination);
@@ -182,10 +160,5 @@ public class SelectEngineering extends AppCompatActivity {
         finish();
     }
     @Override
-    public void onBackPressed() {
-        intent = new Intent(SelectEngineering.this, Home.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
-        finish();
-    }
+    public void onBackPressed() { StartActivity(Home.class); }
 }

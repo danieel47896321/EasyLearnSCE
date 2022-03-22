@@ -30,7 +30,7 @@ public class UserLanguage {
     private ListView ListViewSearch;
     private Context context;
     private User user;
-    private String Engineering = "Engineering";
+    private String Engineering = "Tag";
     private String Course = "Course";
     public UserLanguage(Context context, User user){
         this.context = context;
@@ -92,7 +92,7 @@ public class UserLanguage {
     public void StartActivity(Locale locale){
         Intent intent = new Intent(context, context.getClass());
         intent.putExtra("user", user);
-        intent.putExtra("Engineering", Engineering);
+        intent.putExtra("Tag", Engineering);
         intent.putExtra("Course", Course);
         context.startActivity(intent);
         ((Activity)context).finish();

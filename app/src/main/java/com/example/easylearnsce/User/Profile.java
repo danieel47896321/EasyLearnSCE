@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,6 +31,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -41,8 +43,8 @@ import com.bumptech.glide.request.transition.Transition;
 import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserLanguage;
-import com.example.easylearnsce.Class.UserMenuAdapter;
-import com.example.easylearnsce.Class.UserNavView;
+import com.example.easylearnsce.Adapters.UserMenuAdapter;
+import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -58,20 +60,23 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 
 public class Profile extends AppCompatActivity {
-    private TextView Title,TextViewSearchCity, TextViewSearchAge, TextViewSearchGender,TextViewSearch, TextViewSearchLanguage;
-    private TextInputLayout TextInputLayoutFirstName, TextInputLayoutLastName ,TextInputLayoutEmail;
+    private TextView Title,TextViewSearch, TextViewSearchLanguage;
+    private TextInputLayout TextInputLayoutFirstName, TextInputLayoutLastName ,TextInputLayoutEmail, TextInputLayoutGender, TextInputLayoutAge, TextInputLayoutCity;
     private Button Confirm;
     private DrawerLayout drawerLayout;
     private ImageView BackIcon, MenuIcon,addImage;
     private Loading loading;
+    private Calendar calendar = Calendar.getInstance();
+    private int Year = calendar.get(Calendar.YEAR), Month = calendar.get(Calendar.MONTH), Day = calendar.get(Calendar.DAY_OF_MONTH), UserYear, UserMonth, UserDay;
     private Intent intent;
-    private UserLanguage lagnuage;
+    private UserLanguage userLanguage;
     private View UserProfileImage, UserImage;
     private NavigationView UserNavigationView;
     private Dialog dialog;
-    private ImageView Cammera;
+    private ImageView Camera;
     private EditText EditTextSearch;
     private ListView ListViewSearch;
     private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
@@ -93,7 +98,7 @@ public class Profile extends AppCompatActivity {
         MenuItem();
         BackIcon();
         MenuIcon();
-        NavView();
+        NavigationView();
         Confirm();
         AddImage();
         ShowInfo();
@@ -104,9 +109,9 @@ public class Profile extends AppCompatActivity {
         TextInputLayoutFirstName = findViewById(R.id.TextInputLayoutFirstName);
         TextInputLayoutLastName = findViewById(R.id.TextInputLayoutLastName);
         TextInputLayoutEmail = findViewById(R.id.TextInputLayoutEmail);
-        TextViewSearchCity = findViewById(R.id.TextViewSearchCity);
-        TextViewSearchAge = findViewById(R.id.TextViewSearchAge);
-        TextViewSearchGender = findViewById(R.id.TextViewSearchGender);
+        TextInputLayoutGender = findViewById(R.id.TextInputLayoutGender);
+        TextInputLayoutAge = findViewById(R.id.TextInputLayoutAge);
+        TextInputLayoutCity = findViewById(R.id.TextInputLayoutCity);
         addImage = findViewById(R.id.addImage);
         Confirm = findViewById(R.id.confirm);
         UserNavigationView = findViewById(R.id.UserNavigationView);
@@ -119,12 +124,12 @@ public class Profile extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         new UserMenuAdapter(user,Profile.this);
         TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        lagnuage = new UserLanguage(Profile.this, user);
+        userLanguage = new UserLanguage(Profile.this, user);
     }
     private void setLanguage(){
         TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { lagnuage.setDialog(); }
+            public void onClick(View view) { userLanguage.setDialog(); }
         });
     }
     private void MenuItem(){
@@ -140,11 +145,11 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) { drawerLayout.open(); }
         });
     }
-    private void NavView(){
+    private void NavigationView(){
         UserNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                new UserNavView(Profile.this, item.getItemId(), user);
+                new UserNavigationView(Profile.this, item.getItemId(), user);
                 return false;
             }
         });
@@ -153,9 +158,9 @@ public class Profile extends AppCompatActivity {
         TextInputLayoutFirstName.getEditText().setText(user.getFirstName());
         TextInputLayoutLastName.getEditText().setText(user.getLastName());
         TextInputLayoutEmail.getEditText().setText(user.getEmail());
-        TextViewSearchCity.setText(user.getCity());
-        TextViewSearchAge.setText(user.getBirthDay().toString());
-        TextViewSearchGender.setText(user.getGender());
+        TextInputLayoutCity.getEditText().setText(user.getCity());
+        TextInputLayoutAge.getEditText().setText(user.getBirthDay().toString());
+        TextInputLayoutGender.getEditText().setText(user.getGender());
         if(!user.getImage().equals("Image")) {
             Glide.with(Profile.this).asBitmap().load(user.getImage()).into(new CustomTarget<Bitmap>() {
                 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -179,9 +184,12 @@ public class Profile extends AppCompatActivity {
                     newUser.setUid(user.getUid());
                     newUser.setFirstName(TextInputLayoutFirstName.getEditText().getText().toString());
                     newUser.setLastName(TextInputLayoutLastName.getEditText().getText().toString());
-                    newUser.setGender(TextViewSearchGender.getText().toString());
-                    //newUser.setBirthDay(TextViewSearchAge.getText().toString());
-                    newUser.setCity(TextViewSearchCity.getText().toString());
+                    newUser.setGender(TextInputLayoutGender.getEditText().getText().toString());
+                    newUser.setYear(user.getYear());
+                    newUser.setMonth(user.getMonth());
+                    newUser.setDay(user.getDay());
+                    newUser.setBirthDay(user.getBirthDay());
+                    newUser.setCity(TextInputLayoutCity.getEditText().getText().toString());
                     newUser.setFullName(newUser.getFirstName()+" "+newUser.getLastName());
                     if(uri != null)
                         UploadImage();
@@ -223,41 +231,43 @@ public class Profile extends AppCompatActivity {
                 TextInputLayoutLastName.setHelperText("");
             return false;
         }
-        else if(TextViewSearchCity.getText().toString().equals("")){
-            return false;
-        }
-        else if(TextViewSearchAge.getText().toString().equals("")){
-            return false;
-        }
-        else if(TextViewSearchGender.getText().toString().equals("")){
-            return false;
-        }
         return true;
     }
     private void CityPick(){
-        TextViewSearchCity.setOnClickListener(new View.OnClickListener() {
+        TextInputLayoutCity.getEditText().setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                setDialog(getResources().getStringArray(R.array.City),getResources().getString(R.string.SelectCity),TextViewSearchCity);
-            }
+            public void onClick(View view) { setDialog(getResources().getStringArray(R.array.City),getResources().getString(R.string.SelectCity),TextInputLayoutCity.getEditText()); }
         });
     }
     private void AgePick(){
-        String age[] = new String[103];
-        for(int i=0; i<103 ; i++)
-            age[i] = ""+(i+18);
-        TextViewSearchAge.setOnClickListener(new View.OnClickListener() {
+        TextInputLayoutAge.getEditText().setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                setDialog(age ,getResources().getString(R.string.SelectAge),TextViewSearchAge);
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Profile.this, new DatePickerDialog.OnDateSetListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month = month + 1;
+                        UserMonth = month;
+                        UserYear = year;
+                        UserDay = dayOfMonth;
+                        String Date = dayOfMonth + "/" + month + "/" + year;
+                        TextInputLayoutAge.getEditText().setText(Date);
+                        user.setDay(dayOfMonth+"");
+                        user.setMonth(month+"");
+                        user.setYear(year+"");
+                        user.setBirthDay(Date);
+                    }
+                },Year, Month, Day);
+                datePickerDialog.show();
             }
         });
     }
     private void GenderPick(){
-        TextViewSearchGender.setOnClickListener(new View.OnClickListener() {
+        TextInputLayoutGender.getEditText().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setDialog(getResources().getStringArray(R.array.Gender),getResources().getString(R.string.SelectGender),TextViewSearchGender);
+                setDialog(getResources().getStringArray(R.array.Gender),getResources().getString(R.string.SelectGender),TextInputLayoutGender.getEditText());
             }
         });
     }
@@ -273,12 +283,12 @@ public class Profile extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.dialog_profile_picture,null);
         builder.setCancelable(false);
         builder.setView(dialogView);
-        Cammera = dialogView.findViewById(R.id.Cammera);
+        Camera = dialogView.findViewById(R.id.Cammera);
         ImageView Gallery = dialogView.findViewById(R.id.Gallery);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
-        Cammera.setOnClickListener(new View.OnClickListener() {
+        Camera.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {

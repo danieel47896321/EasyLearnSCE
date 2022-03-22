@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectFunc.Lecture"
+    tools:context=".EngineeringFunc.Lecture"
     android:background="@color/sky">
 
     <include
@@ -16,7 +16,7 @@
         android:layout_width="220dp"
         android:layout_height="0dp"
         android:visibility="invisible"
-        app:headerLayout="@layout/user_nav_header"
+        app:headerLayout="@layout/user_navigation_header"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
         app:menu="@menu/user_menu"

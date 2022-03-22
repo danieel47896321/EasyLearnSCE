@@ -1,33 +1,29 @@
 package com.example.easylearnsce.Class;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.MenuItem;
 
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
-import com.example.easylearnsce.SelectFunc.GenericEngineering;
+import com.example.easylearnsce.EngineeringFunc.GenericEngineering;
 import com.example.easylearnsce.User.ChangePassword;
 import com.example.easylearnsce.User.EasyLearnChat;
 import com.example.easylearnsce.User.Home;
 import com.example.easylearnsce.User.Profile;
 import com.example.easylearnsce.User.SelectEngineering;
-import com.example.easylearnsce.User.UserAbout;
-import com.example.easylearnsce.User.UserContact;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class UserNavView {
+public class UserNavigationView {
     private Intent intent;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    public UserNavView(Context context, int id, User user){
+    public UserNavigationView(Context context, int id, User user){
         if(id == R.id.ItemHome)
             StartActivity(context, Home.class, user);
         else if(id == R.id.ItemSelectEngineering)
@@ -54,10 +50,6 @@ public class UserNavView {
             StartActivity(context, Profile.class, user);
         else if(id == R.id.ItemChangePassword)
             StartActivity(context, ChangePassword.class, user);
-        else if(id == R.id.ItemAbout)
-            StartActivity(context, UserAbout.class, user);
-        else if(id == R.id.ItemContact)
-            StartActivity(context, UserContact.class, user);
         else if(id == R.id.ItemSignOut) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(context.getResources().getString(R.string.SignOut)).setMessage(context.getResources().getString(R.string.AreYouSure)).setCancelable(true).setPositiveButton(context.getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {
@@ -87,7 +79,7 @@ public class UserNavView {
     private void EngineeringStartActivity(Context context, Class Destination, User user, String Engineering){
         intent = new Intent(context, Destination);
         intent.putExtra("user", user);
-        intent.putExtra("Engineering", Engineering);
+        intent.putExtra("Tag", Engineering);
         context.startActivity(intent);
         ((Activity)context).finish();
     }

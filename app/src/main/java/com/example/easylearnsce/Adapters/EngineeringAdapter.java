@@ -1,4 +1,4 @@
-package com.example.easylearnsce.Class;
+package com.example.easylearnsce.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,16 +11,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.easylearnsce.Class.Tag;
+import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.R;
-import com.example.easylearnsce.SelectFunc.GenericEngineering;
+import com.example.easylearnsce.EngineeringFunc.GenericEngineering;
 
 import java.util.List;
 
 public class EngineeringAdapter extends RecyclerView.Adapter<EngineeringAdapter.MyViewHolder> {
     private Context context;
-    private List<Engineering> Select;
+    private List<Tag> Select;
     private User user;
-    public EngineeringAdapter(Context context, List<Engineering> select) {
+    public EngineeringAdapter(Context context, List<Tag> select) {
         this.context = context;
         this.Select = select;
     }
@@ -43,7 +46,7 @@ public class EngineeringAdapter extends RecyclerView.Adapter<EngineeringAdapter.
         return new EngineeringAdapter.MyViewHolder(view);
     }
     public void onBindViewHolder(@NonNull EngineeringAdapter.MyViewHolder holder, int position) {
-        holder.textView.setText(Select.get(position).getEngineeringname());
+        holder.textView.setText(Select.get(position).getTagName());
         holder.imageView.setImageResource(Select.get(position).getPhoto());
         holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -57,7 +60,7 @@ public class EngineeringAdapter extends RecyclerView.Adapter<EngineeringAdapter.
             public void onClick(View v) {
                 holder.cardView.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
                 Intent intent = new Intent(context, GenericEngineering.class);
-                intent.putExtra("Engineering",holder.textView.getText());
+                intent.putExtra("Tag",holder.textView.getText());
                 intent.putExtra("user",user);
                 context.startActivity(intent);
                 ((Activity)context).finish();
