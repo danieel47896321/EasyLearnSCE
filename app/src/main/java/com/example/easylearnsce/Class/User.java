@@ -1,7 +1,6 @@
 package com.example.easylearnsce.Class;
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
 
 public class User implements Serializable {
     private String Uid = "Uid";
@@ -20,6 +19,7 @@ public class User implements Serializable {
     private String Engineering = "null";
     private String Course = "null";
     private String Lecture = "null";
+    private int RequestNumber = 0;
     public User(String FirstName, String LastName, String Email) {
         this.FirstName = FirstName;
         this.LastName = LastName;
@@ -53,6 +53,8 @@ public class User implements Serializable {
     public String getMonth() { return Month; }
     public String getYear() { return Year; }
     public String getBirthDay() { return BirthDay; }
+    public int getRequestNumber() { return RequestNumber; }
+    public void setRequestNumber(int requestNumber) { RequestNumber = requestNumber; }
     //setters
     public void setBirthDay(String birthDay) { BirthDay = birthDay; }
     public void setYear(String year) { Year = year; }

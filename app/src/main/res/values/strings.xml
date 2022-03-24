@@ -52,6 +52,7 @@
     <string name="InvalidDateOfBirth" translatable="true">Invalid Date Of BirthDay</string>
     <string name="ConfirmPassword" translatable="true">Confirm Password</string>
     <string name="AlreadyHaveAccount" translatable="true">Already Have Account? Sign In</string>
+    <string name="SelectUserType" translatable="true">Select User Type</string>
     <!-- CreateAccountValidation Page -->
     <string name="CreateAccountValidation" translatable="true">Create Account Validation</string>
     <string name="CodeText" translatable="true">Hello, We have sent you a one time code to Phone:</string>
@@ -79,6 +80,8 @@
     <string name="Home" translatable="true">Home</string>
     <string name="SelectEngineering" translatable="true">Select Engineering</string>
     <string name="Profile" translatable="true">Profile</string>
+    <string name="RequestPermissions" translatable="true">Request Permissions</string>
+    <string name="Requests" translatable="true">Requests</string>
     <string name="ChangePassword" translatable="true">Change Password</string>
     <string name="SignOut" translatable="true">Sign Out</string>
     <string name="Friends" translatable="true">Friends</string>
@@ -112,6 +115,23 @@
     <string name="Online" translatable="true">Online</string>
     <string name="Offline" translatable="true">Offline</string>
     <string name="TypeaMessage" translatable="true">Message</string>
+    <!-- Requests Page -->
+    <string name="SendRequest" translatable="true">Send Request</string>
+    <string name="SelectRequest" translatable="true">Select Request</string>
+    <string name="TeacherPermission" translatable="true">Get Teacher Permission</string>
+    <string name="RequestSentSuccessfully" translatable="true">The request was sent successfully</string>
+    <string name="Details" translatable="true">Details</string>
+    <string name="RequestDenied" translatable="true">The request was denied</string>
+    <string name="RequestApproved" translatable="true">The request was approved</string>
+    <string name="RequestAlreadyExists" translatable="true">The request already exists in the system, please wait for a reply</string>
+    <!-- AllRequests Page -->
+    <string name="AllRequests" translatable="true">All Requests</string>
+    <string name="Approved" translatable="true">Approved</string>
+    <string name="Denied" translatable="true">Denied</string>
+    <string name="Pending" translatable="true">Pending</string>
+    <string name="Request" translatable="true">Request</string>
+    <string name="Answer" translatable="true">Answer</string>
+    <string name="State" translatable="true">State</string>
     <!-- Profile Page -->
     <string name="CantChangeEmail" translatable="true">Cant Change Email</string>
     <string name="ProfileUpdated" translatable="true">Profile successfully updated!</string>
@@ -168,6 +188,8 @@
     <string-array name="HomeTagsName">
         <item>@string/SelectEngineering</item>
         <item>@string/EasyLearnChat</item>
+        <item>@string/Requests</item>
+        <item>@string/AllRequests</item>
         <item>@string/Profile</item>
         <item>@string/ChangePassword</item>
         <item>@string/SignOut</item>
@@ -212,7 +234,14 @@
         <item>@string/TelAviv</item>
         <item>@string/Haifa</item>
     </string-array>
-
+    <string-array name="Type">
+        <item>@string/Student</item>
+        <item>@string/Teacher</item>
+    </string-array>
+    <string-array name="Permissions">
+        <item>@string/TeacherPermission</item>
+        <item>@string/Other</item>
+    </string-array>
     <string name="Type" translatable="true">Type</string>
     <string name="Student" translatable="true">Student</string>
     <string name="Teacher" translatable="true">Teacher</string>

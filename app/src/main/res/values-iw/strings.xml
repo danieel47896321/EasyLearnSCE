@@ -63,6 +63,8 @@
     <string name="VerifyStartMsg" translatable="true">היי,</string>
     <string name="VerifyMidMsg" translatable="true">הכנס את הקוד הבא:</string>
     <string name="VerifyEndMsg" translatable="true">כדי לאמת את כתובת האימייל שלך.</string>
+    <string name="SelectUserType" translatable="true">בחר סוג משתמש</string>
+
     <!-- ResetPassword Page -->
     <string name="ForgotPasswordInfo" translatable="true">נא הזן את כתובת האימייל שברצונך לשחזר עבורו את הסיסמה</string>
     <string name="ResetLink" translatable="true">קישור לאיפוס הסיסמה נשלח לאימייל</string>
@@ -78,6 +80,8 @@
     <!-- Home Page -->
     <string name="Home" translatable="true">ראשי</string>
     <string name="SelectEngineering" translatable="true">בחר הנדסה</string>
+    <string name="RequestPermissions" translatable="true">בקשת הרשאות</string>
+    <string name="Requests" translatable="true">בקשות</string>
     <string name="Profile" translatable="true">פרופיל</string>
     <string name="ChangePassword" translatable="true">שינוי סיסמה</string>
     <string name="SignOut" translatable="true">התנתק</string>
@@ -112,6 +116,23 @@
     <string name="Online" translatable="true">מחובר/ת</string>
     <string name="Offline" translatable="true">מנותק/ת</string>
     <string name="TypeaMessage" translatable="true">הודעה</string>
+    <!-- Requests Page -->
+    <string name="SendRequest" translatable="true">שלח בקשה</string>
+    <string name="SelectRequest" translatable="true">בחר בקשה</string>
+    <string name="TeacherPermission" translatable="true">קבלת הרשאות מרצה</string>
+    <string name="RequestSentSuccessfully" translatable="true">הבקשה נשלחה בהצלחה</string>
+    <string name="Details" translatable="true">פירוט</string>
+    <string name="RequestDenied" translatable="true">הבקשה כבר נדחתה</string>
+    <string name="RequestApproved" translatable="true">הבקשה כבר אושרה</string>
+    <string name="RequestAlreadyExists" translatable="true">הבקשה כבר קיימת במערכת, בבקשה המתן לתשובה</string>
+    <!-- AllRequests Page -->
+    <string name="AllRequests" translatable="true">כל הבקשות</string>
+    <string name="Approved" translatable="true">הבקשה אושרה</string>
+    <string name="Denied" translatable="true">הבקשה נדחתה</string>
+    <string name="Pending" translatable="true">ממתין לתשובה</string>
+    <string name="Request" translatable="true">בקשה</string>
+    <string name="Answer" translatable="true">תשובה</string>
+    <string name="State" translatable="true">מצב הבקשה</string>
     <!-- Profile Page -->
     <string name="CantChangeEmail" translatable="true">לא ניתן לשנות אימייל</string>
     <string name="ProfileUpdated" translatable="true">הפרופיל עודכן בהצלחה!</string>
@@ -140,7 +161,6 @@
     <string name="PetahTiqwa" translatable="true">פתח תקווה</string>
     <string name="TelAviv" translatable="true">תל אביב</string>
     <string name="Haifa" translatable="true">חיפה</string>
-
     <!-- ChangePassword Page -->
     <string name="CurrentPassword" translatable="true">סיסמה נוכחית</string>
     <string name="NewPassword" translatable="true">סיסמה חדשה</string>

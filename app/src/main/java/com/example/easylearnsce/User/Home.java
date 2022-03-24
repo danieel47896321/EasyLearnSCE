@@ -45,7 +45,7 @@ public class Home extends AppCompatActivity {
     private Intent intent;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private String HomeTags[] ;
-    private int TagsPhotos[] = {R.drawable.engineering, R.drawable.message, R.drawable.person, R.drawable.forgotpassword,R.drawable.signout};
+    private int TagsPhotos[] = {R.drawable.engineering, R.drawable.message, R.drawable.request_permisstions,R.drawable.all_requests, R.drawable.person, R.drawable.forgotpassword,R.drawable.signout};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

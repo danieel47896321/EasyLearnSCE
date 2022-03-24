@@ -22,6 +22,8 @@ import com.example.easylearnsce.R;
 import com.example.easylearnsce.User.ChangePassword;
 import com.example.easylearnsce.User.EasyLearnChat;
 import com.example.easylearnsce.User.Home;
+import com.example.easylearnsce.User.AllRequests;
+import com.example.easylearnsce.User.Requests;
 import com.example.easylearnsce.User.Profile;
 import com.example.easylearnsce.User.SelectEngineering;
 import com.google.firebase.auth.FirebaseAuth;
@@ -73,6 +75,10 @@ public class HomeSelectAdapter extends RecyclerView.Adapter<HomeSelectAdapter.My
                     intent = new Intent(context, Profile.class);
                 else if(holder.textView.getText().equals(context.getResources().getString(R.string.ChangePassword)))
                     intent = new Intent(context, ChangePassword.class);
+                else if(holder.textView.getText().equals(context.getResources().getString(R.string.Requests)))
+                    intent = new Intent(context, Requests.class);
+                else if(holder.textView.getText().equals(context.getResources().getString(R.string.AllRequests)))
+                    intent = new Intent(context, AllRequests.class);
                 if(holder.textView.getText().equals(context.getResources().getString(R.string.SignOut))) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle(context.getResources().getString(R.string.SignOut)).setMessage(context.getResources().getString(R.string.AreYouSure)).setCancelable(true).setPositiveButton(context.getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {

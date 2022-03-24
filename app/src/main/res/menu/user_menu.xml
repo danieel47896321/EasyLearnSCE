@@ -55,6 +55,14 @@
         android:icon="@drawable/message"
         android:title="@string/EasyLearnChat" />
     <item
+        android:id="@+id/ItemRequests"
+        android:icon="@drawable/request_permisstions"
+        android:title="@string/Requests" />
+    <item
+        android:id="@+id/ItemAllRequests"
+        android:icon="@drawable/all_requests"
+        android:title="@string/AllRequests" />
+    <item
         android:id="@+id/ItemProfile"
         android:icon="@drawable/person"
         android:title="@string/Profile" />

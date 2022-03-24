@@ -10,9 +10,11 @@ import androidx.appcompat.app.AlertDialog;
 import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.EngineeringFunc.GenericEngineering;
+import com.example.easylearnsce.User.AllRequests;
 import com.example.easylearnsce.User.ChangePassword;
 import com.example.easylearnsce.User.EasyLearnChat;
 import com.example.easylearnsce.User.Home;
+import com.example.easylearnsce.User.Requests;
 import com.example.easylearnsce.User.Profile;
 import com.example.easylearnsce.User.SelectEngineering;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -46,6 +48,10 @@ public class UserNavigationView {
             EngineeringStartActivity(context, SelectEngineering.class, user, context.getResources().getString(R.string.PreEngineering));
         else if(id == R.id.ItemEasyLearnChat)
             StartActivity(context, EasyLearnChat.class, user);
+        else if(id == R.id.ItemRequests)
+            StartActivity(context, Requests.class, user);
+        else if(id == R.id.ItemAllRequests)
+            StartActivity(context, AllRequests.class, user);
         else if(id == R.id.ItemProfile)
             StartActivity(context, Profile.class, user);
         else if(id == R.id.ItemChangePassword)
