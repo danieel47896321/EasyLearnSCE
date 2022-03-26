@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sky"
+    android:background="@drawable/background"
     tools:context=".Fragments.UsersFragment">
 
     <EditText
@@ -20,7 +20,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@+id/User_search"
-        android:id="@+id/UsersRV"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

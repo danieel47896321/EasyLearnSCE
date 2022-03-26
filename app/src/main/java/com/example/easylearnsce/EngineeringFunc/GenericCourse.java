@@ -14,10 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.easylearnsce.Class.Tag;
-import com.example.easylearnsce.Class.SelectView;
 import com.example.easylearnsce.Class.User;
-import com.example.easylearnsce.Class.UserLanguage;
-import com.example.easylearnsce.Adapters.UserMenuAdapter;
+import com.example.easylearnsce.Class.UserMenuInfo;
 import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
@@ -27,8 +25,7 @@ import java.util.List;
 
 public class GenericCourse extends AppCompatActivity {
     private ImageView BackIcon, MenuIcon;
-    private TextView title,user_fullname,user_email,TextViewSearchLanguage;
-    private UserLanguage lagnuage;
+    private TextView title,user_fullname,user_email;
     private User user = new User();
     private DrawerLayout drawerLayout;
     private NavigationView UserNavigationView;
@@ -50,7 +47,6 @@ public class GenericCourse extends AppCompatActivity {
         BackIcon();
         MenuIcon();
         NavView();
-        setLanguage();
     }
     public void setID(){
         intent = getIntent();
@@ -63,15 +59,13 @@ public class GenericCourse extends AppCompatActivity {
         Engineering = (String)intent.getSerializableExtra("Tag");
         Course = (String)intent.getSerializableExtra("Course");
         title.setText(Engineering+"\n"+Course);
-        UserNavigationView = findViewById(R.id.UserNavigationView);
+        UserNavigationView = findViewById(R.id.navigationView);
         drawerLayout = findViewById(R.id.drawerLayout);
         user_fullname = UserNavigationView.getHeaderView(0).findViewById(R.id.user_fullname);
         user_email = UserNavigationView.getHeaderView(0).findViewById(R.id.user_email);
         user_fullname.setText(user.getFirstName()+" "+user.getLastName());
         user_email.setText(user.getEmail());
-        new UserMenuAdapter(user,GenericCourse.this);
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        lagnuage = new UserLanguage(GenericCourse.this, user);
+        new UserMenuInfo(user,GenericCourse.this);
     }
     private void MenuIcon(){
         MenuIcon.setOnClickListener(new View.OnClickListener() {
@@ -100,16 +94,6 @@ public class GenericCourse extends AppCompatActivity {
             }
         });
     }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                lagnuage.setEngineering(Engineering);
-                lagnuage.setCourse(Course);
-                lagnuage.setDialog();
-            }
-        });
-    }
     public void SetTags(String[] engineering){
         for(int i=0; i<engineering.length; i++)
             selects.add(new Tag(engineering[i],R.drawable.book));
@@ -119,9 +103,9 @@ public class GenericCourse extends AppCompatActivity {
         SetTags(lectures);
     }
     public void ShowTags(List<Tag> selects){
-        SelectView mySelects = new SelectView(this,selects);
+        /*SelectView mySelects = new SelectView(this,selects);
         mySelects.setUser(user);
         viewList.setLayoutManager(new GridLayoutManager(this,1));
-        viewList.setAdapter(mySelects);
+        viewList.setAdapter(mySelects);*/
     }
 }

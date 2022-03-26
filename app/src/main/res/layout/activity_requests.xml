@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sky"
+    android:background="@drawable/background"
     tools:context=".User.Requests">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -215,7 +215,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/UserNavigationView"
+        android:id="@+id/navigationView"
         android:layout_width="220dp"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"

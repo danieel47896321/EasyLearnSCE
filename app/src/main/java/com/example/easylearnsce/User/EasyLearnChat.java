@@ -16,8 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.easylearnsce.Class.User;
-import com.example.easylearnsce.Class.UserLanguage;
-import com.example.easylearnsce.Adapters.UserMenuAdapter;
+import com.example.easylearnsce.Class.UserMenuInfo;
 import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.Fragments.ChatsFragment;
 import com.example.easylearnsce.Fragments.UsersFragment;
@@ -28,14 +27,13 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class EasyLearnChat extends AppCompatActivity {
     private User user = new User();
-    private TextView Title, TextViewSearchLanguage;
-    private UserLanguage userLanguage;
+    private TextView Title;
     private ImageView BackIcon, MenuIcon;
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
     private ViewPagerAdapter fragmentPager;
     private androidx.drawerlayout.widget.DrawerLayout drawerLayout;
-    private NavigationView UserNavigationView;
+    private NavigationView navigationView;
     private Intent intent;
     private String[] titles;
     @Override
@@ -46,7 +44,6 @@ public class EasyLearnChat extends AppCompatActivity {
     }
     private void init(){
         setID();
-        setLanguage();
         MenuItem();
         BackIcon();
         MenuIcon();
@@ -59,7 +56,7 @@ public class EasyLearnChat extends AppCompatActivity {
         viewPager2 = findViewById(R.id.viewPager);
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
-        UserNavigationView = findViewById(R.id.UserNavigationView);
+        navigationView = findViewById(R.id.navigationView);
         Title = findViewById(R.id.Title);
         Title.setText(getResources().getString(R.string.EasyLearnChat));
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -69,18 +66,10 @@ public class EasyLearnChat extends AppCompatActivity {
         titles[0] = getResources().getString(R.string.Chats);
         titles[1] = getResources().getString(R.string.Users);
         new TabLayoutMediator(tabLayout,viewPager2,((tab, position) -> tab.setText(titles[position]))).attach();
-        new UserMenuAdapter(user,EasyLearnChat.this);
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        userLanguage = new UserLanguage(EasyLearnChat.this, user);
-    }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { userLanguage.setDialog(); }
-        });
+        new UserMenuInfo(user,EasyLearnChat.this);
     }
     private void MenuItem(){
-        Menu menu= UserNavigationView.getMenu();
+        Menu menu= navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.ItemEasyLearnChat);
         menuItem.setCheckable(false);
         menuItem.setChecked(true);
@@ -93,7 +82,7 @@ public class EasyLearnChat extends AppCompatActivity {
         });
     }
     private void NavigationView(){
-        UserNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 new UserNavigationView(EasyLearnChat.this, item.getItemId(), user);

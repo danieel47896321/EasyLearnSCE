@@ -37,7 +37,7 @@ public class UsersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_users,container,false);
-        recyclerView = view.findViewById(R.id.UsersRV);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         userList = new ArrayList<>();
@@ -79,7 +79,6 @@ public class UsersFragment extends Fragment {
             }
         });
     }
-
     private void readUsers(){
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");

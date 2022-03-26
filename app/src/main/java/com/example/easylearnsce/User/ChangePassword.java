@@ -16,8 +16,7 @@ import android.widget.TextView;
 import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.PopUpMSG;
 import com.example.easylearnsce.Class.User;
-import com.example.easylearnsce.Class.UserLanguage;
-import com.example.easylearnsce.Adapters.UserMenuAdapter;
+import com.example.easylearnsce.Class.UserMenuInfo;
 import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,12 +30,11 @@ import com.google.firebase.auth.FirebaseUser;
 public class ChangePassword extends AppCompatActivity {
     private TextInputLayout TextInputLayoutCurrentPassword, TextInputLayoutNewPassword, TextInputLayoutPasswordConfirm;
     private Button ButtonSaveChanges;
-    private UserLanguage userLanguage;
     private DrawerLayout drawerLayout;
     private Loading loading;
     private Intent intent;
     private User user;
-    private TextView Title, TextViewSearchLanguage;
+    private TextView Title;
     private ImageView BackIcon, MenuIcon;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseUser currentUser = firebaseAuth.getCurrentUser();
@@ -49,7 +47,6 @@ public class ChangePassword extends AppCompatActivity {
     }
     private void init(){
         setID();
-        setLanguage();
         SaveChanges();
         MenuItem();
         BackIcon();
@@ -60,9 +57,8 @@ public class ChangePassword extends AppCompatActivity {
         TextInputLayoutCurrentPassword = findViewById(R.id.TextInputLayoutCurrentPassword);
         TextInputLayoutNewPassword = findViewById(R.id.TextInputLayoutNewPassword);
         TextInputLayoutPasswordConfirm = findViewById(R.id.TextInputLayoutPasswordConfirm);
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
         ButtonSaveChanges = findViewById(R.id.ButtonSaveChanges);
-        UserNavigationView = findViewById(R.id.UserNavigationView);
+        UserNavigationView = findViewById(R.id.navigationView);
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
         Title = findViewById(R.id.Title);
@@ -70,15 +66,7 @@ public class ChangePassword extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         intent = getIntent();
         user = (User)intent.getSerializableExtra("user");
-        new UserMenuAdapter(user,ChangePassword.this);
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        userLanguage = new UserLanguage(ChangePassword.this, user);
-    }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { userLanguage.setDialog(); }
-        });
+        new UserMenuInfo(user,ChangePassword.this);
     }
     private void MenuItem(){
         Menu menu= UserNavigationView.getMenu();

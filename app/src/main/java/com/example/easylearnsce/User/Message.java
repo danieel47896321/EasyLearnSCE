@@ -46,7 +46,7 @@ import javax.crypto.spec.SecretKeySpec;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Message extends AppCompatActivity {
-    private TextView username, TextSend, Status;
+    private TextView username, TextSend;
     private DatabaseReference reference;
     private CircleImageView profileImage;
     private ImageView BackIcon, ButtonSend;
@@ -78,7 +78,6 @@ public class Message extends AppCompatActivity {
         TextSend = findViewById(R.id.TextSend);
         ButtonSend = findViewById(R.id.ButtonSend);
         profileImage = findViewById(R.id.ProfileImage);
-        Status = findViewById(R.id.Status);
         BackIcon = findViewById(R.id.BackIcon);
         username = findViewById(R.id.userName);
         try{
@@ -192,7 +191,6 @@ public class Message extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) { }
         });
     }
-
     private void BackIcon(){
         BackIcon.setOnClickListener(new View.OnClickListener() {
             @Override

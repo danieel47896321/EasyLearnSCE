@@ -7,12 +7,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
+    android:background="@drawable/background"
     tools:context=".User.SelectEngineering">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/sky">
+        android:layout_height="match_parent">
 
         <include
             android:id="@+id/header"
@@ -20,15 +20,13 @@
 
         <EditText
             android:id="@+id/User_search"
+            style="@style/Custom_EditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/button_background"
             android:hint="@string/Search"
             android:paddingStart="15dp"
             android:paddingLeft="15dp"
-            android:textSize="25dp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header" />
@@ -55,7 +53,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/UserNavigationView"
+        android:id="@+id/navigationView"
         android:layout_width="220dp"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"

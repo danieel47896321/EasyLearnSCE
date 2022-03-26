@@ -18,17 +18,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.easylearnsce.Adapters.AllRequestsAdapter;
-import com.example.easylearnsce.Adapters.UserAdapter;
-import com.example.easylearnsce.Adapters.UserMenuAdapter;
+import com.example.easylearnsce.Class.UserMenuInfo;
 import com.example.easylearnsce.Class.Request;
-import com.example.easylearnsce.Class.Tag;
 import com.example.easylearnsce.Class.User;
-import com.example.easylearnsce.Class.UserLanguage;
 import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,8 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AllRequests extends AppCompatActivity {
-    private TextView Title, TextViewSearchLanguage;
-    private UserLanguage userLanguage;
+    private TextView Title;
     private DrawerLayout drawerLayout;
     private ImageView BackIcon, MenuIcon;
     private User user = new User();
@@ -60,7 +55,6 @@ public class AllRequests extends AppCompatActivity {
     }
     private void init(){
         setID();
-        setLanguage();
         setTags();
         MenuItem();
         SignOutIcon();
@@ -75,14 +69,12 @@ public class AllRequests extends AppCompatActivity {
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
         User_search = findViewById(R.id.User_search);
-        UserNavigationView = findViewById(R.id.UserNavigationView);
+        UserNavigationView = findViewById(R.id.navigationView);
         Title = findViewById(R.id.Title);
         Title.setText(getResources().getString(R.string.AllRequests));
         drawerLayout = findViewById(R.id.drawerLayout);
         recyclerView = findViewById(R.id.recyclerView);
-        new UserMenuAdapter(user, AllRequests.this);
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        userLanguage = new UserLanguage(AllRequests.this, user);
+        new UserMenuInfo(user, AllRequests.this);
     }
     private void UserSearch() {
         User_search.addTextChangedListener(new TextWatcher() {
@@ -109,7 +101,7 @@ public class AllRequests extends AppCompatActivity {
                             if (request.getRequest().toLowerCase().contains(text.toLowerCase()) || request.getDetails().toLowerCase().contains(text.toLowerCase()) || request.getAnswer().toLowerCase().contains(text.toLowerCase()) || request.getState().toLowerCase().contains(text.toLowerCase()))
                                 Requests.add(request);
                     }
-                    ShowRequests(Requests);
+                    ShowRequests(Requests,"Admin");
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) { }
@@ -126,7 +118,7 @@ public class AllRequests extends AppCompatActivity {
                         if (request.getRequest().toLowerCase().contains(text.toLowerCase()) || request.getDetails().toLowerCase().contains(text.toLowerCase()) || request.getAnswer().toLowerCase().contains(text.toLowerCase()) || request.getState().toLowerCase().contains(text.toLowerCase()))
                             Requests.add(request);
                     }
-                    ShowRequests(Requests);
+                    ShowRequests(Requests, "Not Admin");
                 }
 
                 @Override
@@ -134,12 +126,6 @@ public class AllRequests extends AppCompatActivity {
                 }
             });
         }
-    }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { userLanguage.setDialog(); }
-        });
     }
     private void MenuItem(){
         Menu menu= UserNavigationView.getMenu();
@@ -182,7 +168,7 @@ public class AllRequests extends AppCompatActivity {
                             Request request = dataSnapshot1.getValue(Request.class);
                             Requests.add(request);
                         }
-                    ShowRequests(Requests);
+                    ShowRequests(Requests, "Admin");
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) { }
@@ -198,7 +184,7 @@ public class AllRequests extends AppCompatActivity {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             Request request = dataSnapshot.getValue(Request.class);
                             Requests.add(request);
-                            ShowRequests(Requests);
+                            ShowRequests(Requests, "Not Admin");
                         }
                     }
                 }
@@ -209,8 +195,8 @@ public class AllRequests extends AppCompatActivity {
             });
         }
     }
-    private void ShowRequests(List<Request> requests){
-        AllRequestsAdapter Select = new AllRequestsAdapter(this,requests);
+    private void ShowRequests(List<Request> requests, String type){
+        AllRequestsAdapter Select = new AllRequestsAdapter(this,requests,type);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
         recyclerView.setAdapter(Select);
     }

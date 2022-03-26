@@ -16,31 +16,21 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.easylearnsce.Adapters.ChatAdapter;
 import com.example.easylearnsce.Class.Tag;
 import com.example.easylearnsce.Adapters.EngineeringAdapter;
 import com.example.easylearnsce.Class.User;
-import com.example.easylearnsce.Class.UserLanguage;
-import com.example.easylearnsce.Adapters.UserMenuAdapter;
+import com.example.easylearnsce.Class.UserMenuInfo;
 import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SelectEngineering extends AppCompatActivity {
     private User user = new User();
-    private TextView Title, TextViewSearchLanguage;
-    private UserLanguage userLanguage;
+    private TextView Title;
     private ImageView BackIcon, MenuIcon;
     private DrawerLayout drawerLayout;
     private NavigationView UserNavigationView;
@@ -59,7 +49,6 @@ public class SelectEngineering extends AppCompatActivity {
     private void init(){
         setID();
         setEngineering();
-        setLanguage();
         MenuItem();
         BackIcon();
         MenuIcon();
@@ -76,11 +65,9 @@ public class SelectEngineering extends AppCompatActivity {
         Title = findViewById(R.id.Title);
         Title.setText(getResources().getString(R.string.SelectEngineering));
         user = (User)intent.getSerializableExtra("user");
-        UserNavigationView = findViewById(R.id.UserNavigationView);
+        UserNavigationView = findViewById(R.id.navigationView);
         drawerLayout = findViewById(R.id.drawerLayout);
-        new UserMenuAdapter(user,SelectEngineering.this);
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        userLanguage = new UserLanguage(SelectEngineering.this, user);
+        new UserMenuInfo(user,SelectEngineering.this);
         HomeTags = new String[TagsPhotos.length];
         HomeTags = getResources().getStringArray(R.array.Engineerings);
     }
@@ -106,12 +93,6 @@ public class SelectEngineering extends AppCompatActivity {
                 tags.add(new Tag(HomeTags[i], TagsPhotos[i]));
         }
         ShowTags(tags);
-    }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { userLanguage.setDialog(); }
-        });
     }
     private void MenuItem(){
         Menu menu= UserNavigationView.getMenu();

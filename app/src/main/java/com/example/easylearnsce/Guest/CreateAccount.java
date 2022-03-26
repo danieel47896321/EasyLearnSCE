@@ -27,9 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.easylearnsce.Class.GuestLagnuage;
 import com.example.easylearnsce.Class.GuestNavigationView;
 import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.PopUpMSG;
@@ -45,8 +43,6 @@ import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -56,7 +52,7 @@ public class CreateAccount extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private TextInputLayout TextInputLayoutFirstName, TextInputLayoutLastName ,TextInputLayoutEmail, TextInputLayoutPassword, TextInputLayoutPasswordConfirm, TextInputLayoutGender, TextInputLayoutAge, TextInputLayoutCity, TextInputLayoutType;
-    private TextView Title, SignIn,TextViewSearch, TextViewSearchLanguage;
+    private TextView Title, SignIn,TextViewSearch;
     private Dialog dialog;
     private Calendar calendar = Calendar.getInstance();
     private int Year = calendar.get(Calendar.YEAR), Month = calendar.get(Calendar.MONTH), Day = calendar.get(Calendar.DAY_OF_MONTH), UserYear, UserMonth, UserDay;
@@ -64,7 +60,6 @@ public class CreateAccount extends AppCompatActivity {
     private EditText EditTextSearch;
     private Button ButtonNext, NextButtonFinish;
     private Loading loading;
-    private GuestLagnuage guestLagnuage;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance() ;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference().child("Users");
@@ -77,7 +72,6 @@ public class CreateAccount extends AppCompatActivity {
     }
     private void init(){
         setID();
-        setLanguage();
         MenuItem();
         BackIcon();
         MenuIcon();
@@ -101,14 +95,6 @@ public class CreateAccount extends AppCompatActivity {
         TextInputLayoutPassword = findViewById(R.id.TextInputLayoutPassword);
         TextInputLayoutPasswordConfirm = findViewById(R.id.TextInputLayoutPasswordConfirm);
         ButtonNext = findViewById(R.id.ButtonNext);
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        guestLagnuage = new GuestLagnuage(CreateAccount.this);
-    }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { guestLagnuage.setDialog(); }
-        });
     }
     private void MenuItem(){
         Menu menu= navigationView.getMenu();
@@ -297,6 +283,7 @@ public class CreateAccount extends AppCompatActivity {
                     TextInputLayoutType.setHelperText("");
                 if(!(TextInputLayoutCity.getEditText().getText().toString().equals("")) && !(TextInputLayoutAge.getEditText().getText().toString().equals("")) && !(TextInputLayoutType.getEditText().getText().toString().equals("")) && !(TextInputLayoutGender.getEditText().getText().toString().equals(""))){
                     alertDialog.cancel();
+                    loading = new Loading(CreateAccount.this);
                     CreateAccount();
                 }
             }
@@ -329,6 +316,7 @@ public class CreateAccount extends AppCompatActivity {
                             user.setUid(firebaseAuth.getUid());
                             user.setFullName(user.getFirstName()+" "+user.getLastName());
                             databaseReference.child(firebaseAuth.getCurrentUser().getUid()).setValue(user);
+                            loading.stop();
                             new PopUpMSG(CreateAccount.this, getResources().getString(R.string.CreateAccount), getResources().getString(R.string.CompleteCreateAccount), SignIn.class);
                         }
                     });

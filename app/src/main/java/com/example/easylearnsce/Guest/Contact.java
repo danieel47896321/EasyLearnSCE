@@ -14,17 +14,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.easylearnsce.Class.GuestLagnuage;
 import com.example.easylearnsce.Class.GuestNavigationView;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class Contact extends AppCompatActivity {
-    private TextView SendEmail, Title, TextViewSearchLanguage;
+    private TextView SendEmail, Title;
     private ImageView BackIcon, MenuIcon;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
-    private GuestLagnuage guestLagnuage;
     private Intent intent;
     private String Email ="EasyLearnSCE@gmail.com";
     @Override
@@ -40,7 +38,6 @@ public class Contact extends AppCompatActivity {
         MenuIcon();
         NavigationView();
         SendEmail();
-        setLanguage();
     }
     private void setID() {
         intent = getIntent();
@@ -51,14 +48,6 @@ public class Contact extends AppCompatActivity {
         navigationView = findViewById(R.id.navigationView);
         SendEmail = findViewById(R.id.SendEmail);
         Title.setText(R.string.Contact);
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        guestLagnuage = new GuestLagnuage(Contact.this);
-    }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { guestLagnuage.setDialog(); }
-        });
     }
     private void MenuItem(){
         Menu menu= navigationView.getMenu();

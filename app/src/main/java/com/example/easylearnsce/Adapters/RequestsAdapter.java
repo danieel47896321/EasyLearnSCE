@@ -47,6 +47,10 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
         holder.EmailRequest.setText(holder.EmailRequest.getText() + ": " + request.getEmail());
         holder.Type.setText(holder.Type.getText() + ": " + request.getType());
         holder.Request.setText(holder.Request.getText() + ": " + request.getRequest());
+        if(request.getRequest().equals("Report Problem") || request.getRequest().equals("דיווח על תקלה")) {
+            holder.RequestApproved.setText(context.getResources().getString(R.string.Fixed));
+            holder.RequestDenied.setText(context.getResources().getString(R.string.NotFixed));
+        }
         if(request.getDetails().equals("null")) {
             holder.Details.setVisibility(View.GONE);
             holder.TextInputLayoutAnswer.setVisibility(View.GONE);
@@ -63,76 +67,55 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
         }
         else {
             holder.Details.setText(holder.Details.getText() + ": " + request.getDetails());
-            if(holder.TextInputLayoutAnswer.getEditText().getText().toString().equals(""))
-                holder.TextInputLayoutAnswer.setHelperText(context.getResources().getString(R.string.Required));
-            else {
-                holder.RequestApproved.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Approved(request);
+            holder.TextInputLayoutAnswer.setHelperText("");
+            holder.RequestApproved.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(holder.TextInputLayoutAnswer.getEditText().getText().toString().equals(""))
+                        holder.TextInputLayoutAnswer.setHelperText(context.getResources().getString(R.string.Required));
+                    else {
+                        holder.TextInputLayoutAnswer.setHelperText("");
+                        request.setAnswer(holder.TextInputLayoutAnswer.getEditText().getText().toString());
+                        if(request.getRequest().equals("Report Problem") || request.getRequest().equals("דיווח על תקלה")) {
+                            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                            DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(request.getUid()).child(request.getId());
+                            request.setState(context.getResources().getString(R.string.Fixed));
+                            databaseReference.setValue(request);
+                        }
+                        else
+                            Approved(request);
                     }
-                });
-                holder.RequestDenied.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                }
+            });
+            holder.RequestDenied.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(holder.TextInputLayoutAnswer.getEditText().getText().toString().equals(""))
+                        holder.TextInputLayoutAnswer.setHelperText(context.getResources().getString(R.string.Required));
+                    else {
+                        holder.TextInputLayoutAnswer.setHelperText("");
+                        request.setAnswer(holder.TextInputLayoutAnswer.getEditText().getText().toString());
                         Denied(request);
                     }
-                });
-            }
+                }
+            });
         }
-       // holder.TextInputLayoutAnswer.setText(context.getResources().getString(R.string.Request) + ": " + request.getRequest());
-        /*
-        if (!request.getDetails().equals("null"))
-            holder.Details.setText(context.getResources().getString(R.string.Details) + ": " + request.getDetails());
-        else
-            holder.Details.setVisibility(View.GONE);
-        if (request.getState().equals("Approved") || request.getAnswer().equals("הבקשה אושרה"))
-            holder.State.setTextColor(context.getResources().getColor(R.color.green));
-        else if (request.getState().equals("Denied") || request.getAnswer().equals("הבקשה נדחתה"))
-            holder.State.setTextColor(context.getResources().getColor(R.color.red));
-        else
-            holder.State.setTextColor(context.getResources().getColor(R.color.white));
-        holder.State.setText(context.getResources().getString(R.string.State) + ": " + request.getState());
-        if (!request.getAnswer().equals(""))
-            holder.Reason.setText(context.getResources().getString(R.string.Answer) + ": " + request.getAnswer());
-        else
-            holder.Reason.setVisibility(View.GONE);*/
+
     }
     public void Approved(Request request){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(request.getId());
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Request request1 = dataSnapshot.getValue(Request.class);
-                    if(request.getRequest().equals(request1.getRequest()) && request.getDetails().equals(request1.getDetails()) && request.getState().equals(request1.getState()) && request.getAnswer().equals(request1.getAnswer())) {
-                        request.setState(context.getResources().getString(R.string.Approved));
-                        databaseReference.child(dataSnapshot.getKey() + "").setValue(request);
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
-        });
+        DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(request.getUid()).child(request.getId());
+        request.setState(context.getResources().getString(R.string.Approved));
+        databaseReference.setValue(request);
+        FirebaseDatabase firebaseDatabase1 = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference1 = firebaseDatabase1.getReference().child("Users").child(request.getUid()).child("permission");
+        databaseReference1.setValue("High");
     }
     public void Denied(Request request){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(request.getId());
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Request request1 = dataSnapshot.getValue(Request.class);
-                    if(request.getRequest().equals(request1.getRequest()) && request.getDetails().equals(request1.getDetails()) && request.getState().equals(request1.getState()) && request.getAnswer().equals(request1.getAnswer())) {
-                        request.setState(context.getResources().getString(R.string.Denied));
-                        databaseReference.child(dataSnapshot.getKey() + "").setValue(request);
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
-        });
+        DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(request.getUid()).child(request.getId());
+        request.setState(context.getResources().getString(R.string.Denied));
+        databaseReference.setValue(request);
     }
     @Override
     public int getItemCount() { return requests.size(); }

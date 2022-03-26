@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-public class OpeningScreen extends AppCompatActivity {
+public class OpenScreen extends AppCompatActivity {
     private Loading loading;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -24,7 +24,7 @@ public class OpeningScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_opening_screen);
+        setContentView(R.layout.activity_open_screen);
         init();
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -33,7 +33,7 @@ public class OpeningScreen extends AppCompatActivity {
     private void HomePage() {
        if(firebaseAuth.getCurrentUser() != null ) {
            if(firebaseAuth.getCurrentUser().isEmailVerified()) {
-               loading = new Loading(OpeningScreen.this);
+               loading = new Loading(OpenScreen.this);
                databaseReference.child(firebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                    @Override
                    public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -51,7 +51,7 @@ public class OpeningScreen extends AppCompatActivity {
             EasyLearnSCE();
     }
     private void Home(User user){
-        Intent intent = new Intent(OpeningScreen.this, Home.class);
+        Intent intent = new Intent(OpenScreen.this, Home.class);
         intent.putExtra("user", user);
         loading.stop();
         startActivity(intent);
@@ -62,7 +62,7 @@ public class OpeningScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(OpeningScreen.this, EasyLearnSCE.class));
+                startActivity(new Intent(OpenScreen.this, EasyLearnSCE.class));
                 finish();
             }
         }, 300);

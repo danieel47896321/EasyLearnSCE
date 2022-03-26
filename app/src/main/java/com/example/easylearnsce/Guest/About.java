@@ -12,17 +12,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.easylearnsce.Class.GuestLagnuage;
 import com.example.easylearnsce.Class.GuestNavigationView;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class About extends AppCompatActivity {
-    private TextView Title, TextViewSearchLanguage;
+    private TextView Title;
     private ImageView BackIcon, MenuIcon;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
-    private GuestLagnuage language;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +33,6 @@ public class About extends AppCompatActivity {
         BackIcon();
         MenuIcon();
         NavigationView();
-        setLanguage();
     }
     private void setID(){
         MenuIcon = findViewById(R.id.MenuIcon);
@@ -44,14 +41,6 @@ public class About extends AppCompatActivity {
         Title = findViewById(R.id.Title);
         Title.setText(R.string.About);
         navigationView = findViewById(R.id.navigationView);
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        language = new GuestLagnuage(About.this);
-    }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { language.setDialog(); }
-        });
     }
     private void MenuItem(){
         Menu menu= navigationView.getMenu();

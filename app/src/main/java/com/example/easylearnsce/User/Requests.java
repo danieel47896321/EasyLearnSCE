@@ -26,11 +26,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.easylearnsce.Adapters.RequestsAdapter;
-import com.example.easylearnsce.Adapters.UserMenuAdapter;
+import com.example.easylearnsce.Class.UserMenuInfo;
 import com.example.easylearnsce.Class.PopUpMSG;
 import com.example.easylearnsce.Class.Request;
 import com.example.easylearnsce.Class.User;
-import com.example.easylearnsce.Class.UserLanguage;
 import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
@@ -46,9 +45,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Requests extends AppCompatActivity {
-    private TextView Title, TextViewSearchLanguage, TextViewSearch;
+    private TextView Title, TextViewSearch;
     private Dialog dialog;
-    private UserLanguage userLanguage;
     private LinearLayout RequestLinearLayout;
     private TextInputLayout TextInputLayoutFirstName, TextInputLayoutLastName ,TextInputLayoutEmail, TextInputLayoutRequests, TextInputLayoutDetails;
     private EditText EditTextSearch;
@@ -71,8 +69,6 @@ public class Requests extends AppCompatActivity {
     }
     private void init(){
         setID();
-        setLanguage();
-        setTags();
         MenuItem();
         BackIcon();
         MenuIcon();
@@ -85,26 +81,18 @@ public class Requests extends AppCompatActivity {
         user = (User)intent.getSerializableExtra("user");
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
-        UserNavigationView = findViewById(R.id.UserNavigationView);
+        UserNavigationView = findViewById(R.id.navigationView);
         Title = findViewById(R.id.Title);
         Title.setText(getResources().getString(R.string.Requests));
         drawerLayout = findViewById(R.id.drawerLayout);
         recyclerView = findViewById(R.id.recyclerView);
-        new UserMenuAdapter(user, Requests.this);
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        userLanguage = new UserLanguage(Requests.this, user);
+        new UserMenuInfo(user, Requests.this);
         TextInputLayoutFirstName = findViewById(R.id.TextInputLayoutFirstName);
         TextInputLayoutLastName = findViewById(R.id.TextInputLayoutLastName);
         TextInputLayoutEmail = findViewById(R.id.TextInputLayoutEmail);
         TextInputLayoutRequests = findViewById(R.id.TextInputLayoutRequests);
         TextInputLayoutDetails = findViewById(R.id.TextInputLayoutDetails);
         ButtonRequests = findViewById(R.id.ButtonRequests);
-    }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { userLanguage.setDialog(); }
-        });
     }
     private void MenuItem(){
         Menu menu= UserNavigationView.getMenu();
@@ -180,7 +168,8 @@ public class Requests extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 dialog.dismiss();
                 textViewPick.setText(adapterView.getItemAtPosition(i).toString());
-                if(adapterView.getItemAtPosition(i).toString().equals(getResources().getString(R.string.Other)))
+                if(adapterView.getItemAtPosition(i).toString().equals("Report Problem") || adapterView.getItemAtPosition(i).toString().equals("דיווח על תקלה") ||
+                        adapterView.getItemAtPosition(i).toString().equals("Other") || adapterView.getItemAtPosition(i).toString().equals("אחר"))
                     TextInputLayoutDetails.setVisibility(View.VISIBLE);
                 else
                     TextInputLayoutDetails.setVisibility(View.GONE);
@@ -195,40 +184,42 @@ public class Requests extends AppCompatActivity {
                     TextInputLayoutRequests.setHelperText(getResources().getString(R.string.Required));
                 else{
                     TextInputLayoutRequests.setHelperText("");
-                    if(TextInputLayoutRequests.getEditText().getText().toString().equals(getResources().getString(R.string.TeacherPermission))) {
-                        request = new Request(user.getUid(), user.getRequestNumber()+"", user.getFirstName(), user.getLastName(), user.getEmail(), TextInputLayoutRequests.getEditText().getText().toString(),user.getType());
-                        CheckRequest(request);
+                    if(TextInputLayoutRequests.getEditText().getText().toString().equals("Get Teacher Permission") || TextInputLayoutRequests.getEditText().getText().toString().equals("קבלת הרשאות מרצה")) {
+                        request = new Request(user.getUid(), user.getFirstName(), user.getLastName(), user.getEmail(), TextInputLayoutRequests.getEditText().getText().toString(),user.getType());
+                        TeacherRequest(request);
                     }
                     else{
                         if(TextInputLayoutDetails.getEditText().getText().toString().equals(""))
                             TextInputLayoutDetails.setHelperText(getResources().getString(R.string.Required));
                         else {
-                            request = new Request(user.getUid(), user.getFirstName(), user.getLastName(), user.getEmail(), TextInputLayoutRequests.getEditText().getText().toString(), user.getType(), TextInputLayoutDetails.getEditText().getText().toString());
-                            UploadRequest(request);
+                            request = new Request( user.getUid(), user.getFirstName(), user.getLastName(), user.getEmail(), TextInputLayoutRequests.getEditText().getText().toString(), user.getType(), TextInputLayoutDetails.getEditText().getText().toString());
+                            OtherRequest(request);
                         }
                     }
                 }
             }
         });
     }
-    private void CheckRequest(Request request){
+    private void TeacherRequest(Request request){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(user.getUid());
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 boolean flag = false;
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Request request1 = dataSnapshot.getValue(Request.class);
-                    if(request1.getRequest().equals("Get Teacher Permission") || request1.getRequest().equals("קבלת הרשאות מרצה")){
-                        if(request1.getState().equals("Pending"))
-                            new PopUpMSG(Requests.this, getResources().getString(R.string.Requests), getResources().getString(R.string.RequestAlreadyExists));
-                        else if(request1.getState().equals("Denied"))
-                            new PopUpMSG(Requests.this, getResources().getString(R.string.Requests), getResources().getString(R.string.RequestDenied));
-                        else if(request1.getState().equals("Approved"))
-                            new PopUpMSG(Requests.this, getResources().getString(R.string.Requests), getResources().getString(R.string.RequestApproved), Home.class, user);
-                        flag = true;
-                        break;
+                    if(flag == false) {
+                        if (request1.getRequest().equals("Get Teacher Permission") || request1.getRequest().equals("קבלת הרשאות מרצה")) {
+                            if (request1.getState().equals("Pending") )
+                                new PopUpMSG(Requests.this, getResources().getString(R.string.Requests), getResources().getString(R.string.RequestAlreadyExists));
+                            else if (request1.getState().equals("Denied"))
+                                new PopUpMSG(Requests.this, getResources().getString(R.string.Requests), getResources().getString(R.string.RequestDenied));
+                            else if (request1.getState().equals("Approved"))
+                                new PopUpMSG(Requests.this, getResources().getString(R.string.Requests), getResources().getString(R.string.RequestApproved));
+                            flag = true;
+                            break;
+                        }
                     }
                 }
                 if(flag != true)
@@ -238,10 +229,20 @@ public class Requests extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) { }
         });
     }
+    private void OtherRequest(Request request){
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(user.getUid());
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) { UploadRequest(request); }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
     private void UploadRequest(Request request){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests");
-        databaseReference.child(firebaseAuth.getCurrentUser().getUid()).child(((int)(Math.random()*1000000000)+1)+"").setValue(request);
+        databaseReference.child(firebaseAuth.getCurrentUser().getUid()).child(request.getId()).setValue(request);
         new PopUpMSG(Requests.this, getResources().getString(R.string.Requests), getResources().getString(R.string.RequestSentSuccessfully), Home.class,user);
     }
     private void Admin(){
@@ -253,6 +254,7 @@ public class Requests extends AppCompatActivity {
         ButtonRequests.setVisibility(View.GONE);
         RequestLinearLayout = findViewById(R.id.RequestLinearLayout);
         RequestLinearLayout.setVisibility(View.VISIBLE);
+        setTags();
     }
     private void setTags(){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();

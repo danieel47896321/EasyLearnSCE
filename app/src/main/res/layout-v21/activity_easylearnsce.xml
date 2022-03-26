@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sky"
+    android:background="@drawable/background"
     tools:context=".Guest.EasyLearnSCE">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,7 +49,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:itemBackground="@drawable/drawer_list_selector"
         app:headerLayout="@layout/guest_navigation_header"
         app:menu="@menu/guest_menu" />
 

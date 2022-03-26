@@ -19,9 +19,11 @@ import java.util.List;
 public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.ViewHolder> {
     private Context context;
     private List<Request> requests;
-    public AllRequestsAdapter(Context context, List<Request> requests ){
+    private String type;
+    public AllRequestsAdapter(Context context, List<Request> requests, String type ){
         this.context = context;
         this.requests = requests;
+        this.type = type;
     }
     @NonNull
     @Override
@@ -29,26 +31,52 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
         View view = LayoutInflater.from(context).inflate(R.layout.all_request_view, parent, false);
         return new AllRequestsAdapter.ViewHolder(view);
     }
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    public void onBindViewHolder(@NonNull AllRequestsAdapter.ViewHolder holder, int position) {
-        Request request = requests.get(position);
+    private void setAdmin(@NonNull AllRequestsAdapter.ViewHolder holder, int position, Request request){
         holder.Request.setText(context.getResources().getString(R.string.Request) +": " + request.getRequest());
-        if(!request.getDetails().equals("null"))
-            holder.Details.setText(context.getResources().getString(R.string.Details) +": " +request.getDetails());
-        else
+        if(request.getRequest().equals("Other") || request.getRequest().equals("אחר") || request.getRequest().equals("Report Problem") || request.getRequest().equals("דיווח על תקלה")) {
+            holder.Details.setText(context.getResources().getString(R.string.Details) + ": " + request.getDetails());
+            holder.Reason.setText(context.getResources().getString(R.string.Answer) + ": " + request.getAnswer());
+        }
+        else {
             holder.Details.setVisibility(View.GONE);
-        if(request.getState().equals("Approved") || request.getAnswer().equals("הבקשה אושרה"))
+            holder.Reason.setVisibility(View.GONE);
+        }
+        if(request.getState().equals("Approved") || request.getAnswer().equals("הבקשה אושרה") || request.getState().equals("Fixed") || request.getAnswer().equals("טופל"))
+            holder.State.setTextColor(context.getResources().getColor(R.color.green));
+        else if(request.getState().equals("Denied") || request.getAnswer().equals("הבקשה נדחתה") || request.getState().equals("Not Fixed") || request.getAnswer().equals("לא טופל"))
+            holder.State.setTextColor(context.getResources().getColor(R.color.red));
+        else
+            holder.State.setTextColor(context.getResources().getColor(R.color.white));
+        holder.State.setText(context.getResources().getString(R.string.State) +": " +request.getState());
+
+    }
+    private void setOthers(@NonNull AllRequestsAdapter.ViewHolder holder, int position,  Request request){
+        holder.Request.setText(context.getResources().getString(R.string.Request) +": " + request.getRequest());
+        if(request.getRequest().equals("Other") || request.getRequest().equals("אחר") || request.getRequest().equals("Report Problem") || request.getRequest().equals("דיווח על תקלה")) {
+            holder.Details.setText(context.getResources().getString(R.string.Details) + ": " + request.getDetails());
+            holder.Reason.setText(context.getResources().getString(R.string.Answer) + ": " + request.getAnswer());
+        }
+        else {
+            holder.Details.setVisibility(View.GONE);
+            holder.Reason.setVisibility(View.GONE);
+        }
+        if(request.getState().equals("Approved") || request.getAnswer().equals("הבקשה אושרה") || request.getState().equals("Request Processed") || request.getAnswer().equals("הבקשה טופלה"))
             holder.State.setTextColor(context.getResources().getColor(R.color.green));
         else if(request.getState().equals("Denied") || request.getAnswer().equals("הבקשה נדחתה"))
             holder.State.setTextColor(context.getResources().getColor(R.color.red));
         else
             holder.State.setTextColor(context.getResources().getColor(R.color.white));
         holder.State.setText(context.getResources().getString(R.string.State) +": " +request.getState());
-        if(!request.getAnswer().equals(""))
-            holder.Reason.setText(context.getResources().getString(R.string.Answer) + ": " + request.getAnswer());
+
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onBindViewHolder(@NonNull AllRequestsAdapter.ViewHolder holder, int position) {
+        Request request = requests.get(position);
+        if(type.equals("Admin"))
+            setAdmin(holder, position, request);
         else
-            holder.Reason.setVisibility(View.GONE);
+            setOthers(holder, position, request);
     }
     @Override
     public int getItemCount() { return requests.size(); }

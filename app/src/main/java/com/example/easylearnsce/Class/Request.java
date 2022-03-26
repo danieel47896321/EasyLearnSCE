@@ -12,8 +12,8 @@ public class Request {
     private String State = "Pending";
     private String Answer = "";
     public Request() { }
-    public Request(String id, String uid, String firstName, String lastName, String email, String request, String type) {
-        Id = id;
+    public Request(String uid, String firstName, String lastName, String email, String request, String type) {
+        Id = (int)(Math.random()*100000000) + "";
         Uid = uid;
         FirstName = firstName;
         LastName = lastName;
@@ -21,8 +21,8 @@ public class Request {
         Request = request;
         Type = type;
     }
-    public Request(String id, String uid, String firstName, String lastName, String email, String request, String type, String details) {
-        Id = id;
+    public Request(String uid, String firstName, String lastName, String email, String request, String type, String details) {
+        Id = (int)(Math.random()*100000000) + "";
         Uid = uid;
         FirstName = firstName;
         LastName = lastName;

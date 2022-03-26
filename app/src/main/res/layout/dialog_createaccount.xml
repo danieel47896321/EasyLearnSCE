@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="430dp"
-    android:background="@color/sky">
+    android:background="@drawable/background">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/TextInputLayoutCity"
@@ -28,6 +28,7 @@
             style="@style/Custom_TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:cursorVisible="false"
             android:clickable="true"
             android:focusable="false" />
 
@@ -51,6 +52,7 @@
             style="@style/Custom_TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:cursorVisible="false"
             android:clickable="true"
             android:focusable="false" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -73,6 +75,7 @@
             style="@style/Custom_TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:cursorVisible="false"
             android:clickable="true"
             android:focusable="false"
             android:inputType="textPersonName" />
@@ -95,6 +98,7 @@
             style="@style/Custom_TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:cursorVisible="false"
             android:clickable="true"
             android:focusable="false"
             android:inputType="textPersonName" />

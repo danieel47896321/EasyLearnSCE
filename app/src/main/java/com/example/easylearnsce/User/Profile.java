@@ -42,8 +42,7 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.User;
-import com.example.easylearnsce.Class.UserLanguage;
-import com.example.easylearnsce.Adapters.UserMenuAdapter;
+import com.example.easylearnsce.Class.UserMenuInfo;
 import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -63,29 +62,26 @@ import java.io.IOException;
 import java.util.Calendar;
 
 public class Profile extends AppCompatActivity {
-    private TextView Title,TextViewSearch, TextViewSearchLanguage;
-    private TextInputLayout TextInputLayoutFirstName, TextInputLayoutLastName ,TextInputLayoutEmail, TextInputLayoutGender, TextInputLayoutAge, TextInputLayoutCity;
+    private TextView Title,TextViewSearch;
+    private TextInputLayout TextInputLayoutFirstName, TextInputLayoutLastName, TextInputLayoutGender, TextInputLayoutAge, TextInputLayoutCity;
     private Button Confirm;
+    private Loading loading;
     private DrawerLayout drawerLayout;
     private ImageView BackIcon, MenuIcon,addImage;
-    private Loading loading;
     private Calendar calendar = Calendar.getInstance();
     private int Year = calendar.get(Calendar.YEAR), Month = calendar.get(Calendar.MONTH), Day = calendar.get(Calendar.DAY_OF_MONTH), UserYear, UserMonth, UserDay;
     private Intent intent;
-    private UserLanguage userLanguage;
     private View UserProfileImage, UserImage;
-    private NavigationView UserNavigationView;
+    private NavigationView navigationView;
     private Dialog dialog;
     private ImageView Camera;
     private EditText EditTextSearch;
     private ListView ListViewSearch;
-    private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private Uri uri = null;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
-    private User user, newUser = new User();
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +90,6 @@ public class Profile extends AppCompatActivity {
     }
     void init(){
         setID();
-        setLanguage();
         MenuItem();
         BackIcon();
         MenuIcon();
@@ -108,32 +103,23 @@ public class Profile extends AppCompatActivity {
         UserProfileImage = findViewById(R.id.UserProfileImage);
         TextInputLayoutFirstName = findViewById(R.id.TextInputLayoutFirstName);
         TextInputLayoutLastName = findViewById(R.id.TextInputLayoutLastName);
-        TextInputLayoutEmail = findViewById(R.id.TextInputLayoutEmail);
         TextInputLayoutGender = findViewById(R.id.TextInputLayoutGender);
         TextInputLayoutAge = findViewById(R.id.TextInputLayoutAge);
         TextInputLayoutCity = findViewById(R.id.TextInputLayoutCity);
         addImage = findViewById(R.id.addImage);
         Confirm = findViewById(R.id.confirm);
-        UserNavigationView = findViewById(R.id.UserNavigationView);
-        UserImage = UserNavigationView.getHeaderView(0).findViewById(R.id.UserImage);
+        navigationView = findViewById(R.id.navigationView);
+        UserImage = navigationView.getHeaderView(0).findViewById(R.id.UserImage);
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
         Title = findViewById(R.id.Title);
         Title.setText(getResources().getString(R.string.Profile));
         user = (User)intent.getSerializableExtra("user");
         drawerLayout = findViewById(R.id.drawerLayout);
-        new UserMenuAdapter(user,Profile.this);
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        userLanguage = new UserLanguage(Profile.this, user);
-    }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { userLanguage.setDialog(); }
-        });
+        new UserMenuInfo(user,Profile.this);
     }
     private void MenuItem(){
-        Menu menu= UserNavigationView.getMenu();
+        Menu menu= navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.ItemProfile);
         menuItem.setCheckable(false);
         menuItem.setChecked(true);
@@ -146,7 +132,7 @@ public class Profile extends AppCompatActivity {
         });
     }
     private void NavigationView(){
-        UserNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 new UserNavigationView(Profile.this, item.getItemId(), user);
@@ -157,7 +143,6 @@ public class Profile extends AppCompatActivity {
     private void ShowInfo(){
         TextInputLayoutFirstName.getEditText().setText(user.getFirstName());
         TextInputLayoutLastName.getEditText().setText(user.getLastName());
-        TextInputLayoutEmail.getEditText().setText(user.getEmail());
         TextInputLayoutCity.getEditText().setText(user.getCity());
         TextInputLayoutAge.getEditText().setText(user.getBirthDay().toString());
         TextInputLayoutGender.getEditText().setText(user.getGender());
@@ -179,45 +164,43 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(CheckInput()){
-                    newUser.setEmail(user.getEmail());
-                    newUser.setType(user.getType());
-                    newUser.setUid(user.getUid());
-                    newUser.setFirstName(TextInputLayoutFirstName.getEditText().getText().toString());
-                    newUser.setLastName(TextInputLayoutLastName.getEditText().getText().toString());
-                    newUser.setGender(TextInputLayoutGender.getEditText().getText().toString());
-                    newUser.setYear(user.getYear());
-                    newUser.setMonth(user.getMonth());
-                    newUser.setDay(user.getDay());
-                    newUser.setBirthDay(user.getBirthDay());
-                    newUser.setCity(TextInputLayoutCity.getEditText().getText().toString());
-                    newUser.setFullName(newUser.getFirstName()+" "+newUser.getLastName());
-                    if(uri != null)
-                        UploadImage();
-                    else {
-                        newUser.setImage(user.getImage());
-                        AlertDialog.Builder Builder;
-                        Builder = new AlertDialog.Builder(Profile.this, R.style.AppCompatAlertDialogStyle);
-                        Builder.setTitle(getResources().getString(R.string.Profile));
-                        Builder.setMessage(getResources().getString(R.string.ProfileUpdated));
-                        Builder.setPositiveButton(getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                updateData();
-                            }
-                        });
-                        Builder.setCancelable(false);
-                        Builder.create().show();
+                    user.setFirstName(TextInputLayoutFirstName.getEditText().getText().toString());
+                    user.setLastName(TextInputLayoutLastName.getEditText().getText().toString());
+                    user.setGender(TextInputLayoutGender.getEditText().getText().toString());
+                    if(UserYear != 0) {
+                        user.setYear(UserYear + "");
+                        user.setMonth(UserMonth + "");
+                        user.setDay(UserDay + "");
+                        user.setBirthDay(UserDay + "/" + UserMonth + "/" + UserYear);
                     }
+                    user.setCity(TextInputLayoutCity.getEditText().getText().toString());
+                    user.setFullName(user.getFirstName() + " " + user.getLastName());
+                    if(uri != null) {
+                        loading = new Loading(Profile.this);
+                        UploadImage();
+                    }
+                    else
+                        SuccessfullyUpdatedMSG();
                 }
             }
         });
     }
-    private void updateData(){
-        databaseReference.child(user.getUid()).setValue(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                user = newUser;
+    private void SuccessfullyUpdatedMSG(){
+        AlertDialog.Builder Builder;
+        Builder = new AlertDialog.Builder(Profile.this, R.style.AppCompatAlertDialogStyle);
+        Builder.setTitle(getResources().getString(R.string.Profile));
+        Builder.setMessage(getResources().getString(R.string.ProfileUpdated));
+        Builder.setPositiveButton(getResources().getString(R.string.OK), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                updateData();
             }
         });
+        Builder.setCancelable(false);
+        Builder.create().show();
+    }
+    private void updateData(){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+        databaseReference.child(user.getUid()).setValue(user);
     }
     private boolean CheckInput(){
         if(TextInputLayoutFirstName.getEditText().getText().length() < 1 || TextInputLayoutLastName.getEditText().getText().length() < 1 ) {
@@ -253,10 +236,6 @@ public class Profile extends AppCompatActivity {
                         UserDay = dayOfMonth;
                         String Date = dayOfMonth + "/" + month + "/" + year;
                         TextInputLayoutAge.getEditText().setText(Date);
-                        user.setDay(dayOfMonth+"");
-                        user.setMonth(month+"");
-                        user.setYear(year+"");
-                        user.setBirthDay(Date);
                     }
                 },Year, Month, Day);
                 datePickerDialog.show();
@@ -315,13 +294,6 @@ public class Profile extends AppCompatActivity {
         photo.setType("image/*");
         startActivityForResult(photo, 1);
     }
-    private void CammeraPicture(){
-        Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(takePicture.resolveActivity(getPackageManager()) != null){
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-            startActivityForResult(takePicture, 2);
-        }
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -360,16 +332,16 @@ public class Profile extends AppCompatActivity {
         }
     }
     private void UploadImage(){
-        storageReference = firebaseStorage.getReference();
-        StorageReference ImageRefrence = storageReference.child(firebaseAuth.getCurrentUser().getUid()+".jpg");
-        ImageRefrence.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        StorageReference reference = storageReference.child(firebaseAuth.getCurrentUser().getUid()+".jpg");
+        reference.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 task.getResult().getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        newUser.setImage(uri.toString());
-                        updateData();
+                        loading.stop();
+                        user.setImage(uri.toString());
+                        SuccessfullyUpdatedMSG();
                     }
                 });
             }
@@ -411,15 +383,10 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) { StartActivity(Home.class); }
         });
     }
+    @Override
+    public void onBackPressed() { StartActivity(Home.class); }
     private void StartActivity(Class Destination){
         intent = new Intent(Profile.this, Destination);
-        intent.putExtra("user", user);
-        startActivity(intent);
-        finish();
-    }
-    @Override
-    public void onBackPressed() {
-        intent = new Intent(Profile.this, Home.class);
         intent.putExtra("user", user);
         startActivity(intent);
         finish();

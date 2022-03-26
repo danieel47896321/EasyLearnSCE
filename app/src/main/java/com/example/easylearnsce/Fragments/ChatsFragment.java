@@ -36,15 +36,15 @@ public class ChatsFragment extends Fragment {
     private List<User> mUsers;
     private DatabaseReference reference;
     private List<String> usersList;
-    private FirebaseUser fuser;
+    private FirebaseUser firebaseUser;
     private EditText User_search;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chats, container, false);
-        recyclerView = view.findViewById(R.id.ChatsRV);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        fuser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         usersList = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
@@ -53,9 +53,9 @@ public class ChatsFragment extends Fragment {
                 usersList.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Chat chat = snapshot.getValue(Chat.class);
-                    if(chat.getSender().equals(fuser.getUid()))
+                    if(chat.getSender().equals(firebaseUser.getUid()))
                         usersList.add(chat.getReceiver());
-                    if(chat.getReceiver().equals(fuser.getUid()))
+                    if(chat.getReceiver().equals(firebaseUser.getUid()))
                         usersList.add(chat.getSender());
                 }
                 readChats();

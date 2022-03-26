@@ -20,8 +20,7 @@ import com.example.easylearnsce.Class.Course;
 import com.example.easylearnsce.Class.CourseView;
 import com.example.easylearnsce.Class.RemoveCourseDialog;
 import com.example.easylearnsce.Class.User;
-import com.example.easylearnsce.Class.UserLanguage;
-import com.example.easylearnsce.Adapters.UserMenuAdapter;
+import com.example.easylearnsce.Class.UserMenuInfo;
 import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.User.SelectEngineering;
@@ -36,8 +35,7 @@ public class GenericEngineering extends AppCompatActivity {
     private ImageView BackIcon, MenuIcon, addCourse, removeCourse;
     private DrawerLayout drawerLayout;
     private NavigationView UserNavigationView;
-    private UserLanguage userLanguage;
-    private TextView title, TextViewSearchLanguage, User_search;
+    private TextView title, User_search;
     private User user = new User();
     private String Engineering = "Tag";
     private RecyclerView viewList;
@@ -56,7 +54,6 @@ public class GenericEngineering extends AppCompatActivity {
         MenuItem();
         BackIcon();
         MenuIcon();
-        setLanguage();
         NavView();
         setCourses();
         addCourse();
@@ -72,15 +69,13 @@ public class GenericEngineering extends AppCompatActivity {
         viewList = findViewById(R.id.CoursesRV);
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
-        user_navView = findViewById(R.id.UserNavigationView);
+        user_navView = findViewById(R.id.navigationView);
         Engineering = (String)intent.getSerializableExtra("Tag");
         user = (User)intent.getSerializableExtra("user");
         user.setEngineering(title.getText().toString());
-        UserNavigationView = findViewById(R.id.UserNavigationView);
+        UserNavigationView = findViewById(R.id.navigationView);
         drawerLayout = findViewById(R.id.drawerLayout);
-        new UserMenuAdapter(user,GenericEngineering.this);
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        userLanguage = new UserLanguage(GenericEngineering.this, user);
+        new UserMenuInfo(user,GenericEngineering.this);
     }
     private void MenuItem(){
         Menu menu= UserNavigationView.getMenu();
@@ -185,15 +180,6 @@ public class GenericEngineering extends AppCompatActivity {
                 intent.putExtra("user", user);
                 startActivity(intent);
                 finish();
-            }
-        });
-    }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                userLanguage.setEngineering(Engineering);
-                userLanguage.setDialog();
             }
         });
     }

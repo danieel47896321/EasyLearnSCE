@@ -61,24 +61,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            style="@style/Custom_TextView_Big"
-            android:id="@+id/TextViewSearchLanguage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Language"
-            android:textSize="18dp"
-            android:drawableEnd="@drawable/drop_down"
-            android:drawableRight="@drawable/drop_down"
-            android:layout_marginBottom="5dp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Title"
-            android:layout_marginLeft="20dp" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </RelativeLayout>

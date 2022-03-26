@@ -33,7 +33,7 @@
         <activity android:name=".Guest.CreateAccount" />
         <activity android:name=".Guest.SignIn" />
         <activity android:name=".Guest.ResetPassword" />
-        <activity android:name=".OpeningScreen">
+        <activity android:name=".OpenScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

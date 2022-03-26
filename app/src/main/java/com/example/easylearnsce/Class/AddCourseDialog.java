@@ -19,7 +19,7 @@ public class AddCourseDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.add_course,null);
+        View view = layoutInflater.inflate(R.layout.dialog_add_course,null);
         builder.setView(view).setTitle(getResources().getString(R.string.Yes)).setNegativeButton(getResources().getString(R.string.AddCourse),new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {

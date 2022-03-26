@@ -15,8 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.easylearnsce.Adapters.EasyLearnSceAdapter;
-import com.example.easylearnsce.Class.GuestLagnuage;
+import com.example.easylearnsce.Adapters.EasyLearnAdapter;
 import com.example.easylearnsce.Class.GuestNavigationView;
 import com.example.easylearnsce.Class.Tag;
 import com.example.easylearnsce.R;
@@ -29,9 +28,8 @@ public class EasyLearnSCE extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private List<Tag> Selects;
     private NavigationView navigationView;
-    private TextView Title, TextViewSearchLanguage;
+    private TextView Title;
     private ImageView BackIcon, MenuIcon;
-    private GuestLagnuage guestLagnuage;
     private String EasyLearnSCETagsName[];
     private int TagsPhotos[] = {R.drawable.login,R.drawable.register,R.drawable.forgotpassword,R.drawable.about,R.drawable.contact};
     @Override
@@ -44,7 +42,6 @@ public class EasyLearnSCE extends AppCompatActivity {
         Selects = new ArrayList<>();
         setID();
         setTags();
-        setLanguage();
         MenuItem();
         MenuIcon();
         NavigationView();
@@ -56,19 +53,11 @@ public class EasyLearnSCE extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         Title = findViewById(R.id.Title);
         Title.setText("");
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        guestLagnuage = new GuestLagnuage(EasyLearnSCE.this);
         navigationView = findViewById(R.id.navigationView);
         recyclerView = findViewById(R.id.recyclerView);
         EasyLearnSCETagsName = new String[TagsPhotos.length];
         EasyLearnSCETagsName = getResources().getStringArray(R.array.EasyLearnSCETagsName);
 
-    }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { guestLagnuage.setDialog(); }
-        });
     }
     private void MenuItem(){
         Menu menu= navigationView.getMenu();
@@ -98,7 +87,7 @@ public class EasyLearnSCE extends AppCompatActivity {
         ShowTags(Selects);
     }
     private void ShowTags(List<Tag> selects){
-        EasyLearnSceAdapter Select = new EasyLearnSceAdapter(this,selects);
+        EasyLearnAdapter Select = new EasyLearnAdapter(this,selects);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
         recyclerView.setAdapter(Select);
     }

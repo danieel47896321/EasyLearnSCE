@@ -19,8 +19,7 @@ import android.widget.TextView;
 import com.example.easylearnsce.Class.Tag;
 import com.example.easylearnsce.Adapters.HomeSelectAdapter;
 import com.example.easylearnsce.Class.User;
-import com.example.easylearnsce.Class.UserLanguage;
-import com.example.easylearnsce.Adapters.UserMenuAdapter;
+import com.example.easylearnsce.Class.UserMenuInfo;
 import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
@@ -34,14 +33,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Home extends AppCompatActivity {
-    private TextView Title, TextViewSearchLanguage;
-    private UserLanguage userLanguage;
+    private TextView Title;
     private DrawerLayout drawerLayout;
     private ImageView BackIcon, MenuIcon;
     private User user = new User();
     private RecyclerView recyclerView;
     private List<Tag> Tags;
-    private NavigationView UserNavigationView;
+    private NavigationView navigationView;
     private Intent intent;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private String HomeTags[] ;
@@ -54,7 +52,6 @@ public class Home extends AppCompatActivity {
     }
     private void init(){
         setID();
-        setLanguage();
         setTags();
         MenuItem();
         SignOutIcon();
@@ -68,25 +65,17 @@ public class Home extends AppCompatActivity {
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
         BackIcon.setImageResource(R.drawable.signout);
-        UserNavigationView = findViewById(R.id.UserNavigationView);
+        navigationView = findViewById(R.id.navigationView);
         Title = findViewById(R.id.Title);
         Title.setText(getResources().getString(R.string.Home));
         drawerLayout = findViewById(R.id.drawerLayout);
         recyclerView = findViewById(R.id.recyclerView);
         HomeTags = new String[TagsPhotos.length];
         HomeTags = getResources().getStringArray(R.array.HomeTagsName);
-        new UserMenuAdapter(user,Home.this);
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        userLanguage = new UserLanguage(Home.this, user);
-    }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { userLanguage.setDialog(); }
-        });
+        new UserMenuInfo(user,Home.this);
     }
     private void MenuItem(){
-        Menu menu= UserNavigationView.getMenu();
+        Menu menu= navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.ItemHome);
         menuItem.setCheckable(false);
         menuItem.setChecked(true);
@@ -99,7 +88,7 @@ public class Home extends AppCompatActivity {
         });
     }
     private void NavigationView(){
-        UserNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 new UserNavigationView(Home.this, item.getItemId(), user);

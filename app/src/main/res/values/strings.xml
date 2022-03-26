@@ -1,7 +1,5 @@
 <resources>
     <!-- All Pages -->
-    <string name="Open" translatable="true">Open</string>
-    <string name="Close" translatable="true">Close</string>
     <string name="Title" translatable="false">Title</string>
     <string name="Required" translatable="true">*Required</string>
     <string name="InvalidEmail" translatable="true">Invalid Email</string>
@@ -9,21 +7,22 @@
     <string name="Must9Chars" translatable="true">Must 9 chars</string>
     <string name="EmailNotExist" translatable="true">Email not exist in the system</string>
     <string name="EmailExist" translatable="true">Email exist in the system</string>
-    <string name="PhoneExist" translatable="true">Phone exist in the system</string>
     <string name="WrongPassword" translatable="true">Wrong Password</string>
     <string name="Next" translatable="true">Next</string>
-    <string name="DifferentPassword" translatable="true">Comfirm Password Not match</string>
+    <string name="DifferentPassword" translatable="true">Confirm Password Not match</string>
     <string name="OK" translatable="true">Ok</string>
     <string name="Loading" translatable="true">Loading</string>
     <string name="Finish" translatable="true">Finish</string>
-    <string name="DontHaveAccountCreateAccount" translatable="true">Dont have account? Create Account</string>
-    <string name="AreaCode" translatable="true">Area Code</string>
+    <string name="DontHaveAccountCreateAccount" translatable="true">Don\'t have account? Create Account</string>
     <string name="Other" translatable="true">Other</string>
     <string name="Select" translatable="true">Select</string>
     <string name="Search" translatable="true">Search</string>
-    <string name="Error" translatable="true">System Error please try again in a few minutes</string>
+    <string name="Type" translatable="true">Type</string>
+    <string name="Student" translatable="true">Student</string>
+    <string name="Teacher" translatable="true">Teacher</string>
+    <string name="Admin" translatable="true">Admin</string>
     <!-- EasyLearnSCE Page -->
-    <string name="app_name" translatable="true">EasyLearnSCE</string>
+    <string name="app_name" translatable="true">EasyLearn</string>
     <string name="SignIn" translatable="true">Sign In</string>
     <string name="CreateAccount" translatable="true">Create Account</string>
     <string name="ResetPassword" translatable="true">Reset Password</string>
@@ -35,14 +34,12 @@
     <string name="Hebrew" translatable="true">Hebrew</string>
     <string name="Exit" translatable="true">Exit</string>
     <string name="AreYouSureToExit" translatable="true">Are you sure you want to Exit?</string>
-
     <!-- SignIn Page -->
     <string name="Email" translatable="true">Email</string>
     <string name="CheckEmailVerify" translatable="true">This account not verify yet, please check the link sent to your email to verify this account.</string>
     <string name="Password" translatable="true">Password</string>
     <string name="RecoverPassword" translatable="true">Forgot password? Reset Password</string>
     <string name="Google" translatable="true">Google</string>
-    <string name="Facebook" translatable="true">Facebook</string>
     <string name="OR" translatable="true">OR</string>
     <!-- CreateAccount Page -->
     <string name="FirstName" translatable="true">First Name</string>
@@ -70,7 +67,7 @@
     <!-- About Page -->
     <string name="AboutVersion" translatable="true">Version 1.1.0</string>
     <string name="Copyright" translatable="true">Copyright &#169; 2021 Daniel Elmaliach</string>
-    <string name="AboutInfo" translatable="true">The app was developed as part of a final project by Daniel Elmaleh with the goal of creating a comfortable environment for watching lectures and learning comfortably and providing feedback to lecturers about excerpts that were less clear by adding a comment while specifying the desired time segment for a particular recording</string>
+    <string name="AboutInfo" translatable="true">The app was developed as part of a final project by Daniel Elmaliach with the goal of creating a comfortable environment for watching lectures and learning comfortably and providing feedback to lecturers about excerpts that were less clear by adding a comment while specifying the desired time segment for a particular recording</string>
     <!-- Contact Page -->
     <string name="ContactInfo" translatable="true">Have you meet any problem?\nThe development team is at your service</string>
     <string name="ContactSubject" translatable="true">Contact - App EasyLearnSCE</string>
@@ -84,8 +81,7 @@
     <string name="Requests" translatable="true">Requests</string>
     <string name="ChangePassword" translatable="true">Change Password</string>
     <string name="SignOut" translatable="true">Sign Out</string>
-    <string name="Friends" translatable="true">Friends</string>
-    <string name="EasyLearnChat" translatable="true">EasyLearnChat</string>
+    <string name="EasyLearnChat" translatable="true">EasyLearn Chat</string>
     <string name="Yes" translatable="true">Yes</string>
     <string name="No" translatable="true">No</string>
     <string name="AreYouSure" translatable="true">Are you sure you want to Sign Out?</string>
@@ -112,8 +108,6 @@
     <string name="Chats" translatable="true">Chats</string>
     <string name="Users" translatable="true">Users</string>
     <string name="Send" translatable="true">Send</string>
-    <string name="Online" translatable="true">Online</string>
-    <string name="Offline" translatable="true">Offline</string>
     <string name="TypeaMessage" translatable="true">Message</string>
     <!-- Requests Page -->
     <string name="SendRequest" translatable="true">Send Request</string>
@@ -129,14 +123,19 @@
     <string name="Approved" translatable="true">Approved</string>
     <string name="Denied" translatable="true">Denied</string>
     <string name="Pending" translatable="true">Pending</string>
+    <string name="Fixed" translatable="true">Fixed</string>
+    <string name="NotFixed" translatable="true">Not Fixed</string>
     <string name="Request" translatable="true">Request</string>
+    <string name="ReportProblem" translatable="true">Report Problem</string>
+    <string name="RequestProcessed" translatable="true">Request processed</string>
     <string name="Answer" translatable="true">Answer</string>
     <string name="State" translatable="true">State</string>
+    <string name="FullName" translatable="true">Full Name</string>
     <!-- Profile Page -->
     <string name="CantChangeEmail" translatable="true">Cant Change Email</string>
     <string name="ProfileUpdated" translatable="true">Profile successfully updated!</string>
     <string name="CameraPermissionDenied" translatable="true">Camera Permission Denied</string>
-    <string name="Cammera" translatable="true">Cammera</string>
+    <string name="Camera" translatable="true">Cammera</string>
     <string name="Gallery" translatable="true">Gallery</string>
     <string name="Age" translatable="true">Age</string>
     <string name="Gender" translatable="true">Gender</string>
@@ -240,11 +239,7 @@
     </string-array>
     <string-array name="Permissions">
         <item>@string/TeacherPermission</item>
+        <item>@string/ReportProblem</item>
         <item>@string/Other</item>
     </string-array>
-    <string name="Type" translatable="true">Type</string>
-    <string name="Student" translatable="true">Student</string>
-    <string name="Teacher" translatable="true">Teacher</string>
-    <string name="Admin" translatable="true">Admin</string>
-
 </resources>

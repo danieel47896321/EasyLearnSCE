@@ -6,7 +6,7 @@
     android:id="@+id/course_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/sky"
+    android:background="@drawable/background"
     android:clickable="true">
 
     <TextView

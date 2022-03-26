@@ -1,9 +1,11 @@
 package com.example.easylearnsce.Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.easylearnsce.Class.Tag;
@@ -41,45 +44,45 @@ public class HomeSelectAdapter extends RecyclerView.Adapter<HomeSelectAdapter.My
         this.Select = select;
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView textView;
-        ImageView imageView;
-        ConstraintLayout cardView;
+        TextView TagName;
+        ImageView TagPhoto;
+        ConstraintLayout constraintLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.engineering_name);
-            imageView = itemView.findViewById(R.id.engineering_pic);
-            cardView = itemView.findViewById(R.id.engineeringview_id);
+            TagName = itemView.findViewById(R.id.TagName);
+            TagPhoto = itemView.findViewById(R.id.TagPhoto);
+            constraintLayout = itemView.findViewById(R.id.constraintLayout);
         }
     }
     public void setUser(User user){ this.user = user; }
     public HomeSelectAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        view = layoutInflater.inflate(R.layout.select_view,parent,false);
+        view = layoutInflater.inflate(R.layout.tag_view,parent,false);
         return new HomeSelectAdapter.MyViewHolder(view);
     }
     public void onBindViewHolder(@NonNull HomeSelectAdapter.MyViewHolder holder, int position) {
-        holder.textView.setText(Select.get(position).getTagName());
-        holder.imageView.setImageResource(Select.get(position).getPhoto());
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.TagName.setText(Select.get(position).getTagName());
+        holder.TagPhoto.setImageResource(Select.get(position).getPhoto());
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.cardView.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
+                holder.constraintLayout.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
                 intent = new Intent(context, Home.class);
                 //Home
-                 if(holder.textView.getText().equals(context.getResources().getString(R.string.SelectEngineering)))
+                 if(holder.TagName.getText().equals(context.getResources().getString(R.string.SelectEngineering)))
                     intent = new Intent(context, SelectEngineering.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.EasyLearnChat)))
+                else if(holder.TagName.getText().equals(context.getResources().getString(R.string.EasyLearnChat)))
                     intent = new Intent(context, EasyLearnChat.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.Profile)))
+                else if(holder.TagName.getText().equals(context.getResources().getString(R.string.Profile)))
                     intent = new Intent(context, Profile.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.ChangePassword)))
+                else if(holder.TagName.getText().equals(context.getResources().getString(R.string.ChangePassword)))
                     intent = new Intent(context, ChangePassword.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.Requests)))
+                else if(holder.TagName.getText().equals(context.getResources().getString(R.string.Requests)))
                     intent = new Intent(context, Requests.class);
-                else if(holder.textView.getText().equals(context.getResources().getString(R.string.AllRequests)))
+                else if(holder.TagName.getText().equals(context.getResources().getString(R.string.AllRequests)))
                     intent = new Intent(context, AllRequests.class);
-                if(holder.textView.getText().equals(context.getResources().getString(R.string.SignOut))) {
+                if(holder.TagName.getText().equals(context.getResources().getString(R.string.SignOut))) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle(context.getResources().getString(R.string.SignOut)).setMessage(context.getResources().getString(R.string.AreYouSure)).setCancelable(true).setPositiveButton(context.getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {
                         @Override
@@ -91,9 +94,11 @@ public class HomeSelectAdapter extends RecyclerView.Adapter<HomeSelectAdapter.My
                             ((Activity) context).finish();
                         }
                     }).setNegativeButton(context.getResources().getString(R.string.No), new DialogInterface.OnClickListener() {
+                        @SuppressLint("ResourceType")
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            holder.cardView.setBackgroundColor(context.getResources().getColor(R.color.sky));
+                            Resources res = context.getResources();
+                            holder.constraintLayout.setBackground( ResourcesCompat.getDrawable(res, R.drawable.background, null));
                         }
                     }).show();
                     intent = new Intent(context, EasyLearnSCE.class);

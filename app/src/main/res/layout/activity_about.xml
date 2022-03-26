@@ -7,12 +7,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sky"
     tools:context=".Guest.About">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/background">
 
         <include
             android:id="@+id/header"
@@ -76,7 +76,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/guest_navigation_header"
-        app:itemBackground="@drawable/drawer_list_selector"
         app:menu="@menu/guest_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

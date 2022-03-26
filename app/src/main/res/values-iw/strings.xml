@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- All Pages -->
-    <string name="Open" translatable="true">פתוח</string>
-    <string name="Close" translatable="true">סגור</string>
     <string name="Title" translatable="true">כותרת</string>
     <string name="Required" translatable="true">*חובה</string>
     <string name="InvalidEmail" translatable="true">אימייל לא חוקי</string>
@@ -10,7 +8,6 @@
     <string name="Must9Chars" translatable="true">חובה 9 תווים</string>
     <string name="EmailNotExist" translatable="true">האימייל לא קיים במערכת</string>
     <string name="EmailExist" translatable="true">האימייל כבר קיים במערכת</string>
-    <string name="PhoneExist" translatable="true">הטלפון כבר קיים במערכת</string>
     <string name="WrongPassword" translatable="true">סיסמה שגויה</string>
     <string name="Next" translatable="true">הבא</string>
     <string name="DifferentPassword" translatable="true">אימות סיסמה לא תואמת</string>
@@ -18,13 +15,15 @@
     <string name="Loading" translatable="true">טוען</string>
     <string name="Finish" translatable="true">סיום</string>
     <string name="DontHaveAccountCreateAccount" translatable="true">אין לך משתמש? צור חשבון</string>
-    <string name="AreaCode" translatable="true">קידומת</string>
     <string name="Search" translatable="true">חיפוש</string>
     <string name="Select" translatable="true">בחר</string>
     <string name="Other" translatable="true">אחר</string>
-    <string name="Error" translatable="true">שגיאה במערכת בבקשה נסה שוב בעוד כמה דקות</string>
+    <string name="Type" translatable="true">סוג</string>
+    <string name="Student" translatable="true">סטודנט</string>
+    <string name="Teacher" translatable="true">מרצה</string>
+    <string name="Admin" translatable="true">אדמין</string>
     <!-- EasyLearnSCE Page -->
-    <string name="app_name" translatable="true">EasyLearnSCE</string>
+    <string name="app_name" translatable="true">EasyLearn</string>
     <string name="SignIn" translatable="true">כניסה</string>
     <string name="CreateAccount" translatable="true">צור חשבון</string>
     <string name="ResetPassword" translatable="true">איפוס סיסמה</string>
@@ -42,7 +41,6 @@
     <string name="Password" translatable="true">סיסמה</string>
     <string name="RecoverPassword" translatable="true">שכחת את הסיסמה? איפוס סיסמה</string>
     <string name="Google" translatable="true">גוגל</string>
-    <string name="Facebook" translatable="true">פייסבוק</string>
     <string name="OR" translatable="true">או</string>
     <!-- CreateAccount Page -->
     <string name="FirstName" translatable="true">שם פרטי</string>
@@ -64,7 +62,6 @@
     <string name="VerifyMidMsg" translatable="true">הכנס את הקוד הבא:</string>
     <string name="VerifyEndMsg" translatable="true">כדי לאמת את כתובת האימייל שלך.</string>
     <string name="SelectUserType" translatable="true">בחר סוג משתמש</string>
-
     <!-- ResetPassword Page -->
     <string name="ForgotPasswordInfo" translatable="true">נא הזן את כתובת האימייל שברצונך לשחזר עבורו את הסיסמה</string>
     <string name="ResetLink" translatable="true">קישור לאיפוס הסיסמה נשלח לאימייל</string>
@@ -85,7 +82,6 @@
     <string name="Profile" translatable="true">פרופיל</string>
     <string name="ChangePassword" translatable="true">שינוי סיסמה</string>
     <string name="SignOut" translatable="true">התנתק</string>
-    <string name="Friends" translatable="true">חברים</string>
     <string name="EasyLearnChat" translatable="true">למד בקלות צאט</string>
     <string name="Yes" translatable="true">כן</string>
     <string name="No" translatable="true">לא</string>
@@ -113,8 +109,6 @@
     <string name="Chats" translatable="true">"צ'אטים"</string>
     <string name="Users" translatable="true">משתמשים</string>
     <string name="Send" translatable="true">שלח</string>
-    <string name="Online" translatable="true">מחובר/ת</string>
-    <string name="Offline" translatable="true">מנותק/ת</string>
     <string name="TypeaMessage" translatable="true">הודעה</string>
     <!-- Requests Page -->
     <string name="SendRequest" translatable="true">שלח בקשה</string>
@@ -130,14 +124,20 @@
     <string name="Approved" translatable="true">הבקשה אושרה</string>
     <string name="Denied" translatable="true">הבקשה נדחתה</string>
     <string name="Pending" translatable="true">ממתין לתשובה</string>
+    <string name="Fixed" translatable="true">טופל</string>
+    <string name="NotFixed" translatable="true">לא טופל</string>
     <string name="Request" translatable="true">בקשה</string>
+    <string name="ReportProblem" translatable="true">דיווח על תקלה</string>
+    <string name="RequestProcessed" translatable="true">הבקשה טופלה</string>
     <string name="Answer" translatable="true">תשובה</string>
     <string name="State" translatable="true">מצב הבקשה</string>
+    <string name="FullName" translatable="true">שם מלא</string>
+
     <!-- Profile Page -->
     <string name="CantChangeEmail" translatable="true">לא ניתן לשנות אימייל</string>
     <string name="ProfileUpdated" translatable="true">הפרופיל עודכן בהצלחה!</string>
     <string name="CameraPermissionDenied" translatable="true">ההרשאה למצלמה נדחתה</string>
-    <string name="Cammera" translatable="true">מצלמה</string>
+    <string name="Camera" translatable="true">מצלמה</string>
     <string name="Gallery" translatable="true">גלריה</string>
     <string name="SelectAge" translatable="true">בחר גיל</string>
     <string name="Age" translatable="true">גיל</string>
@@ -174,13 +174,4 @@
     <string name="Semester" translatable="true">סמסטר</string>
     <string name="AddCourse" translatable="true">הוסף קורס</string>
     <string name="RemoveCourse" translatable="true">הסר קורס</string>
-
-
-
-    <string name="Type" translatable="true">סוג</string>
-    <string name="Student" translatable="true">סטודנט</string>
-    <string name="Teacher" translatable="true">מרצה</string>
-    <string name="Admin" translatable="true">אדמין</string>
-
-
 </resources>

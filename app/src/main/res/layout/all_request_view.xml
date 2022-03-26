@@ -6,7 +6,7 @@
     android:id="@+id/MyRequestView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/sky"
+    android:background="@drawable/background"
     android:clickable="true">
 
     <TextView
@@ -40,36 +40,36 @@
         android:id="@+id/State"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:text="State: pending"
         android:padding="1dp"
+        android:text="State: pending"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/Details"
+        app:layout_constraintTop_toBottomOf="@+id/Reason" />
+
+    <TextView
+        android:id="@+id/Reason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:text="Answer: No"
         android:textColor="@color/white"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/Details"
         app:layout_constraintTop_toBottomOf="@+id/Details" />
 
-    <TextView
-        android:id="@+id/Reason"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Answer: No"
-        android:padding="1dp"
-        android:textColor="@color/white"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/Details"
-        app:layout_constraintTop_toBottomOf="@+id/State" />
-
     <View
         android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="4dp"
+        android:layout_marginTop="2dp"
         android:background="@color/white"
         android:paddingTop="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Reason" />
+        app:layout_constraintTop_toBottomOf="@+id/State" />
 
 
 

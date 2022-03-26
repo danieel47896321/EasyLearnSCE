@@ -1,12 +1,9 @@
 package com.example.easylearnsce.Guest;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.easylearnsce.Class.GuestLagnuage;
 import com.example.easylearnsce.Class.GuestNavigationView;
 import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.PopUpMSG;
@@ -47,7 +43,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class SignIn extends AppCompatActivity {
-    private TextView Title, TextViewSearchLanguage;
+    private TextView Title;
     private DrawerLayout drawerLayout;
     private ImageView BackIcon, MenuIcon;
     private NavigationView navigationView;
@@ -60,7 +56,6 @@ public class SignIn extends AppCompatActivity {
     private Loading loading;
     private Intent intent;
     private User user = new User();
-    private GuestLagnuage guestLagnuage;
     private FirebaseUser firebaseUser;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -72,7 +67,6 @@ public class SignIn extends AppCompatActivity {
     }
     private void init(){
         setID();
-        setLanguage();
         MenuItem();
         BackIcon();
         MenuIcon();
@@ -97,14 +91,6 @@ public class SignIn extends AppCompatActivity {
         TextInputLayoutEmail = findViewById(R.id.TextInputLayoutEmail);
         TextInputLayoutPassword = findViewById(R.id.TextInputLayoutPassword);
         ButtonSignIn = findViewById(R.id.ButtonSignIn);
-        TextViewSearchLanguage = findViewById(R.id.TextViewSearchLanguage);
-        guestLagnuage = new GuestLagnuage(SignIn.this);
-    }
-    private void setLanguage(){
-        TextViewSearchLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { guestLagnuage.setDialog(); }
-        });
     }
     private void MenuItem(){
         Menu menu= navigationView.getMenu();

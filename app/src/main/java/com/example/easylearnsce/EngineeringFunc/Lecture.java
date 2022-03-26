@@ -55,7 +55,7 @@ public class Lecture extends AppCompatActivity {
         viewList = findViewById(R.id.MainScreenRV);
         menu_icon = findViewById(R.id.MenuIcon);
         back_icon = findViewById(R.id.BackIcon);
-        user_navView = findViewById(R.id.UserNavigationView);
+        user_navView = findViewById(R.id.navigationView);
 
         user_fullname = user_navView.getHeaderView(0).findViewById(R.id.user_fullname);
         user_email = user_navView.getHeaderView(0).findViewById(R.id.user_email);
