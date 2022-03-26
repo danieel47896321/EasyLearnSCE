@@ -38,7 +38,7 @@ public class ChangePassword extends AppCompatActivity {
     private ImageView BackIcon, MenuIcon;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-    private NavigationView UserNavigationView;
+    private NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +58,7 @@ public class ChangePassword extends AppCompatActivity {
         TextInputLayoutNewPassword = findViewById(R.id.TextInputLayoutNewPassword);
         TextInputLayoutPasswordConfirm = findViewById(R.id.TextInputLayoutPasswordConfirm);
         ButtonSaveChanges = findViewById(R.id.ButtonSaveChanges);
-        UserNavigationView = findViewById(R.id.navigationView);
+        navigationView = findViewById(R.id.navigationView);
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
         Title = findViewById(R.id.Title);
@@ -69,7 +69,7 @@ public class ChangePassword extends AppCompatActivity {
         new UserMenuInfo(user,ChangePassword.this);
     }
     private void MenuItem(){
-        Menu menu= UserNavigationView.getMenu();
+        Menu menu= navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.ItemChangePassword);
         menuItem.setCheckable(false);
         menuItem.setChecked(true);
@@ -82,7 +82,7 @@ public class ChangePassword extends AppCompatActivity {
         });
     }
     private void NavigationView(){
-        UserNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 new UserNavigationView(ChangePassword.this, item.getItemId(), user);

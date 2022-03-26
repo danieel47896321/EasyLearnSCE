@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.example.easylearnsce.Class.AddCourseDialog;
 import com.example.easylearnsce.Class.AllCourses;
 import com.example.easylearnsce.Class.Course;
-import com.example.easylearnsce.Class.CourseView;
+import com.example.easylearnsce.Adapters.GenericEngineeringAdapter;
 import com.example.easylearnsce.Class.RemoveCourseDialog;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserMenuInfo;
@@ -39,7 +39,7 @@ public class GenericEngineering extends AppCompatActivity {
     private User user = new User();
     private String Engineering = "Tag";
     private RecyclerView viewList;
-    private NavigationView user_navView;
+    private NavigationView navigationView;
     private List<Course> courses;
     private Intent intent;
     private AllCourses allCourses = new AllCourses();
@@ -54,7 +54,7 @@ public class GenericEngineering extends AppCompatActivity {
         MenuItem();
         BackIcon();
         MenuIcon();
-        NavView();
+        NavigationView();
         setCourses();
         addCourse();
         removeCourse();
@@ -69,7 +69,7 @@ public class GenericEngineering extends AppCompatActivity {
         viewList = findViewById(R.id.CoursesRV);
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
-        user_navView = findViewById(R.id.navigationView);
+        navigationView = findViewById(R.id.navigationView);
         Engineering = (String)intent.getSerializableExtra("Tag");
         user = (User)intent.getSerializableExtra("user");
         user.setEngineering(title.getText().toString());
@@ -163,7 +163,7 @@ public class GenericEngineering extends AppCompatActivity {
             public void onClick(View v) { drawerLayout.open(); }
         });
     }
-    private void NavView(){
+    private void NavigationView(){
         UserNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -235,7 +235,7 @@ public class GenericEngineering extends AppCompatActivity {
         ShowTags(courses);
     }
     private void ShowTags(List<Course> selects){
-        CourseView mySelects = new CourseView(this,selects,Engineering);
+        GenericEngineeringAdapter mySelects = new GenericEngineeringAdapter(this,selects,Engineering);
         mySelects.setUser(user);
         viewList.setLayoutManager(new GridLayoutManager(this,1));
         viewList.setAdapter(mySelects);

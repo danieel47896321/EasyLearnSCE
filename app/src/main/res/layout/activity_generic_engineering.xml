@@ -20,6 +20,7 @@
 
         <EditText
             android:id="@+id/User_search"
+            style="@style/Custom_EditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -27,8 +28,6 @@
             android:hint="@string/Search"
             android:paddingStart="15dp"
             android:paddingLeft="15dp"
-            android:textSize="25dp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/removeCourse"
             app:layout_constraintTop_toBottomOf="@+id/header" />

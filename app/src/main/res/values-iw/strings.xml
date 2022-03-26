@@ -18,7 +18,7 @@
     <string name="Search" translatable="true">חיפוש</string>
     <string name="Select" translatable="true">בחר</string>
     <string name="Other" translatable="true">אחר</string>
-    <string name="Type" translatable="true">סוג</string>
+    <string name="UserType" translatable="true">סוג משתמש</string>
     <string name="Student" translatable="true">סטודנט</string>
     <string name="Teacher" translatable="true">מרצה</string>
     <string name="Admin" translatable="true">אדמין</string>
@@ -123,16 +123,15 @@
     <string name="AllRequests" translatable="true">כל הבקשות</string>
     <string name="Approved" translatable="true">הבקשה אושרה</string>
     <string name="Denied" translatable="true">הבקשה נדחתה</string>
-    <string name="Pending" translatable="true">ממתין לתשובה</string>
-    <string name="Fixed" translatable="true">טופל</string>
-    <string name="NotFixed" translatable="true">לא טופל</string>
+    <string name="PendingApproval" translatable="true">ממתין לתשובה</string>
+    <string name="Fixed" translatable="true">תוקן</string>
+    <string name="NotFixed" translatable="true">לא תוקן</string>
     <string name="Request" translatable="true">בקשה</string>
     <string name="ReportProblem" translatable="true">דיווח על תקלה</string>
     <string name="RequestProcessed" translatable="true">הבקשה טופלה</string>
     <string name="Answer" translatable="true">תשובה</string>
-    <string name="State" translatable="true">מצב הבקשה</string>
+    <string name="Status" translatable="true">מצב הבקשה</string>
     <string name="FullName" translatable="true">שם מלא</string>
-
     <!-- Profile Page -->
     <string name="CantChangeEmail" translatable="true">לא ניתן לשנות אימייל</string>
     <string name="ProfileUpdated" translatable="true">הפרופיל עודכן בהצלחה!</string>

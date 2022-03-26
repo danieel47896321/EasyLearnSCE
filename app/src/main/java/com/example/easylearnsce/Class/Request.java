@@ -9,8 +9,8 @@ public class Request {
     private String Type;
     private String Request;
     private String Details = "null";
-    private String State = "Pending";
-    private String Answer = "";
+    private String Status = "Pending Approval";
+    private String Answer = "-";
     public Request() { }
     public Request(String uid, String firstName, String lastName, String email, String request, String type) {
         Id = (int)(Math.random()*100000000) + "";
@@ -37,8 +37,8 @@ public class Request {
     public void setType(String type) { Type = type; }
     public String getAnswer() { return Answer; }
     public void setAnswer(String answer) { Answer = answer; }
-    public String getState() { return State; }
-    public void setState(String state) { State = state; }
+    public String getStatus() { return Status; }
+    public void setStatus(String status) { Status = status; }
     public String getId() { return Id; }
     public void setId(String id) { Id = id; }
     public String getFirstName() { return FirstName; }

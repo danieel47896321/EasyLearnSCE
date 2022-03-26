@@ -1,4 +1,4 @@
-package com.example.easylearnsce.Class;
+package com.example.easylearnsce.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,17 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.easylearnsce.Class.Course;
+import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.EngineeringFunc.GenericCourse;
 
 import java.util.List;
 
-public class CourseView extends RecyclerView.Adapter<CourseView.MyViewHolder> {
+public class GenericEngineeringAdapter extends RecyclerView.Adapter<GenericEngineeringAdapter.MyViewHolder> {
     private Context context;
     private List<Course> courses;
     private User user;
     private String Engineering = "Tag";
-    public CourseView(Context context, List<Course> course, String Engineering) {
+    public GenericEngineeringAdapter(Context context, List<Course> course, String Engineering) {
         this.context = context;
         this.courses = course;
         this.Engineering = Engineering;
@@ -44,13 +46,13 @@ public class CourseView extends RecyclerView.Adapter<CourseView.MyViewHolder> {
             course_card_view = itemView.findViewById(R.id.course_view);
         }
     }
-    public CourseView.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GenericEngineeringAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         view = layoutInflater.inflate(R.layout.course_item,parent,false);
-        return new CourseView.MyViewHolder(view);
+        return new GenericEngineeringAdapter.MyViewHolder(view);
     }
-    public void onBindViewHolder(@NonNull CourseView.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GenericEngineeringAdapter.MyViewHolder holder, int position) {
         holder.course_name.setText(courses.get(position).getCourse_Name());
         holder.course_teacher_name.setText(courses.get(position).getCourse_Teacher_name());
         holder.course_year.setText(courses.get(position).getCourse_Year());

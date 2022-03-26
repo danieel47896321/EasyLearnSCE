@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.easylearnsce.Adapters.RequestsAdapter;
 import com.example.easylearnsce.Class.UserMenuInfo;
@@ -58,7 +59,7 @@ public class Requests extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<Request> Requests;
     private Request request;
-    private NavigationView UserNavigationView;
+    private NavigationView navigationView;
     private Intent intent;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     @Override
@@ -81,7 +82,7 @@ public class Requests extends AppCompatActivity {
         user = (User)intent.getSerializableExtra("user");
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
-        UserNavigationView = findViewById(R.id.navigationView);
+        navigationView = findViewById(R.id.navigationView);
         Title = findViewById(R.id.Title);
         Title.setText(getResources().getString(R.string.Requests));
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -95,7 +96,7 @@ public class Requests extends AppCompatActivity {
         ButtonRequests = findViewById(R.id.ButtonRequests);
     }
     private void MenuItem(){
-        Menu menu= UserNavigationView.getMenu();
+        Menu menu= navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.ItemRequests);
         menuItem.setCheckable(false);
         menuItem.setChecked(true);
@@ -108,7 +109,7 @@ public class Requests extends AppCompatActivity {
         });
     }
     private void NavigationView(){
-        UserNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 new UserNavigationView(Requests.this, item.getItemId(), user);
@@ -211,11 +212,11 @@ public class Requests extends AppCompatActivity {
                     Request request1 = dataSnapshot.getValue(Request.class);
                     if(flag == false) {
                         if (request1.getRequest().equals("Get Teacher Permission") || request1.getRequest().equals("קבלת הרשאות מרצה")) {
-                            if (request1.getState().equals("Pending") )
+                            if (request1.getStatus().equals("Pending") )
                                 new PopUpMSG(Requests.this, getResources().getString(R.string.Requests), getResources().getString(R.string.RequestAlreadyExists));
-                            else if (request1.getState().equals("Denied"))
+                            else if (request1.getStatus().equals("Denied"))
                                 new PopUpMSG(Requests.this, getResources().getString(R.string.Requests), getResources().getString(R.string.RequestDenied));
-                            else if (request1.getState().equals("Approved"))
+                            else if (request1.getStatus().equals("Approved"))
                                 new PopUpMSG(Requests.this, getResources().getString(R.string.Requests), getResources().getString(R.string.RequestApproved));
                             flag = true;
                             break;
@@ -266,7 +267,7 @@ public class Requests extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                     for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                         Request request = dataSnapshot1.getValue(Request.class);
-                        if(request.getState().equals("Pending") || request.getState().equals("ממתין לתשובה"))
+                        if(request.getStatus().equals("Pending Approval") || request.getStatus().equals("ממתין לתשובה"))
                             Requests.add(request);
                     }
                 ShowRequests(Requests);

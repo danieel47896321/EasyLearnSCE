@@ -8,6 +8,7 @@
 
     <TextView
         android:id="@+id/ID"
+        style="@style/Custom_TextView_Big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -15,73 +16,66 @@
         android:layout_marginTop="8dp"
         android:padding="1dp"
         android:text="ID"
-        android:textColor="@color/white"
-        android:textSize="24dp"
-        android:textStyle="bold"
+        android:textSize="22dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/Request"
+        style="@style/Custom_TextView_Big"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Request"
+        android:padding="1dp"
+        android:textSize="22dp"
+        app:layout_constraintStart_toStartOf="@+id/Type"
+        app:layout_constraintTop_toBottomOf="@+id/ID" />
+
+    <TextView
         android:id="@+id/FullName"
+        style="@style/Custom_TextView_Big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="4dp"
         android:text="Full Name"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:textStyle="bold"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ID" />
+        app:layout_constraintTop_toBottomOf="@+id/Request" />
 
     <TextView
         android:id="@+id/EmailRequest"
+        style="@style/Custom_TextView_Big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="@string/Email"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:textStyle="bold"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="@+id/FullName"
         app:layout_constraintTop_toBottomOf="@+id/FullName" />
 
     <TextView
         android:id="@+id/Type"
+        style="@style/Custom_TextView_Big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="@string/Type"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:textStyle="bold"
+        android:text="@string/UserType"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="@+id/EmailRequest"
         app:layout_constraintTop_toBottomOf="@+id/EmailRequest" />
 
-    <TextView
-        android:id="@+id/Request"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/Request"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/Type"
-        app:layout_constraintTop_toBottomOf="@+id/Type" />
+
 
     <TextView
         android:id="@+id/Details"
+        style="@style/Custom_TextView_Big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:text="@string/Details"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:textStyle="bold"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="@+id/Request"
-        app:layout_constraintTop_toBottomOf="@+id/Request" />
+        app:layout_constraintTop_toBottomOf="@+id/Type" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/TextInputLayoutAnswer"
@@ -123,6 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/button_background"
         android:text="@string/Approved"
         app:layout_constraintStart_toStartOf="@+id/Details"

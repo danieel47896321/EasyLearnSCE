@@ -14,14 +14,10 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.easylearnsce.Class.Request;
-import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.R;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -35,7 +31,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
     @NonNull
     @Override
     public RequestsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.request_permission_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.request_item, parent, false);
         return new RequestsAdapter.ViewHolder(view);
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -43,78 +39,107 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
     public void onBindViewHolder(@NonNull RequestsAdapter.ViewHolder holder, int position) {
         Request request = requests.get(position);
         holder.ID.setText(""+(position+1)+".");
-        holder.FullName.setText(holder.FullName.getText() + ": " + request.getFirstName()+ " " + request.getLastName());
-        holder.EmailRequest.setText(holder.EmailRequest.getText() + ": " + request.getEmail());
-        holder.Type.setText(holder.Type.getText() + ": " + request.getType());
-        holder.Request.setText(holder.Request.getText() + ": " + request.getRequest());
-        if(request.getRequest().equals("Report Problem") || request.getRequest().equals("דיווח על תקלה")) {
-            holder.RequestApproved.setText(context.getResources().getString(R.string.Fixed));
-            holder.RequestDenied.setText(context.getResources().getString(R.string.NotFixed));
-        }
-        if(request.getDetails().equals("null")) {
-            holder.Details.setVisibility(View.GONE);
-            holder.TextInputLayoutAnswer.setVisibility(View.GONE);
-            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-            DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(request.getId());
-            holder.RequestApproved.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { Approved(request); }
-            });
-            holder.RequestDenied.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { Denied(request); }
-            });
-        }
-        else {
-            holder.Details.setText(holder.Details.getText() + ": " + request.getDetails());
-            holder.TextInputLayoutAnswer.setHelperText("");
-            holder.RequestApproved.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(holder.TextInputLayoutAnswer.getEditText().getText().toString().equals(""))
-                        holder.TextInputLayoutAnswer.setHelperText(context.getResources().getString(R.string.Required));
-                    else {
-                        holder.TextInputLayoutAnswer.setHelperText("");
-                        request.setAnswer(holder.TextInputLayoutAnswer.getEditText().getText().toString());
-                        if(request.getRequest().equals("Report Problem") || request.getRequest().equals("דיווח על תקלה")) {
-                            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                            DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(request.getUid()).child(request.getId());
-                            request.setState(context.getResources().getString(R.string.Fixed));
-                            databaseReference.setValue(request);
-                        }
-                        else
-                            Approved(request);
-                    }
-                }
-            });
-            holder.RequestDenied.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(holder.TextInputLayoutAnswer.getEditText().getText().toString().equals(""))
-                        holder.TextInputLayoutAnswer.setHelperText(context.getResources().getString(R.string.Required));
-                    else {
-                        holder.TextInputLayoutAnswer.setHelperText("");
-                        request.setAnswer(holder.TextInputLayoutAnswer.getEditText().getText().toString());
-                        Denied(request);
-                    }
-                }
-            });
-        }
-
+        holder.Request.setText(context.getResources().getString(R.string.Request) + ": " + request.getRequest());
+        holder.FullName.setText(context.getResources().getString(R.string.FullName) + ": " + request.getFirstName()+ " " + request.getLastName());
+        holder.EmailRequest.setText(context.getResources().getString(R.string.Email) + ": " + request.getEmail());
+        holder.Type.setText(context.getResources().getString(R.string.UserType) + ": " + request.getType());
+        if(request.getRequest().equals("Get Teacher Permission") || request.getRequest().equals("קבלת הרשאות מרצה"))
+            TeacherPermission(holder, request);
+        else if(request.getRequest().equals("Report Problem") || request.getRequest().equals("דיווח על תקלה"))
+            ReportProblem(holder, request);
+        else
+            Other(holder, request);
     }
-    public void Approved(Request request){
+    private void TeacherPermission(@NonNull RequestsAdapter.ViewHolder holder, Request request){
+        holder.Details.setVisibility(View.GONE);
+        holder.TextInputLayoutAnswer.setVisibility(View.GONE);
+        holder.RequestApproved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                request.setStatus(context.getResources().getString(R.string.Approved));
+                Approved(request);
+            }
+        });
+        holder.RequestDenied.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                request.setStatus(context.getResources().getString(R.string.Denied));
+                Denied(request);
+            }
+        });
+    }
+    private void ReportProblem(@NonNull RequestsAdapter.ViewHolder holder, Request request){
+        holder.RequestApproved.setText(context.getResources().getString(R.string.Fixed));
+        holder.RequestDenied.setText(context.getResources().getString(R.string.NotFixed));
+        holder.Details.setText(request.getDetails());
+        holder.TextInputLayoutAnswer.setHelperText("");
+        holder.RequestApproved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.TextInputLayoutAnswer.getEditText().getText().toString().equals(""))
+                    holder.TextInputLayoutAnswer.setHelperText(context.getResources().getString(R.string.Required));
+                else {
+                    holder.TextInputLayoutAnswer.setHelperText("");
+                    request.setAnswer(holder.TextInputLayoutAnswer.getEditText().getText().toString());
+                    request.setStatus(context.getResources().getString(R.string.Fixed));
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(request.getUid()).child(request.getId());
+                    databaseReference.setValue(request);
+                }
+            }
+        });
+        holder.RequestDenied.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.TextInputLayoutAnswer.getEditText().getText().toString().equals(""))
+                    holder.TextInputLayoutAnswer.setHelperText(context.getResources().getString(R.string.Required));
+                else {
+                    request.setAnswer(holder.TextInputLayoutAnswer.getEditText().getText().toString());
+                    request.setStatus(context.getResources().getString(R.string.NotFixed));
+                    Denied(request);
+                }
+            }
+        });
+    }
+    private void Other(@NonNull RequestsAdapter.ViewHolder holder, Request request){
+        holder.Details.setText(request.getDetails());
+        holder.TextInputLayoutAnswer.setHelperText("");
+        holder.RequestApproved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.TextInputLayoutAnswer.getEditText().getText().toString().equals(""))
+                    holder.TextInputLayoutAnswer.setHelperText(context.getResources().getString(R.string.Required));
+                else {
+                    request.setAnswer(holder.TextInputLayoutAnswer.getEditText().getText().toString());
+                    request.setStatus(context.getResources().getString(R.string.Fixed));
+                    Approved(request);
+                }
+            }
+        });
+        holder.RequestDenied.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.TextInputLayoutAnswer.getEditText().getText().toString().equals(""))
+                    holder.TextInputLayoutAnswer.setHelperText(context.getResources().getString(R.string.Required));
+                else {
+                    request.setAnswer(holder.TextInputLayoutAnswer.getEditText().getText().toString());
+                    request.setStatus(context.getResources().getString(R.string.NotFixed));
+                    Denied(request);
+                }
+            }
+        });
+    }
+    private void Approved(Request request){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(request.getUid()).child(request.getId());
-        request.setState(context.getResources().getString(R.string.Approved));
         databaseReference.setValue(request);
         FirebaseDatabase firebaseDatabase1 = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference1 = firebaseDatabase1.getReference().child("Users").child(request.getUid()).child("permission");
         databaseReference1.setValue("High");
     }
-    public void Denied(Request request){
+    private void Denied(Request request){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(request.getUid()).child(request.getId());
-        request.setState(context.getResources().getString(R.string.Denied));
         databaseReference.setValue(request);
     }
     @Override

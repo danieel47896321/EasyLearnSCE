@@ -33,7 +33,7 @@ public class SelectEngineering extends AppCompatActivity {
     private TextView Title;
     private ImageView BackIcon, MenuIcon;
     private DrawerLayout drawerLayout;
-    private NavigationView UserNavigationView;
+    private NavigationView navigationView;
     private RecyclerView recyclerView;
     private List<Tag> tags;
     private EditText User_search;
@@ -65,7 +65,7 @@ public class SelectEngineering extends AppCompatActivity {
         Title = findViewById(R.id.Title);
         Title.setText(getResources().getString(R.string.SelectEngineering));
         user = (User)intent.getSerializableExtra("user");
-        UserNavigationView = findViewById(R.id.navigationView);
+        navigationView = findViewById(R.id.navigationView);
         drawerLayout = findViewById(R.id.drawerLayout);
         new UserMenuInfo(user,SelectEngineering.this);
         HomeTags = new String[TagsPhotos.length];
@@ -95,7 +95,7 @@ public class SelectEngineering extends AppCompatActivity {
         ShowTags(tags);
     }
     private void MenuItem(){
-        Menu menu= UserNavigationView.getMenu();
+        Menu menu= navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.ItemSelectEngineering);
         menuItem.setCheckable(false);
         menuItem.setChecked(true);
@@ -108,7 +108,7 @@ public class SelectEngineering extends AppCompatActivity {
         });
     }
     private void NavigationView(){
-        UserNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 new UserNavigationView(SelectEngineering.this, item.getItemId(), user);
@@ -128,11 +128,11 @@ public class SelectEngineering extends AppCompatActivity {
             tags.add(new Tag(HomeTags[i], TagsPhotos[i]));
         ShowTags(tags);
     }
-    private void ShowTags(List<Tag> engineeringsList){
-        EngineeringAdapter myEngineerings = new EngineeringAdapter(this,engineeringsList);
-        myEngineerings.setUser(user);
+    private void ShowTags(List<Tag> engineeringList){
+        EngineeringAdapter engineeringAdapter = new EngineeringAdapter(this,engineeringList);
+        engineeringAdapter.setUser(user);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
-        recyclerView.setAdapter(myEngineerings);
+        recyclerView.setAdapter(engineeringAdapter);
     }
     private void StartActivity(Class Destination){
         intent = new Intent(SelectEngineering.this, Destination);

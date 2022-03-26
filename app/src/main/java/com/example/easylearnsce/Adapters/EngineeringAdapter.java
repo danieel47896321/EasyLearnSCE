@@ -48,13 +48,6 @@ public class EngineeringAdapter extends RecyclerView.Adapter<EngineeringAdapter.
     public void onBindViewHolder(@NonNull EngineeringAdapter.MyViewHolder holder, int position) {
         holder.TagName.setText(Select.get(position).getTagName());
         holder.TagPhoto.setImageResource(Select.get(position).getPhoto());
-        holder.constraintLayout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                holder.constraintLayout.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
-                return false;
-            }
-        });
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,14 +1,12 @@
 package com.example.easylearnsce.Adapters;
 
 import android.content.Context;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.easylearnsce.Class.Request;
@@ -31,8 +29,7 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
         View view = LayoutInflater.from(context).inflate(R.layout.all_request_view, parent, false);
         return new AllRequestsAdapter.ViewHolder(view);
     }
-    private void setAdmin(@NonNull AllRequestsAdapter.ViewHolder holder, int position, Request request){
-        holder.Request.setText(context.getResources().getString(R.string.Request) +": " + request.getRequest());
+    private void DetailsAndAnswer(@NonNull AllRequestsAdapter.ViewHolder holder, Request request){
         if(request.getRequest().equals("Other") || request.getRequest().equals("אחר") || request.getRequest().equals("Report Problem") || request.getRequest().equals("דיווח על תקלה")) {
             holder.Details.setText(context.getResources().getString(R.string.Details) + ": " + request.getDetails());
             holder.Reason.setText(context.getResources().getString(R.string.Answer) + ": " + request.getAnswer());
@@ -41,55 +38,44 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
             holder.Details.setVisibility(View.GONE);
             holder.Reason.setVisibility(View.GONE);
         }
-        if(request.getState().equals("Approved") || request.getAnswer().equals("הבקשה אושרה") || request.getState().equals("Fixed") || request.getAnswer().equals("טופל"))
-            holder.State.setTextColor(context.getResources().getColor(R.color.green));
-        else if(request.getState().equals("Denied") || request.getAnswer().equals("הבקשה נדחתה") || request.getState().equals("Not Fixed") || request.getAnswer().equals("לא טופל"))
-            holder.State.setTextColor(context.getResources().getColor(R.color.red));
-        else
-            holder.State.setTextColor(context.getResources().getColor(R.color.white));
-        holder.State.setText(context.getResources().getString(R.string.State) +": " +request.getState());
-
     }
-    private void setOthers(@NonNull AllRequestsAdapter.ViewHolder holder, int position,  Request request){
-        holder.Request.setText(context.getResources().getString(R.string.Request) +": " + request.getRequest());
-        if(request.getRequest().equals("Other") || request.getRequest().equals("אחר") || request.getRequest().equals("Report Problem") || request.getRequest().equals("דיווח על תקלה")) {
-            holder.Details.setText(context.getResources().getString(R.string.Details) + ": " + request.getDetails());
-            holder.Reason.setText(context.getResources().getString(R.string.Answer) + ": " + request.getAnswer());
-        }
-        else {
-            holder.Details.setVisibility(View.GONE);
-            holder.Reason.setVisibility(View.GONE);
-        }
-        if(request.getState().equals("Approved") || request.getAnswer().equals("הבקשה אושרה") || request.getState().equals("Request Processed") || request.getAnswer().equals("הבקשה טופלה"))
-            holder.State.setTextColor(context.getResources().getColor(R.color.green));
-        else if(request.getState().equals("Denied") || request.getAnswer().equals("הבקשה נדחתה"))
-            holder.State.setTextColor(context.getResources().getColor(R.color.red));
+    private void StatusColor(@NonNull AllRequestsAdapter.ViewHolder holder, Request request){
+        if(request.getStatus().equals("Approved") || request.getStatus().equals("הבקשה אושרה") || request.getStatus().equals("Fixed") || request.getStatus().equals("תוקן"))
+            holder.Status.setTextColor(context.getResources().getColor(R.color.green));
+        else if(request.getStatus().equals("Denied") || request.getStatus().equals("הבקשה נדחתה") || request.getStatus().equals("Not Fixed") || request.getStatus().equals("לא תוקן"))
+            holder.Status.setTextColor(context.getResources().getColor(R.color.red));
         else
-            holder.State.setTextColor(context.getResources().getColor(R.color.white));
-        holder.State.setText(context.getResources().getString(R.string.State) +": " +request.getState());
-
+            holder.Status.setTextColor(context.getResources().getColor(R.color.white));
+        holder.Status.setText(context.getResources().getString(R.string.Status) + ": " + request.getStatus());
     }
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull AllRequestsAdapter.ViewHolder holder, int position) {
         Request request = requests.get(position);
-        if(type.equals("Admin"))
-            setAdmin(holder, position, request);
-        else
-            setOthers(holder, position, request);
+        holder.Request.setText(context.getResources().getString(R.string.Request) +": " + request.getRequest());
+        holder.FullName.setText(context.getResources().getString(R.string.FullName) +": " + request.getFirstName() + " " + request.getLastName());
+        holder.Email.setText(context.getResources().getString(R.string.Email) +": " + request.getEmail());
+        holder.UserType.setText(context.getResources().getString(R.string.UserType) +": " + request.getType());
+        DetailsAndAnswer(holder, request);
+        StatusColor(holder, request);
     }
     @Override
     public int getItemCount() { return requests.size(); }
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView Request;
+        public TextView FullName;
+        public TextView Email;
+        public TextView UserType;
         public TextView Details;
-        public TextView State;
+        public TextView Status;
         public TextView Reason;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             Request = itemView.findViewById(R.id.Request);
+            FullName = itemView.findViewById(R.id.FullName);
+            Email = itemView.findViewById(R.id.Email);
+            UserType = itemView.findViewById(R.id.UserType);
             Details = itemView.findViewById(R.id.Details);
-            State = itemView.findViewById(R.id.State);
+            Status = itemView.findViewById(R.id.Status);
             Reason = itemView.findViewById(R.id.Reason);
         }
     }

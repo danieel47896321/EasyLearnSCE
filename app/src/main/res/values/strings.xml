@@ -17,7 +17,7 @@
     <string name="Other" translatable="true">Other</string>
     <string name="Select" translatable="true">Select</string>
     <string name="Search" translatable="true">Search</string>
-    <string name="Type" translatable="true">Type</string>
+    <string name="UserType" translatable="true">User Type</string>
     <string name="Student" translatable="true">Student</string>
     <string name="Teacher" translatable="true">Teacher</string>
     <string name="Admin" translatable="true">Admin</string>
@@ -122,14 +122,14 @@
     <string name="AllRequests" translatable="true">All Requests</string>
     <string name="Approved" translatable="true">Approved</string>
     <string name="Denied" translatable="true">Denied</string>
-    <string name="Pending" translatable="true">Pending</string>
+    <string name="PendingApproval" translatable="true">Pending Approval</string>
     <string name="Fixed" translatable="true">Fixed</string>
     <string name="NotFixed" translatable="true">Not Fixed</string>
     <string name="Request" translatable="true">Request</string>
     <string name="ReportProblem" translatable="true">Report Problem</string>
     <string name="RequestProcessed" translatable="true">Request processed</string>
     <string name="Answer" translatable="true">Answer</string>
-    <string name="State" translatable="true">State</string>
+    <string name="Status" translatable="true">Status</string>
     <string name="FullName" translatable="true">Full Name</string>
     <!-- Profile Page -->
     <string name="CantChangeEmail" translatable="true">Cant Change Email</string>

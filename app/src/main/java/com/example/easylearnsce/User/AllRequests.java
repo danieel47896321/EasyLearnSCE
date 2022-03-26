@@ -24,10 +24,8 @@ import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -42,11 +40,10 @@ public class AllRequests extends AppCompatActivity {
     private User user = new User();
     private RecyclerView recyclerView;
     private List<Request> Requests;
-    private NavigationView UserNavigationView;
+    private NavigationView navigationView;
     private Intent intent;
+    private Query query;
     private EditText User_search;
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private int TagsPhotos[] = {R.drawable.engineering, R.drawable.message, R.drawable.request_permisstions,R.drawable.all_requests, R.drawable.person, R.drawable.forgotpassword,R.drawable.signout};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +66,7 @@ public class AllRequests extends AppCompatActivity {
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
         User_search = findViewById(R.id.User_search);
-        UserNavigationView = findViewById(R.id.navigationView);
+        navigationView = findViewById(R.id.navigationView);
         Title = findViewById(R.id.Title);
         Title.setText(getResources().getString(R.string.AllRequests));
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -81,54 +78,61 @@ public class AllRequests extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { RequestSearch(s.toString()); }
+            public void onTextChanged(CharSequence s, int start, int before, int count) { CheckType(s.toString()); }
             @Override
             public void afterTextChanged(Editable s) { }
         });
     }
-    private void RequestSearch(String text) {
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        Query query;
-        if(user.getType().equals("Admin") || user.getType().equals("אדמין")) {
-            query = FirebaseDatabase.getInstance().getReference().child("Requests");
-            query.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Requests.clear();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren())
-                        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                            Request request = dataSnapshot1.getValue(Request.class);
-                            if (request.getRequest().toLowerCase().contains(text.toLowerCase()) || request.getDetails().toLowerCase().contains(text.toLowerCase()) || request.getAnswer().toLowerCase().contains(text.toLowerCase()) || request.getState().toLowerCase().contains(text.toLowerCase()))
-                                Requests.add(request);
-                    }
-                    ShowRequests(Requests,"Admin");
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) { }
-            });
-        }
-        else {
-            query = FirebaseDatabase.getInstance().getReference().child("Requests").child(user.getUid());
-            query.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Requests.clear();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        Request request = dataSnapshot.getValue(Request.class);
-                        if (request.getRequest().toLowerCase().contains(text.toLowerCase()) || request.getDetails().toLowerCase().contains(text.toLowerCase()) || request.getAnswer().toLowerCase().contains(text.toLowerCase()) || request.getState().toLowerCase().contains(text.toLowerCase()))
+    private void CheckType(String text){
+        if(user.getType().equals("Admin") || user.getType().equals("אדמין"))
+            Admin(text);
+        else if(user.getType().equals("Teacher") || user.getType().equals("מרצה") || user.getType().equals("Student") || user.getType().equals("סטודנט"))
+            TeacherAndStudent(text);
+    }
+    private void Admin(String text){
+        query = FirebaseDatabase.getInstance().getReference().child("Requests");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Requests.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        Request request = dataSnapshot1.getValue(Request.class);
+                        String FullName = request.getFirstName() + " " + request.getLastName();
+                        if (request.getRequest().toLowerCase().contains(text.toLowerCase()) || request.getEmail().toLowerCase().contains(text.toLowerCase()) || request.getType().toLowerCase().contains(text.toLowerCase())
+                                || FullName.toLowerCase().contains(text.toLowerCase()) || request.getDetails().toLowerCase().contains(text.toLowerCase()) || request.getAnswer().toLowerCase().contains(text.toLowerCase())
+                                || request.getStatus().toLowerCase().contains(text.toLowerCase()))
                             Requests.add(request);
                     }
-                    ShowRequests(Requests, "Not Admin");
+                ShowRequests(Requests,"Admin");
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
+    private void TeacherAndStudent(String text){
+        query = FirebaseDatabase.getInstance().getReference().child("Requests").child(user.getUid());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Requests.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Request request = dataSnapshot.getValue(Request.class);
+                    String FullName = request.getFirstName() + " " + request.getLastName();
+                    if (request.getRequest().toLowerCase().contains(text.toLowerCase()) || request.getEmail().toLowerCase().contains(text.toLowerCase()) || request.getType().toLowerCase().contains(text.toLowerCase())
+                            || FullName.toLowerCase().contains(text.toLowerCase()) || request.getDetails().toLowerCase().contains(text.toLowerCase()) || request.getAnswer().toLowerCase().contains(text.toLowerCase())
+                            || request.getStatus().toLowerCase().contains(text.toLowerCase()))
+                        Requests.add(request);
                 }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
-        }
+                ShowRequests(Requests, "Else");
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
     private void MenuItem(){
-        Menu menu= UserNavigationView.getMenu();
+        Menu menu= navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.ItemAllRequests);
         menuItem.setCheckable(false);
         menuItem.setChecked(true);
@@ -141,7 +145,7 @@ public class AllRequests extends AppCompatActivity {
         });
     }
     private void NavigationView(){
-        UserNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 new UserNavigationView(AllRequests.this, item.getItemId(), user);
@@ -155,46 +159,7 @@ public class AllRequests extends AppCompatActivity {
             public void onClick(View v) { onBackPressed(); }
         });
     }
-    private void setTags(){
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        if(user.getType().equals("Admin") || user.getType().equals("אדמין")) {
-            DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests");
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Requests.clear();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren())
-                        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                            Request request = dataSnapshot1.getValue(Request.class);
-                            Requests.add(request);
-                        }
-                    ShowRequests(Requests, "Admin");
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) { }
-            });
-        }
-        else {
-            DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(user.getUid());
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (User_search.getText().toString().equals("")) {
-                        Requests.clear();
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            Request request = dataSnapshot.getValue(Request.class);
-                            Requests.add(request);
-                            ShowRequests(Requests, "Not Admin");
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
-        }
-    }
+    private void setTags(){ CheckType(""); }
     private void ShowRequests(List<Request> requests, String type){
         AllRequestsAdapter Select = new AllRequestsAdapter(this,requests,type);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));

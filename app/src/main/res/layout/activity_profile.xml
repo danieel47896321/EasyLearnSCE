@@ -77,6 +77,7 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginRight="32dp"
                     android:hint="@string/FirstName"
+                    app:startIconDrawable="@drawable/person"
                     app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -97,7 +98,9 @@
                     android:layout_marginLeft="32dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginRight="32dp"
+                    android:layout_marginTop="4dp"
                     android:hint="@string/LastName"
+                    app:startIconDrawable="@drawable/person"
                     app:endIconMode="clear_text" >
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -118,7 +121,9 @@
                     android:layout_marginLeft="32dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginRight="32dp"
+                    android:layout_marginTop="4dp"
                     android:hint="@string/Gender"
+                    app:startIconDrawable="@drawable/person"
                     app:endIconDrawable="@drawable/drop_down"
                     app:endIconMode="custom">
 
@@ -142,8 +147,10 @@
                     android:layout_marginLeft="32dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginRight="32dp"
+                    android:layout_marginTop="4dp"
                     android:hint="@string/BirthDay"
                     app:endIconDrawable="@drawable/drop_down"
+                    app:startIconDrawable="@drawable/date"
                     app:endIconMode="custom">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -165,8 +172,10 @@
                     android:layout_marginLeft="32dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginRight="32dp"
+                    android:layout_marginTop="4dp"
                     android:hint="@string/City"
                     app:endIconDrawable="@drawable/drop_down"
+                    app:startIconDrawable="@drawable/city"
                     app:endIconMode="custom">
 
                     <com.google.android.material.textfield.TextInputEditText

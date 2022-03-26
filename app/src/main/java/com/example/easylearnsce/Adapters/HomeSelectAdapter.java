@@ -94,7 +94,6 @@ public class HomeSelectAdapter extends RecyclerView.Adapter<HomeSelectAdapter.My
                             ((Activity) context).finish();
                         }
                     }).setNegativeButton(context.getResources().getString(R.string.No), new DialogInterface.OnClickListener() {
-                        @SuppressLint("ResourceType")
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Resources res = context.getResources();
