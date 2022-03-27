@@ -121,12 +121,11 @@ public class Home extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 if(firebaseAuth.getCurrentUser() != null)
                     firebaseAuth.signOut();
-                GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(Home.this.getString(R.string.default_web_client_id)).requestEmail().build();
+                /*GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(Home.this.getString(R.string.default_web_client_id)).requestEmail().build();
                 GoogleSignInClient googleClient = GoogleSignIn.getClient(Home.this, options);
                 googleClient.signOut();
                 startActivity(new Intent(Home.this, EasyLearnSCE.class));
-                finish();
+                finish();*/
             }
         }).setNegativeButton(getResources().getString(R.string.No), new DialogInterface.OnClickListener() {
             @Override

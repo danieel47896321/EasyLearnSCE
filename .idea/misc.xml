@@ -11,6 +11,8 @@
         <entry key="..\:/EasyLearnSCE/app/src/main/res/drawable/input_background.xml" value="0.2703125" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/drawable/input_edittext_background.xml" value="0.16666666666666666" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/drawable/my_drop_down_background.xml" value="0.16666666666666666" />
+        <entry key="..\:/EasyLearnSCE/app/src/main/res/drawable/reciver_background.xml" value="0.2703125" />
+        <entry key="..\:/EasyLearnSCE/app/src/main/res/drawable/sender_background.xml" value="0.2703125" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout-v21/activity_easylearnsce.xml" value="0.2504528985507246" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/activity_contact.xml" value="0.25416666666666665" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/activity_create_account.xml" value="0.25416666666666665" />
@@ -24,16 +26,24 @@
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/activity_profile.xml" value="0.264" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/activity_select_engineering.xml" value="0.12183383991894631" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/activity_sign_in.xml" value="0.1598731884057971" />
+        <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/chat_item_receiver.xml" value="0.19384057971014493" />
+        <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/chat_item_sender.xml" value="0.19384057971014493" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/course_item.xml" value="0.8" />
+        <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/dialog_add_course.xml" value="0.264" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/dialog_createaccount.xml" value="0.264" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/dialog_profile_picture.xml" value="0.22146739130434784" />
+        <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/dialog_remove_course.xml" value="0.264" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/dialog_search_spinner.xml" value="0.2504528985507246" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/dropdown_item.xml" value="0.16614583333333333" />
+        <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/fragment_chats.xml" value="0.19384057971014493" />
+        <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/fragment_select_view.xml" value="0.19384057971014493" />
+        <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/fragment_users.xml" value="0.19384057971014493" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/guest_nav_header.xml" value="0.1598731884057971" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/mini_toolbar.xml" value="0.20516304347826086" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/select_view.xml" value="0.23143115942028986" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/toolbar.xml" value="0.264" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/user_nav_header.xml" value="0.1598731884057971" />
+        <entry key="..\:/EasyLearnSCE/app/src/main/res/layout/userbar.xml" value="0.19384057971014493" />
         <entry key="..\:/EasyLearnSCE/app/src/main/res/menu/user_menu.xml" value="0.25416666666666665" />
       </map>
     </option>

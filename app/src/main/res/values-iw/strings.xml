@@ -12,6 +12,7 @@
     <string name="Next" translatable="true">הבא</string>
     <string name="DifferentPassword" translatable="true">אימות סיסמה לא תואמת</string>
     <string name="OK" translatable="true">אישור</string>
+    <string name="Cancel" translatable="true">ביטול</string>
     <string name="Loading" translatable="true">טוען</string>
     <string name="Finish" translatable="true">סיום</string>
     <string name="DontHaveAccountCreateAccount" translatable="true">אין לך משתמש? צור חשבון</string>
@@ -98,6 +99,7 @@
     <string name="SelectYear" translatable="true">בחר שנה</string>
     <string name="SelectSemester" translatable="true">בחר סמסטר</string>
     <string name="SelectCourse" translatable="true">בחר קורס</string>
+    <string name="SelectDepartment" translatable="true">בחר מחלקה</string>
     <string name="FirstYear" translatable="true">שנה ראשונה</string>
     <string name="SecondYear" translatable="true">שנה שניה</string>
     <string name="ThirdYear" translatable="true">שנה שלישית</string>

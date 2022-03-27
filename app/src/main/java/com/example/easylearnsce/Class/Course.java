@@ -20,7 +20,6 @@ public class Course {
     public void setCourse_Year(String course_Year) { Course_Year = course_Year; }
     public void setCourse_Semester(String course_Semester) { Course_Semester = course_Semester; }
     public void setCourse_Engineering(String course_Engineering) { Course_Engineering = course_Engineering; }
-
     public String getCourse_Name() { return Course_Name; }
     public String getCourse_Teacher_name() { return Course_Teacher_name; }
     public String getCourse_Year() { return Course_Year; }

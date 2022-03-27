@@ -11,6 +11,7 @@
     <string name="Next" translatable="true">Next</string>
     <string name="DifferentPassword" translatable="true">Confirm Password Not match</string>
     <string name="OK" translatable="true">Ok</string>
+    <string name="Cancel" translatable="true">Cancel</string>
     <string name="Loading" translatable="true">Loading</string>
     <string name="Finish" translatable="true">Finish</string>
     <string name="DontHaveAccountCreateAccount" translatable="true">Don\'t have account? Create Account</string>
@@ -97,6 +98,7 @@
     <string name="SelectYear" translatable="true">Select Year</string>
     <string name="SelectSemester" translatable="true">Select Semester</string>
     <string name="SelectCourse" translatable="true">Select Course</string>
+    <string name="SelectDepartment" translatable="true">Select Department</string>
     <string name="FirstYear" translatable="true">First Year</string>
     <string name="SecondYear" translatable="true">Second Year</string>
     <string name="ThirdYear" translatable="true">Third Year</string>
@@ -213,6 +215,16 @@
         <item>@string/SecondYear</item>
         <item>@string/ThirdYear</item>
         <item>@string/FourthYear</item>
+    </string-array>
+    <string-array name="Department">
+        <item>@string/StructuralEngineering</item>
+        <item>@string/MechanicalEngineering</item>
+        <item>@string/ElectricalEngineering</item>
+        <item>@string/SoftwareEngineering</item>
+        <item>@string/IndustrialEngineering</item>
+        <item>@string/ChemicalEngineering</item>
+        <item>@string/ProgrammingComputer</item>
+        <item>@string/PreEngineering</item>
     </string-array>
     <string-array name="Semester">
         <item>@string/FirstSemester</item>
