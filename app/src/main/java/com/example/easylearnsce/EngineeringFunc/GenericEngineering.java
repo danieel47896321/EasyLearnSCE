@@ -25,8 +25,11 @@ import com.example.easylearnsce.Class.UserNavigationView;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.User.SelectEngineering;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +37,12 @@ import java.util.List;
 public class GenericEngineering extends AppCompatActivity {
     private ImageView BackIcon, MenuIcon, addCourse, removeCourse;
     private DrawerLayout drawerLayout;
-    private NavigationView UserNavigationView;
-    private TextView title, User_search;
+    private TextView Title, User_search;
     private User user = new User();
     private String Engineering = "Tag";
     private RecyclerView viewList;
     private NavigationView navigationView;
-    private List<Course> courses;
+    private ArrayList<Course> courses;
     private Intent intent;
     private AllCourses allCourses = new AllCourses();
     @Override
@@ -55,14 +57,14 @@ public class GenericEngineering extends AppCompatActivity {
         BackIcon();
         MenuIcon();
         NavigationView();
-        setCourses();
         addCourse();
         removeCourse();
+        setTags();
     }
     public void setID(){
         intent = getIntent();
         courses = new ArrayList<>();
-        title = findViewById(R.id.Title);
+        Title = findViewById(R.id.Title);
         addCourse = findViewById(R.id.addCourse);
         removeCourse = findViewById(R.id.removeCourse);
         User_search = findViewById(R.id.User_search);
@@ -70,68 +72,37 @@ public class GenericEngineering extends AppCompatActivity {
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
         navigationView = findViewById(R.id.navigationView);
-        Engineering = (String)intent.getSerializableExtra("Tag");
+        Engineering = (String)intent.getSerializableExtra("title");
+        Title.setText(Engineering);
         user = (User)intent.getSerializableExtra("user");
-        user.setEngineering(title.getText().toString());
-        UserNavigationView = findViewById(R.id.navigationView);
+        user.setEngineering(Title.getText().toString());
         drawerLayout = findViewById(R.id.drawerLayout);
         new UserMenuInfo(user,GenericEngineering.this);
     }
     private void MenuItem(){
-        Menu menu= UserNavigationView.getMenu();
-        MenuItem Item1 = menu.findItem(R.id.StructuralEngineering);
-        MenuItem Item2 = menu.findItem(R.id.MechanicalEngineering);
-        MenuItem Item3 = menu.findItem(R.id.ElectricalEngineering);
-        MenuItem Item4 = menu.findItem(R.id.SoftwareEngineering);
-        MenuItem Item5 = menu.findItem(R.id.IndustrialEngineering);
-        MenuItem Item6 = menu.findItem(R.id.ChemicalEngineering);
-        MenuItem Item7 = menu.findItem(R.id.ProgrammingComputer);
-        MenuItem Item8 = menu.findItem(R.id.PreEngineering);
-        Item1.setVisible(true);
-        Item2.setVisible(true);
-        Item3.setVisible(true);
-        Item4.setVisible(true);
-        Item5.setVisible(true);
-        Item6.setVisible(true);
-        Item7.setVisible(true);
-        Item8.setVisible(true);
-        MenuItem menuItem = menu.findItem(R.id.StructuralEngineering);
-        if(Engineering.equals("Structural Tag") || Engineering.equals("הנדסת בניין")) {
-            menuItem = menu.findItem(R.id.StructuralEngineering);
-            title.setText(getResources().getString(R.string.StructuralEngineering));
-        }
-        else if(Engineering.equals("Mechanical Tag") || Engineering.equals("הנדסת מכונות")) {
-            menuItem = menu.findItem(R.id.MechanicalEngineering);
-            title.setText(getResources().getString(R.string.MechanicalEngineering));
-        }
-        else if(Engineering.equals("Electrical Tag") || Engineering.equals("הנדסת חשמל ואלקטרוניקה")){
-            menuItem = menu.findItem(R.id.ElectricalEngineering);
-            title.setText(getResources().getString(R.string.ElectricalEngineering));
-        }
-        else if(Engineering.equals("Software Tag") || Engineering.equals("הנדסת תוכנה")){
-            menuItem = menu.findItem(R.id.SoftwareEngineering);
-            title.setText(getResources().getString(R.string.SoftwareEngineering));
-        }
-        else if(Engineering.equals("Industrial Tag") || Engineering.equals("הנדסת תעשייה וניהול")){
-            menuItem = menu.findItem(R.id.IndustrialEngineering);
-            title.setText(getResources().getString(R.string.IndustrialEngineering));
-        }
-        else if(Engineering.equals("Chemical Tag") || Engineering.equals("הנדסת כימיה")){
-            menuItem = menu.findItem(R.id.ChemicalEngineering);
-            title.setText(getResources().getString(R.string.ChemicalEngineering));
-        }
-        else if(Engineering.equals("Programming Tag") || Engineering.equals("מדעי המחשב")){
-            menuItem = menu.findItem(R.id.ProgrammingComputer);
-            title.setText(getResources().getString(R.string.ProgrammingComputer));
-        }
-        else if(Engineering.equals("Pre Tag") || Engineering.equals("מכינה")){
-            menuItem = menu.findItem(R.id.PreEngineering);
-            title.setText(getResources().getString(R.string.PreEngineering));
-        }
-        menuItem.setCheckable(false);
-        menuItem.setChecked(true);
-        menuItem.setEnabled(false);
-        ChoseEngineering();
+        Menu menu= navigationView.getMenu();
+        MenuItem item = menu.findItem(R.id.ItemEngineering);
+        item.setTitle(Title.getText());
+        item.setVisible(true);
+        item.setCheckable(false);
+        item.setChecked(true);
+        item.setEnabled(false);
+        if(Engineering.equals("Structural Engineering") || Engineering.equals("הנדסת בניין"))
+            item.setIcon(R.drawable.structural);
+        else if(Engineering.equals("Mechanical Engineering") || Engineering.equals("הנדסת מכונות"))
+            item.setIcon(R.drawable.mechanical);
+        else if(Engineering.equals("Electrical Engineering") || Engineering.equals("הנדסת חשמל ואלקטרוניקה"))
+            item.setIcon(R.drawable.electrical);
+        else if(Engineering.equals("Software Engineering") || Engineering.equals("הנדסת תוכנה"))
+            item.setIcon(R.drawable.software);
+        else if(Engineering.equals("Industrial Engineering") || Engineering.equals("הנדסת תעשייה וניהול"))
+            item.setIcon(R.drawable.industrial);
+        else if(Engineering.equals("Chemical Engineering") || Engineering.equals("הנדסת כימיה"))
+            item.setIcon(R.drawable.chemical);
+        else if(Engineering.equals("Programming Computer") || Engineering.equals("מדעי המחשב"))
+            item.setIcon(R.drawable.software);
+        else if(Engineering.equals("Pre Engineering") || Engineering.equals("מכינה"))
+            item.setIcon(R.drawable.mehina);
     }
     private void addCourse(){
         if(user.getType().equals("Admin") || user.getType().equals("Teacher")) {
@@ -164,7 +135,7 @@ public class GenericEngineering extends AppCompatActivity {
         });
     }
     private void NavigationView(){
-        UserNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 new UserNavigationView(GenericEngineering.this, item.getItemId(), user);
@@ -183,56 +154,41 @@ public class GenericEngineering extends AppCompatActivity {
             }
         });
     }
-    private void ChoseEngineering(){
-        if(title.getText().equals("Structural Tag") || title.getText().equals("הנדסת בניין"))
-            SetTags(allCourses.getChemical_Engineering());
-        else if(title.getText().equals("Mechanical Tag") || title.getText().equals("הנדסת מכונות"))
-            SetTags(allCourses.getMechanical_Engineering());
-        else if(title.getText().equals("Electrical Tag") || title.getText().equals("הנדסת חשמל ואלקטרוניקה"))
-            SetTags(allCourses.getElectrical_Engineering());
-        else if(title.getText().equals("Software Tag") || title.getText().equals("הנדסת תוכנה"))
-            SetTags(allCourses.getSoftware_Engineering());
-        else if(title.getText().equals("Industrial Tag") || title.getText().equals("הנדסת תעשייה וניהול"))
-            SetTags(allCourses.getIndustrial_Engineering());
-        else if(title.getText().equals("Chemical Tag") || title.getText().equals("הנדסת כימיה"))
-            SetTags(allCourses.getChemical_Engineering());
-        else if(title.getText().equals("Programming Computer ") || title.getText().equals("מדעי המחשב"))
-            SetTags(allCourses.getPrograming_computer());
-        else if(title.getText().equals("Pre Tag") || title.getText().equals("מכינה"))
-            SetTags(allCourses.getPre_Engineering());
-    }
-    private void setCourses(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference().child("Courses").child(getEngineeringName()).child("Hebrew");;
-        if (getResources().getConfiguration().locale.getDisplayLanguage().equals("Hebrew") || getResources().getConfiguration().locale.getDisplayLanguage().equals("עברית"))
-            reference = database.getReference().child("Courses").child(getEngineeringName()).child("Hebrew");
-        else if (getResources().getConfiguration().locale.getDisplayLanguage().equals("English") || getResources().getConfiguration().locale.getDisplayLanguage().equals("אנגלית"))
-            reference = database.getReference().child("Courses").child(getEngineeringName()).child("English");
-        reference.setValue(courses);
-    }
     private String getEngineeringName(){
         if(Engineering.equals("Structural Tag") || Engineering.equals("הנדסת בניין"))
-            return "Structural Tag";
-        else if(Engineering.equals("Mechanical Tag") || Engineering.equals("הנדסת מכונות"))
-            return "Mechanical Tag";
-        else if(Engineering.equals("Electrical Tag") || Engineering.equals("הנדסת חשמל ואלקטרוניקה"))
-            return "Electrical Tag";
-        else if(Engineering.equals("Software Tag") || Engineering.equals("הנדסת תוכנה"))
-            return "Software Tag";
-        else if(Engineering.equals("Industrial Tag") || Engineering.equals("הנדסת תעשייה וניהול"))
-            return "Industrial Tag";
-        else if(Engineering.equals("Chemical Tag") || Engineering.equals("הנדסת כימיה"))
-            return "Chemical Tag";
+            return "Structural Engineering";
+        else if(Engineering.equals("Mechanical Engineering") || Engineering.equals("הנדסת מכונות"))
+            return "Mechanical Engineering";
+        else if(Engineering.equals("Electrical Engineering") || Engineering.equals("הנדסת חשמל ואלקטרוניקה"))
+            return "Electrical Engineering";
+        else if(Engineering.equals("Software Engineering") || Engineering.equals("הנדסת תוכנה"))
+            return "Software Engineering";
+        else if(Engineering.equals("Industrial Engineering") || Engineering.equals("הנדסת תעשייה וניהול"))
+            return "Industrial Engineering";
+        else if(Engineering.equals("Chemical Engineering") || Engineering.equals("הנדסת כימיה"))
+            return "Chemical Engineering";
         else if(Engineering.equals("Programming Computer ") || Engineering.equals("מדעי המחשב"))
-            return "Programming Tag";
-        else if(Engineering.equals("Pre Tag") || Engineering.equals("מכינה"))
-            return "Pre Tag";
+            return "Programming Computer";
+        else if(Engineering.equals("Pre Engineering") || Engineering.equals("מכינה"))
+            return "Pre Engineering";
         return "Other";
     }
-    private void SetTags(Course[] Courses){
-        for(int i=0; i<Courses.length; i++)
-            courses.add(Courses[i]);
-        ShowTags(courses);
+    private void setTags(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference().child("Courses").child(getEngineeringName()).child(getEngineeringName());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                courses.clear();
+                for(DataSnapshot data : snapshot.getChildren()){
+                    Course course = data.getValue(Course.class);
+                    courses.add(course);
+                }
+                ShowTags(courses);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
     }
     private void ShowTags(List<Course> selects){
         GenericEngineeringAdapter mySelects = new GenericEngineeringAdapter(this,selects,Engineering);

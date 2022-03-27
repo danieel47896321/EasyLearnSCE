@@ -17,7 +17,7 @@ import com.example.easylearnsce.R;
         @NonNull
         @Override
         public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Custom_PopupMSG);
             LayoutInflater layoutInflater = getActivity().getLayoutInflater();
             View view = layoutInflater.inflate(R.layout.dialog_remove_course,null);
             builder.setView(view).setTitle(getResources().getString(R.string.RemoveCourse)).setNegativeButton(getResources().getString(R.string.No),new DialogInterface.OnClickListener(){

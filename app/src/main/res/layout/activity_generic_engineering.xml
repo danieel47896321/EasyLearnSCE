@@ -28,34 +28,32 @@
             android:hint="@string/Search"
             android:paddingStart="15dp"
             android:paddingLeft="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/removeCourse"
+            app:layout_constraintEnd_toStartOf="@+id/addCourse"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/addCourse"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:clickable="true"
-            android:visibility="gone"
             android:src="@drawable/add"
             app:layout_constraintBottom_toBottomOf="@+id/removeCourse"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/removeCourse"
-            android:layout_marginLeft="5dp" />
+            app:layout_constraintEnd_toStartOf="@+id/removeCourse"
+            app:layout_constraintTop_toTopOf="@+id/removeCourse" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/removeCourse"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:clickable="true"
-            android:visibility="gone"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
             android:src="@drawable/remove"
             app:layout_constraintBottom_toBottomOf="@+id/User_search"
-            app:layout_constraintStart_toEndOf="@+id/addCourse"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/User_search" />
 
         <LinearLayout
@@ -76,21 +74,11 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/ClearCourse"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:clickable="true"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/LayoutTags"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"
-        android:layout_width="wrap_content"
+        android:layout_width="240dp"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:layout_gravity="start"

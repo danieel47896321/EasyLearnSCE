@@ -11,45 +11,15 @@
         android:icon="@drawable/engineering"
         android:title="@string/SelectEngineering"/>
     <item
-        android:id="@+id/StructuralEngineering"
+        android:id="@+id/ItemEngineering"
         android:icon="@drawable/structural"
         android:visible="false"
-        android:title="@string/StructuralEngineering"/>
+        android:title="@string/SelectEngineering"/>
     <item
-        android:id="@+id/MechanicalEngineering"
+        android:id="@+id/ItemCourse"
         android:icon="@drawable/mechanical"
         android:visible="false"
-        android:title="@string/MechanicalEngineering"/>
-    <item
-        android:id="@+id/ElectricalEngineering"
-        android:icon="@drawable/electrical"
-        android:visible="false"
-        android:title="@string/ElectricalEngineering"/>
-    <item
-        android:id="@+id/SoftwareEngineering"
-        android:icon="@drawable/software"
-        android:visible="false"
-        android:title="@string/SoftwareEngineering"/>
-    <item
-        android:id="@+id/IndustrialEngineering"
-        android:icon="@drawable/nihol"
-        android:visible="false"
-        android:title="@string/IndustrialEngineering"/>
-    <item
-        android:id="@+id/ChemicalEngineering"
-        android:icon="@drawable/chemistry"
-        android:visible="false"
-        android:title="@string/ChemicalEngineering"/>
-    <item
-        android:id="@+id/ProgrammingComputer"
-        android:icon="@drawable/software"
-        android:visible="false"
-        android:title="@string/ProgrammingComputer"/>
-    <item
-        android:id="@+id/PreEngineering"
-        android:icon="@drawable/mehina"
-        android:visible="false"
-        android:title="@string/PreEngineering"/>
+        android:title="@string/Course"/>
     <item
         android:id="@+id/ItemEasyLearnChat"
         android:icon="@drawable/message"

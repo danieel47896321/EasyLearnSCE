@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.easylearnsce.Class.Tag;
-import com.example.easylearnsce.Adapters.EngineeringAdapter;
+import com.example.easylearnsce.Adapters.SelectEngineeringAdapter;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserMenuInfo;
 import com.example.easylearnsce.Class.UserNavigationView;
@@ -38,7 +38,7 @@ public class SelectEngineering extends AppCompatActivity {
     private List<Tag> tags;
     private EditText User_search;
     private String HomeTags[];
-    private int TagsPhotos[] = {R.drawable.structural, R.drawable.mechanical, R.drawable.electrical, R.drawable.software,R.drawable.nihol,R.drawable.chemistry,R.drawable.software,R.drawable.mehina};
+    private int TagsPhotos[] = {R.drawable.structural, R.drawable.mechanical, R.drawable.electrical, R.drawable.software,R.drawable.industrial,R.drawable.chemical,R.drawable.software,R.drawable.mehina};
     private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,10 +129,9 @@ public class SelectEngineering extends AppCompatActivity {
         ShowTags(tags);
     }
     private void ShowTags(List<Tag> engineeringList){
-        EngineeringAdapter engineeringAdapter = new EngineeringAdapter(this,engineeringList);
-        engineeringAdapter.setUser(user);
+        SelectEngineeringAdapter selectEngineeringAdapter = new SelectEngineeringAdapter(this,engineeringList,user);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
-        recyclerView.setAdapter(engineeringAdapter);
+        recyclerView.setAdapter(selectEngineeringAdapter);
     }
     private void StartActivity(Class Destination){
         intent = new Intent(SelectEngineering.this, Destination);

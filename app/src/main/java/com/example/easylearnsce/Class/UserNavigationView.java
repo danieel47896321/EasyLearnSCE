@@ -30,22 +30,8 @@ public class UserNavigationView {
             StartActivity(context, Home.class, user);
         else if(id == R.id.ItemSelectEngineering)
             StartActivity(context, SelectEngineering.class, user);
-        else if(id == R.id.StructuralEngineering)
+        else if(id == R.id.ItemEngineering)
             EngineeringStartActivity(context, GenericEngineering.class, user, context.getResources().getString(R.string.StructuralEngineering));
-        else if(id == R.id.MechanicalEngineering)
-            EngineeringStartActivity(context, GenericEngineering.class, user, context.getResources().getString(R.string.MechanicalEngineering));
-        else if(id == R.id.ElectricalEngineering)
-            EngineeringStartActivity(context, GenericEngineering.class, user, context.getResources().getString(R.string.ElectricalEngineering));
-        else if(id == R.id.SoftwareEngineering)
-            EngineeringStartActivity(context, GenericEngineering.class, user, context.getResources().getString(R.string.SoftwareEngineering));
-        else if(id == R.id.IndustrialEngineering)
-            EngineeringStartActivity(context, GenericEngineering.class, user, context.getResources().getString(R.string.IndustrialEngineering));
-        else if(id == R.id.ChemicalEngineering)
-            EngineeringStartActivity(context, GenericEngineering.class, user, context.getResources().getString(R.string.ChemicalEngineering));
-        else if(id == R.id.ProgrammingComputer)
-            EngineeringStartActivity(context, GenericEngineering.class, user, context.getResources().getString(R.string.ProgrammingComputer));
-        else if(id == R.id.PreEngineering)
-            EngineeringStartActivity(context, SelectEngineering.class, user, context.getResources().getString(R.string.PreEngineering));
         else if(id == R.id.ItemEasyLearnChat)
             StartActivity(context, EasyLearnChat.class, user);
         else if(id == R.id.ItemRequests)
