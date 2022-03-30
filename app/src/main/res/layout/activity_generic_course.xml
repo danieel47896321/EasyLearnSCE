@@ -1,53 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout
-    android:id="@+id/drawerLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerLayout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EngineeringFunc.GenericCourse"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    android:clickable="true"
+    tools:context=".User.GenericCourse">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/header"
-        layout="@layout/header" />
+        <include
+            android:id="@+id/header"
+            layout="@layout/header" />
 
-        <EditText
-            android:id="@+id/User_search"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/button_background"
-            android:hint="@string/Search"
-            android:paddingStart="15dp"
-            android:paddingLeft="15dp"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/header"
-            tools:layout_editor_absoluteX="10dp" />
+            android:background="@color/blue"
+            app:tabSelectedTextColor="@color/white"
+            app:tabIndicatorColor="@color/white"
+            app:tabTextAppearance="@style/MyCustomTabLayout"
+            app:tabTextColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header" />
 
-        <LinearLayout
-            android:id="@+id/LayoutTags"
-            android:layout_width="0dp"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="5dp"
-            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/User_search">
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/MainScreenRV"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -59,5 +49,4 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/user_navigation_header"
         app:menu="@menu/user_menu" />
-
 </androidx.drawerlayout.widget.DrawerLayout>

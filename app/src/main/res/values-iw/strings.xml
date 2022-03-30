@@ -107,6 +107,15 @@
     <string name="FirstSemester" translatable="true">סמסטר א</string>
     <string name="SecondSemester" translatable="true">סמסטר ב</string>
     <string name="SummerSemester" translatable="true">סמסטר קיץ</string>
+    <!-- GenericEngineering Page -->
+    <string name="CourseSuccessfullyAdded" translatable="true">הקורס נוסף בהצלחה.</string>
+    <string name="CourseSuccessfullyRemoved" translatable="true">הקורס הוסר בהצלחה.</string>
+    <!-- GenericCourse Page -->
+    <string name="Edit" translatable="true">עריכה</string>
+    <string name="EditSaved" translatable="true">השינויים נשמרו בהצלחה</string>
+    <string name="Lectures" translatable="true">הרצאות</string>
+    <string name="Exercises" translatable="true">תרגולים</string>
+    <string name="Save" translatable="true">שמור</string>
     <!-- EasyLearnChat Page -->
     <string name="Chats" translatable="true">"צ'אטים"</string>
     <string name="Users" translatable="true">משתמשים</string>

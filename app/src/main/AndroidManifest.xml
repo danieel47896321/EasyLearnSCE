@@ -21,10 +21,9 @@
         <activity
             android:name=".User.Profile"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".EngineeringFunc.GenericCourse" />
+        <activity android:name=".User.GenericCourse" />
         <activity android:name=".User.ChangePassword" />
-        <activity android:name=".EngineeringFunc.Lecture" />
-        <activity android:name=".EngineeringFunc.GenericEngineering" />
+        <activity android:name=".User.GenericEngineering" />
         <activity android:name=".User.SelectEngineering" />
         <activity android:name=".User.Home" />
         <activity android:name=".Guest.EasyLearnSCE" />

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.easylearnsce.Class.Tag;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.R;
-import com.example.easylearnsce.EngineeringFunc.GenericEngineering;
+import com.example.easylearnsce.User.GenericEngineering;
 
 import java.util.List;
 

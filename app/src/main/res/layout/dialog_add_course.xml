@@ -23,6 +23,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            app:startIconDrawable="@drawable/book"
             android:hint="@string/Course"
             app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,6 +44,7 @@
         android:layout_height="90dp"
         android:hint="@string/Teacher"
         app:endIconMode="clear_text"
+        app:startIconDrawable="@drawable/person"
         app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutCourse"
         app:layout_constraintStart_toStartOf="@+id/TextInputLayoutCourse"
         app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutCourse">
@@ -60,8 +62,7 @@
             android:layout_width="0dp"
             android:layout_height="90dp"
             android:hint="@string/Department"
-            app:endIconDrawable="@drawable/drop_down"
-            app:endIconMode="custom"
+            app:startIconDrawable="@drawable/engineering"
             app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutTeacherName"
             app:layout_constraintStart_toStartOf="@+id/TextInputLayoutTeacherName"
             app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutTeacherName">
@@ -71,8 +72,8 @@
                 style="@style/Custom_TextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
                 android:focusable="false"/>
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -81,6 +82,7 @@
             android:layout_width="0dp"
             android:layout_height="90dp"
             android:hint="@string/Year"
+            app:startIconDrawable="@drawable/date"
             app:endIconDrawable="@drawable/drop_down"
             app:endIconMode="custom"
             app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutDepartment"

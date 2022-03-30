@@ -1,4 +1,4 @@
-package com.example.easylearnsce.EngineeringFunc;
+package com.example.easylearnsce.User;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -35,9 +35,7 @@ import com.example.easylearnsce.Class.PopUpMSG;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserMenuInfo;
 import com.example.easylearnsce.Class.UserNavigationView;
-import com.example.easylearnsce.Guest.CreateAccount;
 import com.example.easylearnsce.R;
-import com.example.easylearnsce.User.SelectEngineering;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -47,16 +45,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class GenericEngineering extends AppCompatActivity {
     private ImageView BackIcon, MenuIcon, addCourse, removeCourse;
     private TextInputLayout TextInputLayoutCourse, TextInputLayoutTeacherName ,TextInputLayoutDepartment, TextInputLayoutYear, TextInputLayoutSemester;
     private Button ButtonAddCourse, ButtonRemoveCourse, ButtonCancel;
     private DrawerLayout drawerLayout;
-    private Dialog dialog;
     private Loading loading;
+    private Dialog dialog;
     private ListView ListViewSearch;
     private EditText EditTextSearch;
     private TextView Title, User_search, TextViewSearch;
@@ -74,13 +70,14 @@ public class GenericEngineering extends AppCompatActivity {
     }
     public void init(){
         setID();
-        MenuItem();
         BackIcon();
         MenuIcon();
         NavigationView();
+        MenuItem();
         addCourse();
         removeCourseDialog();
         setTags();
+        CourseSearch();
     }
     public void setID(){
         intent = getIntent();
@@ -93,9 +90,9 @@ public class GenericEngineering extends AppCompatActivity {
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
         navigationView = findViewById(R.id.navigationView);
+        user = (User)intent.getSerializableExtra("user");
         Engineering = (String)intent.getSerializableExtra("title");
         Title.setText(Engineering);
-        user = (User)intent.getSerializableExtra("user");
         user.setEngineering(Title.getText().toString());
         drawerLayout = findViewById(R.id.drawerLayout);
         new UserMenuInfo(user,GenericEngineering.this);
@@ -125,8 +122,58 @@ public class GenericEngineering extends AppCompatActivity {
         else if(Engineering.equals("Pre Engineering") || Engineering.equals("מכינה"))
             item.setIcon(R.drawable.mehina);
     }
+    private void CourseSearch(){
+        User_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { UserSearch(s.toString()); }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+    }
+    private void UserSearch(String text) {
+        FirebaseDatabase database2 = FirebaseDatabase.getInstance();
+        DatabaseReference reference2 = database2.getReference().child("Courses").child(getEngineeringName());
+        reference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                courses.clear();
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    Course course = data.getValue(Course.class);
+                    if(course.getCourseName().toLowerCase().contains(text.toLowerCase()) || course.getTeacherName().toLowerCase().contains(text.toLowerCase()) || course.getCourseSemester().toLowerCase().contains(text.toLowerCase()) || course.getCourseYear().toLowerCase().contains(text.toLowerCase()))
+                        courses.add(course);
+                }
+                GenericEngineeringAdapter mySelects = new GenericEngineeringAdapter(GenericEngineering.this, courses, Engineering, user);
+                viewList.setLayoutManager(new GridLayoutManager(GenericEngineering.this,1));
+                viewList.setAdapter(mySelects);            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
+    private void setTags(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference().child("Courses").child(getEngineeringName());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(User_search.getText().toString().equals("")) {
+                    courses.clear();
+                    for (DataSnapshot data : snapshot.getChildren()) {
+                        Course course = data.getValue(Course.class);
+                        courses.add(course);
+                    }
+                    GenericEngineeringAdapter mySelects = new GenericEngineeringAdapter(GenericEngineering.this, courses, Engineering, user);
+                    viewList.setLayoutManager(new GridLayoutManager(GenericEngineering.this,1));
+                    viewList.setAdapter(mySelects);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
     private void addCourse(){
-        if(user.getType().equals("Admin") || user.getType().equals("Teacher")) {
+        if(user.getType().equals("Admin") || user.getType().equals("אדמין")) {
             addCourse.setVisibility(View.VISIBLE);
             addCourse.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -149,22 +196,13 @@ public class GenericEngineering extends AppCompatActivity {
         TextInputLayoutSemester = dialogView.findViewById(R.id.TextInputLayoutSemester);
         ButtonAddCourse = dialogView.findViewById(R.id.ButtonAddCourse);
         ButtonCancel = dialogView.findViewById(R.id.ButtonCancel);
+        TextInputLayoutDepartment.getEditText().setText(Engineering);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
         EndIcon();
         YearPick();
         SemesterPick();
-        if(user.getType().equals("Teacher") || user.getType().equals("מרצה")){
-            TextInputLayoutTeacherName.getEditText().setText(user.getFullName());
-            TextInputLayoutTeacherName.getEditText().setClickable(false);
-            TextInputLayoutTeacherName.getEditText().setFocusable(false);
-            TextInputLayoutDepartment.getEditText().setText(Engineering);
-            TextInputLayoutDepartment.getEditText().setClickable(false);
-            TextInputLayoutDepartment.getEditText().setFocusable(false);
-        }
-        else
-            DepartmentPick();
         ButtonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { alertDialog.cancel(); }
@@ -196,45 +234,106 @@ public class GenericEngineering extends AppCompatActivity {
                 if(!(TextInputLayoutCourse.getEditText().getText().toString().equals("")) && !(TextInputLayoutTeacherName.getEditText().getText().toString().equals("")) && !(TextInputLayoutDepartment.getEditText().getText().toString().equals(""))
                         && !(TextInputLayoutYear.getEditText().getText().toString().equals(""))  && !(TextInputLayoutSemester.getEditText().getText().toString().equals(""))) {
                     alertDialog.cancel();
-                    if (user.getType().equals("Admin") || user.getType().equals("אדמין")) {
-                        loading = new Loading(GenericEngineering.this);
-                        AddCourse(new Course(TextInputLayoutCourse.getEditText().getText().toString(), TextInputLayoutTeacherName.getEditText().getText().toString(),
-                                TextInputLayoutDepartment.getEditText().getText().toString(), TextInputLayoutYear.getEditText().getText().toString(), TextInputLayoutSemester.getEditText().getText().toString()));
-                    }
-                    else{
-                        if(user.getPermission().equals("High")){
-                            AddCourse(new Course(TextInputLayoutCourse.getEditText().getText().toString(), user.getFullName(), Engineering,
-                                    TextInputLayoutYear.getEditText().getText().toString(), TextInputLayoutSemester.getEditText().getText().toString()));
-                        }
-                        else{
-                            new PopUpMSG(GenericEngineering.this,getResources().getString(R.string.AddCourse), "ss");
-                        }
-                    }
+                    loading = new Loading(GenericEngineering.this);
+                    AddCourse(new Course(TextInputLayoutCourse.getEditText().getText().toString(), TextInputLayoutTeacherName.getEditText().getText().toString(),
+                            TextInputLayoutYear.getEditText().getText().toString(), TextInputLayoutSemester.getEditText().getText().toString(), Engineering));
                 }
             }
         });
     }
     private void AddCourse(Course course){
+        course.setId((int)(Math.random()*1000000000)+"");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference().child("Courses").child(getEngineeringName()).child((int)(Math.random()*1000000000)+"");
+        DatabaseReference reference = database.getReference().child("Courses").child(getEngineeringName()).child(course.getId());
         reference.setValue(course);
         loading.stop();
+        new PopUpMSG(GenericEngineering.this, getResources().getString(R.string.AddCourse), getResources().getString(R.string.CourseSuccessfullyAdded));
     }
     private void removeCourseDialog(){
-        if(user.getType().equals("Admin") || user.getType().equals("Teacher")) {
+        if(user.getType().equals("Admin") || user.getType().equals("אדמין")) {
             removeCourse.setVisibility(View.VISIBLE);
             removeCourse.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    RemoveCourseDialog();
                 }
             });
         }
     }
-    private void DepartmentPick(){
-        TextInputLayoutDepartment.getEditText().setOnClickListener(new View.OnClickListener() {
+    private void RemoveCourseDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(GenericEngineering.this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_remove_course,null);
+        builder.setCancelable(false);
+        builder.setView(dialogView);
+        TextInputLayoutCourse = dialogView.findViewById(R.id.TextInputLayoutCourse);
+        ButtonRemoveCourse = dialogView.findViewById(R.id.ButtonRemoveCourse);
+        ButtonCancel = dialogView.findViewById(R.id.ButtonCancel);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.show();
+        CoursePick();
+        ButtonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { setDialog(getResources().getStringArray(R.array.Department),getResources().getString(R.string.SelectDepartment),TextInputLayoutDepartment.getEditText()); }
+            public void onClick(View view) { alertDialog.cancel(); }
+        });
+        ButtonRemoveCourse.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View v) {
+                if(TextInputLayoutCourse.getEditText().getText().toString().equals(""))
+                    TextInputLayoutCourse.setHelperText(getResources().getString(R.string.Required));
+                else
+                    TextInputLayoutCourse.setHelperText("");
+                if(!TextInputLayoutCourse.getEditText().getText().toString().equals("")) {
+                    alertDialog.cancel();
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference reference = database.getReference().child("Courses").child(getEngineeringName());
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            loading = new Loading(GenericEngineering.this);
+                            for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                                Course course = dataSnapshot.getValue(Course.class);
+                                if(TextInputLayoutCourse.getEditText().getText().toString().equals(course.getCourseName() + " - " + course.getTeacherName())){
+                                    DatabaseReference reference1 = database.getReference().child("Courses").child(getEngineeringName()).child(dataSnapshot.getKey());
+                                    reference1.setValue(null);
+                                    new PopUpMSG(GenericEngineering.this, getResources().getString(R.string.RemoveCourse), getResources().getString(R.string.CourseSuccessfullyRemoved));
+                                }
+                            }
+                            loading.stop();
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) { }
+                    });
+                }
+            }
+        });
+    }
+    private void CoursePick(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference().child("Courses").child(getEngineeringName());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Course> courseArrayList = new ArrayList<>();
+                courseArrayList.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Course course = dataSnapshot.getValue(Course.class);
+                    courseArrayList.add(course);
+                }
+                TextInputLayoutCourse.getEditText().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String course[] = new String[courseArrayList.size()];
+                        for(int i=0; i<courseArrayList.size();i++)
+                            course[i] = courseArrayList.get(i).getCourseName() + " - " + courseArrayList.get(i).getTeacherName();
+                        setDialog(course,getResources().getString(R.string.SelectCourse),TextInputLayoutCourse.getEditText());
+                    }
+                });
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
     }
     private void YearPick(){
@@ -244,6 +343,7 @@ public class GenericEngineering extends AppCompatActivity {
         });
     }
     private void SemesterPick(){
+
         TextInputLayoutSemester.getEditText().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { setDialog(getResources().getStringArray(R.array.Semester),getResources().getString(R.string.SelectSemester),TextInputLayoutSemester.getEditText()); }
@@ -337,29 +437,6 @@ public class GenericEngineering extends AppCompatActivity {
         else if(Engineering.equals("Pre Engineering") || Engineering.equals("מכינה"))
             return "Pre Engineering";
         return "Other";
-    }
-    private void setTags(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference().child("Courses").child(getEngineeringName());
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                courses.clear();
-                for(DataSnapshot data : snapshot.getChildren()){
-                    Course course = data.getValue(Course.class);
-                    courses.add(course);
-                }
-                ShowTags(courses);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
-        });
-    }
-    private void ShowTags(List<Course> selects){
-        GenericEngineeringAdapter mySelects = new GenericEngineeringAdapter(this,selects,Engineering);
-        mySelects.setUser(user);
-        viewList.setLayoutManager(new GridLayoutManager(this,1));
-        viewList.setAdapter(mySelects);
     }
     @Override
     public void onBackPressed() {

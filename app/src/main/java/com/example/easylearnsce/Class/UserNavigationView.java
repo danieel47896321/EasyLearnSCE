@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
-import com.example.easylearnsce.EngineeringFunc.GenericEngineering;
+import com.example.easylearnsce.User.GenericEngineering;
 import com.example.easylearnsce.User.AllRequests;
 import com.example.easylearnsce.User.ChangePassword;
 import com.example.easylearnsce.User.EasyLearnChat;
@@ -31,7 +31,7 @@ public class UserNavigationView {
         else if(id == R.id.ItemSelectEngineering)
             StartActivity(context, SelectEngineering.class, user);
         else if(id == R.id.ItemEngineering)
-            EngineeringStartActivity(context, GenericEngineering.class, user, context.getResources().getString(R.string.StructuralEngineering));
+            EngineeringStartActivity(context, GenericEngineering.class, user);
         else if(id == R.id.ItemEasyLearnChat)
             StartActivity(context, EasyLearnChat.class, user);
         else if(id == R.id.ItemRequests)
@@ -68,10 +68,10 @@ public class UserNavigationView {
         context.startActivity(intent);
         ((Activity)context).finish();
     }
-    private void EngineeringStartActivity(Context context, Class Destination, User user, String Engineering){
+    private void EngineeringStartActivity(Context context, Class Destination, User user){
         intent = new Intent(context, Destination);
         intent.putExtra("user", user);
-        intent.putExtra("Tag", Engineering);
+        intent.putExtra("title", user.getEngineering());
         context.startActivity(intent);
         ((Activity)context).finish();
     }

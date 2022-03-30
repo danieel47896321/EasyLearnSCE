@@ -1,29 +1,35 @@
 package com.example.easylearnsce.Class;
 
 public class Course {
-    private String Course_Name = "name";
-    private String Course_Teacher_name = "teacher";
-    private String Course_Year = "year";
-    private String Course_Semester = "semester";
-    private String Course_Engineering = "Tag";
-
+    private String CourseName = "name";
+    private String TeacherName = "teacher";
+    private String CourseYear = "year";
+    private String CourseSemester = "semester";
+    private String CourseEngineering = "Tag";
+    private String Id = "1" ;
     public Course() { }
-    public Course(String course_Name, String course_Teacher_name, String course_Year, String course_Semester, String course_Engineering) {
-        Course_Name = course_Name;
-        Course_Teacher_name = course_Teacher_name;
-        Course_Year = course_Year;
-        Course_Semester = course_Semester;
-        Course_Engineering = course_Engineering;
+    public Course(String courseName, String teacherName, String courseYear, String courseSemester, String courseEngineering) {
+        CourseName = courseName;
+        TeacherName = teacherName;
+        CourseYear = courseYear;
+        CourseSemester = courseSemester;
+        CourseEngineering = courseEngineering;
     }
-    public void setCourse_Name(String course_Name) { Course_Name = course_Name; }
-    public void setCourse_Teacher_name(String course_Teacher_name) { Course_Teacher_name = course_Teacher_name; }
-    public void setCourse_Year(String course_Year) { Course_Year = course_Year; }
-    public void setCourse_Semester(String course_Semester) { Course_Semester = course_Semester; }
-    public void setCourse_Engineering(String course_Engineering) { Course_Engineering = course_Engineering; }
-    public String getCourse_Name() { return Course_Name; }
-    public String getCourse_Teacher_name() { return Course_Teacher_name; }
-    public String getCourse_Year() { return Course_Year; }
-    public String getCourse_Semester() { return Course_Semester; }
-    public String getCourse_Engineering() { return Course_Engineering; }
+    public void setCourseName(String courseName) { CourseName = courseName; }
+    public void setTeacherName(String teacherName) { TeacherName = teacherName; }
+    public void setCourseYear(String courseYear) { CourseYear = courseYear; }
+    public void setCourseSemester(String courseSemester) { CourseSemester = courseSemester; }
+    public void setCourseEngineering(String courseEngineering) { CourseEngineering = courseEngineering; }
+    public String getId() {
+        return Id;
+    }
+    public void setId(String id) {
+        Id = id;
+    }
+    public String getCourseName() { return CourseName; }
+    public String getTeacherName() { return TeacherName; }
+    public String getCourseYear() { return CourseYear; }
+    public String getCourseSemester() { return CourseSemester; }
+    public String getCourseEngineering() { return CourseEngineering; }
 }
 

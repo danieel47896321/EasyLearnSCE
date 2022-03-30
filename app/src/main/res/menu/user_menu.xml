@@ -17,7 +17,7 @@
         android:title="@string/SelectEngineering"/>
     <item
         android:id="@+id/ItemCourse"
-        android:icon="@drawable/mechanical"
+        android:icon="@drawable/book"
         android:visible="false"
         android:title="@string/Course"/>
     <item

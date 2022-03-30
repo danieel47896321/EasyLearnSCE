@@ -106,6 +106,15 @@
     <string name="FirstSemester" translatable="true">First Semester</string>
     <string name="SecondSemester" translatable="true">Second Semester</string>
     <string name="SummerSemester" translatable="true">Summer Semester</string>
+    <!-- GenericEngineering Page -->
+    <string name="CourseSuccessfullyAdded" translatable="true">The course was successfully added</string>
+    <string name="CourseSuccessfullyRemoved" translatable="true">The course was successfully removed</string>
+    <!-- GenericCourse Page -->
+    <string name="Edit" translatable="true">Edit</string>
+    <string name="EditSaved" translatable="true">The changes have been saved successfully</string>
+    <string name="Lectures" translatable="true">Lectures</string>
+    <string name="Exercises" translatable="true">Exercises</string>
+    <string name="Save" translatable="true">Save</string>
     <!-- EasyLearnChat Page -->
     <string name="Chats" translatable="true">Chats</string>
     <string name="Users" translatable="true">Users</string>
@@ -254,4 +263,6 @@
         <item>@string/ReportProblem</item>
         <item>@string/Other</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
