@@ -166,18 +166,22 @@ public class SignIn extends AppCompatActivity {
         firebaseAuth.fetchSignInMethodsForEmail(TextInputLayoutEmail.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
             @Override
             public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                if(task.getResult().getSignInMethods().isEmpty())
-                    TextInputLayoutEmail.setHelperText(getResources().getString(R.string.EmailNotExist));
-                else {
-                    TextInputLayoutEmail.setHelperText("");
-                    if(TextInputLayoutPassword.getEditText().getText().length()<1)
-                        TextInputLayoutPassword.setHelperText(getResources().getString(R.string.Required));
-                    else if(TextInputLayoutPassword.getEditText().getText().length()<6)
-                        TextInputLayoutPassword.setHelperText(getResources().getString(R.string.Must6Chars));
-                    else
-                        TextInputLayoutPassword.setHelperText(getResources().getString(R.string.WrongPassword));
-                }
                 loading.stop();
+                if(task.isSuccessful()) {
+                    if (task.getResult().getSignInMethods().isEmpty())
+                        TextInputLayoutEmail.setHelperText(getResources().getString(R.string.EmailNotExist));
+                    else {
+                        TextInputLayoutEmail.setHelperText("");
+                        if (TextInputLayoutPassword.getEditText().getText().length() < 1)
+                            TextInputLayoutPassword.setHelperText(getResources().getString(R.string.Required));
+                        else if (TextInputLayoutPassword.getEditText().getText().length() < 6)
+                            TextInputLayoutPassword.setHelperText(getResources().getString(R.string.Must6Chars));
+                        else
+                            TextInputLayoutPassword.setHelperText(getResources().getString(R.string.WrongPassword));
+                    }
+                }
+                else
+                    new PopUpMSG(SignIn.this,getResources().getString(R.string.Error),getResources().getString(R.string.ErrorMSG));
             }
         });
     }
@@ -205,7 +209,10 @@ public class SignIn extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
-            } catch (ApiException e) { loading.stop(); }
+            } catch (ApiException e) {
+                new PopUpMSG(SignIn.this,getResources().getString(R.string.Error),getResources().getString(R.string.ErrorMSG));
+                loading.stop();
+            }
         }
     }
     private void firebaseAuthWithGoogle(String idToken) {
@@ -233,7 +240,7 @@ public class SignIn extends AppCompatActivity {
                             getUser();
                         }
                         else {
-                            Toast.makeText(SignIn.this, "signInWithCredential:failure", Toast.LENGTH_SHORT).show();
+                            new PopUpMSG(SignIn.this,getResources().getString(R.string.Error),getResources().getString(R.string.ErrorMSG));
                             finish();
                         }
                     }

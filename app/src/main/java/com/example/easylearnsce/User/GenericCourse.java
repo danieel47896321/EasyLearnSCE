@@ -72,7 +72,7 @@ public class GenericCourse extends AppCompatActivity {
         Title.setText(Engineering+"\n"+Course);
         user.setCourse(Course);
         drawerLayout = findViewById(R.id.drawerLayout);
-        fragmentPager = new ViewPagerAdapter(GenericCourse.this);
+        fragmentPager = new ViewPagerAdapter(GenericCourse.this,user);
         viewPager2.setAdapter(fragmentPager);
         titles = new String[4];
         titles[0] = getResources().getString(R.string.Lectures);
@@ -137,17 +137,23 @@ public class GenericCourse extends AppCompatActivity {
     }
     public static class ViewPagerAdapter extends FragmentStateAdapter {
         private String[] titles = {"Lectures", "Exercises"};
-        public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+        private User user;
+        public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, User user) {
             super(fragmentActivity);
+            this.user = user;
         }
         @NonNull
         @Override
         public Fragment createFragment(int position) {
             switch (position){
                 case 0:
-                    return  new LecturesFragment();
+                    LecturesFragment lecturesFragment = new LecturesFragment();
+                    lecturesFragment.setUser(user);
+                    return lecturesFragment;
                 case 1:
-                    return new ExercisesFragment();
+                    ExercisesFragment exercisesFragment = new ExercisesFragment();
+                    exercisesFragment.setUser(user);
+                    return exercisesFragment;
             }
             return new LecturesFragment();
         }

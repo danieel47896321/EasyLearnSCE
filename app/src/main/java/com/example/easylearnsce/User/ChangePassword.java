@@ -121,14 +121,12 @@ public class ChangePassword extends AppCompatActivity {
                         firebaseAuth.signInWithEmailAndPassword(user.getEmail(), TextInputLayoutCurrentPassword.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                loading.stop();
                                 if (task.isSuccessful()) {
                                     currentUser.updatePassword(TextInputLayoutNewPassword.getEditText().getText().toString());
-                                    loading.stop();
                                     new PopUpMSG(ChangePassword.this,getResources().getString(R.string.ChangePassword),getResources().getString(R.string.PasswordChanged), Home.class,user);
-                                } else {
-                                    loading.stop();
+                                } else
                                     TextInputLayoutCurrentPassword.setHelperText(getResources().getString(R.string.WrongPassword));
-                                }
                             }
                         });
                     }

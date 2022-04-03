@@ -3,12 +3,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="8dp"
     tools:context=".Fragments.ExercisesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/User_search"
+                style="@style/Custom_EditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_background"
+                android:hint="@string/Search"
+                android:paddingStart="15dp"
+                android:paddingLeft="15dp"
+                app:layout_constraintEnd_toStartOf="@+id/addLecture"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/header" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/addLecture"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:clickable="true"
+                android:visibility="gone"
+                android:src="@drawable/add"
+                app:layout_constraintBottom_toBottomOf="@+id/removeLecture"
+                app:layout_constraintEnd_toStartOf="@+id/removeLecture"
+                app:layout_constraintTop_toTopOf="@+id/removeCourse" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/removeLecture"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:visibility="gone"
+                android:clickable="true"
+                android:src="@drawable/remove"
+                app:layout_constraintBottom_toBottomOf="@+id/User_search"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/User_search" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+    </LinearLayout>
 </FrameLayout>

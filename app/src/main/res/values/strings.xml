@@ -22,6 +22,8 @@
     <string name="Student" translatable="true">Student</string>
     <string name="Teacher" translatable="true">Teacher</string>
     <string name="Admin" translatable="true">Admin</string>
+    <string name="Error" translatable="true">Error</string>
+    <string name="ErrorMSG" translatable="true">Please try checking your network connection and try again in a few minutes.</string>
     <!-- EasyLearnSCE Page -->
     <string name="app_name" translatable="true">EasyLearn</string>
     <string name="SignIn" translatable="true">Sign In</string>
@@ -114,6 +116,16 @@
     <string name="EditSaved" translatable="true">The changes have been saved successfully</string>
     <string name="Lectures" translatable="true">Lectures</string>
     <string name="Exercises" translatable="true">Exercises</string>
+    <string name="Lecture" translatable="true">Lecture</string>
+    <string name="SelectLecture" translatable="true">Select Lecture</string>
+    <string name="LectureSuccessfullyAdded" translatable="true">The Lecture was successfully added</string>
+    <string name="LectureSuccessfullyRemoved" translatable="true">The Lecture was successfully removed</string>
+    <string name="SelectExercise" translatable="true">Select Exercise</string>
+    <string name="ExerciseSuccessfullyAdded" translatable="true">The Exercise was successfully added</string>
+    <string name="ExerciseSuccessfullyRemoved" translatable="true">The Exercise was successfully removed</string>
+    <string name="RemoveLecture" translatable="true">Remove Lecture</string>
+    <string name="Exercise" translatable="true">Exercise</string>
+    <string name="RemoveExercise" translatable="true">Remove Exercise</string>
     <string name="Save" translatable="true">Save</string>
     <!-- EasyLearnChat Page -->
     <string name="Chats" translatable="true">Chats</string>

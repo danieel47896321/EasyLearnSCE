@@ -17,6 +17,7 @@ import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.PopUpMSG;
 import com.example.easylearnsce.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
@@ -105,12 +106,14 @@ public class ResetPassword extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
                                 loading.stop();
-                                if(!task.getResult().getSignInMethods().isEmpty()) {
-                                    FirebaseAuth.getInstance().sendPasswordResetEmail(TextInputLayoutEmail.getEditText().getText().toString());
-                                    new PopUpMSG(ResetPassword.this,getResources().getString(R.string.ResetPassword),getResources().getString(R.string.ResetLink),SignIn.class);
+                                if(task.isSuccessful()) {
+                                    if (!task.getResult().getSignInMethods().isEmpty()) {
+                                        FirebaseAuth.getInstance().sendPasswordResetEmail(TextInputLayoutEmail.getEditText().getText().toString());
+                                        new PopUpMSG(ResetPassword.this, getResources().getString(R.string.ResetPassword), getResources().getString(R.string.ResetLink), SignIn.class);
+                                    } else
+                                        TextInputLayoutEmail.setHelperText(getResources().getString(R.string.EmailNotExist));
                                 }
-                                else
-                                    TextInputLayoutEmail.setHelperText(getResources().getString(R.string.EmailNotExist));
+                                new PopUpMSG(ResetPassword.this,getResources().getString(R.string.Error),getResources().getString(R.string.ErrorMSG));
                             }
                         });
                     }

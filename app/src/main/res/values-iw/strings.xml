@@ -23,6 +23,8 @@
     <string name="Student" translatable="true">סטודנט</string>
     <string name="Teacher" translatable="true">מרצה</string>
     <string name="Admin" translatable="true">אדמין</string>
+    <string name="Error" translatable="true">שגיאה</string>
+    <string name="ErrorMSG" translatable="true">בבקשה נסה לבדוק את החיבור שלך לרשת ונסה שוב בעוד כמה דקות.</string>
     <!-- EasyLearnSCE Page -->
     <string name="app_name" translatable="true">EasyLearn</string>
     <string name="SignIn" translatable="true">כניסה</string>
@@ -114,7 +116,17 @@
     <string name="Edit" translatable="true">עריכה</string>
     <string name="EditSaved" translatable="true">השינויים נשמרו בהצלחה</string>
     <string name="Lectures" translatable="true">הרצאות</string>
+    <string name="Lecture" translatable="true">הרצאה</string>
+    <string name="SelectLecture" translatable="true">בחר הרצאה</string>
+    <string name="LectureSuccessfullyAdded" translatable="true">ההרצאה נוספה בהצלחה.</string>
+    <string name="LectureSuccessfullyRemoved" translatable="true">ההרצאה הוסרה בהצלחה.</string>
+    <string name="SelectExercise" translatable="true">בחר תרגול</string>
+    <string name="ExerciseSuccessfullyAdded" translatable="true">התרגול נוסף בהצלחה.</string>
+    <string name="ExerciseSuccessfullyRemoved" translatable="true">התרגול הוסר בהצלחה.</string>
+    <string name="RemoveLecture" translatable="true">הסר הרצאה</string>
     <string name="Exercises" translatable="true">תרגולים</string>
+    <string name="Exercise" translatable="true">תרגול</string>
+    <string name="RemoveExercise" translatable="true">הסר תרגול</string>
     <string name="Save" translatable="true">שמור</string>
     <!-- EasyLearnChat Page -->
     <string name="Chats" translatable="true">"צ'אטים"</string>

@@ -29,12 +29,21 @@ public class User implements Serializable {
     public User(User user) {
         this.Uid = user.getUid();
         this.Email = user.getEmail();
+        this.FullName = user.getFullName();
         this.FirstName = user.getFirstName();
         this.LastName = user.getLastName();
         this.Gender = user.getGender();
         this.Type = user.getType();
+        this.Permission = user.getPermission();
+        this.Day = user.getDay();
+        this.Month = user.getMonth();
+        this.Year = user.getYear();
+        this.BirthDay = user.getBirthDay();
         this.Image = user.getImage();
         this.City = user.getCity();
+        this.Engineering = user.getEngineering();
+        this.Course = user.getCourse();
+        this.Lecture = user.getLecture();
     }
     //getters
     public String getEmail() { return Email; }

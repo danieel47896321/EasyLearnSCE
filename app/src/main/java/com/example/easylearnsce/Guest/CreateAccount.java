@@ -152,12 +152,16 @@ public class CreateAccount extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
                 loading.stop();
-                if(!task.getResult().getSignInMethods().isEmpty())
-                    TextInputLayoutEmail.setHelperText(getResources().getString(R.string.EmailExist));
-                else {
-                    TextInputLayoutEmail.setHelperText("");
-                    fillInfo();
+                if(task.isSuccessful()) {
+                    if (!task.getResult().getSignInMethods().isEmpty())
+                        TextInputLayoutEmail.setHelperText(getResources().getString(R.string.EmailExist));
+                    else {
+                        TextInputLayoutEmail.setHelperText("");
+                        fillInfo();
+                    }
                 }
+                else
+                    new PopUpMSG(CreateAccount.this,getResources().getString(R.string.Error),getResources().getString(R.string.ErrorMSG));
             }
         });
     }
@@ -309,6 +313,7 @@ public class CreateAccount extends AppCompatActivity {
         firebaseAuth.createUserWithEmailAndPassword(user.getEmail(),TextInputLayoutPassword.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                loading.stop();
                 if (task.isSuccessful()) {
                     firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -316,11 +321,12 @@ public class CreateAccount extends AppCompatActivity {
                             user.setUid(firebaseAuth.getUid());
                             user.setFullName(user.getFirstName()+" "+user.getLastName());
                             databaseReference.child(firebaseAuth.getCurrentUser().getUid()).setValue(user);
-                            loading.stop();
                             new PopUpMSG(CreateAccount.this, getResources().getString(R.string.CreateAccount), getResources().getString(R.string.CompleteCreateAccount), SignIn.class);
                         }
                     });
                 }
+                else
+                    new PopUpMSG(CreateAccount.this,getResources().getString(R.string.Error),getResources().getString(R.string.ErrorMSG));
             }
         });
     }
