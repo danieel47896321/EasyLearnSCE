@@ -51,7 +51,7 @@ public class CreateAccount extends AppCompatActivity {
     private ImageView BackIcon, MenuIcon;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private TextInputLayout TextInputLayoutFirstName, TextInputLayoutLastName ,TextInputLayoutEmail, TextInputLayoutPassword, TextInputLayoutPasswordConfirm, TextInputLayoutGender, TextInputLayoutAge, TextInputLayoutCity, TextInputLayoutType;
+    private TextInputLayout TextInputLayoutFirstName, TextInputLayoutLastName ,TextInputLayoutEmail, TextInputLayoutPassword, TextInputLayoutPasswordConfirm, TextInputLayoutGender, TextInputLayoutAge, TextInputLayoutCity;
     private TextView Title, SignIn,TextViewSearch;
     private Dialog dialog;
     private Calendar calendar = Calendar.getInstance();
@@ -254,7 +254,6 @@ public class CreateAccount extends AppCompatActivity {
         TextInputLayoutGender = dialogView.findViewById(R.id.TextInputLayoutGender);
         TextInputLayoutCity = dialogView.findViewById(R.id.TextInputLayoutCity);
         TextInputLayoutAge = dialogView.findViewById(R.id.TextInputLayoutAge);
-        TextInputLayoutType = dialogView.findViewById(R.id.TextInputLayoutType);
         NextButtonFinish = dialogView.findViewById(R.id.NextButtonFinish);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
@@ -262,7 +261,6 @@ public class CreateAccount extends AppCompatActivity {
         CityPick();
         AgePick();
         GenderPick();
-        TypePick();
         NextButtonFinish.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -281,11 +279,7 @@ public class CreateAccount extends AppCompatActivity {
                     TextInputLayoutCity.setHelperText(getResources().getString(R.string.Required));
                 else
                     TextInputLayoutCity.setHelperText("");
-                if(TextInputLayoutType.getEditText().getText().toString().equals(""))
-                    TextInputLayoutType.setHelperText(getResources().getString(R.string.Required));
-                else
-                    TextInputLayoutType.setHelperText("");
-                if(!(TextInputLayoutCity.getEditText().getText().toString().equals("")) && !(TextInputLayoutAge.getEditText().getText().toString().equals("")) && !(TextInputLayoutType.getEditText().getText().toString().equals("")) && !(TextInputLayoutGender.getEditText().getText().toString().equals(""))){
+                if(!(TextInputLayoutCity.getEditText().getText().toString().equals("")) && !(TextInputLayoutAge.getEditText().getText().toString().equals(""))  && !(TextInputLayoutGender.getEditText().getText().toString().equals(""))){
                     alertDialog.cancel();
                     loading = new Loading(CreateAccount.this);
                     CreateAccount();
@@ -305,7 +299,6 @@ public class CreateAccount extends AppCompatActivity {
         user = new User(TextInputLayoutFirstName.getEditText().getText().toString(), TextInputLayoutLastName.getEditText().getText().toString(), TextInputLayoutEmail.getEditText().getText().toString());
         user.setCity(TextInputLayoutCity.getEditText().getText().toString());
         user.setGender(TextInputLayoutGender.getEditText().getText().toString());
-        user.setType(TextInputLayoutType.getEditText().getText().toString());
         user.setDay(UserDay+"");
         user.setMonth(UserMonth+"");
         user.setYear(UserYear+"");
@@ -328,12 +321,6 @@ public class CreateAccount extends AppCompatActivity {
                 else
                     new PopUpMSG(CreateAccount.this,getResources().getString(R.string.Error),getResources().getString(R.string.ErrorMSG));
             }
-        });
-    }
-    private void TypePick(){
-        TextInputLayoutType.getEditText().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { setDialog(getResources().getStringArray(R.array.Type),getResources().getString(R.string.SelectUserType),TextInputLayoutType.getEditText()); }
         });
     }
     private void CityPick(){

@@ -42,7 +42,7 @@ public class GenericCourse extends AppCompatActivity {
     private ViewPagerAdapter fragmentPager;
     private androidx.drawerlayout.widget.DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private String Course,Engineering;
+    private String Course, Engineering, CourseID;
     private Intent intent;
     private String[] titles;
     @Override
@@ -62,6 +62,7 @@ public class GenericCourse extends AppCompatActivity {
         intent = getIntent();
         user = (User)intent.getSerializableExtra("user");
         Course = (String)intent.getSerializableExtra("Course");
+        CourseID = (String)intent.getSerializableExtra("CourseID");
         Engineering = user.getEngineering();
         tabLayout = findViewById(R.id.tabLayout);
         viewPager2 = findViewById(R.id.viewPager);
@@ -72,7 +73,7 @@ public class GenericCourse extends AppCompatActivity {
         Title.setText(Engineering+"\n"+Course);
         user.setCourse(Course);
         drawerLayout = findViewById(R.id.drawerLayout);
-        fragmentPager = new ViewPagerAdapter(GenericCourse.this,user);
+        fragmentPager = new ViewPagerAdapter(GenericCourse.this,user,CourseID);
         viewPager2.setAdapter(fragmentPager);
         titles = new String[4];
         titles[0] = getResources().getString(R.string.Lectures);
@@ -138,9 +139,11 @@ public class GenericCourse extends AppCompatActivity {
     public static class ViewPagerAdapter extends FragmentStateAdapter {
         private String[] titles = {"Lectures", "Exercises"};
         private User user;
-        public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, User user) {
+        private String CourseID;
+        public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, User user, String CorseID) {
             super(fragmentActivity);
             this.user = user;
+            this.CourseID = CorseID;
         }
         @NonNull
         @Override
@@ -149,10 +152,12 @@ public class GenericCourse extends AppCompatActivity {
                 case 0:
                     LecturesFragment lecturesFragment = new LecturesFragment();
                     lecturesFragment.setUser(user);
+                    lecturesFragment.setCourseID(CourseID);
                     return lecturesFragment;
                 case 1:
                     ExercisesFragment exercisesFragment = new ExercisesFragment();
                     exercisesFragment.setUser(user);
+                    exercisesFragment.setCourseID(CourseID);
                     return exercisesFragment;
             }
             return new LecturesFragment();

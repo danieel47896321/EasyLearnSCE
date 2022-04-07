@@ -65,6 +65,7 @@
                     android:layout_marginRight="12dp"
                     android:text="@string/AboutInfo"
                     android:textSize="24dp" />
+
             </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

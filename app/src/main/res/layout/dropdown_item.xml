@@ -2,7 +2,6 @@
     android:id="@+id/textView4"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:maxLines="1"
     android:ellipsize="marquee"
     android:text="TextView"
     android:padding="12dp"
@@ -11,5 +10,4 @@
     android:textColor="@color/black"
     android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:singleLine="true"
     tools:ignore="EllipsizeMaxLines" />

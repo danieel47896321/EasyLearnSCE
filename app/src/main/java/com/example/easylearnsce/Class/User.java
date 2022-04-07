@@ -10,7 +10,6 @@ public class User implements Serializable {
     private String LastName = "LastName";
     private String Gender = "Male";
     private String Type = "Student";
-    private String Permission = "Low";
     private String Day = Calendar.YEAR+"";
     private String Month = Calendar.MONTH+"";
     private String Year = Calendar.DAY_OF_MONTH+"";
@@ -34,7 +33,6 @@ public class User implements Serializable {
         this.LastName = user.getLastName();
         this.Gender = user.getGender();
         this.Type = user.getType();
-        this.Permission = user.getPermission();
         this.Day = user.getDay();
         this.Month = user.getMonth();
         this.Year = user.getYear();
@@ -62,9 +60,7 @@ public class User implements Serializable {
     public String getMonth() { return Month; }
     public String getYear() { return Year; }
     public String getBirthDay() { return BirthDay; }
-    public String getPermission() { return Permission; }
     //setters
-    public void setPermission(String permission) { Permission = permission; }
     public void setBirthDay(String birthDay) { BirthDay = birthDay; }
     public void setYear(String year) { Year = year; }
     public void setMonth(String month) { Month = month; }

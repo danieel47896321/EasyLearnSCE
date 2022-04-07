@@ -111,9 +111,11 @@
     <string name="SummerSemester" translatable="true">סמסטר קיץ</string>
     <!-- GenericEngineering Page -->
     <string name="CourseSuccessfullyAdded" translatable="true">הקורס נוסף בהצלחה.</string>
+    <string name="CourseExists" translatable="true">הקורס כבר קיים במערכת.</string>
     <string name="CourseSuccessfullyRemoved" translatable="true">הקורס הוסר בהצלחה.</string>
     <!-- GenericCourse Page -->
     <string name="Edit" translatable="true">עריכה</string>
+    <string name="EditCourse" translatable="true">עריכת קורס</string>
     <string name="EditSaved" translatable="true">השינויים נשמרו בהצלחה</string>
     <string name="Lectures" translatable="true">הרצאות</string>
     <string name="Lecture" translatable="true">הרצאה</string>

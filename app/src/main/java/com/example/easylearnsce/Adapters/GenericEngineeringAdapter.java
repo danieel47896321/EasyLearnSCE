@@ -84,6 +84,7 @@ public class GenericEngineeringAdapter extends RecyclerView.Adapter<GenericEngin
                 Intent intent;
                 intent = new Intent(context, GenericCourse.class);
                 intent.putExtra("Course", course.getCourseName());
+                intent.putExtra("CourseID", course.getId());
                 intent.putExtra("user", User);
                 context.startActivity(intent);
                 ((Activity)context).finish();
@@ -159,7 +160,7 @@ public class GenericEngineeringAdapter extends RecyclerView.Adapter<GenericEngin
         DatabaseReference reference = database.getReference().child("Courses").child(getEngineeringName()).child(course.getId());
         reference.setValue(course);
         loading.stop();
-        new PopUpMSG(context, context.getResources().getString(R.string.AddCourse), context.getResources().getString(R.string.CourseSuccessfullyAdded));
+        new PopUpMSG(context, context.getResources().getString(R.string.EditCourse), context.getResources().getString(R.string.EditSaved));
     }
     private String getEngineeringName(){
         if(Engineering.equals("Structural Tag") || Engineering.equals("הנדסת בניין"))

@@ -235,8 +235,7 @@ public class GenericEngineering extends AppCompatActivity {
                         && !(TextInputLayoutYear.getEditText().getText().toString().equals(""))  && !(TextInputLayoutSemester.getEditText().getText().toString().equals(""))) {
                     alertDialog.cancel();
                     loading = new Loading(GenericEngineering.this);
-                    AddCourse(new Course(TextInputLayoutCourse.getEditText().getText().toString(), TextInputLayoutTeacherName.getEditText().getText().toString(),
-                            TextInputLayoutYear.getEditText().getText().toString(), TextInputLayoutSemester.getEditText().getText().toString(), Engineering));
+                    AddCourse(new Course(TextInputLayoutCourse.getEditText().getText().toString(), TextInputLayoutTeacherName.getEditText().getText().toString(), TextInputLayoutYear.getEditText().getText().toString(), TextInputLayoutSemester.getEditText().getText().toString(), Engineering));
                 }
             }
         });
@@ -244,10 +243,28 @@ public class GenericEngineering extends AppCompatActivity {
     private void AddCourse(Course course){
         course.setId((int)(Math.random()*1000000000)+"");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference().child("Courses").child(getEngineeringName()).child(course.getId());
-        reference.setValue(course);
-        loading.stop();
-        new PopUpMSG(GenericEngineering.this, getResources().getString(R.string.AddCourse), getResources().getString(R.string.CourseSuccessfullyAdded));
+        DatabaseReference reference = database.getReference().child("Courses").child(getEngineeringName());
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Boolean Exists = false ;
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Course course1 = dataSnapshot.getValue(Course.class);
+                    if(course1.getCourseName().equals(course.getCourseName()) && course1.getTeacherName().equals(course.getTeacherName()) && course1.getCourseYear().equals(course.getCourseYear()) && course1.getCourseSemester().equals(course.getCourseSemester()))
+                        Exists = true;
+                }
+                loading.stop();
+                if(Exists)
+                    new PopUpMSG(GenericEngineering.this, getResources().getString(R.string.AddCourse), getResources().getString(R.string.CourseExists));
+                else{
+                    DatabaseReference reference1 = database.getReference().child("Courses").child(getEngineeringName()).child(course.getId());
+                    reference1.setValue(course);
+                    new PopUpMSG(GenericEngineering.this, getResources().getString(R.string.AddCourse), getResources().getString(R.string.CourseSuccessfullyAdded));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
     }
     private void removeCourseDialog(){
         if(user.getType().equals("Admin") || user.getType().equals("אדמין")) {
@@ -295,8 +312,12 @@ public class GenericEngineering extends AppCompatActivity {
                             loading = new Loading(GenericEngineering.this);
                             for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                                 Course course = dataSnapshot.getValue(Course.class);
-                                if(TextInputLayoutCourse.getEditText().getText().toString().equals(course.getCourseName() + " - " + course.getTeacherName())){
+                                if(TextInputLayoutCourse.getEditText().getText().toString().equals(course.getCourseName() + "(" + course.getId() + ") - \n" + course.getTeacherName() + " " + course.getCourseYear() + ", " + course.getCourseSemester())){
                                     DatabaseReference reference1 = database.getReference().child("Courses").child(getEngineeringName()).child(dataSnapshot.getKey());
+                                    reference1.setValue(null);
+                                    reference1 = database.getReference().child("Lectures").child(getEngineeringName()).child(course.getId());
+                                    reference1.setValue(null);
+                                    reference1 = database.getReference().child("Exercises").child(getEngineeringName()).child(course.getId());
                                     reference1.setValue(null);
                                     new PopUpMSG(GenericEngineering.this, getResources().getString(R.string.RemoveCourse), getResources().getString(R.string.CourseSuccessfullyRemoved));
                                 }
@@ -327,7 +348,7 @@ public class GenericEngineering extends AppCompatActivity {
                     public void onClick(View view) {
                         String course[] = new String[courseArrayList.size()];
                         for(int i=0; i<courseArrayList.size();i++)
-                            course[i] = courseArrayList.get(i).getCourseName() + " - " + courseArrayList.get(i).getTeacherName();
+                            course[i] = courseArrayList.get(i).getCourseName() + "(" + courseArrayList.get(i).getId() + ") - \n" + courseArrayList.get(i).getTeacherName() + " " + courseArrayList.get(i).getCourseYear() + ", " +courseArrayList.get(i).getCourseSemester();
                         setDialog(course,getResources().getString(R.string.SelectCourse),TextInputLayoutCourse.getEditText());
                     }
                 });

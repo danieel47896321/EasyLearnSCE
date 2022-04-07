@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="440dp"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
     android:background="@drawable/background">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -11,11 +12,6 @@
         style="@style/Custom_TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:hint="@string/City"
         app:endIconDrawable="@drawable/drop_down"
         app:startIconDrawable="@drawable/city"
@@ -67,7 +63,7 @@
         android:layout_marginTop="4dp"
         android:hint="@string/Gender"
         app:endIconDrawable="@drawable/drop_down"
-        app:startIconDrawable="@drawable/person"
+        app:startIconDrawable="@drawable/gender_pick"
         app:endIconMode="custom"
         app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutAge"
         app:layout_constraintStart_toStartOf="@+id/TextInputLayoutAge"
@@ -84,31 +80,6 @@
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TextInputLayoutType"
-        style="@style/Custom_TextInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        android:hint="@string/UserType"
-        app:endIconDrawable="@drawable/drop_down"
-        app:startIconDrawable="@drawable/student"
-        app:endIconMode="custom"
-        app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutAge"
-        app:layout_constraintStart_toStartOf="@+id/TextInputLayoutAge"
-        app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutGender">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/TextInputEditTextInputType"
-            style="@style/Custom_TextInputEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:clickable="true"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:inputType="textPersonName" />
-    </com.google.android.material.textfield.TextInputLayout>
-
     <Button
         android:id="@+id/NextButtonFinish"
         style="@style/Custom_Button"
@@ -119,6 +90,6 @@
         app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutGender"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/TextInputLayoutGender"
-        app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutType" />
+        app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutGender" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

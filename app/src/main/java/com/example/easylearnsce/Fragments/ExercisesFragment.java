@@ -51,10 +51,14 @@ public class ExercisesFragment extends Fragment {
     private EditText EditTextSearch;
     private TextView TextViewSearch;
     private Loading loading;
+    private String CourseID;
     private int ExercisesNumber = 0;
     private User user;
     public void setUser(User user){
         this.user = user;
+    }
+    public void setCourseID(String CourseID){
+        this.CourseID = CourseID;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,7 +81,7 @@ public class ExercisesFragment extends Fragment {
         addLecture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Exercises").child(user.getEngineering()).child(user.getCourse()).child((ExercisesNumber + 1)+"");
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Exercises").child(getEngineeringName()).child(CourseID).child((ExercisesNumber + 1)+"");
                 reference.setValue( new Lecture("תרגול " + (ExercisesNumber +1),"ss"));
             }
         });
@@ -118,7 +122,7 @@ public class ExercisesFragment extends Fragment {
                 if(!TextInputLayoutExercise.getEditText().getText().toString().equals("")) {
                     alertDialog.cancel();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference reference = database.getReference().child("Exercises").child(user.getEngineering()).child(user.getCourse());
+                    DatabaseReference reference = database.getReference().child("Exercises").child(getEngineeringName()).child(CourseID);
                     reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -126,7 +130,7 @@ public class ExercisesFragment extends Fragment {
                             for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                                 Lecture lecture = dataSnapshot.getValue(Lecture.class);
                                 if(TextInputLayoutExercise.getEditText().getText().toString().equals(lecture.getLectureName())){
-                                    DatabaseReference reference1 = database.getReference().child("Exercises").child(user.getEngineering()).child(user.getCourse()).child(dataSnapshot.getKey());
+                                    DatabaseReference reference1 = database.getReference().child("Exercises").child(getEngineeringName()).child(CourseID).child(dataSnapshot.getKey());
                                     reference1.setValue(null);
                                     new PopUpMSG(getContext(), getResources().getString(R.string.RemoveExercise), getResources().getString(R.string.ExerciseSuccessfullyRemoved));
                                 }
@@ -142,7 +146,7 @@ public class ExercisesFragment extends Fragment {
     }
     private void LecturePick(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference().child("Exercises").child(user.getEngineering()).child(user.getCourse());
+        DatabaseReference reference = database.getReference().child("Exercises").child(getEngineeringName()).child(CourseID);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -196,9 +200,28 @@ public class ExercisesFragment extends Fragment {
             }
         });
     }
+    private String getEngineeringName(){
+        if(user.getEngineering().equals("Structural Tag") || user.getEngineering().equals("הנדסת בניין"))
+            return "Structural Engineering";
+        else if(user.getEngineering().equals("Mechanical Engineering") || user.getEngineering().equals("הנדסת מכונות"))
+            return "Mechanical Engineering";
+        else if(user.getEngineering().equals("Electrical Engineering") || user.getEngineering().equals("הנדסת חשמל ואלקטרוניקה"))
+            return "Electrical Engineering";
+        else if(user.getEngineering().equals("Software Engineering") || user.getEngineering().equals("הנדסת תוכנה"))
+            return "Software Engineering";
+        else if(user.getEngineering().equals("Industrial Engineering") || user.getEngineering().equals("הנדסת תעשייה וניהול"))
+            return "Industrial Engineering";
+        else if(user.getEngineering().equals("Chemical Engineering") || user.getEngineering().equals("הנדסת כימיה"))
+            return "Chemical Engineering";
+        else if(user.getEngineering().equals("Programming Computer ") || user.getEngineering().equals("מדעי המחשב"))
+            return "Programming Computer";
+        else if(user.getEngineering().equals("Pre Engineering") || user.getEngineering().equals("מכינה"))
+            return "Pre Engineering";
+        return "Other";
+    }
     private void setLectures(){
         ArrayList<Lecture> lectures = new ArrayList<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Exercises").child(user.getEngineering()).child(user.getCourse());
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Exercises").child(getEngineeringName()).child(CourseID);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

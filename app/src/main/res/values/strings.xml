@@ -110,9 +110,11 @@
     <string name="SummerSemester" translatable="true">Summer Semester</string>
     <!-- GenericEngineering Page -->
     <string name="CourseSuccessfullyAdded" translatable="true">The course was successfully added</string>
+    <string name="CourseExists" translatable="true">The course already exists in the system.</string>
     <string name="CourseSuccessfullyRemoved" translatable="true">The course was successfully removed</string>
     <!-- GenericCourse Page -->
     <string name="Edit" translatable="true">Edit</string>
+    <string name="EditCourse" translatable="true">Edit Course</string>
     <string name="EditSaved" translatable="true">The changes have been saved successfully</string>
     <string name="Lectures" translatable="true">Lectures</string>
     <string name="Exercises" translatable="true">Exercises</string>

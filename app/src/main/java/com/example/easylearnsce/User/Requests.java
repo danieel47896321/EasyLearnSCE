@@ -186,8 +186,12 @@ public class Requests extends AppCompatActivity {
                 else{
                     TextInputLayoutRequests.setHelperText("");
                     if(TextInputLayoutRequests.getEditText().getText().toString().equals("Get Teacher Permission") || TextInputLayoutRequests.getEditText().getText().toString().equals("קבלת הרשאות מרצה")) {
-                        request = new Request(user.getUid(), user.getFirstName(), user.getLastName(), user.getEmail(), TextInputLayoutRequests.getEditText().getText().toString(),user.getType());
-                        TeacherRequest(request);
+                        if(user.getType().equals("Teacher") || user.getType().equals("מרצה"))
+                            new PopUpMSG(Requests.this, getResources().getString(R.string.Requests), getResources().getString(R.string.RequestApproved));
+                        else {
+                            request = new Request(user.getUid(), user.getFirstName(), user.getLastName(), user.getEmail(), TextInputLayoutRequests.getEditText().getText().toString(), user.getType());
+                            TeacherRequest(request);
+                        }
                     }
                     else{
                         if(TextInputLayoutDetails.getEditText().getText().toString().equals(""))
@@ -206,26 +210,7 @@ public class Requests extends AppCompatActivity {
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(user.getUid());
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean flag = false;
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Request request1 = dataSnapshot.getValue(Request.class);
-                    if(flag == false) {
-                        if (request1.getRequest().equals("Get Teacher Permission") || request1.getRequest().equals("קבלת הרשאות מרצה")) {
-                            if (request1.getStatus().equals("Pending") )
-                                new PopUpMSG(Requests.this, getResources().getString(R.string.Requests), getResources().getString(R.string.RequestAlreadyExists));
-                            else if (request1.getStatus().equals("Denied"))
-                                new PopUpMSG(Requests.this, getResources().getString(R.string.Requests), getResources().getString(R.string.RequestDenied));
-                            else if (request1.getStatus().equals("Approved"))
-                                new PopUpMSG(Requests.this, getResources().getString(R.string.Requests), getResources().getString(R.string.RequestApproved));
-                            flag = true;
-                            break;
-                        }
-                    }
-                }
-                if(flag != true)
-                    UploadRequest(request);
-            }
+            public void onDataChange(@NonNull DataSnapshot snapshot) { UploadRequest(request); }
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });

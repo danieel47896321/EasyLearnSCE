@@ -111,8 +111,10 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
                     holder.TextInputLayoutAnswer.setHelperText(context.getResources().getString(R.string.Required));
                 else {
                     request.setAnswer(holder.TextInputLayoutAnswer.getEditText().getText().toString());
-                    request.setStatus(context.getResources().getString(R.string.Fixed));
-                    Approved(request);
+                    request.setStatus(context.getResources().getString(R.string.RequestApproved));
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(request.getUid()).child(request.getId());
+                    databaseReference.setValue(request);
                 }
             }
         });
@@ -123,7 +125,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
                     holder.TextInputLayoutAnswer.setHelperText(context.getResources().getString(R.string.Required));
                 else {
                     request.setAnswer(holder.TextInputLayoutAnswer.getEditText().getText().toString());
-                    request.setStatus(context.getResources().getString(R.string.NotFixed));
+                    request.setStatus(context.getResources().getString(R.string.RequestDenied));
                     Denied(request);
                 }
             }
@@ -134,8 +136,8 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("Requests").child(request.getUid()).child(request.getId());
         databaseReference.setValue(request);
         FirebaseDatabase firebaseDatabase1 = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference1 = firebaseDatabase1.getReference().child("Users").child(request.getUid()).child("permission");
-        databaseReference1.setValue("High");
+        DatabaseReference databaseReference1 = firebaseDatabase1.getReference().child("Users").child(request.getUid()).child("type");
+        databaseReference1.setValue(context.getResources().getString(R.string.Teacher));
     }
     private void Denied(Request request){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
