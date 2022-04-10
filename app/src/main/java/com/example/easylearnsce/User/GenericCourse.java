@@ -1,14 +1,10 @@
 package com.example.easylearnsce.User;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,23 +13,19 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.easylearnsce.Class.Tag;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.Class.UserMenuInfo;
 import com.example.easylearnsce.Class.UserNavigationView;
-import com.example.easylearnsce.Fragments.ChatsFragment;
 import com.example.easylearnsce.Fragments.ExercisesFragment;
 import com.example.easylearnsce.Fragments.LecturesFragment;
-import com.example.easylearnsce.Fragments.UsersFragment;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class GenericCourse extends AppCompatActivity {
+public class GenericCourse extends FragmentActivity {
     private User user = new User();
     private TextView Title;
     private ImageView BackIcon, MenuIcon;

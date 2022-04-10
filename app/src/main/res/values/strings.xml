@@ -114,6 +114,8 @@
     <string name="CourseSuccessfullyRemoved" translatable="true">The course was successfully removed</string>
     <!-- GenericCourse Page -->
     <string name="Edit" translatable="true">Edit</string>
+    <string name="LinkToVideo" translatable="true">Link To Video</string>
+    <string name="AddVideo" translatable="true">Add Video</string>
     <string name="EditCourse" translatable="true">Edit Course</string>
     <string name="EditSaved" translatable="true">The changes have been saved successfully</string>
     <string name="Lectures" translatable="true">Lectures</string>

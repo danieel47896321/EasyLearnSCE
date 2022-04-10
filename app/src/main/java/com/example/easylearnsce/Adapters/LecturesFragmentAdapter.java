@@ -1,5 +1,6 @@
 package com.example.easylearnsce.Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -21,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.easylearnsce.Class.Lecture;
 import com.example.easylearnsce.Class.User;
+import com.example.easylearnsce.Class.YouTubeConfig;
 import com.example.easylearnsce.Guest.EasyLearnSCE;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.User.AllRequests;
@@ -30,33 +33,35 @@ import com.example.easylearnsce.User.Home;
 import com.example.easylearnsce.User.Profile;
 import com.example.easylearnsce.User.Requests;
 import com.example.easylearnsce.User.SelectEngineering;
+import com.example.easylearnsce.User.YouTubePlayer;
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LecturesFragmentAdapter extends RecyclerView.Adapter<LecturesFragmentAdapter.MyViewHolder> {
+public class LecturesFragmentAdapter extends RecyclerView.Adapter<LecturesFragmentAdapter.MyViewHolder>{
     private Context context;
     private List<Lecture> Select;
-    private List<Boolean> Click = new ArrayList<>();
-    private User user = new User();
+    private User user;
+    private String CourseID;
     private Intent intent;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    public LecturesFragmentAdapter(Context context, List<Lecture> select) {
+    public LecturesFragmentAdapter(Context context, List<Lecture> select, User user, String CourseID) {
         this.context = context;
         this.Select = select;
-        for(int i=0; i<select.size();i++)
-            Click.add(false);
+        this.user = user;
+        this.CourseID = CourseID;
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView LectureName;
-        RecyclerView RowRecyclerView;
         CardView cardView;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             LectureName = itemView.findViewById(R.id.LectureName);
             cardView = itemView.findViewById(R.id.cardView);
-            RowRecyclerView = itemView.findViewById(R.id.RowRecyclerView);
         }
     }
     public LecturesFragmentAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -67,19 +72,16 @@ public class LecturesFragmentAdapter extends RecyclerView.Adapter<LecturesFragme
     }
     public void onBindViewHolder(@NonNull LecturesFragmentAdapter.MyViewHolder holder, int position) {
         holder.LectureName.setText(Select.get(position).getLectureName());
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.LectureName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!Click.get(position)) {
-                    holder.LectureName.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_up, 0);
-                    Click.set(position,true);
-                    holder.RowRecyclerView.setVisibility(View.VISIBLE);
-                }
-                else {
-                    holder.LectureName.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.arrow_down, 0);
-                    Click.set(position,false);
-                    holder.RowRecyclerView.setVisibility(View.GONE);
-                }
+                user.setLecture(Select.get(position).getLectureName());
+                intent = new Intent(context, YouTubePlayer.class);
+                intent.putExtra("user", user);
+                intent.putExtra("Video", Select.get(position).getUrl());
+                intent.putExtra("CourseID", CourseID);
+                context.startActivity(intent);
+                ((Activity) context).finish();
             }
         });
     }

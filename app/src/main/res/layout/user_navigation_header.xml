@@ -12,7 +12,7 @@
         android:id="@+id/UserImage"
         android:layout_width="wrap_content"
         android:background="@drawable/guest_header"
-        android:layout_height="199dp" />
+        android:layout_height="185dp" />
 
     <TextView
         android:id="@+id/user_type"

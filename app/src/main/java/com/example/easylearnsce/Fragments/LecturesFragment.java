@@ -27,9 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.easylearnsce.Adapters.LecturesFragmentAdapter;
-import com.example.easylearnsce.Class.Course;
 import com.example.easylearnsce.Class.Lecture;
-import com.example.easylearnsce.Class.Loading;
 import com.example.easylearnsce.Class.PopUpMSG;
 import com.example.easylearnsce.Class.User;
 import com.example.easylearnsce.R;
@@ -45,16 +43,17 @@ import java.util.ArrayList;
 public class LecturesFragment extends Fragment {
     private RecyclerView recyclerView;
     private TextInputLayout TextInputLayoutLecture;
-    private Button ButtonRemoveCourse, ButtonCancel;
+    private Button ButtonRemoveCourse, ButtonCancel, ButtonAddVideo;
     private Dialog dialog;
+    private TextInputLayout TextInputLayoutLinkToVideo;
     private ListView ListViewSearch;
     private EditText EditTextSearch;
     private TextView TextViewSearch;
-    private Loading loading;
     private String CourseID;
     private ImageView addLecture, removeLecture;
     private int LectureNumber = 0;
     private User user;
+    private View view;
     public void setUser(User user){
         this.user = user;
     }
@@ -63,7 +62,7 @@ public class LecturesFragment extends Fragment {
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lectures, container, false);
+        view = inflater.inflate(R.layout.fragment_lectures, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -81,9 +80,38 @@ public class LecturesFragment extends Fragment {
     private void AddLecture(){
         addLecture.setOnClickListener(new View.OnClickListener() {
             @Override
+            public void onClick(View v) { AddVideoDialog(); }
+        });
+    }
+    private void AddVideoDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_add_video,null);
+        builder.setCancelable(false);
+        builder.setView(dialogView);
+        TextInputLayoutLinkToVideo = dialogView.findViewById(R.id.TextInputLayoutLinkToVideo);
+        ButtonAddVideo = dialogView.findViewById(R.id.ButtonAddVideo);
+        ButtonCancel = dialogView.findViewById(R.id.ButtonCancel);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.show();
+        ButtonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { alertDialog.cancel(); }
+        });
+        ButtonAddVideo.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
             public void onClick(View v) {
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Lectures").child(getEngineeringName()).child(CourseID).child((LectureNumber + 1)+"");
-                reference.setValue( new Lecture(getResources().getString(R.string.Lecture) + " " + (LectureNumber+1),"ss"));
+                if(TextInputLayoutLinkToVideo.getEditText().getText().toString().equals(""))
+                    TextInputLayoutLinkToVideo.setHelperText(getResources().getString(R.string.Required));
+                else
+                    TextInputLayoutLinkToVideo.setHelperText("");
+                if(!(TextInputLayoutLinkToVideo.getEditText().getText().toString().equals(""))){
+                    alertDialog.cancel();
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Lectures").child(getEngineeringName()).child(CourseID).child((LectureNumber + 1)+"");
+                    reference.setValue( new Lecture("הרצאה " + (LectureNumber+1),TextInputLayoutLinkToVideo.getEditText().getText().toString()));
+                }
             }
         });
     }
@@ -127,7 +155,6 @@ public class LecturesFragment extends Fragment {
                     reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            loading = new Loading(getContext());
                             for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                                 Lecture lecture = dataSnapshot.getValue(Lecture.class);
                                 if(TextInputLayoutLecture.getEditText().getText().toString().equals(lecture.getLectureName())){
@@ -136,7 +163,6 @@ public class LecturesFragment extends Fragment {
                                     new PopUpMSG(getContext(), getResources().getString(R.string.RemoveLecture), getResources().getString(R.string.LectureSuccessfullyRemoved));
                                 }
                             }
-                            loading.stop();
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) { }
@@ -233,7 +259,7 @@ public class LecturesFragment extends Fragment {
                     lectures.add(lecture);
                     LectureNumber++;
                 }
-                LecturesFragmentAdapter lecturesFragmentAdapter= new LecturesFragmentAdapter(getContext(), lectures);
+                LecturesFragmentAdapter lecturesFragmentAdapter= new LecturesFragmentAdapter(getContext(), lectures,user,CourseID);
                 recyclerView.setAdapter(lecturesFragmentAdapter);
             }
             @Override

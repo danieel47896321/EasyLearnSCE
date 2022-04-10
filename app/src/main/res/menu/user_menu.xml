@@ -21,6 +21,11 @@
         android:visible="false"
         android:title="@string/Course"/>
     <item
+        android:id="@+id/ItemLecture"
+        android:icon="@drawable/book"
+        android:visible="false"
+        android:title="@string/Course"/>
+    <item
         android:id="@+id/ItemEasyLearnChat"
         android:icon="@drawable/message"
         android:title="@string/EasyLearnChat" />

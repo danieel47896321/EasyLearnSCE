@@ -50,9 +50,9 @@ public class GenericEngineering extends AppCompatActivity {
     private ImageView BackIcon, MenuIcon, addCourse, removeCourse;
     private TextInputLayout TextInputLayoutCourse, TextInputLayoutTeacherName ,TextInputLayoutDepartment, TextInputLayoutYear, TextInputLayoutSemester;
     private Button ButtonAddCourse, ButtonRemoveCourse, ButtonCancel;
-    private DrawerLayout drawerLayout;
     private Loading loading;
     private Dialog dialog;
+    private DrawerLayout drawerLayout;
     private ListView ListViewSearch;
     private EditText EditTextSearch;
     private TextView Title, User_search, TextViewSearch;

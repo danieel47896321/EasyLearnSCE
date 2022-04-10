@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="2dp"
     app:cardElevation="3dp"
-    app:cardBackgroundColor="@android:color/transparent"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout"
         android:background="@android:color/transparent"
         android:orientation="vertical">
 
@@ -22,16 +22,9 @@
             style="@style/Custom_TextView_Big"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lecture 1"
+            android:drawableLeft="@drawable/arrow_next"
             android:padding="16dp"
-            android:drawableEnd="@drawable/arrow_down"
-            android:drawableRight="@drawable/arrow_down" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RowRecyclerView"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:text="Lecture 1" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

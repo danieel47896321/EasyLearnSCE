@@ -5,57 +5,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    android:padding="10dp"
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TextInputLayoutCourse"
+            android:id="@+id/TextInputLayoutLinkToVideo"
             style="@style/Custom_TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/Course"
-            app:endIconDrawable="@drawable/drop_down"
-            app:endIconMode="custom"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:startIconDrawable="@drawable/book"
+            android:hint="@string/LinkToVideo"
+            app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/TextInputEditTextInputCourse"
+                android:id="@+id/TextInputEditTextInputLinkToVideo"
                 style="@style/Custom_TextInputEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="false" />
-
+                android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/ButtonRemoveCourse"
+            android:id="@+id/ButtonAddVideo"
             style="@style/Custom_Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/RemoveCourse"
-            app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutCourse"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/TextInputLayoutCourse"
-            app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutCourse" />
+            android:text="@string/AddVideo"
+            app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutLinkToVideo"
+            app:layout_constraintStart_toStartOf="@+id/TextInputLayoutLinkToVideo"
+            app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutLinkToVideo" />
 
         <Button
             android:id="@+id/ButtonCancel"
             style="@style/Custom_Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:text="@string/Cancel"
-            app:layout_constraintEnd_toEndOf="@+id/ButtonRemoveCourse"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/ButtonRemoveCourse"
-            app:layout_constraintTop_toBottomOf="@+id/ButtonRemoveCourse" />
+            app:layout_constraintEnd_toEndOf="@+id/ButtonAddVideo"
+            app:layout_constraintStart_toStartOf="@+id/ButtonAddVideo"
+            app:layout_constraintTop_toBottomOf="@+id/ButtonAddVideo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
