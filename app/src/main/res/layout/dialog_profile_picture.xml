@@ -59,4 +59,5 @@
         app:layout_constraintEnd_toEndOf="@+id/Gallery"
         app:layout_constraintStart_toStartOf="@+id/Gallery"
         app:layout_constraintTop_toTopOf="@+id/Gallery" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

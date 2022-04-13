@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:clickable="true"
-    tools:context=".User.GenericCourse">
+    tools:context=".Client.User.GenericCourse">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

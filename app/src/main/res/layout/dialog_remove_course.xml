@@ -20,6 +20,7 @@
             android:hint="@string/Course"
             app:endIconDrawable="@drawable/drop_down"
             app:endIconMode="custom"
+            app:startIconDrawable="@drawable/book"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -35,11 +36,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/ButtonRemoveCourse"
+            android:id="@+id/ButtonRemove"
             style="@style/Custom_Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/RemoveCourse"
+            android:text="@string/Remove"
             app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutCourse"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/TextInputLayoutCourse"
@@ -52,10 +53,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/Cancel"
-            app:layout_constraintEnd_toEndOf="@+id/ButtonRemoveCourse"
+            app:layout_constraintEnd_toEndOf="@+id/ButtonRemove"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/ButtonRemoveCourse"
-            app:layout_constraintTop_toBottomOf="@+id/ButtonRemoveCourse" />
-
+            app:layout_constraintStart_toStartOf="@+id/ButtonRemove"
+            app:layout_constraintTop_toBottomOf="@+id/ButtonRemove" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

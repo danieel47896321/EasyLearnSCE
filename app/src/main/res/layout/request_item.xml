@@ -135,5 +135,4 @@
         app:layout_constraintBottom_toBottomOf="@+id/RequestApproved"
         app:layout_constraintStart_toEndOf="@+id/RequestApproved"
         app:layout_constraintTop_toTopOf="@+id/RequestApproved" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,9 +23,9 @@
     <string name="Teacher" translatable="true">Teacher</string>
     <string name="Admin" translatable="true">Admin</string>
     <string name="Error" translatable="true">Error</string>
-    <string name="ErrorMSG" translatable="true">Please try checking your network connection and try again in a few minutes.</string>
+    <string name="ErrorMSG" translatable="true">Something went wrong please try again in a few minutes.</string>
     <!-- EasyLearnSCE Page -->
-    <string name="app_name" translatable="true">EasyLearn</string>
+    <string name="app_name" translatable="true">Easy Learn</string>
     <string name="SignIn" translatable="true">Sign In</string>
     <string name="CreateAccount" translatable="true">Create Account</string>
     <string name="ResetPassword" translatable="true">Reset Password</string>
@@ -53,23 +53,14 @@
     <string name="ConfirmPassword" translatable="true">Confirm Password</string>
     <string name="AlreadyHaveAccount" translatable="true">Already Have Account? Sign In</string>
     <string name="SelectUserType" translatable="true">Select User Type</string>
-    <!-- CreateAccountValidation Page -->
-    <string name="CreateAccountValidation" translatable="true">Create Account Validation</string>
-    <string name="CodeText" translatable="true">Hello, We have sent you a one time code to Phone:</string>
-    <string name="Code" translatable="true">Code</string>
-    <string name="FinishCreateAccount" translatable="true">A message has been sent to your email to verify and complete the registration</string>
-    <string name="WrongCode" translatable="true">Wrong code</string>
+    <string name="FinishCreateAccount" translatable="true">A message has been sent to your email to verify and complete the registration.</string>
     <string name="CompleteCreateAccount" translatable="true">Successfully registered, Please verify your email with link sent to your email.</string>
-    <string name="VerifyTitle" translatable="true">Verify your email for EasyLearnSCE</string>
-    <string name="VerifyStartMsg" translatable="true">Hey, </string>
-    <string name="VerifyMidMsg" translatable="true">Enter this Code: </string>
-    <string name="VerifyEndMsg" translatable="true"> to verify your email address</string>
     <!-- ResetPassword Page -->
-    <string name="ForgotPasswordInfo" translatable="true">Please enter the email address which you want to reset the password</string>
-    <string name="ResetLink" translatable="true">Reset Link has been send to your Email</string>
+    <string name="ForgotPasswordInfo" translatable="true">Please enter the email address which you want to reset the password.</string>
+    <string name="ResetLink" translatable="true">Reset Link has been send to your Email.</string>
     <!-- About Page -->
     <string name="AboutVersion" translatable="true">Version 1.1.0</string>
-    <string name="Copyright" translatable="true">Copyright &#169; 2021 Daniel Elmaliach</string>
+    <string name="Copyright" translatable="true">Copyright &#169; 2022 Daniel Elmaliach</string>
     <string name="AboutInfo" translatable="true">The app was developed as part of a final project by Daniel Elmaliach with the goal of creating a comfortable environment for watching lectures and learning comfortably and providing feedback to lecturers about excerpts that were less clear by adding a comment while specifying the desired time segment for a particular recording</string>
     <!-- Contact Page -->
     <string name="ContactInfo" translatable="true">Have you meet any problem?\nThe development team is at your service</string>
@@ -109,10 +100,11 @@
     <string name="SecondSemester" translatable="true">Second Semester</string>
     <string name="SummerSemester" translatable="true">Summer Semester</string>
     <!-- GenericEngineering Page -->
-    <string name="CourseSuccessfullyAdded" translatable="true">The course was successfully added</string>
+    <string name="CourseSuccessfullyAdded" translatable="true">The course was successfully added.</string>
     <string name="CourseExists" translatable="true">The course already exists in the system.</string>
-    <string name="CourseSuccessfullyRemoved" translatable="true">The course was successfully removed</string>
+    <string name="CourseSuccessfullyRemoved" translatable="true">The course was successfully removed.</string>
     <!-- GenericCourse Page -->
+    <string name="Remove" translatable="true">Remove</string>
     <string name="Edit" translatable="true">Edit</string>
     <string name="LinkToVideo" translatable="true">Link To Video</string>
     <string name="AddVideo" translatable="true">Add Video</string>
@@ -131,6 +123,12 @@
     <string name="Exercise" translatable="true">Exercise</string>
     <string name="RemoveExercise" translatable="true">Remove Exercise</string>
     <string name="Save" translatable="true">Save</string>
+    <!-- GenericYouTubePlayer Page -->
+    <string name="AddTopic" translatable="true">Add Topic</string>
+    <string name="Topic" translatable="true">Topic</string>
+    <string name="StartTime" translatable="true">Start Time</string>
+    <string name="EndTime" translatable="true">End Time</string>
+    <string name="EditUrl" translatable="true">Edit Url</string>
     <!-- EasyLearnChat Page -->
     <string name="Chats" translatable="true">Chats</string>
     <string name="Users" translatable="true">Users</string>
@@ -200,10 +198,6 @@
     <string name="AddCourse" translatable="true">Add Course</string>
     <string name="RemoveCourse" translatable="true">Remove Course</string>
     <!-- Arrays -->
-    <string-array name="Language">
-        <item>@string/Hebrew</item>
-        <item>@string/English</item>
-    </string-array>
     <string-array name="EasyLearnSCETagsName">
         <item>@string/SignIn</item>
         <item>@string/CreateAccount</item>
@@ -270,15 +264,9 @@
         <item>@string/TelAviv</item>
         <item>@string/Haifa</item>
     </string-array>
-    <string-array name="Type">
-        <item>@string/Student</item>
-        <item>@string/Teacher</item>
-    </string-array>
     <string-array name="Permissions">
         <item>@string/TeacherPermission</item>
         <item>@string/ReportProblem</item>
         <item>@string/Other</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -142,6 +142,5 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/ButtonAddCourse"
             app:layout_constraintTop_toBottomOf="@+id/ButtonAddCourse" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

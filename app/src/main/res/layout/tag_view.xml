@@ -21,7 +21,7 @@
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/TagPhoto"
+        app:layout_constraintStart_toEndOf="@+id/TagImage"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -35,10 +35,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TagPhoto" />
+        app:layout_constraintTop_toBottomOf="@+id/TagImage" />
 
     <ImageView
-        android:id="@+id/TagPhoto"
+        android:id="@+id/TagImage"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:layout_marginStart="8dp"

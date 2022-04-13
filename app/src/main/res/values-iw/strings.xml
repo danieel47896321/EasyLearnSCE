@@ -24,9 +24,9 @@
     <string name="Teacher" translatable="true">מרצה</string>
     <string name="Admin" translatable="true">אדמין</string>
     <string name="Error" translatable="true">שגיאה</string>
-    <string name="ErrorMSG" translatable="true">בבקשה נסה לבדוק את החיבור שלך לרשת ונסה שוב בעוד כמה דקות.</string>
+    <string name="ErrorMSG" translatable="true">משהו השתבש, אנא נסה שוב בעוד כמה דקות.</string>
     <!-- EasyLearnSCE Page -->
-    <string name="app_name" translatable="true">EasyLearn</string>
+    <string name="app_name" translatable="true">Easy Learn</string>
     <string name="SignIn" translatable="true">כניסה</string>
     <string name="CreateAccount" translatable="true">צור חשבון</string>
     <string name="ResetPassword" translatable="true">איפוס סיסמה</string>
@@ -53,24 +53,15 @@
     <string name="InvalidDateOfBirth" translatable="true">תאריך לידה לא חוקי</string>
     <string name="ConfirmPassword" translatable="true">אימות סיסמה</string>
     <string name="AlreadyHaveAccount" translatable="true">קיים כבר משתמש? כניסה</string>
-    <!-- CreateAccountValidation Page -->
-    <string name="CreateAccountValidation" translatable="true">אימות צור חשבון</string>
-    <string name="CodeText" translatable="true">שלום, שלחנו אליך קוד חד פעמי לטלפון:</string>
-    <string name="Code" translatable="true">קוד</string>
-    <string name="FinishCreateAccount" translatable="true">נשלחה הודעה לאימייל שלך לאימות וסיום ההרשמה</string>
-    <string name="WrongCode" translatable="true">קוד שגוי</string>
+    <string name="FinishCreateAccount" translatable="true">נשלחה הודעה לאימייל שלך לאימות וסיום ההרשמה.</string>
     <string name="CompleteCreateAccount" translatable="true">נרשמת בהצלחה, בבקשה אמת את חשבונך בעזרת קישור אימות שנשלח לאיימיל שלך.</string>
-    <string name="VerifyTitle" translatable="true">Verify your email for EasyLearnSCE</string>
-    <string name="VerifyStartMsg" translatable="true">היי,</string>
-    <string name="VerifyMidMsg" translatable="true">הכנס את הקוד הבא:</string>
-    <string name="VerifyEndMsg" translatable="true">כדי לאמת את כתובת האימייל שלך.</string>
     <string name="SelectUserType" translatable="true">בחר סוג משתמש</string>
     <!-- ResetPassword Page -->
     <string name="ForgotPasswordInfo" translatable="true">נא הזן את כתובת האימייל שברצונך לשחזר עבורו את הסיסמה</string>
-    <string name="ResetLink" translatable="true">קישור לאיפוס הסיסמה נשלח לאימייל</string>
+    <string name="ResetLink" translatable="true">קישור לאיפוס הסיסמה נשלח לאימייל.</string>
     <!-- About Page -->
     <string name="AboutVersion" translatable="true">גרסה 1.1.0</string>
-    <string name="Copyright" translatable="true"> זכויות יוצרים &#169; 2021 דניאל אלמליח</string>
+    <string name="Copyright" translatable="true"> זכויות יוצרים &#169; 2022 דניאל אלמליח</string>
     <string name="AboutInfo" translatable="true">האפליקציה פותחה במסגרת פרויקט גמר על ידי דניאל אלמליח כאשר המטרה ליצור סביבה נוחה לצפיה בהרצאות ולמידה נוחה ומתן פידבק למרצים לגבי קטעים שהיו פחות ברורים על ידי הוספת תגובה תוך ציון קטע הזמן הרצוי עבור הקלטה מסוימת </string>
     <!-- Contact Page -->
     <string name="ContactInfo" translatable="true">האם נתקלת בבעיה כלשהי?\n צוות הפיתוח זמין לשירותך</string>
@@ -114,6 +105,7 @@
     <string name="CourseExists" translatable="true">הקורס כבר קיים במערכת.</string>
     <string name="CourseSuccessfullyRemoved" translatable="true">הקורס הוסר בהצלחה.</string>
     <!-- GenericCourse Page -->
+    <string name="Remove" translatable="true">הסרה</string>
     <string name="Edit" translatable="true">עריכה</string>
     <string name="LinkToVideo" translatable="true">קישור לסרטון</string>
     <string name="AddVideo" translatable="true">הוסף הקלטה</string>
@@ -132,6 +124,12 @@
     <string name="Exercise" translatable="true">תרגול</string>
     <string name="RemoveExercise" translatable="true">הסר תרגול</string>
     <string name="Save" translatable="true">שמור</string>
+    <!-- GenericYouTubePlayer Page -->
+    <string name="AddTopic" translatable="true">הוסף נושא</string>
+    <string name="Topic" translatable="true">נושא</string>
+    <string name="StartTime" translatable="true">זמן התחלה</string>
+    <string name="EndTime" translatable="true">זמן סיום</string>
+    <string name="EditUrl" translatable="true">שינוי סרטון</string>
     <!-- EasyLearnChat Page -->
     <string name="Chats" translatable="true">"צ'אטים"</string>
     <string name="Users" translatable="true">משתמשים</string>

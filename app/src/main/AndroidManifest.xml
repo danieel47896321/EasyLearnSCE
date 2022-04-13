@@ -9,40 +9,39 @@
 
     <queries>
         <intent>
-            <action android:name="com.google.android.youtube.api.service.START"/>
+            <action android:name="com.google.android.youtube.api.service.START" />
         </intent>
     </queries>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/openingscreen"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EasyLearnSCE">
-        <activity android:name=".User.YouTubePlayer"></activity>
-        <activity android:name=".Fragments.GenericYouTubePlayer" />
-        <activity android:name=".User.AllRequests" />
-        <activity android:name=".User.Requests" />
-        <activity android:name=".User.Message" />
-        <activity android:name=".User.EasyLearnChat" />
-        <activity
-            android:name=".User.Profile"
-            android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".User.GenericCourse" />
-        <activity android:name=".User.ChangePassword" />
-        <activity android:name=".User.GenericEngineering" />
-        <activity android:name=".User.SelectEngineering" />
-        <activity android:name=".User.Home" />
-        <activity android:name=".Guest.EasyLearnSCE" />
-        <activity android:name=".Guest.Contact" />
-        <activity android:name=".Guest.About" />
-        <activity android:name=".Guest.CreateAccount" />
-        <activity android:name=".Guest.SignIn" />
-        <activity android:name=".Guest.ResetPassword" />
-        <activity android:name=".OpenScreen">
+        android:theme="@style/Theme.EasyLearnSCE"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Client.User.YouTubePlayer" />
+        <activity android:name=".Client.Fragments.GenericYouTubePlayer" />
+        <activity android:name=".Client.User.AllRequests" />
+        <activity android:name=".Client.User.Requests" />
+        <activity android:name=".Client.User.Message" />
+        <activity android:name=".Client.User.EasyLearnChat" />
+        <activity android:name=".Client.User.Profile" />
+        <activity android:name=".Client.User.GenericCourse" />
+        <activity android:name=".Client.User.ChangePassword" />
+        <activity android:name=".Client.User.GenericEngineering" />
+        <activity android:name=".Client.User.SelectEngineering" />
+        <activity android:name=".Client.User.Home" />
+        <activity android:name=".Client.Guest.EasyLearnSCE" />
+        <activity android:name=".Client.Guest.Contact" />
+        <activity android:name=".Client.Guest.About" />
+        <activity android:name=".Client.Guest.CreateAccount" />
+        <activity android:name=".Client.Guest.SignIn" />
+        <activity android:name=".Client.Guest.ResetPassword" />
+        <activity android:name=".Client.Guest.OpenScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
