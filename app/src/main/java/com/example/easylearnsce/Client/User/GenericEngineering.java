@@ -319,6 +319,10 @@ public class GenericEngineering extends AppCompatActivity {
                                     reference1.setValue(null);
                                     reference1 = database.getReference().child("Exercises").child(getEngineeringName()).child(course.getId());
                                     reference1.setValue(null);
+                                    reference1 = database.getReference().child("Lectures Chats").child(getEngineeringName()).child(course.getId());
+                                    reference1.setValue(null);
+                                    reference1 = database.getReference().child("Exercises Chats").child(getEngineeringName()).child(course.getId());
+                                    reference1.setValue(null);
                                     new PopUpMSG(GenericEngineering.this, getResources().getString(R.string.RemoveCourse), getResources().getString(R.string.CourseSuccessfullyRemoved));
                                 }
                             }

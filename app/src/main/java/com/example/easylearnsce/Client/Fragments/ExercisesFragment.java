@@ -138,6 +138,7 @@ public class ExercisesFragment extends Fragment {
         builder.setView(dialogView);
         TextInputLayoutExercise = dialogView.findViewById(R.id.TextInputLayoutExercise);
         ButtonRemoveCourse = dialogView.findViewById(R.id.ButtonRemoveCourse);
+        ButtonRemoveCourse.setText(getResources().getString(R.string.Remove));
         ButtonCancel = dialogView.findViewById(R.id.ButtonCancel);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);

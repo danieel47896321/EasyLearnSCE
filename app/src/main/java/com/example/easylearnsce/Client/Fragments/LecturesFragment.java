@@ -99,6 +99,7 @@ public class LecturesFragment extends Fragment {
         builder.setView(dialogView);
         TextInputLayoutLinkToVideo = dialogView.findViewById(R.id.TextInputLayoutLinkToVideo);
         ButtonAddVideo = dialogView.findViewById(R.id.ButtonAddVideo);
+        ButtonAddVideo.setText(this.getResources().getString(R.string.Add));
         ButtonCancel = dialogView.findViewById(R.id.ButtonCancel);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
@@ -139,6 +140,7 @@ public class LecturesFragment extends Fragment {
         builder.setView(dialogView);
         TextInputLayoutLecture = dialogView.findViewById(R.id.TextInputLayoutLecture);
         ButtonRemoveCourse = dialogView.findViewById(R.id.ButtonRemoveCourse);
+        ButtonRemoveCourse.setText(getResources().getString(R.string.Remove));
         ButtonCancel = dialogView.findViewById(R.id.ButtonCancel);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);

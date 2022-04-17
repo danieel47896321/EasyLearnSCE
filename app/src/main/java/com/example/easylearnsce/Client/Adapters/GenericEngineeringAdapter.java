@@ -65,9 +65,9 @@ public class GenericEngineeringAdapter extends RecyclerView.Adapter<GenericEngin
         Course course = courses.get(position);
         holder.CourseName.setText(context.getResources().getString(R.string.Course) + ": " + course.getCourseName());
         holder.TeacherName.setText(context.getResources().getString(R.string.Teacher) + ": " +  course.getTeacherName());
-        holder.Year.setText(context.getResources().getString(R.string.Year) + ": " + course.getCourseYear());
-        holder.Semester.setText(context.getResources().getString(R.string.Semester) + ": " + course.getCourseSemester());
-        holder.Engineering.setText(context.getResources().getString(R.string.Department) + ": " + course.getCourseEngineering());
+        holder.Year.setText(context.getResources().getString(R.string.Year) + ": " + getYear(course.getCourseYear()));
+        holder.Semester.setText(context.getResources().getString(R.string.Semester) + ": " + getSemester(course.getCourseSemester()));
+        holder.Engineering.setText(context.getResources().getString(R.string.Department) + ": " + getDepartment(course.getCourseEngineering()));
         if(User.getType().equals("Admin") || User.getType().equals("אדמין")) {
             holder.Edit.setVisibility(View.VISIBLE);
             holder.Edit.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +90,45 @@ public class GenericEngineeringAdapter extends RecyclerView.Adapter<GenericEngin
                 ((Activity)context).finish();
             }
         });
+    }
+    public String getDepartment(String department){
+        if(department.equals("Structural Tag") || department.equals("הנדסת בניין"))
+            return context.getResources().getString(R.string.StructuralEngineering);
+        else if(department.equals("Mechanical Engineering") || department.equals("הנדסת מכונות"))
+            return context.getResources().getString(R.string.MechanicalEngineering);
+        else if(department.equals("Electrical Engineering") || department.equals("הנדסת חשמל ואלקטרוניקה"))
+            return context.getResources().getString(R.string.ElectricalEngineering);
+        else if(department.equals("Software Engineering") || department.equals("הנדסת תוכנה"))
+            return context.getResources().getString(R.string.SoftwareEngineering);
+        else if(department.equals("Industrial Engineering") || department.equals("הנדסת תעשייה וניהול"))
+            return context.getResources().getString(R.string.IndustrialEngineering);
+        else if(department.equals("Chemical Engineering") || department.equals("הנדסת כימיה"))
+            return context.getResources().getString(R.string.ChemicalEngineering);
+        else if(department.equals("Programming Computer ") || department.equals("מדעי המחשב"))
+            return context.getResources().getString(R.string.ProgrammingComputer);
+        else if(department.equals("Pre Engineering") || department.equals("מכינה"))
+            return context.getResources().getString(R.string.PreEngineering);
+        return context.getResources().getString(R.string.Other);
+    }
+    public String getYear(String year){
+        if(year.equals("First Year") || year.equals("שנה ראשונה"))
+            return context.getResources().getString(R.string.FirstYear);
+        else if(year.equals("Second Year") || year.equals("שנה שניה"))
+            return context.getResources().getString(R.string.SecondYear);
+        else if(year.equals("Third Year") || year.equals("שנה שלישית"))
+            return context.getResources().getString(R.string.ThirdYear);
+        else if(year.equals("Fourth Year") || year.equals("שנה רביעית"))
+            return context.getResources().getString(R.string.FourthYear);
+        else
+            return context.getResources().getString(R.string.PreEngineering);
+    }
+    public String getSemester(String semester){
+        if(semester.equals("First Semester") || semester.equals("סמסטר א"))
+            return context.getResources().getString(R.string.FirstSemester);
+        else if(semester.equals("Second Semester") || semester.equals("סמסטר ב"))
+            return context.getResources().getString(R.string.SecondSemester);
+        else
+            return context.getResources().getString(R.string.SummerSemester);
     }
     private void EditCourseDialog(Course course){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

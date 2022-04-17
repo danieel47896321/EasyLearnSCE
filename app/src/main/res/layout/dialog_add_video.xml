@@ -43,6 +43,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/Add"
+            android:backgroundTint="@color/blue"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutLinkToVideo"
             app:layout_constraintStart_toStartOf="@+id/TextInputLayoutLinkToVideo"
             app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutLinkToVideo" />
@@ -54,6 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/Cancel"
+            android:backgroundTint="@color/blue"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@+id/ButtonAddVideo"
             app:layout_constraintStart_toStartOf="@+id/ButtonAddVideo"
             app:layout_constraintTop_toBottomOf="@+id/ButtonAddVideo" />

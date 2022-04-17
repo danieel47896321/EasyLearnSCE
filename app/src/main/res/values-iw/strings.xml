@@ -146,11 +146,10 @@
     <string name="SendRequest" translatable="true">שלח בקשה</string>
     <string name="SelectRequest" translatable="true">בחר בקשה</string>
     <string name="TeacherPermission" translatable="true">קבלת הרשאות מרצה</string>
-    <string name="RequestSentSuccessfully" translatable="true">הבקשה נשלחה בהצלחה</string>
+    <string name="RequestSentSuccessfully" translatable="true">הבקשה נשלחה בהצלחה.</string>
     <string name="Details" translatable="true">פירוט</string>
-    <string name="RequestDenied" translatable="true">הבקשה כבר נדחתה</string>
-    <string name="RequestApproved" translatable="true">הבקשה כבר אושרה</string>
-    <string name="RequestAlreadyExists" translatable="true">הבקשה כבר קיימת במערכת, בבקשה המתן לתשובה</string>
+    <string name="RequestDenied" translatable="true">הבקשה כבר נדחתה.</string>
+    <string name="RequestApproved" translatable="true">הבקשה כבר אושרה.</string>
     <!-- AllRequests Page -->
     <string name="AllRequests" translatable="true">כל הבקשות</string>
     <string name="Approved" translatable="true">הבקשה אושרה</string>

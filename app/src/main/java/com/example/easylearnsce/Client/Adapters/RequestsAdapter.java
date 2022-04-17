@@ -39,16 +39,44 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
     public void onBindViewHolder(@NonNull RequestsAdapter.ViewHolder holder, int position) {
         Request request = requests.get(position);
         holder.ID.setText(""+(position+1)+".");
-        holder.Request.setText(context.getResources().getString(R.string.Request) + ": " + request.getRequest());
+        holder.Request.setText(context.getResources().getString(R.string.Request) + ": " + getRequest(request.getRequest()));
         holder.FullName.setText(context.getResources().getString(R.string.FullName) + ": " + request.getFirstName()+ " " + request.getLastName());
         holder.EmailRequest.setText(context.getResources().getString(R.string.Email) + ": " + request.getEmail());
-        holder.Type.setText(context.getResources().getString(R.string.UserType) + ": " + request.getType());
+        holder.Type.setText(context.getResources().getString(R.string.UserType) + ": " + getUserType(request.getType()));
         if(request.getRequest().equals("Get Teacher Permission") || request.getRequest().equals("קבלת הרשאות מרצה"))
             TeacherPermission(holder, request);
         else if(request.getRequest().equals("Report Problem") || request.getRequest().equals("דיווח על תקלה"))
             ReportProblem(holder, request);
         else
             Other(holder, request);
+    }
+    public String getRequest(String request){
+        if(request.equals("Get Teacher Permission") || request.equals("קבלת הרשאות מרצה"))
+            return context.getResources().getString(R.string.TeacherPermission);
+        else if(request.equals("Report Problem") || request.equals("דיווח על תקלה"))
+            return context.getResources().getString(R.string.ReportProblem);
+        else
+            return context.getResources().getString(R.string.Other);
+    }
+    public String getUserType(String type){
+        if(type.equals("Teacher") || type.equals("מרצה"))
+            return context.getResources().getString(R.string.Teacher);
+        else
+            return context.getResources().getString(R.string.Student);
+    }
+    public String getStatus(String status){
+        if(status.equals("Approved") || status.equals("הבקשה אושרה"))
+            return context.getResources().getString(R.string.Approved);
+        else if(status.equals("Fixed") || status.equals("תוקן"))
+            return context.getResources().getString(R.string.Fixed);
+        else if(status.equals("Denied") || status.equals("הבקשה נדחתה"))
+            return context.getResources().getString(R.string.Denied);
+        else if(status.equals("Not Fixed") || status.equals("לא תוקן"))
+            return context.getResources().getString(R.string.NotFixed);
+        else if(status.equals("Pending Approval") || status.equals("ממתין לתשובה"))
+            return context.getResources().getString(R.string.PendingApproval);
+        else
+            return context.getResources().getString(R.string.NotFixed);
     }
     private void TeacherPermission(@NonNull RequestsAdapter.ViewHolder holder, Request request){
         holder.Details.setVisibility(View.GONE);
@@ -71,7 +99,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
     private void ReportProblem(@NonNull RequestsAdapter.ViewHolder holder, Request request){
         holder.RequestApproved.setText(context.getResources().getString(R.string.Fixed));
         holder.RequestDenied.setText(context.getResources().getString(R.string.NotFixed));
-        holder.Details.setText(request.getDetails());
+        holder.Details.setText(context.getResources().getString(R.string.Details) + ": " +request.getDetails());
         holder.TextInputLayoutAnswer.setHelperText("");
         holder.RequestApproved.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +130,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
         });
     }
     private void Other(@NonNull RequestsAdapter.ViewHolder holder, Request request){
-        holder.Details.setText(request.getDetails());
+        holder.Details.setText(context.getResources().getString(R.string.Details) + ": " +request.getDetails());
         holder.TextInputLayoutAnswer.setHelperText("");
         holder.RequestApproved.setOnClickListener(new View.OnClickListener() {
             @Override

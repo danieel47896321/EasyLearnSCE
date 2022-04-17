@@ -106,6 +106,8 @@
     <!-- GenericCourse Page -->
     <string name="Remove" translatable="true">Remove</string>
     <string name="Add" translatable="true">Add</string>
+    <string name="AddLecture" translatable="true">Add Lecture</string>
+    <string name="Add Exercise" translatable="true">Add Exercise</string>
     <string name="EditTopics" translatable="true">Edit Topics</string>
     <string name="Edit" translatable="true">Edit</string>
     <string name="LinkToVideo" translatable="true">Link To Video</string>
@@ -149,7 +151,6 @@
     <string name="Details" translatable="true">Details</string>
     <string name="RequestDenied" translatable="true">The request was denied</string>
     <string name="RequestApproved" translatable="true">The request was approved</string>
-    <string name="RequestAlreadyExists" translatable="true">The request already exists in the system, please wait for a reply</string>
     <!-- AllRequests Page -->
     <string name="AllRequests" translatable="true">All Requests</string>
     <string name="Approved" translatable="true">Approved</string>
@@ -237,6 +238,7 @@
         <item>@string/Other</item>
     </string-array>
     <string-array name="Year">
+        <item>@string/PreEngineering</item>
         <item>@string/FirstYear</item>
         <item>@string/SecondYear</item>
         <item>@string/ThirdYear</item>
@@ -276,6 +278,4 @@
         <item>@string/ReportProblem</item>
         <item>@string/Other</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -47,17 +47,45 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
             holder.Status.setTextColor(context.getResources().getColor(R.color.red));
         else
             holder.Status.setTextColor(context.getResources().getColor(R.color.white));
-        holder.Status.setText(context.getResources().getString(R.string.Status) + ": " + request.getStatus());
+        holder.Status.setText(context.getResources().getString(R.string.Status) + ": " + getStatus(request.getStatus()));
     }
     @Override
     public void onBindViewHolder(@NonNull AllRequestsAdapter.ViewHolder holder, int position) {
         Request request = requests.get(position);
-        holder.Request.setText(context.getResources().getString(R.string.Request) +": " + request.getRequest());
+        holder.Request.setText(context.getResources().getString(R.string.Request) +": " + getRequest(request.getRequest()));
         holder.FullName.setText(context.getResources().getString(R.string.FullName) +": " + request.getFirstName() + " " + request.getLastName());
         holder.Email.setText(context.getResources().getString(R.string.Email) +": " + request.getEmail());
-        holder.UserType.setText(context.getResources().getString(R.string.UserType) +": " + request.getType());
+        holder.UserType.setText(context.getResources().getString(R.string.UserType) +": " + getUserType(request.getType()));
         DetailsAndAnswer(holder, request);
         StatusColor(holder, request);
+    }
+    public String getRequest(String request){
+        if(request.equals("Get Teacher Permission") || request.equals("קבלת הרשאות מרצה"))
+            return context.getResources().getString(R.string.TeacherPermission);
+        else if(request.equals("Report Problem") || request.equals("דיווח על תקלה"))
+            return context.getResources().getString(R.string.ReportProblem);
+        else
+            return context.getResources().getString(R.string.Other);
+    }
+    public String getUserType(String type){
+        if(type.equals("Teacher") || type.equals("מרצה"))
+            return context.getResources().getString(R.string.Teacher);
+        else
+            return context.getResources().getString(R.string.Student);
+    }
+    public String getStatus(String status){
+        if(status.equals("Approved") || status.equals("הבקשה אושרה"))
+            return context.getResources().getString(R.string.Approved);
+        else if(status.equals("Fixed") || status.equals("תוקן"))
+            return context.getResources().getString(R.string.Fixed);
+        else if(status.equals("Denied") || status.equals("הבקשה נדחתה"))
+            return context.getResources().getString(R.string.Denied);
+        else if(status.equals("Not Fixed") || status.equals("לא תוקן"))
+            return context.getResources().getString(R.string.NotFixed);
+        else if(status.equals("Pending Approval") || status.equals("ממתין לתשובה"))
+            return context.getResources().getString(R.string.PendingApproval);
+        else
+            return context.getResources().getString(R.string.NotFixed);
     }
     @Override
     public int getItemCount() { return requests.size(); }
