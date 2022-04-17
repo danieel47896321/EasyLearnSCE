@@ -106,6 +106,7 @@
     <string name="CourseSuccessfullyRemoved" translatable="true">הקורס הוסר בהצלחה.</string>
     <!-- GenericCourse Page -->
     <string name="Remove" translatable="true">הסרה</string>
+    <string name="Add" translatable="true">הוספה</string>
     <string name="Edit" translatable="true">עריכה</string>
     <string name="LinkToVideo" translatable="true">קישור לסרטון</string>
     <string name="AddVideo" translatable="true">הוסף הקלטה</string>
@@ -125,7 +126,13 @@
     <string name="RemoveExercise" translatable="true">הסר תרגול</string>
     <string name="Save" translatable="true">שמור</string>
     <!-- GenericYouTubePlayer Page -->
+    <string name="TimePicker" translatable="true">בחירת זמן</string>
+    <string name="TimeRequired" translatable="true">חובה למלא שעה, דקות ושניות.</string>
+    <string name="Hours" translatable="true">שעות</string>
+    <string name="Minutes" translatable="true">דקות</string>
+    <string name="Seconds" translatable="true">שניות</string>
     <string name="AddTopic" translatable="true">הוסף נושא</string>
+    <string name="EditTopics" translatable="true">עריכת נושאים</string>
     <string name="Topic" translatable="true">נושא</string>
     <string name="StartTime" translatable="true">זמן התחלה</string>
     <string name="EndTime" translatable="true">זמן סיום</string>

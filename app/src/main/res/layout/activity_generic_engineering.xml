@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:clickable="true"
     tools:context=".Client.User.GenericEngineering">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,6 +27,8 @@
             android:hint="@string/Search"
             android:paddingStart="15dp"
             android:paddingLeft="15dp"
+            android:paddingEnd="15dp"
+            android:paddingRight="15dp"
             app:layout_constraintEnd_toStartOf="@+id/addCourse"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header" />
@@ -43,7 +44,8 @@
             android:src="@drawable/add"
             app:layout_constraintBottom_toBottomOf="@+id/removeCourse"
             app:layout_constraintEnd_toStartOf="@+id/removeCourse"
-            app:layout_constraintTop_toTopOf="@+id/removeCourse" />
+            app:layout_constraintTop_toTopOf="@+id/removeCourse"
+            android:focusable="true" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/removeCourse"
@@ -56,7 +58,8 @@
             android:src="@drawable/remove"
             app:layout_constraintBottom_toBottomOf="@+id/User_search"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/User_search" />
+            app:layout_constraintTop_toTopOf="@+id/User_search"
+            android:focusable="true" />
 
         <LinearLayout
             android:id="@+id/LayoutTags"

@@ -6,19 +6,19 @@ import java.util.ArrayList;
 public class Lecture implements Serializable {
     private String LectureName;
     private String Url;
-    private ArrayList<LectureTopic> lectureTopics;
-    private Lecture(){lectureTopics = new ArrayList<>();}
+    private ArrayList<Topic> Topics;
+    private Lecture(){ Topics = new ArrayList<>();}
     public Lecture(String lectureName, String url) {
-        lectureTopics = new ArrayList<>();
+        Topics = new ArrayList<>();
         LectureName = lectureName;
         Url = url;
     }
-    public void AddTopic(LectureTopic lectureTopic){ lectureTopics.add(lectureTopic); }
-    public ArrayList<LectureTopic> getLectureTopics() {
-        return lectureTopics;
+    public void AddTopic(Topic lectureTopic){ Topics.add(lectureTopic); }
+    public ArrayList<Topic> getTopics() {
+        return Topics;
     }
-    public void setLectureTopics(ArrayList<LectureTopic> lectureTopics) {
-        this.lectureTopics = lectureTopics;
+    public void setTopics(ArrayList<Topic> topics) {
+        this.Topics = topics;
     }
     public String getLectureName() {
         return LectureName;

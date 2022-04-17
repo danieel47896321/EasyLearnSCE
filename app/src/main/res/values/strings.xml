@@ -105,6 +105,8 @@
     <string name="CourseSuccessfullyRemoved" translatable="true">The course was successfully removed.</string>
     <!-- GenericCourse Page -->
     <string name="Remove" translatable="true">Remove</string>
+    <string name="Add" translatable="true">Add</string>
+    <string name="EditTopics" translatable="true">Edit Topics</string>
     <string name="Edit" translatable="true">Edit</string>
     <string name="LinkToVideo" translatable="true">Link To Video</string>
     <string name="AddVideo" translatable="true">Add Video</string>
@@ -124,6 +126,11 @@
     <string name="RemoveExercise" translatable="true">Remove Exercise</string>
     <string name="Save" translatable="true">Save</string>
     <!-- GenericYouTubePlayer Page -->
+    <string name="TimePicker" translatable="true">TimePicker</string>
+    <string name="TimeRequired" translatable="true">Time Required to fill Hours, Minutes and seconds.</string>
+    <string name="Hours" translatable="true">Hours</string>
+    <string name="Minutes" translatable="true">Minutes</string>
+    <string name="Seconds" translatable="true">Seconds</string>
     <string name="AddTopic" translatable="true">Add Topic</string>
     <string name="Topic" translatable="true">Topic</string>
     <string name="StartTime" translatable="true">Start Time</string>
@@ -269,4 +276,6 @@
         <item>@string/ReportProblem</item>
         <item>@string/Other</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

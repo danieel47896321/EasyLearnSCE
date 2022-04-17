@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,11 +27,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.easylearnsce.Client.Adapters.GenericEngineeringAdapter;
 import com.example.easylearnsce.Client.Adapters.LecturesFragmentAdapter;
+import com.example.easylearnsce.Client.Class.Course;
 import com.example.easylearnsce.Client.Class.Lecture;
-import com.example.easylearnsce.Client.Class.LectureTopic;
 import com.example.easylearnsce.Client.Class.PopUpMSG;
 import com.example.easylearnsce.Client.Class.User;
+import com.example.easylearnsce.Client.User.GenericEngineering;
 import com.example.easylearnsce.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -48,26 +51,29 @@ public class LecturesFragment extends Fragment {
     private Dialog dialog;
     private TextInputLayout TextInputLayoutLinkToVideo;
     private ListView ListViewSearch;
-    private EditText EditTextSearch;
-    private TextView TextViewSearch;
+    private EditText EditTextSearch, User_search;
+    private TextView TextViewSearch ;
     private String CourseID;
     private ImageView addLecture, removeLecture;
     private int LectureNumber = 0;
-    private User user;
+    private User user = new User();
     private View view;
+    private ArrayList<Lecture> lectures;
+    public LecturesFragment() { }
     public void setUser(User user){
         this.user = user;
     }
     public void setCourseID(String CourseID){
         this.CourseID = CourseID;
     }
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_lectures, container, false);
+        lectures = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         addLecture = view.findViewById(R.id.addLecture);
+        User_search = view.findViewById(R.id.User_search);
         removeLecture = view.findViewById(R.id.removeLecture);
         if(user.getType().equals("Admin") || user.getType().equals("אדמין") || user.getType().equals("Teacher") || user.getType().equals("מרצה") ){
             addLecture.setVisibility(View.VISIBLE);
@@ -76,6 +82,7 @@ public class LecturesFragment extends Fragment {
             RemoveLecture();
         }
         setLectures();
+        LectureSearch();
         return view;
     }
     private void AddLecture(){
@@ -247,21 +254,53 @@ public class LecturesFragment extends Fragment {
             return "Pre Engineering";
         return "Other";
     }
-    private void setLectures(){
-        ArrayList<Lecture> lectures = new ArrayList<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Lectures").child(getEngineeringName()).child(CourseID);
-        reference.addValueEventListener(new ValueEventListener() {
+    private void LectureSearch(){
+        User_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { UserSearch(s.toString()); }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+    }
+    private void UserSearch(String text) {
+        FirebaseDatabase database2 = FirebaseDatabase.getInstance();
+        DatabaseReference reference2 = database2.getReference("Lectures").child(getEngineeringName()).child(CourseID);
+        reference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 lectures.clear();
                 LectureNumber = 0;
-                for(DataSnapshot data : snapshot.getChildren()) {
-                    Lecture  lecture = data.getValue(Lecture.class);
-                    lectures.add(lecture);
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    Lecture lecture = data.getValue(Lecture.class);
+                    if(lecture.getLectureName().toLowerCase().contains(text.toLowerCase()))
+                        lectures.add(lecture);
                     LectureNumber++;
                 }
-                LecturesFragmentAdapter lecturesFragmentAdapter= new LecturesFragmentAdapter(getContext(), lectures,user,CourseID);
-                recyclerView.setAdapter(lecturesFragmentAdapter);
+                LecturesFragmentAdapter lecturesFragmentAdapter = new LecturesFragmentAdapter(getContext(), lectures, user, CourseID);
+                recyclerView.setAdapter(lecturesFragmentAdapter);        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
+    private void setLectures(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("Lectures").child(getEngineeringName()).child(CourseID);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(User_search.getText().toString().equals("")) {
+                    lectures.clear();
+                    LectureNumber = 0;
+                    for (DataSnapshot data : snapshot.getChildren()) {
+                        Lecture lecture = data.getValue(Lecture.class);
+                        lectures.add(lecture);
+                        LectureNumber++;
+                    }
+                    LecturesFragmentAdapter lecturesFragmentAdapter = new LecturesFragmentAdapter(getContext(), lectures, user, CourseID);
+                    recyclerView.setAdapter(lecturesFragmentAdapter);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }

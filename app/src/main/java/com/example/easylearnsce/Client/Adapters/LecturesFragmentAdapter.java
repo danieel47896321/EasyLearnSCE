@@ -59,6 +59,7 @@ public class LecturesFragmentAdapter extends RecyclerView.Adapter<LecturesFragme
                 intent.putExtra("Video", Select.get(position).getUrl());
                 intent.putExtra("CourseID", CourseID);
                 intent.putExtra("Lecture", Select.get(position));
+                intent.putExtra("LectureNumber",(position+1)+"");
                 context.startActivity(intent);
                 ((Activity) context).finish();
             }

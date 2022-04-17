@@ -48,13 +48,16 @@ public class ExercisesFragment extends Fragment {
     private Button ButtonRemoveCourse, ButtonCancel, ButtonAddVideo;
     private Dialog dialog;
     private ListView ListViewSearch;
-    private EditText EditTextSearch;
+    private EditText EditTextSearch, User_search;
     private TextView TextViewSearch;
     private Loading loading;
     private String CourseID;
     private int ExercisesNumber = 0;
     private User user;
     private View view;
+    private ArrayList<Lecture> lectures;
+    public ExercisesFragment() {
+    }
     public void setUser(User user){
         this.user = user;
     }
@@ -64,10 +67,12 @@ public class ExercisesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_exercises, container, false);
+        lectures = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         addLecture = view.findViewById(R.id.addLecture);
+        User_search = view.findViewById(R.id.User_search);
         removeLecture = view.findViewById(R.id.removeLecture);
         if(user.getType().equals("Admin") || user.getType().equals("אדמין") || user.getType().equals("Teacher") || user.getType().equals("מרצה") ){
             addLecture.setVisibility(View.VISIBLE);
@@ -76,6 +81,7 @@ public class ExercisesFragment extends Fragment {
             RemoveLecture();
         }
         setLectures();
+        LectureSearch();
         return view;
     }
     private void AddLecture(){
@@ -249,21 +255,53 @@ public class ExercisesFragment extends Fragment {
             return "Pre Engineering";
         return "Other";
     }
-    private void setLectures(){
-        ArrayList<Lecture> lectures = new ArrayList<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Exercises").child(getEngineeringName()).child(CourseID);
-        reference.addValueEventListener(new ValueEventListener() {
+    private void LectureSearch(){
+        User_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { UserSearch(s.toString()); }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+    }
+    private void UserSearch(String text) {
+        FirebaseDatabase database2 = FirebaseDatabase.getInstance();
+        DatabaseReference reference2 = database2.getReference("Exercises").child(getEngineeringName()).child(CourseID);
+        reference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 lectures.clear();
                 ExercisesNumber = 0;
-                for(DataSnapshot data : snapshot.getChildren()) {
-                    Lecture  lecture = data.getValue(Lecture.class);
-                    lectures.add(lecture);
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    Lecture lecture = data.getValue(Lecture.class);
+                    if(lecture.getLectureName().toLowerCase().contains(text.toLowerCase()))
+                        lectures.add(lecture);
                     ExercisesNumber++;
                 }
-                LecturesFragmentAdapter lecturesFragmentAdapter= new LecturesFragmentAdapter(getContext(), lectures,user,CourseID);
-                recyclerView.setAdapter(lecturesFragmentAdapter);
+                LecturesFragmentAdapter lecturesFragmentAdapter = new LecturesFragmentAdapter(getContext(), lectures, user, CourseID);
+                recyclerView.setAdapter(lecturesFragmentAdapter);        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
+    private void setLectures(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("Exercises").child(getEngineeringName()).child(CourseID);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(User_search.getText().toString().equals("")) {
+                    lectures.clear();
+                    ExercisesNumber = 0;
+                    for (DataSnapshot data : snapshot.getChildren()) {
+                        Lecture lecture = data.getValue(Lecture.class);
+                        lectures.add(lecture);
+                        ExercisesNumber++;
+                    }
+                    LecturesFragmentAdapter lecturesFragmentAdapter = new LecturesFragmentAdapter(getContext(), lectures, user, CourseID);
+                    recyclerView.setAdapter(lecturesFragmentAdapter);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }

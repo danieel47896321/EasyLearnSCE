@@ -42,7 +42,7 @@
             style="@style/Custom_Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/AddVideo"
+            android:text="@string/Add"
             app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutLinkToVideo"
             app:layout_constraintStart_toStartOf="@+id/TextInputLayoutLinkToVideo"
             app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutLinkToVideo" />

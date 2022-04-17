@@ -17,76 +17,134 @@ tools:context=".Client.User.YouTubePlayer">
         android:id="@+id/header"
         layout="@layout/header" />
 
-    <com.google.android.youtube.player.YouTubePlayerView
-        android:id="@+id/youTubePlayerView"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header" />
-
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:scrollbarSize="2dp"
-        app:layout_constraintEnd_toEndOf="@+id/youTubePlayerView"
-        app:layout_constraintStart_toStartOf="@+id/youTubePlayerView"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:tabIndicatorColor="@color/white"
-        app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="@color/white"></com.google.android.material.tabs.TabLayout>
-
-
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/header">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/youTubePlayerView">
-
-        <TextView
-            android:id="@+id/AddTopic"
-            style="@style/Custom_TextView_Normal"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/add"
-            android:padding="5dp"
-            android:text="@string/AddTopic"
-            tools:layout_editor_absoluteX="75dp"
-            tools:layout_editor_absoluteY="358dp"
-            android:drawableLeft="@drawable/add" />
+            android:gravity="top"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/EditURL"
-            style="@style/Custom_TextView_Normal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginLeft="30dp"
-            android:drawableStart="@drawable/engineering"
-            android:padding="5dp"
-            android:text="@string/EditUrl"
-            tools:layout_editor_absoluteX="292dp"
-            tools:layout_editor_absoluteY="358dp"
-            android:drawableLeft="@drawable/engineering" />
+            <com.google.android.youtube.player.YouTubePlayerView
+                android:id="@+id/youTubePlayerView"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/header" />
 
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/youTubePlayerView">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/EditTopics"
+                    style="@style/Custom_TextView_Normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/add"
+                    android:padding="5dp"
+                    android:text="@string/EditTopics"
+                    tools:layout_editor_absoluteX="75dp"
+                    tools:layout_editor_absoluteY="358dp"
+                    android:drawableLeft="@drawable/add" />
+
+                <TextView
+                    android:id="@+id/EditURL"
+                    style="@style/Custom_TextView_Normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:drawableStart="@drawable/engineering"
+                    android:padding="5dp"
+                    android:text="@string/EditUrl"
+                    tools:layout_editor_absoluteX="292dp"
+                    tools:layout_editor_absoluteY="358dp"
+                    android:drawableLeft="@drawable/engineering" />
+
+            </LinearLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:scrollbarSize="2dp"
+                app:layout_constraintEnd_toEndOf="@+id/youTubePlayerView"
+                app:layout_constraintStart_toStartOf="@+id/youTubePlayerView"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:tabIndicatorColor="@color/white"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextColor="@color/white"></com.google.android.material.tabs.TabLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/SendBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/white"
+                android:padding="5dp">
+
+                <ImageButton
+                    android:id="@+id/ButtonSend"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:backgroundTint="@color/sky"
+                    android:src="@drawable/send"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/TextSend"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:textAlignment="viewStart"
+                    android:gravity="start"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/TypeaMessage"
+                    app:layout_constraintBottom_toBottomOf="@+id/ButtonSend"
+                    app:layout_constraintEnd_toStartOf="@+id/ButtonSend"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ButtonSend" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutMessage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/SendBar"
+                android:layout_below="@+id/header"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewChat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
