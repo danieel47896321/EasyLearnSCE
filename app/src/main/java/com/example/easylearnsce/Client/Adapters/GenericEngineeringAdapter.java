@@ -83,6 +83,7 @@ public class GenericEngineeringAdapter extends RecyclerView.Adapter<GenericEngin
                 holder.course_card_view.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
                 Intent intent;
                 intent = new Intent(context, GenericCourse.class);
+                User.setCourseID(course.getId());
                 intent.putExtra("Course", course.getCourseName());
                 intent.putExtra("CourseID", course.getId());
                 intent.putExtra("user", User);

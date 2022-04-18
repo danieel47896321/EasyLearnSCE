@@ -28,7 +28,7 @@ public class UserMenuInfo {
         TextView UserFullName = UserNavigationView.getHeaderView(0).findViewById(R.id.UserFullName);
         TextView UserEmail = UserNavigationView.getHeaderView(0).findViewById(R.id.UserEmail);
         TextView UserType = UserNavigationView.getHeaderView(0).findViewById(R.id.UserType);
-        UserType.setText(user.getType());
+        UserType.setText(getUserType(user.getType(),context));
         UserFullName.setText(user.getFirstName()+" "+user.getLastName());
         UserEmail.setText(user.getEmail());
         if(!user.getImage().equals("Image")){
@@ -40,5 +40,13 @@ public class UserMenuInfo {
                 public void onLoadCleared(@Nullable Drawable placeholder) { }
             });
         }
+    }
+    private String getUserType(String type, Context context){
+        if(type.equals("Admin") || type.equals("אדמין"))
+            return context.getResources().getString(R.string.Admin);
+        else if(type.equals("Teacher") || type.equals("מרצה"))
+            return context.getResources().getString(R.string.Teacher);
+        else
+            return context.getResources().getString(R.string.Student);
     }
 }

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.easylearnsce.Client.Class.Lecture;
 import com.example.easylearnsce.Client.Class.User;
 import com.example.easylearnsce.R;
-import com.example.easylearnsce.Client.User.YouTubePlayer;
+import com.example.easylearnsce.Client.User.GenericYouTubePlayer;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
@@ -49,17 +49,21 @@ public class LecturesFragmentAdapter extends RecyclerView.Adapter<LecturesFragme
         return new LecturesFragmentAdapter.MyViewHolder(view);
     }
     public void onBindViewHolder(@NonNull LecturesFragmentAdapter.MyViewHolder holder, int position) {
-        holder.LectureName.setText(Select.get(position).getLectureName());
+        String LectureName = "";
+        if(Select.get(position).getLectureName().equals("Lecture") ||  Select.get(position).getLectureName().equals("Lecture"))
+            LectureName = context.getResources().getString(R.string.Lecture) + " " + Select.get(position).getNumber();
+        else
+            LectureName = context.getResources().getString(R.string.Exercise) + " " + Select.get(position).getNumber();
+        holder.LectureName.setText(LectureName);
         holder.LectureName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user.setLecture(Select.get(position).getLectureName());
-                intent = new Intent(context, YouTubePlayer.class);
+                user.setLecture(Select.get(position).getLectureName() + " " + Select.get(position).getNumber());
+                intent = new Intent(context, GenericYouTubePlayer.class);
                 intent.putExtra("user", user);
                 intent.putExtra("Video", Select.get(position).getUrl());
                 intent.putExtra("CourseID", CourseID);
                 intent.putExtra("Lecture", Select.get(position));
-                intent.putExtra("LectureNumber",(position+1)+"");
                 context.startActivity(intent);
                 ((Activity) context).finish();
             }

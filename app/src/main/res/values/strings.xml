@@ -106,23 +106,21 @@
     <!-- GenericCourse Page -->
     <string name="Remove" translatable="true">Remove</string>
     <string name="Add" translatable="true">Add</string>
-    <string name="AddLecture" translatable="true">Add Lecture</string>
-    <string name="Add Exercise" translatable="true">Add Exercise</string>
     <string name="EditTopics" translatable="true">Edit Topics</string>
     <string name="Edit" translatable="true">Edit</string>
     <string name="LinkToVideo" translatable="true">Link To Video</string>
     <string name="AddVideo" translatable="true">Add Video</string>
     <string name="EditCourse" translatable="true">Edit Course</string>
-    <string name="EditSaved" translatable="true">The changes have been saved successfully</string>
+    <string name="EditSaved" translatable="true">The changes have been saved successfully.</string>
     <string name="Lectures" translatable="true">Lectures</string>
     <string name="Exercises" translatable="true">Exercises</string>
     <string name="Lecture" translatable="true">Lecture</string>
     <string name="SelectLecture" translatable="true">Select Lecture</string>
-    <string name="LectureSuccessfullyAdded" translatable="true">The Lecture was successfully added</string>
-    <string name="LectureSuccessfullyRemoved" translatable="true">The Lecture was successfully removed</string>
+    <string name="LectureSuccessfullyAdded" translatable="true">The Lecture was successfully added.</string>
+    <string name="LectureSuccessfullyRemoved" translatable="true">The Lecture was successfully removed.</string>
     <string name="SelectExercise" translatable="true">Select Exercise</string>
-    <string name="ExerciseSuccessfullyAdded" translatable="true">The Exercise was successfully added</string>
-    <string name="ExerciseSuccessfullyRemoved" translatable="true">The Exercise was successfully removed</string>
+    <string name="ExerciseSuccessfullyAdded" translatable="true">The Exercise was successfully added.</string>
+    <string name="ExerciseSuccessfullyRemoved" translatable="true">The Exercise was successfully removed.</string>
     <string name="RemoveLecture" translatable="true">Remove Lecture</string>
     <string name="Exercise" translatable="true">Exercise</string>
     <string name="RemoveExercise" translatable="true">Remove Exercise</string>
@@ -147,7 +145,7 @@
     <string name="SendRequest" translatable="true">Send Request</string>
     <string name="SelectRequest" translatable="true">Select Request</string>
     <string name="TeacherPermission" translatable="true">Get Teacher Permission</string>
-    <string name="RequestSentSuccessfully" translatable="true">The request was sent successfully</string>
+    <string name="RequestSentSuccessfully" translatable="true">The request was sent successfully.</string>
     <string name="Details" translatable="true">Details</string>
     <string name="RequestDenied" translatable="true">The request was denied</string>
     <string name="RequestApproved" translatable="true">The request was approved</string>

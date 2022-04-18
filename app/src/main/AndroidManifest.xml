@@ -21,8 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyLearnSCE"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Client.User.YouTubePlayer" />
-        <activity android:name=".Client.Fragments.GenericYouTubePlayer" />
+        <activity android:name=".Client.User.GenericYouTubePlayer" />
         <activity android:name=".Client.User.AllRequests" />
         <activity android:name=".Client.User.Requests" />
         <activity android:name=".Client.User.Message" />

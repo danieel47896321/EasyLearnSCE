@@ -18,6 +18,7 @@ public class User implements Serializable {
     private String City = "באר שבע";
     private String Engineering = "null";
     private String Course = "null";
+    private String CourseID;
     private String Lecture = "null";
     public User(String FirstName, String LastName, String Email) {
         this.FirstName = FirstName;
@@ -43,7 +44,12 @@ public class User implements Serializable {
         this.Course = user.getCourse();
         this.Lecture = user.getLecture();
     }
-    //getters
+    public String getCourseID() {
+        return CourseID;
+    }
+    public void setCourseID(String courseID) {
+        CourseID = courseID;
+    }
     public String getEmail() { return Email; }
     public String getFirstName() { return FirstName; }
     public String getLastName() { return LastName; }
@@ -60,7 +66,6 @@ public class User implements Serializable {
     public String getMonth() { return Month; }
     public String getYear() { return Year; }
     public String getBirthDay() { return BirthDay; }
-    //setters
     public void setBirthDay(String birthDay) { BirthDay = birthDay; }
     public void setYear(String year) { Year = year; }
     public void setMonth(String month) { Month = month; }

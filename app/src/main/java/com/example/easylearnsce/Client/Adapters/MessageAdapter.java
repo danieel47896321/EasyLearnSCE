@@ -47,6 +47,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         else {
             if(!imageUrl.equals("Image"))
                 Glide.with(context).load(imageUrl).into(holder.sender_image);
+            else
+                holder.sender_image.setImageResource(R.drawable.openingscreen);
         }
     }
     @Override

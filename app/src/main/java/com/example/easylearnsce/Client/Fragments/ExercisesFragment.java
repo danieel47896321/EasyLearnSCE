@@ -117,7 +117,7 @@ public class ExercisesFragment extends Fragment {
                 if(!(TextInputLayoutLinkToVideo.getEditText().getText().toString().equals(""))){
                     alertDialog.cancel();
                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Exercises").child(getEngineeringName()).child(CourseID).child((ExercisesNumber + 1)+"");
-                    reference.setValue( new Lecture("תרגול " + (ExercisesNumber+1),TextInputLayoutLinkToVideo.getEditText().getText().toString()));
+                    reference.setValue( new Lecture("Exercise",TextInputLayoutLinkToVideo.getEditText().getText().toString(),(ExercisesNumber + 1)+""));
                 }
             }
         });
@@ -166,7 +166,7 @@ public class ExercisesFragment extends Fragment {
                             loading = new Loading(getContext());
                             for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                                 Lecture lecture = dataSnapshot.getValue(Lecture.class);
-                                if(TextInputLayoutExercise.getEditText().getText().toString().equals(lecture.getLectureName())){
+                                if(TextInputLayoutExercise.getEditText().getText().toString().equals(getResources().getString(R.string.Exercise) + " " +lecture.getNumber())){
                                     DatabaseReference reference1 = database.getReference().child("Exercises").child(getEngineeringName()).child(CourseID).child(dataSnapshot.getKey());
                                     reference1.setValue(null);
                                     new PopUpMSG(getContext(), getResources().getString(R.string.RemoveExercise), getResources().getString(R.string.ExerciseSuccessfullyRemoved));
@@ -198,7 +198,7 @@ public class ExercisesFragment extends Fragment {
                     public void onClick(View view) {
                         String lectures[] = new String[lectureArrayList.size()];
                         for(int i=0; i<lectureArrayList.size();i++)
-                            lectures[i] = lectureArrayList.get(i).getLectureName();
+                            lectures[i] = getResources().getString(R.string.Exercise) + " " +lectureArrayList.get(i).getNumber();
                         setDialog(lectures,getResources().getString(R.string.SelectExercise), TextInputLayoutExercise.getEditText());
                     }
                 });
@@ -294,11 +294,15 @@ public class ExercisesFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(User_search.getText().toString().equals("")) {
                     lectures.clear();
+                    int index = 1;
                     ExercisesNumber = 0;
                     for (DataSnapshot data : snapshot.getChildren()) {
                         Lecture lecture = data.getValue(Lecture.class);
                         lectures.add(lecture);
-                        ExercisesNumber++;
+                        if(("Exercise " + lecture.getNumber()).equals("Exercise " + index)) {
+                            ExercisesNumber++;
+                            index++;
+                        }
                     }
                     LecturesFragmentAdapter lecturesFragmentAdapter = new LecturesFragmentAdapter(getContext(), lectures, user, CourseID);
                     recyclerView.setAdapter(lecturesFragmentAdapter);

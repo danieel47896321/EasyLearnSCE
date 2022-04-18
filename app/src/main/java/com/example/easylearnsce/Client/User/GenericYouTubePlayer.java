@@ -5,7 +5,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -21,9 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.easylearnsce.Client.Adapters.HomeAdapter;
 import com.example.easylearnsce.Client.Adapters.TopicsAdapter;
 import com.example.easylearnsce.Client.Adapters.YouTubeTopicChatAdapter;
 import com.example.easylearnsce.Client.Class.Lecture;
@@ -38,6 +35,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,9 +44,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class YouTubePlayer extends YouTubeBaseActivity {
+public class GenericYouTubePlayer extends YouTubeBaseActivity {
     private User user = new User();
     private TextView Title, EditTopics, EditURL, StartTime, EndTime;
     private EditText TextSend, LectureTopic, Seconds, Hours, Minutes;
@@ -72,7 +69,7 @@ public class YouTubePlayer extends YouTubeBaseActivity {
     private TabLayout tabLayout;
     private ArrayList<Topic> topics;
     private LinearLayout linearLayout;
-    private com.google.android.youtube.player.YouTubePlayer.OnInitializedListener onInitializedListener;
+    private YouTubePlayer.OnInitializedListener onInitializedListener;
     private Lecture lecture;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,11 +94,11 @@ public class YouTubePlayer extends YouTubeBaseActivity {
         CourseID = (String)intent.getSerializableExtra("CourseID");
         lecture = (Lecture) intent.getSerializableExtra("Lecture");
         int index = lecture.getLectureName().indexOf(' ');
-        if(lecture.getLectureName().substring(0,index).equals("הרצאה"))
+        if(lecture.getLectureName().equals("Lecture"))
             Type = "Lectures";
         else
             Type = "Exercises";
-        LectureNumber = (String) intent.getSerializableExtra("LectureNumber");
+        LectureNumber = lecture.getNumber();
         TextSend = findViewById(R.id.TextSend);
         recyclerViewChat = findViewById(R.id.recyclerViewChat);
         ButtonSend = findViewById(R.id.ButtonSend);
@@ -115,7 +112,7 @@ public class YouTubePlayer extends YouTubeBaseActivity {
         Title.setText(user.getEngineering()+"\n"+user.getCourse()+"\n"+user.getLecture());
         navigationView = findViewById(R.id.navigationView);
         drawerLayout = findViewById(R.id.drawerLayout);
-        new UserMenuInfo(user,YouTubePlayer.this);
+        new UserMenuInfo(user, GenericYouTubePlayer.this);
         tabLayout = findViewById(R.id.tabLayout);
         if(user.getType().equals("Admin") || user.getType().equals("אדמין") || user.getType().equals("מרצה") || user.getType().equals("Teacher") )
             setAddAndEdit();
@@ -196,20 +193,20 @@ public class YouTubePlayer extends YouTubeBaseActivity {
                 if(!(TextInputLayoutLinkToVideo.getEditText().getText().toString().equals(""))){
                     alertDialog.cancel();
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                    DatabaseReference mUserRef = firebaseDatabase.getReference().child("Lectures").child(getEngineeringName()).child(CourseID);
+                    DatabaseReference mUserRef = firebaseDatabase.getReference().child(Type).child(getEngineeringName()).child(CourseID);
                     mUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            int counter = 1, index = 1;
+                            int counter = 1, index = 1 ;
                             for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                                 Lecture lecture2 = dataSnapshot.getValue(Lecture.class);
-                                if(lecture2.getLectureName().toString().equals(lecture.getLectureName().toString()))
+                                if((lecture2.getLectureName() + " " + lecture2.getNumber()).equals(lecture.getLectureName() + " " + lecture.getNumber()))
                                     index = counter;
                                 counter++;
                             }
                             Video = TextInputLayoutLinkToVideo.getEditText().getText().toString();
                             mYouTubePlayer.cueVideo(Video);
-                            DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Lectures").child(getEngineeringName()).child(CourseID).child(index+"").child("url");
+                            DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference(Type).child(getEngineeringName()).child(CourseID).child(index+"").child("url");
                             reference1.setValue(Video);
                         }
                         @Override
@@ -362,7 +359,12 @@ public class YouTubePlayer extends YouTubeBaseActivity {
         item.setVisible(true);
         item1.setTitle(user.getEngineering());
         item1.setVisible(true);
-        item2.setTitle(user.getLecture());
+        String lectureName = "Lecture";
+        if(lecture.getLectureName().equals("Lecture"))
+            lectureName = getResources().getString(R.string.Lecture);
+        else
+            lectureName = getResources().getString(R.string.Exercise);
+        item2.setTitle(lectureName + " " + lecture.getNumber());
         item2.setVisible(true);
         item2.setCheckable(false);
         item2.setChecked(true);
@@ -413,7 +415,7 @@ public class YouTubePlayer extends YouTubeBaseActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                new UserNavigationView(YouTubePlayer.this, item.getItemId(), user);
+                new UserNavigationView(GenericYouTubePlayer.this, item.getItemId(), user);
                 return false;
             }
         });
@@ -427,7 +429,7 @@ public class YouTubePlayer extends YouTubeBaseActivity {
     @Override
     public void onBackPressed() { StartActivity(GenericCourse.class); }
     private void StartActivity(Class Destination){
-        intent = new Intent(YouTubePlayer.this, Destination);
+        intent = new Intent(GenericYouTubePlayer.this, Destination);
         intent.putExtra("user", user);
         intent.putExtra("Course", user.getCourse());
         intent.putExtra("CourseID", CourseID);

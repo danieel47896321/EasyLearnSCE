@@ -6,12 +6,22 @@ import java.util.ArrayList;
 public class Lecture implements Serializable {
     private String LectureName;
     private String Url;
+    private String Number;
     private ArrayList<Topic> Topics;
-    private Lecture(){ Topics = new ArrayList<>();}
-    public Lecture(String lectureName, String url) {
+    private Lecture(){
+        Topics = new ArrayList<>();
+    }
+    public Lecture(String lectureName, String url, String number) {
         Topics = new ArrayList<>();
         LectureName = lectureName;
         Url = url;
+        Number = number;
+    }
+    public String getNumber() {
+        return Number;
+    }
+    public void setNumber(String number) {
+        Number = number;
     }
     public void AddTopic(Topic lectureTopic){ Topics.add(lectureTopic); }
     public ArrayList<Topic> getTopics() {

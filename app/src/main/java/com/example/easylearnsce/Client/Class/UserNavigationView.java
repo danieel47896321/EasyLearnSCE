@@ -8,6 +8,7 @@ import android.content.Intent;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.easylearnsce.Client.Guest.EasyLearnSCE;
+import com.example.easylearnsce.Client.User.GenericCourse;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.Client.User.GenericEngineering;
 import com.example.easylearnsce.Client.User.AllRequests;
@@ -32,6 +33,14 @@ public class UserNavigationView {
             StartActivity(context, SelectEngineering.class, user);
         else if(id == R.id.ItemEngineering)
             EngineeringStartActivity(context, GenericEngineering.class, user);
+        else if(id == R.id.ItemCourse) {
+            intent = new Intent(context, GenericCourse.class);
+            intent.putExtra("user", user);
+            intent.putExtra("Course", user.getCourse());
+            intent.putExtra("CourseID", user.getCourseID());
+            context.startActivity(intent);
+            ((Activity)context).finish();
+        }
         else if(id == R.id.ItemEasyLearnChat)
             StartActivity(context, EasyLearnChat.class, user);
         else if(id == R.id.ItemRequests)
