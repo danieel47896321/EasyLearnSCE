@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/grey"
     tools:context=".Client.User.GenericEngineering">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,37 +29,58 @@
             android:paddingLeft="15dp"
             android:paddingEnd="15dp"
             android:paddingRight="15dp"
-            app:layout_constraintEnd_toStartOf="@+id/addCourse"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/addCourse"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/floatingActionButtonAdd"
+            android:layout_width="208dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
-            android:visibility="gone"
-            android:src="@drawable/add"
-            app:layout_constraintBottom_toBottomOf="@+id/removeCourse"
-            app:layout_constraintEnd_toStartOf="@+id/removeCourse"
-            app:layout_constraintTop_toTopOf="@+id/removeCourse"
-            android:focusable="true" />
+            android:focusable="true"
+            android:text="@string/AddCourse"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:visibility="invisible"
+            android:textStyle="bold"
+            app:icon="@drawable/add"
+            app:iconPadding="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonRemove"
+            app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonOpen" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/removeCourse"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
-            android:visibility="gone"
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/floatingActionButtonRemove"
+            android:layout_width="208dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
+            android:focusable="true"
             android:src="@drawable/remove"
-            app:layout_constraintBottom_toBottomOf="@+id/User_search"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/User_search"
-            android:focusable="true" />
+            android:text="@string/RemoveCourse"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:visibility="invisible"
+            android:textStyle="bold"
+            app:icon="@drawable/remove"
+            app:iconPadding="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonOpen"
+            app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonAdd" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButtonOpen"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            app:fabCustomSize="60dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/open"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <LinearLayout
             android:id="@+id/LayoutTags"

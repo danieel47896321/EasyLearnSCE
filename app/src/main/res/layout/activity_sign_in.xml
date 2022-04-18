@@ -10,10 +10,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background">
+        android:layout_height="match_parent">
 
-    <include
+        <include
             android:id="@+id/header"
             layout="@layout/header"
             android:layout_width="match_parent"
@@ -22,183 +21,225 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:fillViewport="true"
+            android:background="@color/grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                android:gravity="center_vertical"
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="11dp"
+                android:layout_marginBottom="11dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/header">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/TextInputLayoutEmail"
-                    style="@style/Custom_TextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
-                    android:hint="@string/Email"
-                    app:endIconMode="clear_text"
-                    app:startIconDrawable="@drawable/email">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/Custom_TextInputEditText"
-                        android:id="@+id/TextInputEditTextInputEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/TextInputLayoutPassword"
-                    style="@style/Custom_TextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
-                    android:hint="@string/Password"
-                    app:endIconMode="password_toggle"
-                    app:startIconDrawable="@drawable/lock">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/Custom_TextInputEditText"
-                        android:id="@+id/TextInputEditTextInputPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    style="@style/Custom_TextView_Normal"
-                    android:id="@+id/ResetPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/RecoverPassword" />
-
-                <Button
-                    android:id="@+id/ButtonSignIn"
-                    style="@style/Custom_Button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
-                    android:text="@string/SignIn"
-                    app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutPassword"
-                    app:layout_constraintStart_toStartOf="@+id/TextInputLayoutPassword"
-                    app:layout_constraintTop_toBottomOf="@+id/ResetPassword" />
-
-                <TextView
-                    style="@style/Custom_TextView_Normal"
-                    android:id="@+id/CreateAccount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/DontHaveAccountCreateAccount"
-                    app:layout_constraintEnd_toEndOf="@+id/ButtonSignIn"
-                    app:layout_constraintStart_toStartOf="@+id/ButtonSignIn"
-                    app:layout_constraintTop_toBottomOf="@+id/ButtonSignIn" />
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
+                    android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:weightSum="3">
+                    android:orientation="vertical">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginLeft="32dp"
-                        android:layout_marginEnd="32dp"
-                        android:layout_marginRight="32dp">
+                        android:layout_height="600dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="11dp"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginEnd="11dp"
+                        android:layout_marginRight="11dp"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/header">
 
-                        <View
-                            android:id="@+id/view4"
-                            android:layout_width="0dp"
-                            android:layout_height="3dp"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginRight="8dp"
-                            android:background="@color/white"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/textView"
-                            app:layout_constraintTop_toTopOf="@+id/textView" />
-
-                        <TextView
-                            android:id="@+id/textView"
-                            style="@style/Custom_TextView_Normal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="20dp"
-                            android:text="@string/OR"
-                            android:textColor="@color/white"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:padding="5dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toBottomOf="@+id/header">
 
-                        <View
-                            android:id="@+id/view3"
-                            android:layout_width="0dp"
-                            android:layout_height="3dp"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginRight="8dp"
-                            android:background="@color/white"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/textView"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/textView" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
 
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/TextInputLayoutEmail"
+                                style="@style/Custom_TextInputLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="90dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginRight="16dp"
+                                android:hint="@string/Email"
+                                app:endIconMode="clear_text"
+                                app:startIconDrawable="@drawable/email">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/TextInputEditTextInputEmail"
+                                    style="@style/Custom_TextInputEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="textEmailAddress" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/TextInputLayoutPassword"
+                                style="@style/Custom_TextInputLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="90dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginRight="16dp"
+                                android:hint="@string/Password"
+                                app:endIconMode="password_toggle"
+                                app:startIconDrawable="@drawable/lock">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/TextInputEditTextInputPassword"
+                                    style="@style/Custom_TextInputEditText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="textPassword" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <TextView
+                                android:id="@+id/ResetPassword"
+                                style="@style/Custom_TextView_Normal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="@string/RecoverPassword" />
+
+                            <Button
+                                android:id="@+id/ButtonSignIn"
+                                style="@style/Custom_Button"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginRight="16dp"
+                                android:text="@string/SignIn"
+                                app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutPassword"
+                                app:layout_constraintStart_toStartOf="@+id/TextInputLayoutPassword"
+                                app:layout_constraintTop_toBottomOf="@+id/ResetPassword" />
+
+                            <TextView
+                                android:id="@+id/CreateAccount"
+                                style="@style/Custom_TextView_Normal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:text="@string/DontHaveAccountCreateAccount"
+                                app:layout_constraintEnd_toEndOf="@+id/ButtonSignIn"
+                                app:layout_constraintStart_toStartOf="@+id/ButtonSignIn"
+                                app:layout_constraintTop_toBottomOf="@+id/ButtonSignIn" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:weightSum="3">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="32dp"
+                                    android:layout_marginLeft="32dp"
+                                    android:layout_marginEnd="32dp"
+                                    android:layout_marginRight="32dp">
+
+                                    <View
+                                        android:id="@+id/view4"
+                                        android:layout_width="0dp"
+                                        android:layout_height="3dp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginStart="8dp"
+                                        android:layout_marginLeft="8dp"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginRight="8dp"
+                                        android:background="@color/grey2"
+                                        app:layout_constraintBottom_toBottomOf="@+id/textView"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toEndOf="@+id/textView"
+                                        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+                                    <TextView
+                                        android:id="@+id/textView"
+                                        style="@style/Custom_TextView_Normal"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/OR"
+                                        android:textColor="@color/grey2"
+                                        android:textSize="20dp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <View
+                                        android:id="@+id/view3"
+                                        android:layout_width="0dp"
+                                        android:layout_height="3dp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginStart="8dp"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginRight="8dp"
+                                        android:background="@color/grey2"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toStartOf="@+id/textView"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="@+id/textView" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </LinearLayout>
+
+                            <Button
+                                android:id="@+id/Google"
+                                style="@style/Custom_Button"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginRight="16dp"
+                                android:text="@string/Google"
+                                app:icon="@drawable/googleg_standard_color_18"
+                                app:iconGravity="textStart"
+                                app:iconSize="24dp" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
-                <Button
-                    style="@style/Custom_Button"
-                    android:id="@+id/Google"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
-                    android:text="@string/Google"
-                    app:icon="@drawable/googleg_standard_color_18"
-                    app:iconGravity="textStart"
-                    app:iconSize="24dp" />
-            </LinearLayout>
-        </ScrollView>
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.navigation.NavigationView
+
+<com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"
         android:layout_width="200dp"
         android:layout_height="match_parent"

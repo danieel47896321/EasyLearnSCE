@@ -6,16 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="8dp"
+    android:background="@color/grey"
     tools:context=".Client.Fragments.ExercisesFragment">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <EditText
                 android:id="@+id/User_search"
@@ -23,47 +19,79 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:layout_marginEnd="291dp"
+                android:layout_marginRight="291dp"
                 android:background="@drawable/button_background"
                 android:hint="@string/Search"
                 android:paddingStart="15dp"
                 android:paddingLeft="15dp"
-                app:layout_constraintEnd_toStartOf="@+id/addLecture"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/header" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/addLecture"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp"
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/floatingActionButtonAdd"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:clickable="true"
-                android:visibility="gone"
-                android:src="@drawable/add"
-                app:layout_constraintBottom_toBottomOf="@+id/removeLecture"
-                app:layout_constraintEnd_toStartOf="@+id/removeLecture"
-                app:layout_constraintTop_toTopOf="@+id/removeCourse" />
+                android:focusable="true"
+                android:text="@string/AddExercise"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:icon="@drawable/add"
+                app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonRemove"
+                app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonOpen" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/removeLecture"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp"
-                android:visibility="gone"
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/floatingActionButtonRemove"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:clickable="true"
+                android:focusable="true"
                 android:src="@drawable/remove"
-                app:layout_constraintBottom_toBottomOf="@+id/User_search"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/User_search" />
+                android:text="@string/RemoveExercise"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:icon="@drawable/remove"
+                app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonOpen"
+                app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonAdd" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButtonOpen"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:fabCustomSize="60dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="bottom"
+                android:src="@drawable/open"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/LayoutTags"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/User_search">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-    </LinearLayout>
 </FrameLayout>

@@ -12,6 +12,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,7 +24,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.easylearnsce.Client.Class.Course;
@@ -31,6 +33,7 @@ import com.example.easylearnsce.Client.Class.PopUpMSG;
 import com.example.easylearnsce.Client.Class.User;
 import com.example.easylearnsce.R;
 import com.example.easylearnsce.Client.User.GenericCourse;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -69,18 +72,20 @@ public class GenericEngineeringAdapter extends RecyclerView.Adapter<GenericEngin
         holder.Semester.setText(context.getResources().getString(R.string.Semester) + ": " + getSemester(course.getCourseSemester()));
         holder.Engineering.setText(context.getResources().getString(R.string.Department) + ": " + getDepartment(course.getCourseEngineering()));
         if(User.getType().equals("Admin") || User.getType().equals("אדמין")) {
-            holder.Edit.setVisibility(View.VISIBLE);
-            holder.Edit.setOnClickListener(new View.OnClickListener() {
+            holder.floatingActionButtonEdit.setVisibility(View.VISIBLE);
+            Animation from_bottom = AnimationUtils.loadAnimation(context,R.anim.from_bottom);
+            holder.floatingActionButtonEdit.setAnimation(from_bottom);
+            holder.floatingActionButtonEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     EditCourseDialog(course);
                 }
             });
         }
-        holder.course_card_view.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.course_card_view.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
+                holder.cardView.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
                 Intent intent;
                 intent = new Intent(context, GenericCourse.class);
                 User.setCourseID(course.getId());
@@ -285,8 +290,8 @@ public class GenericEngineeringAdapter extends RecyclerView.Adapter<GenericEngin
         TextView Year;
         TextView Semester;
         TextView Engineering;
-        TextView Edit;
-        ConstraintLayout course_card_view;
+        ExtendedFloatingActionButton floatingActionButtonEdit;
+        CardView cardView;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             CourseName = itemView.findViewById(R.id.CourseName);
@@ -294,8 +299,8 @@ public class GenericEngineeringAdapter extends RecyclerView.Adapter<GenericEngin
             Year = itemView.findViewById(R.id.Year);
             Semester = itemView.findViewById(R.id.Semester);
             Engineering = itemView.findViewById(R.id.Engineering);
-            Edit = itemView.findViewById(R.id.Edit);
-            course_card_view = itemView.findViewById(R.id.course_view);
+            floatingActionButtonEdit = itemView.findViewById(R.id.floatingActionButtonEdit);
+            cardView = itemView.findViewById(R.id.cardView);
         }
     }
     public int getItemCount() { return courses.size(); }

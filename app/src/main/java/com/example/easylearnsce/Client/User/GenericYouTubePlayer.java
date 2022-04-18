@@ -64,6 +64,7 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
     private String LectureNumber = "";
     private String TabPosition = 0+"";
     private String Type = "";
+    private String lectureName = "Lecture";
     private YouTubePlayerView youTubePlayerView;
     private com.google.android.youtube.player.YouTubePlayer mYouTubePlayer;
     private TabLayout tabLayout;
@@ -94,10 +95,14 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         CourseID = (String)intent.getSerializableExtra("CourseID");
         lecture = (Lecture) intent.getSerializableExtra("Lecture");
         int index = lecture.getLectureName().indexOf(' ');
-        if(lecture.getLectureName().equals("Lecture"))
+        if(lecture.getLectureName().equals("Lecture")) {
             Type = "Lectures";
-        else
+            lectureName = getResources().getString(R.string.Lecture);
+        }
+        else {
             Type = "Exercises";
+            lectureName = getResources().getString(R.string.Exercise);
+        }
         LectureNumber = lecture.getNumber();
         TextSend = findViewById(R.id.TextSend);
         recyclerViewChat = findViewById(R.id.recyclerViewChat);
@@ -109,7 +114,7 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
         Title = findViewById(R.id.Title);
-        Title.setText(user.getEngineering()+"\n"+user.getCourse()+"\n"+user.getLecture());
+        Title.setText(user.getEngineering()+"\n"+user.getCourse()+"\n"+lectureName + " " + lecture.getNumber());
         navigationView = findViewById(R.id.navigationView);
         drawerLayout = findViewById(R.id.drawerLayout);
         new UserMenuInfo(user, GenericYouTubePlayer.this);
@@ -359,11 +364,6 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         item.setVisible(true);
         item1.setTitle(user.getEngineering());
         item1.setVisible(true);
-        String lectureName = "Lecture";
-        if(lecture.getLectureName().equals("Lecture"))
-            lectureName = getResources().getString(R.string.Lecture);
-        else
-            lectureName = getResources().getString(R.string.Exercise);
         item2.setTitle(lectureName + " " + lecture.getNumber());
         item2.setVisible(true);
         item2.setCheckable(false);

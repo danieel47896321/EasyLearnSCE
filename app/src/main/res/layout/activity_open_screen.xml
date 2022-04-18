@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Client.Guest.OpenScreen"
-    android:background="@drawable/open">
+    android:background="@drawable/open_image">
 
 
 

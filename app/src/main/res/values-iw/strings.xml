@@ -106,6 +106,8 @@
     <string name="CourseSuccessfullyRemoved" translatable="true">הקורס הוסר בהצלחה.</string>
     <!-- GenericCourse Page -->
     <string name="Remove" translatable="true">הסרה</string>
+    <string name="AddLecture" translatable="true">הוסף הרצאה</string>
+    <string name="AddExercise" translatable="true">הוסף תרגול</string>
     <string name="Add" translatable="true">הוספה</string>
     <string name="Edit" translatable="true">עריכה</string>
     <string name="LinkToVideo" translatable="true">קישור לסרטון</string>
@@ -169,6 +171,7 @@
     <string name="CameraPermissionDenied" translatable="true">ההרשאה למצלמה נדחתה</string>
     <string name="Camera" translatable="true">מצלמה</string>
     <string name="Gallery" translatable="true">גלריה</string>
+    <string name="AddImage" translatable="true">הוסף תמונה</string>
     <string name="SelectAge" translatable="true">בחר גיל</string>
     <string name="Age" translatable="true">גיל</string>
     <string name="Gender" translatable="true">מגדר</string>

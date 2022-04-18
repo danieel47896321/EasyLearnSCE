@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -20,6 +21,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -36,6 +39,8 @@ import com.example.easylearnsce.Client.Class.User;
 import com.example.easylearnsce.Client.Class.UserMenuInfo;
 import com.example.easylearnsce.Client.Class.UserNavigationView;
 import com.example.easylearnsce.R;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -47,9 +52,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class GenericEngineering extends AppCompatActivity {
-    private ImageView BackIcon, MenuIcon, addCourse, removeCourse;
+    private ImageView BackIcon, MenuIcon;
     private TextInputLayout TextInputLayoutCourse, TextInputLayoutTeacherName ,TextInputLayoutDepartment, TextInputLayoutYear, TextInputLayoutSemester;
     private Button ButtonAddCourse, ButtonRemove, ButtonCancel;
+    private FloatingActionButton floatingActionButtonOpen;
+    private ExtendedFloatingActionButton  floatingActionButtonAdd, floatingActionButtonRemove;
+    private Animation rotateOpen, rotateClose, toBottom, fromBottom;
+    private Boolean isOpen = false;
     private Loading loading;
     private Dialog dialog;
     private DrawerLayout drawerLayout;
@@ -62,6 +71,7 @@ public class GenericEngineering extends AppCompatActivity {
     private NavigationView navigationView;
     private ArrayList<Course> courses;
     private Intent intent;
+    private Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +84,7 @@ public class GenericEngineering extends AppCompatActivity {
         MenuIcon();
         NavigationView();
         MenuItem();
-        addCourse();
-        removeCourseDialog();
+        setAddAndRemove();
         setTags();
         CourseSearch();
     }
@@ -83,8 +92,9 @@ public class GenericEngineering extends AppCompatActivity {
         intent = getIntent();
         courses = new ArrayList<>();
         Title = findViewById(R.id.Title);
-        addCourse = findViewById(R.id.addCourse);
-        removeCourse = findViewById(R.id.removeCourse);
+        floatingActionButtonOpen = findViewById(R.id.floatingActionButtonOpen);
+        floatingActionButtonAdd = findViewById(R.id.floatingActionButtonAdd);
+        floatingActionButtonRemove = findViewById(R.id.floatingActionButtonRemove);
         User_search = findViewById(R.id.User_search);
         viewList = findViewById(R.id.CoursesRV);
         MenuIcon = findViewById(R.id.MenuIcon);
@@ -172,13 +182,46 @@ public class GenericEngineering extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) { }
         });
     }
-    private void addCourse(){
+    private void setAddAndRemove(){
         if(user.getType().equals("Admin") || user.getType().equals("אדמין")) {
-            addCourse.setVisibility(View.VISIBLE);
-            addCourse.setOnClickListener(new View.OnClickListener() {
+            context = this;
+            floatingActionButtonOpen.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AddCourseDialog();
+                    isOpen = !isOpen;
+                    rotateOpen = AnimationUtils.loadAnimation(context,R.anim.rotate_open);
+                    rotateClose = AnimationUtils.loadAnimation(context,R.anim.rotate_close);
+                    fromBottom = AnimationUtils.loadAnimation(context,R.anim.from_bottom);
+                    toBottom = AnimationUtils.loadAnimation(context,R.anim.to_bottom);
+                    if (isOpen) {
+                        floatingActionButtonAdd.setVisibility(View.VISIBLE);
+                        floatingActionButtonRemove.setVisibility(View.VISIBLE);
+                        floatingActionButtonAdd.setAnimation(fromBottom);
+                        floatingActionButtonRemove.setAnimation(fromBottom);
+                        floatingActionButtonOpen.setAnimation(rotateOpen);
+                        floatingActionButtonAdd.setClickable(true);
+                        floatingActionButtonRemove.setClickable(true);
+                        floatingActionButtonAdd.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                AddCourseDialog();
+                            }
+                        });
+                        floatingActionButtonRemove.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                RemoveCourseDialog();
+                            }
+                        });
+                    } else {
+                        floatingActionButtonAdd.setVisibility(View.INVISIBLE);
+                        floatingActionButtonRemove.setVisibility(View.INVISIBLE);
+                        floatingActionButtonAdd.setAnimation(toBottom);
+                        floatingActionButtonRemove.setAnimation(toBottom);
+                        floatingActionButtonOpen.setAnimation(rotateClose);
+                        floatingActionButtonAdd.setClickable(false);
+                        floatingActionButtonRemove.setClickable(false);
+                    }
                 }
             });
         }
@@ -266,17 +309,6 @@ public class GenericEngineering extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) { }
         });
     }
-    private void removeCourseDialog(){
-        if(user.getType().equals("Admin") || user.getType().equals("אדמין")) {
-            removeCourse.setVisibility(View.VISIBLE);
-            removeCourse.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    RemoveCourseDialog();
-                }
-            });
-        }
-    }
     private void RemoveCourseDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(GenericEngineering.this);
         LayoutInflater inflater = getLayoutInflater();
@@ -285,6 +317,7 @@ public class GenericEngineering extends AppCompatActivity {
         builder.setView(dialogView);
         TextInputLayoutCourse = dialogView.findViewById(R.id.TextInputLayoutCourse);
         ButtonRemove = dialogView.findViewById(R.id.ButtonRemove);
+        ButtonRemove.setText(R.string.RemoveCourse);
         ButtonCancel = dialogView.findViewById(R.id.ButtonCancel);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);

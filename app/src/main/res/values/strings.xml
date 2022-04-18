@@ -106,6 +106,8 @@
     <!-- GenericCourse Page -->
     <string name="Remove" translatable="true">Remove</string>
     <string name="Add" translatable="true">Add</string>
+    <string name="AddLecture" translatable="true">Add Lecture</string>
+    <string name="AddExercise" translatable="true">Add Exercise</string>
     <string name="EditTopics" translatable="true">Edit Topics</string>
     <string name="Edit" translatable="true">Edit</string>
     <string name="LinkToVideo" translatable="true">Link To Video</string>
@@ -168,6 +170,7 @@
     <string name="CameraPermissionDenied" translatable="true">Camera Permission Denied</string>
     <string name="Camera" translatable="true">Cammera</string>
     <string name="Gallery" translatable="true">Gallery</string>
+    <string name="AddImage" translatable="true">Add Image</string>
     <string name="Age" translatable="true">Age</string>
     <string name="Gender" translatable="true">Gender</string>
     <string name="SelectAge" translatable="true">Select Age</string>

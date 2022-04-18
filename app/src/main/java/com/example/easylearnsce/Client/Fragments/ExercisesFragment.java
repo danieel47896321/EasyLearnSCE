@@ -1,6 +1,7 @@
 package com.example.easylearnsce.Client.Fragments;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -18,6 +19,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -32,6 +35,8 @@ import com.example.easylearnsce.Client.Class.Loading;
 import com.example.easylearnsce.Client.Class.PopUpMSG;
 import com.example.easylearnsce.Client.Class.User;
 import com.example.easylearnsce.R;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,7 +48,6 @@ import java.util.ArrayList;
 
 public class ExercisesFragment extends Fragment {
     private RecyclerView recyclerView;
-    private ImageView addLecture, removeLecture;
     private TextInputLayout TextInputLayoutExercise,TextInputLayoutLinkToVideo;
     private Button ButtonRemoveCourse, ButtonCancel, ButtonAddVideo;
     private Dialog dialog;
@@ -52,6 +56,11 @@ public class ExercisesFragment extends Fragment {
     private TextView TextViewSearch;
     private Loading loading;
     private String CourseID;
+    private FloatingActionButton floatingActionButtonOpen;
+    private ExtendedFloatingActionButton floatingActionButtonAdd, floatingActionButtonRemove;
+    private Animation rotateOpen, rotateClose, toBottom, fromBottom;
+    private Boolean isOpen = false;
+    private Context context;
     private int ExercisesNumber = 0;
     private User user;
     private View view;
@@ -71,26 +80,60 @@ public class ExercisesFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        addLecture = view.findViewById(R.id.addLecture);
         User_search = view.findViewById(R.id.User_search);
-        removeLecture = view.findViewById(R.id.removeLecture);
-        if(user.getType().equals("Admin") || user.getType().equals("אדמין") || user.getType().equals("Teacher") || user.getType().equals("מרצה") ){
-            addLecture.setVisibility(View.VISIBLE);
-            removeLecture.setVisibility(View.VISIBLE);
-            AddLecture();
-            RemoveLecture();
-        }
+        floatingActionButtonOpen = view.findViewById(R.id.floatingActionButtonOpen);
+        floatingActionButtonAdd = view.findViewById(R.id.floatingActionButtonAdd);
+        floatingActionButtonRemove = view.findViewById(R.id.floatingActionButtonRemove);
+        context = view.getContext();
+        setAddAndRemove();
         setLectures();
         LectureSearch();
         return view;
     }
-    private void AddLecture(){
-        addLecture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { AddVideoDialog(); }
-        });
+    private void setAddAndRemove(){
+        if(user.getType().equals("Admin") || user.getType().equals("אדמין") || user.getType().equals("Teacher") || user.getType().equals("מרצה") ){
+            floatingActionButtonOpen.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    isOpen = !isOpen;
+                    rotateOpen = AnimationUtils.loadAnimation(context,R.anim.rotate_open);
+                    rotateClose = AnimationUtils.loadAnimation(context,R.anim.rotate_close);
+                    fromBottom = AnimationUtils.loadAnimation(context,R.anim.from_bottom);
+                    toBottom = AnimationUtils.loadAnimation(context,R.anim.to_bottom);
+                    if (isOpen) {
+                        floatingActionButtonAdd.setVisibility(View.VISIBLE);
+                        floatingActionButtonRemove.setVisibility(View.VISIBLE);
+                        floatingActionButtonAdd.setAnimation(fromBottom);
+                        floatingActionButtonRemove.setAnimation(fromBottom);
+                        floatingActionButtonOpen.setAnimation(rotateOpen);
+                        floatingActionButtonAdd.setClickable(true);
+                        floatingActionButtonRemove.setClickable(true);
+                        floatingActionButtonAdd.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                AddExerciseDialog();
+                            }
+                        });
+                        floatingActionButtonRemove.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                RemoveExerciseDialog();
+                            }
+                        });
+                    } else {
+                        floatingActionButtonAdd.setVisibility(View.INVISIBLE);
+                        floatingActionButtonRemove.setVisibility(View.INVISIBLE);
+                        floatingActionButtonAdd.setAnimation(toBottom);
+                        floatingActionButtonRemove.setAnimation(toBottom);
+                        floatingActionButtonOpen.setAnimation(rotateClose);
+                        floatingActionButtonAdd.setClickable(false);
+                        floatingActionButtonRemove.setClickable(false);
+                    }
+                }
+            });
+        }
     }
-    private void AddVideoDialog(){
+    private void AddExerciseDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_add_video,null);
@@ -98,6 +141,7 @@ public class ExercisesFragment extends Fragment {
         builder.setView(dialogView);
         TextInputLayoutLinkToVideo = dialogView.findViewById(R.id.TextInputLayoutLinkToVideo);
         ButtonAddVideo = dialogView.findViewById(R.id.ButtonAddVideo);
+        ButtonAddVideo.setText(this.getResources().getString(R.string.AddExercise));
         ButtonCancel = dialogView.findViewById(R.id.ButtonCancel);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
@@ -122,14 +166,6 @@ public class ExercisesFragment extends Fragment {
             }
         });
     }
-    private void RemoveLecture(){
-        removeLecture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RemoveExerciseDialog();
-            }
-        });
-    }
     private void RemoveExerciseDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getLayoutInflater();
@@ -138,7 +174,7 @@ public class ExercisesFragment extends Fragment {
         builder.setView(dialogView);
         TextInputLayoutExercise = dialogView.findViewById(R.id.TextInputLayoutExercise);
         ButtonRemoveCourse = dialogView.findViewById(R.id.ButtonRemoveCourse);
-        ButtonRemoveCourse.setText(getResources().getString(R.string.Remove));
+        ButtonRemoveCourse.setText(getResources().getString(R.string.RemoveExercise));
         ButtonCancel = dialogView.findViewById(R.id.ButtonCancel);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
