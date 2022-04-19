@@ -14,10 +14,11 @@
     <color name="sky">#03A9F4</color>
     <color name="blue">#0B57DC</color>
     <color name="blue2">#0979DA</color>
-    <color name="PickColor">#5EA3EA</color>
+    <color name="PickColor">#EDEFF4</color>
     <color name="yellow">#FFEB3B</color>
     <color name="grey">#E4E6EA</color>
     <color name="grey2">#A2A3A5</color>
     <color name="dark_blue">#101BDD</color>
-    <color name="mtrl_textinput_default_box_stroke_color" override="true">#A2A3A5</color>
+    <color name="default_color">#808080</color>
+    <color name="mtrl_textinput_default_box_stroke_color" override="true">#808080</color>
 </resources>

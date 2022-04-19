@@ -61,7 +61,7 @@
     <string name="ResetLink" translatable="true">קישור לאיפוס הסיסמה נשלח לאימייל.</string>
     <!-- About Page -->
     <string name="AboutVersion" translatable="true">גרסה 1.1.0</string>
-    <string name="Copyright" translatable="true"> זכויות יוצרים &#169; 2022 דניאל אלמליח</string>
+    <string name="Copyright" translatable="true">&#169;2022 דניאל אלמליח</string>
     <string name="AboutInfo" translatable="true">האפליקציה פותחה במסגרת פרויקט גמר על ידי דניאל אלמליח כאשר המטרה ליצור סביבה נוחה לצפיה בהרצאות ולמידה נוחה ומתן פידבק למרצים לגבי קטעים שהיו פחות ברורים על ידי הוספת תגובה תוך ציון קטע הזמן הרצוי עבור הקלטה מסוימת </string>
     <!-- Contact Page -->
     <string name="ContactInfo" translatable="true">האם נתקלת בבעיה כלשהי?\n צוות הפיתוח זמין לשירותך</string>

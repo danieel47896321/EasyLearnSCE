@@ -1,19 +1,24 @@
 package com.example.easylearnsce.Client.Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,13 +68,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         view = layoutInflater.inflate(R.layout.tag_view,parent,false);
         return new HomeAdapter.MyViewHolder(view);
     }
+    @SuppressLint("ResourceType")
     public void onBindViewHolder(@NonNull HomeAdapter.MyViewHolder holder, int position) {
         holder.TagName.setText(tags.get(position).getTagName());
         holder.TagImage.setImageResource(tags.get(position).getPhoto());
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.constraintLayout.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
+                holder.constraintLayout.setBackgroundColor(context.getResources().getColor(R.color.grey));
                 intent = new Intent(context, Home.class);
                  if(holder.TagName.getText().equals(context.getResources().getString(R.string.SelectEngineering)))
                     intent = new Intent(context, SelectEngineering.class);
@@ -101,7 +107,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Resources res = context.getResources();
-                            holder.constraintLayout.setBackground( ResourcesCompat.getDrawable(res, R.drawable.background, null));
+                            holder.constraintLayout.setBackground( ResourcesCompat.getDrawable(res, R.color.white, null));
                         }
                     }).show();
                     intent = new Intent(context, EasyLearnSCE.class);

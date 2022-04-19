@@ -3,19 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/grey"
     tools:context=".Client.Fragments.UsersFragment">
 
     <EditText
-        style="@style/Custom_EditText"
         android:id="@+id/User_search"
+        style="@style/Custom_EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/Search"
         android:layout_margin="10dp"
-        android:paddingStart="15dp"
-        android:background="@drawable/button_background"
-        android:paddingLeft="15dp" />
+        android:hint="@string/Search"
+        android:paddingStart="30dp"
+        android:paddingLeft="30dp"
+        android:paddingEnd="30dp"
+        android:paddingRight="30dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

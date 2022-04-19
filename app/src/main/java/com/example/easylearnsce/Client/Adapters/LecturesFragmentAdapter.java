@@ -58,6 +58,7 @@ public class LecturesFragmentAdapter extends RecyclerView.Adapter<LecturesFragme
         holder.LectureName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                holder.LectureName.setBackgroundColor(context.getResources().getColor(R.color.grey));
                 user.setLecture(Select.get(position).getLectureName() + " " + Select.get(position).getNumber());
                 intent = new Intent(context, GenericYouTubePlayer.class);
                 intent.putExtra("user", user);

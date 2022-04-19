@@ -7,12 +7,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/grey"
     tools:context=".Client.User.Requests">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/RequestLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/grey">
 
         <include
             android:id="@+id/header"
@@ -23,196 +26,184 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ScrollView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fillViewport="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/linearLayoutAdmin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/TextInputLayoutFirstName"
-                    style="@style/Custom_TextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
-                    android:hint="@string/FirstName"
-                    app:endIconMode="clear_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/header"
-                    app:startIconDrawable="@drawable/person">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/TextInputEditTextInputFirstName"
-                        style="@style/Custom_TextInputEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="false"
-                        android:inputType="textPersonName" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/TextInputLayoutLastName"
-                    style="@style/Custom_TextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
-                    android:hint="@string/LastName"
-                    app:endIconMode="clear_text"
-                    app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutFirstName"
-                    app:layout_constraintStart_toStartOf="@+id/TextInputLayoutFirstName"
-                    app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutFirstName"
-                    app:startIconDrawable="@drawable/person">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/TextInputEditTextInputLastName"
-                        style="@style/Custom_TextInputEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="false"
-                        android:inputType="textPersonName" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/TextInputLayoutEmail"
-                    style="@style/Custom_TextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
-                    android:hint="@string/Email"
-                    app:endIconMode="clear_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/TextInputLayoutFirstName"
-                    app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutLastName"
-                    app:startIconDrawable="@drawable/email">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/TextInputEditTextInputEmail"
-                        style="@style/Custom_TextInputEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="false"
-                        android:inputType="textEmailAddress" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/TextInputLayoutRequests"
-                    style="@style/Custom_TextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
-                    android:hint="@string/Requests"
-                    app:endIconDrawable="@drawable/drop_down"
-                    app:endIconMode="custom"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutEmail">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/TextInputEditTextInputRequests"
-                        style="@style/Custom_TextInputEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="false" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/TextInputLayoutDetails"
-                    style="@style/Custom_TextInputLayout"
-                    android:layout_width="match_parent"
-                    android:visibility="gone"
-                    android:layout_height="90dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
-                    android:hint="@string/Details"
-                    app:endIconMode="clear_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutRequests">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/TextInputEditTextInputDetails"
-                        style="@style/Custom_TextInputEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Button
-                    android:id="@+id/ButtonRequests"
-                    style="@style/Custom_Button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
-                    android:text="@string/SendRequest"
-                    app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutRequests"
-                    app:layout_constraintStart_toStartOf="@+id/TextInputLayoutRequests"
-                    app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutDetails" />
-            </LinearLayout>
-        </ScrollView>
-        <LinearLayout
-            android:id="@+id/RequestLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header"
-            app:layout_constraintVertical_bias="0.0">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:gravity="center">
-
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/User_search">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:visibility="gone"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+
+                android:layout_marginTop="11dp"
+                android:layout_marginBottom="11dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fillViewport="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/TextInputLayoutFirstName"
+                            style="@style/TextInputLayout_Style"
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:hint="@string/FirstName"
+                            app:endIconMode="clear_text"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/header"
+                            app:startIconDrawable="@drawable/person">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/TextInputEditTextInputFirstName"
+                                style="@style/TextInputEditText_Style"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:focusable="false"
+                                android:inputType="textPersonName" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/TextInputLayoutLastName"
+                            style="@style/TextInputLayout_Style"
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:hint="@string/LastName"
+                            app:endIconMode="clear_text"
+                            app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutFirstName"
+                            app:layout_constraintStart_toStartOf="@+id/TextInputLayoutFirstName"
+                            app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutFirstName"
+                            app:startIconDrawable="@drawable/person">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/TextInputEditTextInputLastName"
+                                style="@style/TextInputEditText_Style"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:focusable="false"
+                                android:inputType="textPersonName" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/TextInputLayoutEmail"
+                            style="@style/TextInputLayout_Style"
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:hint="@string/Email"
+                            app:endIconMode="clear_text"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/TextInputLayoutFirstName"
+                            app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutLastName"
+                            app:startIconDrawable="@drawable/email">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/TextInputEditTextInputEmail"
+                                style="@style/TextInputEditText_Style"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:focusable="false"
+                                android:inputType="textEmailAddress" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/TextInputLayoutRequests"
+                            style="@style/TextInputLayout_Style"
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:hint="@string/Requests"
+                            app:endIconDrawable="@drawable/drop_down"
+                            app:endIconMode="custom"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutEmail">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/TextInputEditTextInputRequests"
+                                style="@style/TextInputEditText_Style"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:focusable="false" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/TextInputLayoutDetails"
+                            style="@style/TextInputLayout_Style"
+                            android:layout_width="match_parent"
+                            android:visibility="gone"
+                            android:layout_height="90dp"
+                            android:hint="@string/Details"
+                            app:endIconMode="clear_text"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutRequests">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/TextInputEditTextInputDetails"
+                                style="@style/TextInputEditText_Style"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/ButtonRequests"
+                            style="@style/Button_Style"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="@string/SendRequest"
+                            app:layout_constraintEnd_toEndOf="@+id/TextInputLayoutRequests"
+                            app:layout_constraintStart_toStartOf="@+id/TextInputLayoutRequests"
+                            app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutDetails" />
+
+                    </LinearLayout>
+                </ScrollView>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"

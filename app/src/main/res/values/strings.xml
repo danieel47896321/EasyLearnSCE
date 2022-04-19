@@ -60,7 +60,7 @@
     <string name="ResetLink" translatable="true">Reset Link has been send to your Email.</string>
     <!-- About Page -->
     <string name="AboutVersion" translatable="true">Version 1.1.0</string>
-    <string name="Copyright" translatable="true">Copyright &#169; 2022 Daniel Elmaliach</string>
+    <string name="Copyright" translatable="true">&#169;2022 Daniel Elmaliach</string>
     <string name="AboutInfo" translatable="true">The app was developed as part of a final project by Daniel Elmaliach with the goal of creating a comfortable environment for watching lectures and learning comfortably and providing feedback to lecturers about excerpts that were less clear by adding a comment while specifying the desired time segment for a particular recording</string>
     <!-- Contact Page -->
     <string name="ContactInfo" translatable="true">Have you meet any problem?\nThe development team is at your service</string>

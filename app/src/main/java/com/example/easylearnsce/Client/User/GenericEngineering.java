@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -243,6 +244,7 @@ public class GenericEngineering extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         EndIcon();
         YearPick();
         SemesterPick();
@@ -322,6 +324,7 @@ public class GenericEngineering extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         CoursePick();
         ButtonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -417,7 +420,8 @@ public class GenericEngineering extends AppCompatActivity {
             public void onClick(View v) { Clear(TextInputLayoutTeacherName); }
         });
     }
-    private void setDialog(String[] array, String title,TextView textViewPick){
+    @SuppressLint("ResourceType")
+    private void setDialog(String[] array, String title, TextView textViewPick){
         dialog = new Dialog(GenericEngineering.this);
         dialog.setContentView(R.layout.dialog_search_spinner);
         dialog.getWindow().setLayout(1000,950);

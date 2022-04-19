@@ -257,7 +257,9 @@ public class CreateAccount extends AppCompatActivity {
         NextButtonFinish = dialogView.findViewById(R.id.NextButtonFinish);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
+
         CityPick();
         AgePick();
         GenderPick();

@@ -147,6 +147,7 @@ public class LecturesFragment extends Fragment {
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         ButtonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { alertDialog.cancel(); }
@@ -180,6 +181,7 @@ public class LecturesFragment extends Fragment {
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         LecturePick();
         ButtonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -311,7 +313,7 @@ public class LecturesFragment extends Fragment {
                 LectureNumber = 0;
                 for (DataSnapshot data : snapshot.getChildren()) {
                     Lecture lecture = data.getValue(Lecture.class);
-                    if(lecture.getLectureName().toLowerCase().contains(text.toLowerCase()))
+                    if((getResources().getString(R.string.Lecture) + " " + lecture.getNumber()).toLowerCase().contains(text.toLowerCase()))
                         lectures.add(lecture);
                     LectureNumber++;
                 }

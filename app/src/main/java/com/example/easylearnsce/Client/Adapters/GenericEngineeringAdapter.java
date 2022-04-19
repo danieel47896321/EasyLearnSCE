@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.easylearnsce.Client.Class.Course;
@@ -82,10 +83,10 @@ public class GenericEngineeringAdapter extends RecyclerView.Adapter<GenericEngin
                 }
             });
         }
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.cardView.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
+                holder.constraintLayout.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
                 Intent intent;
                 intent = new Intent(context, GenericCourse.class);
                 User.setCourseID(course.getId());
@@ -159,6 +160,7 @@ public class GenericEngineeringAdapter extends RecyclerView.Adapter<GenericEngin
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         EndIcon();
         YearPick();
         SemesterPick();
@@ -291,7 +293,7 @@ public class GenericEngineeringAdapter extends RecyclerView.Adapter<GenericEngin
         TextView Semester;
         TextView Engineering;
         ExtendedFloatingActionButton floatingActionButtonEdit;
-        CardView cardView;
+        ConstraintLayout constraintLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             CourseName = itemView.findViewById(R.id.CourseName);
@@ -300,7 +302,7 @@ public class GenericEngineeringAdapter extends RecyclerView.Adapter<GenericEngin
             Semester = itemView.findViewById(R.id.Semester);
             Engineering = itemView.findViewById(R.id.Engineering);
             floatingActionButtonEdit = itemView.findViewById(R.id.floatingActionButtonEdit);
-            cardView = itemView.findViewById(R.id.cardView);
+            constraintLayout = itemView.findViewById(R.id.constraintLayout);
         }
     }
     public int getItemCount() { return courses.size(); }

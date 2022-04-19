@@ -2,6 +2,7 @@ package com.example.easylearnsce.Client.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,7 +48,8 @@ import java.util.List;
 public class Requests extends AppCompatActivity {
     private TextView Title, TextViewSearch;
     private Dialog dialog;
-    private LinearLayout RequestLinearLayout;
+    private CardView cardView;
+    private LinearLayout linearLayoutAdmin;
     private TextInputLayout TextInputLayoutFirstName, TextInputLayoutLastName ,TextInputLayoutEmail, TextInputLayoutRequests, TextInputLayoutDetails;
     private EditText EditTextSearch;
     private ListView ListViewSearch;
@@ -87,6 +89,7 @@ public class Requests extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         recyclerView = findViewById(R.id.recyclerView);
         new UserMenuInfo(user, Requests.this);
+        cardView = findViewById(R.id.cardView);
         TextInputLayoutFirstName = findViewById(R.id.TextInputLayoutFirstName);
         TextInputLayoutLastName = findViewById(R.id.TextInputLayoutLastName);
         TextInputLayoutEmail = findViewById(R.id.TextInputLayoutEmail);
@@ -129,6 +132,7 @@ public class Requests extends AppCompatActivity {
             TeacherAndStudent();
     }
     private void TeacherAndStudent(){
+        cardView.setVisibility(View.VISIBLE);
         TextInputLayoutFirstName.getEditText().setText(user.getFirstName());
         TextInputLayoutLastName.getEditText().setText(user.getLastName());
         TextInputLayoutEmail.getEditText().setText(user.getEmail());
@@ -231,14 +235,9 @@ public class Requests extends AppCompatActivity {
         new PopUpMSG(Requests.this, getResources().getString(R.string.Requests), getResources().getString(R.string.RequestSentSuccessfully), Home.class,user);
     }
     private void Admin(){
-        TextInputLayoutFirstName.setVisibility(View.GONE);
-        TextInputLayoutLastName.setVisibility(View.GONE);
-        TextInputLayoutEmail.setVisibility(View.GONE);
-        TextInputLayoutRequests.setVisibility(View.GONE);
-        TextInputLayoutDetails.setVisibility(View.GONE);
-        ButtonRequests.setVisibility(View.GONE);
-        RequestLinearLayout = findViewById(R.id.RequestLinearLayout);
-        RequestLinearLayout.setVisibility(View.VISIBLE);
+        cardView.setVisibility(View.GONE);
+        linearLayoutAdmin = findViewById(R.id.linearLayoutAdmin);
+        linearLayoutAdmin.setVisibility(View.VISIBLE);
         setTags();
     }
     private void setTags(){

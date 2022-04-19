@@ -49,8 +49,8 @@
                 android:layout_marginRight="4dp"
                 android:padding="1dp"
                 android:text="@string/Course"
-                android:textSize="24dp"
-                android:textStyle="bold"
+                android:textSize="26sp"
+                android:textColor="@color/default_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonEdit"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -64,8 +64,8 @@
                 android:layout_height="wrap_content"
                 android:padding="1dp"
                 android:text="@string/Teacher"
-                android:textSize="18dp"
-                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="@color/default_color"
                 app:layout_constraintStart_toStartOf="@+id/CourseName"
                 app:layout_constraintTop_toBottomOf="@+id/CourseName" />
 
@@ -75,8 +75,8 @@
                 android:layout_height="wrap_content"
                 android:padding="1dp"
                 android:text="@string/SelectEngineering"
-                android:textSize="18dp"
-                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="@color/default_color"
                 app:layout_constraintStart_toStartOf="@+id/TeacherName"
                 app:layout_constraintTop_toBottomOf="@+id/TeacherName" />
 
@@ -86,8 +86,8 @@
                 android:layout_height="wrap_content"
                 android:padding="1dp"
                 android:text="@string/Year"
-                android:textSize="18dp"
-                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="@color/default_color"
                 app:layout_constraintStart_toStartOf="@+id/Engineering"
                 app:layout_constraintTop_toBottomOf="@+id/Engineering" />
 
@@ -97,8 +97,8 @@
                 android:layout_height="wrap_content"
                 android:padding="1dp"
                 android:text="@string/Semester"
-                android:textSize="18dp"
-                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="@color/default_color"
                 app:layout_constraintStart_toStartOf="@+id/Year"
                 app:layout_constraintTop_toBottomOf="@+id/Year" />
 

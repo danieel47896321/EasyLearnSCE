@@ -10,7 +10,7 @@
 
     <Button
         android:id="@+id/Finish"
-        style="@style/Custom_Button"
+        style="@style/Button_Style"
         android:background="@color/blue"
         android:textColor="@color/white"
         android:layout_width="0dp"

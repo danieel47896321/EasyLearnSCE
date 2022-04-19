@@ -46,8 +46,7 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
         else if(request.getStatus().equals("Denied") || request.getStatus().equals("הבקשה נדחתה") || request.getStatus().equals("Not Fixed") || request.getStatus().equals("לא תוקן"))
             holder.Status.setTextColor(context.getResources().getColor(R.color.red));
         else
-            holder.Status.setTextColor(context.getResources().getColor(R.color.white));
-        holder.Status.setText(context.getResources().getString(R.string.Status) + ": " + getStatus(request.getStatus()));
+            holder.Status.setTextColor(context.getResources().getColor(R.color.default_color));
     }
     @Override
     public void onBindViewHolder(@NonNull AllRequestsAdapter.ViewHolder holder, int position) {
@@ -57,6 +56,7 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
         holder.Email.setText(context.getResources().getString(R.string.Email) +": " + request.getEmail());
         holder.UserType.setText(context.getResources().getString(R.string.UserType) +": " + getUserType(request.getType()));
         DetailsAndAnswer(holder, request);
+        holder.Status.setText(context.getResources().getString(R.string.Status) + ": " + getStatus(request.getStatus()));
         StatusColor(holder, request);
     }
     public String getRequest(String request){
