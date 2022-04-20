@@ -6,7 +6,7 @@ android:id="@+id/drawerLayout"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:background="@drawable/background"
+android:background="@color/grey"
 tools:context=".Client.User.GenericYouTubePlayer">
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +16,55 @@ tools:context=".Client.User.GenericYouTubePlayer">
     <include
         android:id="@+id/header"
         layout="@layout/header" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/floatingActionButtonEditTopics"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/EditTopics"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:icon="@drawable/edit"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonEditUrl"
+        app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonOpen" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/floatingActionButtonEditUrl"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/remove"
+        android:text="@string/EditUrl"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:icon="@drawable/edit"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonOpen"
+        app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonEditTopics" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonOpen"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        app:fabCustomSize="60dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="bottom"
+        android:visibility="gone"
+        android:src="@drawable/open"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -32,117 +81,123 @@ tools:context=".Client.User.GenericYouTubePlayer">
             android:gravity="top"
             android:orientation="vertical">
 
-            <com.google.android.youtube.player.YouTubePlayerView
-                android:id="@+id/youTubePlayerView"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/header" />
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewYouTube"
+                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@+id/youTubePlayerView">
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:layout_marginTop="11dp"
+                app:cardCornerRadius="10dp">
 
-                <TextView
-                    android:id="@+id/EditTopics"
-                    style="@style/Custom_TextView_Normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/add"
-                    android:padding="5dp"
-                    android:text="@string/EditTopics"
-                    tools:layout_editor_absoluteX="75dp"
-                    tools:layout_editor_absoluteY="358dp"
-                    android:drawableLeft="@drawable/add" />
-
-                <TextView
-                    android:id="@+id/EditURL"
-                    style="@style/Custom_TextView_Normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:drawableStart="@drawable/engineering"
-                    android:padding="5dp"
-                    android:text="@string/EditUrl"
-                    tools:layout_editor_absoluteX="292dp"
-                    tools:layout_editor_absoluteY="358dp"
-                    android:drawableLeft="@drawable/engineering" />
-
-            </LinearLayout>
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:scrollbarSize="2dp"
-                app:layout_constraintEnd_toEndOf="@+id/youTubePlayerView"
-                app:layout_constraintStart_toStartOf="@+id/youTubePlayerView"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-                app:tabIndicatorColor="@color/white"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/white"
-                app:tabTextColor="@color/white"></com.google.android.material.tabs.TabLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/SendBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/white"
-                android:padding="5dp">
-
-                <ImageButton
-                    android:id="@+id/ButtonSend"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:backgroundTint="@color/sky"
-                    android:src="@drawable/send"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/TextSend"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:textAlignment="viewStart"
-                    android:gravity="start"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/TypeaMessage"
-                    app:layout_constraintBottom_toBottomOf="@+id/ButtonSend"
-                    app:layout_constraintEnd_toStartOf="@+id/ButtonSend"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/ButtonSend" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutMessage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/SendBar"
-                android:layout_below="@+id/header"
-                android:orientation="vertical">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewChat"
+                <com.google.android.youtube.player.YouTubePlayerView
+                    android:id="@+id/youTubePlayerView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
+                    android:layout_height="250dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/header" />
+            </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewTopics"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:layout_marginTop="11dp"
+                app:cardCornerRadius="10dp">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintEnd_toEndOf="@+id/youTubePlayerView"
+                    app:layout_constraintStart_toStartOf="@+id/youTubePlayerView"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                    app:tabIndicatorColor="@color/blue2"
+                    app:tabMode="scrollable"
+                    app:tabTextAppearance="@style/TabLayout_Style"
+                    app:tabIndicatorHeight="3dp"
+                    app:tabSelectedTextColor="@color/blue2"
+                    app:tabTextColor="@color/default_color"></com.google.android.material.tabs.TabLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewMessage"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:layout_marginTop="11dp"
+                app:cardCornerRadius="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/SendBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/ButtonSend"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginRight="4dp"
+                        android:backgroundTint="@color/blue2"
+                        android:src="@drawable/send"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/TextSend"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginRight="12dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center|start"
+                        android:hint="@string/TypeaMessage"
+                        android:textColorHint="@color/default_color"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/ButtonSend"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewRecyclerView"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:layout_marginTop="11dp"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/SendBar"
+                    android:layout_below="@+id/header"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewChat"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
 

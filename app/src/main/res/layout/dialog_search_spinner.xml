@@ -19,7 +19,7 @@
 
     <EditText
         android:id="@+id/EditTextSearch"
-        style="@style/Custom_EditText"
+        style="@style/EditText_Style_Normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"

@@ -47,6 +47,7 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
             holder.Status.setTextColor(context.getResources().getColor(R.color.red));
         else
             holder.Status.setTextColor(context.getResources().getColor(R.color.default_color));
+        holder.Status.setText(context.getResources().getString(R.string.Status) + ": " + getStatus(request.getStatus()));
     }
     @Override
     public void onBindViewHolder(@NonNull AllRequestsAdapter.ViewHolder holder, int position) {
@@ -56,7 +57,6 @@ public class AllRequestsAdapter extends RecyclerView.Adapter<AllRequestsAdapter.
         holder.Email.setText(context.getResources().getString(R.string.Email) +": " + request.getEmail());
         holder.UserType.setText(context.getResources().getString(R.string.UserType) +": " + getUserType(request.getType()));
         DetailsAndAnswer(holder, request);
-        holder.Status.setText(context.getResources().getString(R.string.Status) + ": " + getStatus(request.getStatus()));
         StatusColor(holder, request);
     }
     public String getRequest(String request){

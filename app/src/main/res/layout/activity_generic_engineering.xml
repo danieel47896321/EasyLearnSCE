@@ -19,7 +19,7 @@
 
         <EditText
             android:id="@+id/User_search"
-            style="@style/Custom_EditText"
+            style="@style/EditText_Style_Normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -74,6 +74,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
+            android:visibility="gone"
             app:fabCustomSize="60dp"
             android:clickable="true"
             android:focusable="true"

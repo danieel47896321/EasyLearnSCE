@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.easylearnsce.Client.Class.Course;
 import com.example.easylearnsce.Client.Class.Lecture;
 import com.example.easylearnsce.Client.Class.User;
 import com.example.easylearnsce.R;
@@ -24,14 +25,14 @@ public class LecturesFragmentAdapter extends RecyclerView.Adapter<LecturesFragme
     private Context context;
     private List<Lecture> Select;
     private User user;
-    private String CourseID;
+    private Course course;
     private Intent intent;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    public LecturesFragmentAdapter(Context context, List<Lecture> select, User user, String CourseID) {
+    public LecturesFragmentAdapter(Context context, List<Lecture> select, User user, Course course) {
         this.context = context;
         this.Select = select;
         this.user = user;
-        this.CourseID = CourseID;
+        this.course = course;
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView LectureName;
@@ -45,7 +46,7 @@ public class LecturesFragmentAdapter extends RecyclerView.Adapter<LecturesFragme
     public LecturesFragmentAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        view = layoutInflater.inflate(R.layout.row,parent,false);
+        view = layoutInflater.inflate(R.layout.lecture_and_exercise,parent,false);
         return new LecturesFragmentAdapter.MyViewHolder(view);
     }
     public void onBindViewHolder(@NonNull LecturesFragmentAdapter.MyViewHolder holder, int position) {
@@ -63,7 +64,7 @@ public class LecturesFragmentAdapter extends RecyclerView.Adapter<LecturesFragme
                 intent = new Intent(context, GenericYouTubePlayer.class);
                 intent.putExtra("user", user);
                 intent.putExtra("Video", Select.get(position).getUrl());
-                intent.putExtra("CourseID", CourseID);
+                intent.putExtra("Course", course);
                 intent.putExtra("Lecture", Select.get(position));
                 context.startActivity(intent);
                 ((Activity) context).finish();

@@ -27,8 +27,8 @@
             android:background="@drawable/reciver_background"
             android:padding="8dp"
             android:text="hello"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textColor="@color/black"
+            android:textSize="18dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/sender_image"

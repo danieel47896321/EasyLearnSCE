@@ -26,6 +26,17 @@ import com.google.firebase.auth.FirebaseAuth;
 public class UserNavigationView {
     private Intent intent;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    public UserNavigationView(Context context, int id, User user, Course course){
+        if(id == R.id.ItemCourse) {
+            intent = new Intent(context, GenericCourse.class);
+            intent.putExtra("user", user);
+            intent.putExtra("Course", course);
+            context.startActivity(intent);
+            ((Activity)context).finish();
+        }
+        else
+            new UserNavigationView(context, id, user);
+    }
     public UserNavigationView(Context context, int id, User user){
         if(id == R.id.ItemHome)
             StartActivity(context, Home.class, user);
@@ -33,14 +44,6 @@ public class UserNavigationView {
             StartActivity(context, SelectEngineering.class, user);
         else if(id == R.id.ItemEngineering)
             EngineeringStartActivity(context, GenericEngineering.class, user);
-        else if(id == R.id.ItemCourse) {
-            intent = new Intent(context, GenericCourse.class);
-            intent.putExtra("user", user);
-            intent.putExtra("Course", user.getCourse());
-            intent.putExtra("CourseID", user.getCourseID());
-            context.startActivity(intent);
-            ((Activity)context).finish();
-        }
         else if(id == R.id.ItemEasyLearnChat)
             StartActivity(context, EasyLearnChat.class, user);
         else if(id == R.id.ItemRequests)

@@ -112,7 +112,8 @@ public class ResetPassword extends AppCompatActivity {
                                     } else
                                         TextInputLayoutEmail.setHelperText(getResources().getString(R.string.EmailNotExist));
                                 }
-                                new PopUpMSG(ResetPassword.this,getResources().getString(R.string.Error),getResources().getString(R.string.ErrorMSG));
+                                else
+                                    new PopUpMSG(ResetPassword.this,getResources().getString(R.string.Error),getResources().getString(R.string.ErrorMSG));
                             }
                         });
                     }

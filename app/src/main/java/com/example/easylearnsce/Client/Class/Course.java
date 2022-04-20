@@ -1,6 +1,8 @@
 package com.example.easylearnsce.Client.Class;
 
-public class Course {
+import java.io.Serializable;
+
+public class Course implements Serializable {
     private String CourseName = "name";
     private String TeacherName = "teacher";
     private String CourseYear = "year";

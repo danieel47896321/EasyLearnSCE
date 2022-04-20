@@ -28,8 +28,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.easylearnsce.Client.Adapters.LecturesFragmentAdapter;
+import com.example.easylearnsce.Client.Class.Course;
 import com.example.easylearnsce.Client.Class.Lecture;
 import com.example.easylearnsce.Client.Class.Loading;
 import com.example.easylearnsce.Client.Class.PopUpMSG;
@@ -55,12 +57,12 @@ public class ExercisesFragment extends Fragment {
     private EditText EditTextSearch, User_search;
     private TextView TextViewSearch;
     private Loading loading;
-    private String CourseID;
     private FloatingActionButton floatingActionButtonOpen;
     private ExtendedFloatingActionButton floatingActionButtonAdd, floatingActionButtonRemove;
     private Animation rotateOpen, rotateClose, toBottom, fromBottom;
     private Boolean isOpen = false;
     private Context context;
+    private Course course;
     private int ExercisesNumber = 0;
     private User user;
     private View view;
@@ -70,8 +72,8 @@ public class ExercisesFragment extends Fragment {
     public void setUser(User user){
         this.user = user;
     }
-    public void setCourseID(String CourseID){
-        this.CourseID = CourseID;
+    public void setCourse(Course course){
+        this.course = course;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -91,7 +93,8 @@ public class ExercisesFragment extends Fragment {
         return view;
     }
     private void setAddAndRemove(){
-        if(user.getType().equals("Admin") || user.getType().equals("אדמין") || user.getType().equals("Teacher") || user.getType().equals("מרצה") ){
+        if(user.getType().equals("Admin") || user.getType().equals("אדמין") || (user.getType().equals("Teacher") && user.getFullName().equals(course.getTeacherName())) || (user.getType().equals("מרצה") && user.getFullName().equals(course.getTeacherName()) )){
+            floatingActionButtonOpen.setVisibility(View.VISIBLE);
             floatingActionButtonOpen.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -161,7 +164,7 @@ public class ExercisesFragment extends Fragment {
                     TextInputLayoutLinkToVideo.setHelperText("");
                 if(!(TextInputLayoutLinkToVideo.getEditText().getText().toString().equals(""))){
                     alertDialog.cancel();
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Exercises").child(getEngineeringName()).child(CourseID).child((ExercisesNumber + 1)+"");
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Exercises").child(getEngineeringName()).child(course.getId()).child((ExercisesNumber + 1)+"");
                     reference.setValue( new Lecture("Exercise",TextInputLayoutLinkToVideo.getEditText().getText().toString(),(ExercisesNumber + 1)+""));
                 }
             }
@@ -197,7 +200,7 @@ public class ExercisesFragment extends Fragment {
                 if(!TextInputLayoutExercise.getEditText().getText().toString().equals("")) {
                     alertDialog.cancel();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference reference = database.getReference().child("Exercises").child(getEngineeringName()).child(CourseID);
+                    DatabaseReference reference = database.getReference().child("Exercises").child(getEngineeringName()).child(course.getId());
                     reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -205,7 +208,7 @@ public class ExercisesFragment extends Fragment {
                             for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                                 Lecture lecture = dataSnapshot.getValue(Lecture.class);
                                 if(TextInputLayoutExercise.getEditText().getText().toString().equals(getResources().getString(R.string.Exercise) + " " +lecture.getNumber())){
-                                    DatabaseReference reference1 = database.getReference().child("Exercises").child(getEngineeringName()).child(CourseID).child(dataSnapshot.getKey());
+                                    DatabaseReference reference1 = database.getReference().child("Exercises").child(getEngineeringName()).child(course.getId()).child(dataSnapshot.getKey());
                                     reference1.setValue(null);
                                     new PopUpMSG(getContext(), getResources().getString(R.string.RemoveExercise), getResources().getString(R.string.ExerciseSuccessfullyRemoved));
                                 }
@@ -221,7 +224,7 @@ public class ExercisesFragment extends Fragment {
     }
     private void LecturePick(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference().child("Exercises").child(getEngineeringName()).child(CourseID);
+        DatabaseReference reference = database.getReference().child("Exercises").child(getEngineeringName()).child(course.getId());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -306,7 +309,7 @@ public class ExercisesFragment extends Fragment {
     }
     private void UserSearch(String text) {
         FirebaseDatabase database2 = FirebaseDatabase.getInstance();
-        DatabaseReference reference2 = database2.getReference("Exercises").child(getEngineeringName()).child(CourseID);
+        DatabaseReference reference2 = database2.getReference("Exercises").child(getEngineeringName()).child(course.getId());
         reference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -314,11 +317,11 @@ public class ExercisesFragment extends Fragment {
                 ExercisesNumber = 0;
                 for (DataSnapshot data : snapshot.getChildren()) {
                     Lecture lecture = data.getValue(Lecture.class);
-                    if((getResources().getString(R.string.Exercise) + " " + lecture.getNumber()).toLowerCase().contains(text.toLowerCase()))
+                    if(("Exercise " + lecture.getNumber()).toLowerCase().contains(text.toLowerCase()) || ("תרגול " + lecture.getNumber()).toLowerCase().contains(text.toLowerCase()))
                         lectures.add(lecture);
                     ExercisesNumber++;
                 }
-                LecturesFragmentAdapter lecturesFragmentAdapter = new LecturesFragmentAdapter(getContext(), lectures, user, CourseID);
+                LecturesFragmentAdapter lecturesFragmentAdapter = new LecturesFragmentAdapter(getContext(), lectures, user, course);
                 recyclerView.setAdapter(lecturesFragmentAdapter);        }
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
@@ -326,7 +329,7 @@ public class ExercisesFragment extends Fragment {
     }
     private void setLectures(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference("Exercises").child(getEngineeringName()).child(CourseID);
+        DatabaseReference reference = database.getReference("Exercises").child(getEngineeringName()).child(course.getId());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -342,7 +345,7 @@ public class ExercisesFragment extends Fragment {
                             index++;
                         }
                     }
-                    LecturesFragmentAdapter lecturesFragmentAdapter = new LecturesFragmentAdapter(getContext(), lectures, user, CourseID);
+                    LecturesFragmentAdapter lecturesFragmentAdapter = new LecturesFragmentAdapter(getContext(), lectures, user, course);
                     recyclerView.setAdapter(lecturesFragmentAdapter);
                 }
             }

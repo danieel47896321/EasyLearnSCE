@@ -38,7 +38,6 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull RequestsAdapter.ViewHolder holder, int position) {
         Request request = requests.get(position);
-        holder.ID.setText(""+(position+1)+".");
         holder.Request.setText(context.getResources().getString(R.string.Request) + ": " + getRequest(request.getRequest()));
         holder.FullName.setText(context.getResources().getString(R.string.FullName) + ": " + request.getFirstName()+ " " + request.getLastName());
         holder.EmailRequest.setText(context.getResources().getString(R.string.Email) + ": " + request.getEmail());
@@ -175,12 +174,11 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
     @Override
     public int getItemCount() { return requests.size(); }
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView ID, FullName, EmailRequest, Type, Request, Details;
+        public TextView FullName, EmailRequest, Type, Request, Details;
         public Button RequestApproved, RequestDenied;
         public TextInputLayout TextInputLayoutAnswer;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ID = itemView.findViewById(R.id.ID);
             FullName = itemView.findViewById(R.id.FullName);
             EmailRequest = itemView.findViewById(R.id.EmailRequest);
             Type = itemView.findViewById(R.id.Type);

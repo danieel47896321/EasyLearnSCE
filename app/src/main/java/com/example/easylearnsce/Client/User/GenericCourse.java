@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.easylearnsce.Client.Class.Course;
 import com.example.easylearnsce.Client.Class.User;
 import com.example.easylearnsce.Client.Class.UserMenuInfo;
 import com.example.easylearnsce.Client.Class.UserNavigationView;
@@ -33,7 +34,8 @@ public class GenericCourse extends FragmentActivity {
     private ViewPagerAdapter fragmentPager;
     private androidx.drawerlayout.widget.DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private String Course, Engineering, CourseID;
+    private String Engineering;
+    private Course course;
     private Intent intent;
     private String[] titles;
     @Override
@@ -52,8 +54,7 @@ public class GenericCourse extends FragmentActivity {
     private void setID(){
         intent = getIntent();
         user = (User)intent.getSerializableExtra("user");
-        Course = (String)intent.getSerializableExtra("Course");
-        CourseID = (String)intent.getSerializableExtra("CourseID");
+        course = (Course) intent.getSerializableExtra("Course");
         Engineering = user.getEngineering();
         tabLayout = findViewById(R.id.tabLayout);
         viewPager2 = findViewById(R.id.viewPager);
@@ -61,10 +62,10 @@ public class GenericCourse extends FragmentActivity {
         BackIcon = findViewById(R.id.BackIcon);
         navigationView = findViewById(R.id.navigationView);
         Title = findViewById(R.id.Title);
-        Title.setText(Engineering+"\n"+Course);
-        user.setCourse(Course);
+        Title.setText(Engineering+"\n"+course.getCourseName());
+        user.setCourse(course.getCourseName());
         drawerLayout = findViewById(R.id.drawerLayout);
-        fragmentPager = new ViewPagerAdapter(GenericCourse.this,user,CourseID);
+        fragmentPager = new ViewPagerAdapter(GenericCourse.this,user,course);
         viewPager2.setAdapter(fragmentPager);
         titles = new String[4];
         titles[0] = getResources().getString(R.string.Lectures);
@@ -75,7 +76,7 @@ public class GenericCourse extends FragmentActivity {
     private void MenuItem(){
         Menu menu= navigationView.getMenu();
         MenuItem item = menu.findItem(R.id.ItemCourse) , item1 = menu.findItem(R.id.ItemEngineering) ;
-        item.setTitle(Course);
+        item.setTitle(course.getCourseName());
         item1.setTitle(Engineering);
         item1.setVisible(true);
         item.setVisible(true);
@@ -130,11 +131,11 @@ public class GenericCourse extends FragmentActivity {
     public static class ViewPagerAdapter extends FragmentStateAdapter {
         private String[] titles = {"Lectures", "Exercises"};
         private User user;
-        private String CourseID;
-        public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, User user, String CorseID) {
+        private Course course;
+        public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, User user, Course course) {
             super(fragmentActivity);
             this.user = user;
-            this.CourseID = CorseID;
+            this.course = course;
         }
         @NonNull
         @Override
@@ -143,12 +144,12 @@ public class GenericCourse extends FragmentActivity {
                 case 0:
                     LecturesFragment lecturesFragment = new LecturesFragment();
                     lecturesFragment.setUser(user);
-                    lecturesFragment.setCourseID(CourseID);
+                    lecturesFragment.setCourse(course);
                     return lecturesFragment;
                 case 1:
                     ExercisesFragment exercisesFragment = new ExercisesFragment();
                     exercisesFragment.setUser(user);
-                    exercisesFragment.setCourseID(CourseID);
+                    exercisesFragment.setCourse(course);
                     return exercisesFragment;
             }
             return new LecturesFragment();

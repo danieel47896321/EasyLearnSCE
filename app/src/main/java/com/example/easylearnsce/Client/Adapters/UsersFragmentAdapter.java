@@ -46,6 +46,7 @@ public class UsersFragmentAdapter extends RecyclerView.Adapter<UsersFragmentAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.grey));
                 Intent intent = new Intent(context, Message.class);
                 intent.putExtra("user",user);
                 context.startActivity(intent);

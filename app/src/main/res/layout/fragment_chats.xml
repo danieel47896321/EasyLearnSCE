@@ -8,10 +8,14 @@
 
     <EditText
         android:id="@+id/User_search"
-        style="@style/Custom_EditText"
+        style="@style/EditText_Style_Normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
         android:hint="@string/Search"
         android:paddingStart="30dp"
         android:paddingLeft="30dp"
@@ -20,6 +24,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:layout_marginTop="5dp"
         android:layout_below="@+id/User_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

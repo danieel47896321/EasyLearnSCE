@@ -16,7 +16,7 @@
         android:id="@+id/linearLayoutMessage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/SendBar"
+        android:layout_above="@+id/cardViewMessage"
         android:layout_below="@+id/header"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,41 +29,52 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/SendBar"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewMessage"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:padding="5dp">
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="10dp">
 
-        <ImageButton
-            android:id="@+id/ButtonSend"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:backgroundTint="@color/sky"
-            android:src="@drawable/send"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/SendBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/TextSend"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:textAlignment="viewStart"
-            android:gravity="start"
-            android:background="@android:color/transparent"
-            android:hint="@string/TypeaMessage"
-            app:layout_constraintBottom_toBottomOf="@+id/ButtonSend"
-            app:layout_constraintEnd_toStartOf="@+id/ButtonSend"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ButtonSend" />
+            <ImageButton
+                android:id="@+id/ButtonSend"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:backgroundTint="@color/blue2"
+                android:src="@drawable/send"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <EditText
+                android:id="@+id/TextSend"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@android:color/transparent"
+                android:gravity="center|start"
+                android:textColorHint="@color/default_color"
+                android:hint="@string/TypeaMessage"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ButtonSend"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

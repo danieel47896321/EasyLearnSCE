@@ -185,6 +185,7 @@ public class GenericEngineering extends AppCompatActivity {
     }
     private void setAddAndRemove(){
         if(user.getType().equals("Admin") || user.getType().equals("אדמין")) {
+            floatingActionButtonOpen.setVisibility(View.VISIBLE);
             context = this;
             floatingActionButtonOpen.setOnClickListener(new View.OnClickListener() {
                 @Override

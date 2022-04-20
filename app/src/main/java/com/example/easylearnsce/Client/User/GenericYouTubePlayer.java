@@ -9,12 +9,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,6 +29,7 @@ import android.widget.TextView;
 
 import com.example.easylearnsce.Client.Adapters.TopicsAdapter;
 import com.example.easylearnsce.Client.Adapters.YouTubeTopicChatAdapter;
+import com.example.easylearnsce.Client.Class.Course;
 import com.example.easylearnsce.Client.Class.Lecture;
 import com.example.easylearnsce.Client.Class.Topic;
 import com.example.easylearnsce.Client.Class.User;
@@ -30,6 +37,8 @@ import com.example.easylearnsce.Client.Class.UserMenuInfo;
 import com.example.easylearnsce.Client.Class.UserNavigationView;
 import com.example.easylearnsce.Client.Class.YouTubeMessage;
 import com.example.easylearnsce.R;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
@@ -54,13 +63,16 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
     private RecyclerView recyclerViewChat;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private FloatingActionButton floatingActionButtonOpen;
+    private ExtendedFloatingActionButton floatingActionButtonEditTopics, floatingActionButtonEditUrl;
+    private Animation rotateOpen, rotateClose, toBottom, fromBottom;
+    private Boolean isOpen = false;
     private Button ButtonCancel, ButtonAddVideo, Finish;
     private TextInputLayout TextInputLayoutLinkToVideo;
     private ArrayList<YouTubeMessage> youTubeMessages;
     private Context context;
     private Intent intent;
     private String Video = "";
-    private String CourseID = "";
     private String LectureNumber = "";
     private String TabPosition = 0+"";
     private String Type = "";
@@ -72,6 +84,7 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
     private LinearLayout linearLayout;
     private YouTubePlayer.OnInitializedListener onInitializedListener;
     private Lecture lecture;
+    private Course course;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,9 +105,11 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         intent = getIntent();
         user = (User)intent.getSerializableExtra("user");
         Video = (String)intent.getSerializableExtra("Video");
-        CourseID = (String)intent.getSerializableExtra("CourseID");
+        course = (Course)intent.getSerializableExtra("Course");
         lecture = (Lecture) intent.getSerializableExtra("Lecture");
-        int index = lecture.getLectureName().indexOf(' ');
+        floatingActionButtonOpen = findViewById(R.id.floatingActionButtonOpen);
+        floatingActionButtonEditTopics = findViewById(R.id.floatingActionButtonEditTopics);
+        floatingActionButtonEditUrl = findViewById(R.id.floatingActionButtonEditUrl);
         if(lecture.getLectureName().equals("Lecture")) {
             Type = "Lectures";
             lectureName = getResources().getString(R.string.Lecture);
@@ -109,8 +124,6 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         ButtonSend = findViewById(R.id.ButtonSend);
         youTubePlayerView = findViewById(R.id.youTubePlayerView);
         linearLayout = findViewById(R.id.linearLayout);
-        EditTopics = findViewById(R.id.EditTopics);
-        EditURL = findViewById(R.id.EditURL);
         MenuIcon = findViewById(R.id.MenuIcon);
         BackIcon = findViewById(R.id.BackIcon);
         Title = findViewById(R.id.Title);
@@ -119,24 +132,53 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         new UserMenuInfo(user, GenericYouTubePlayer.this);
         tabLayout = findViewById(R.id.tabLayout);
-        if(user.getType().equals("Admin") || user.getType().equals("אדמין") || user.getType().equals("מרצה") || user.getType().equals("Teacher") )
+        if(user.getType().equals("Admin") || user.getType().equals("אדמין") || (user.getType().equals("Teacher") && user.getFullName().equals(course.getTeacherName())) || (user.getType().equals("מרצה") && user.getFullName().equals(course.getTeacherName())))
             setAddAndEdit();
     }
     private void setAddAndEdit(){
-        linearLayout.setVisibility(View.VISIBLE);
-        EditTopics.setOnClickListener(new View.OnClickListener() {
+        floatingActionButtonOpen.setVisibility(View.VISIBLE);
+        context = this;
+        floatingActionButtonOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditTopicsDialog();
-            }
-        });
-        EditURL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddVideoDialog();
+                isOpen = !isOpen;
+                rotateOpen = AnimationUtils.loadAnimation(context,R.anim.rotate_open);
+                rotateClose = AnimationUtils.loadAnimation(context,R.anim.rotate_close);
+                fromBottom = AnimationUtils.loadAnimation(context,R.anim.from_bottom);
+                toBottom = AnimationUtils.loadAnimation(context,R.anim.to_bottom);
+                if (isOpen) {
+                    floatingActionButtonEditTopics.setVisibility(View.VISIBLE);
+                    floatingActionButtonEditUrl.setVisibility(View.VISIBLE);
+                    floatingActionButtonEditTopics.setAnimation(fromBottom);
+                    floatingActionButtonEditUrl.setAnimation(fromBottom);
+                    floatingActionButtonOpen.setAnimation(rotateOpen);
+                    floatingActionButtonEditTopics.setClickable(true);
+                    floatingActionButtonEditUrl.setClickable(true);
+                    floatingActionButtonEditTopics.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                EditTopicsDialog();
+                            }
+                    });
+                    floatingActionButtonEditUrl.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                AddVideoDialog();
+                            }
+                    });
+                } else {
+                    floatingActionButtonEditTopics.setVisibility(View.INVISIBLE);
+                    floatingActionButtonEditUrl.setVisibility(View.INVISIBLE);
+                    floatingActionButtonEditTopics.setAnimation(toBottom);
+                    floatingActionButtonEditUrl.setAnimation(toBottom);
+                    floatingActionButtonOpen.setAnimation(rotateClose);
+                    floatingActionButtonEditTopics.setClickable(false);
+                    floatingActionButtonEditUrl.setClickable(false);
+                }
             }
         });
     }
+
     private void TimePickerDialog(TextView Time){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -149,6 +191,7 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         Finish = dialogView.findViewById(R.id.Finish);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
         Finish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,6 +225,7 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         ButtonCancel = dialogView.findViewById(R.id.ButtonCancel);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
         ButtonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +242,7 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
                 if(!(TextInputLayoutLinkToVideo.getEditText().getText().toString().equals(""))){
                     alertDialog.cancel();
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                    DatabaseReference mUserRef = firebaseDatabase.getReference().child(Type).child(getEngineeringName()).child(CourseID);
+                    DatabaseReference mUserRef = firebaseDatabase.getReference().child(Type).child(getEngineeringName()).child(course.getId());
                     mUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -211,7 +255,7 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
                             }
                             Video = TextInputLayoutLinkToVideo.getEditText().getText().toString();
                             mYouTubePlayer.cueVideo(Video);
-                            DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference(Type).child(getEngineeringName()).child(CourseID).child(index+"").child("url");
+                            DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference(Type).child(getEngineeringName()).child(course.getId()).child(index+"").child("url");
                             reference1.setValue(Video);
                         }
                         @Override
@@ -234,19 +278,23 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         recyclerView = dialogView.findViewById(R.id.recyclerView);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
-        DatabaseReference data = FirebaseDatabase.getInstance().getReference().child(Type).child(getEngineeringName()).child(CourseID).child(LectureNumber);
+        DatabaseReference data = FirebaseDatabase.getInstance().getReference().child(Type).child(getEngineeringName()).child(course.getId()).child(LectureNumber);
         data.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Lecture lecture1 = snapshot.getValue(Lecture.class);
-                topics.clear();
-                for(int i=0; i<lecture1.getTopics().size();i++)
-                    topics.add(lecture1.getTopics().get(i));
-                lecture.setTopics(lecture1.getTopics());
-                TopicsAdapter topicsAdapter = new TopicsAdapter(dialogView.getContext(),topics,CourseID,LectureNumber,Type, getEngineeringName());
-                recyclerView.setLayoutManager(new GridLayoutManager(dialogView.getContext(),1));
-                recyclerView.setAdapter(topicsAdapter);
+                Log.v("MyActivity",lecture1 +"" );
+                if(lecture1 != null) {
+                    topics.clear();
+                    for (int i = 0; i < lecture1.getTopics().size(); i++)
+                        topics.add(lecture1.getTopics().get(i));
+                    lecture.setTopics(lecture1.getTopics());
+                    TopicsAdapter topicsAdapter = new TopicsAdapter(dialogView.getContext(), topics, course.getId(), LectureNumber, Type, getEngineeringName());
+                    recyclerView.setLayoutManager(new GridLayoutManager(dialogView.getContext(), 1));
+                    recyclerView.setAdapter(topicsAdapter);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
@@ -269,7 +317,7 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
                 if(LectureTopic.getText().length() > 0 && StartTime.getText().length() > 0 && EndTime.getText().length() > 0) {
                     Topic topic = new Topic(LectureTopic.getText().toString(), StartTime.getText().toString(), EndTime.getText().toString());
                     lecture.AddTopic(topic);
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Type).child(getEngineeringName()).child(CourseID).child(LectureNumber).child("topics");
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Type).child(getEngineeringName()).child(course.getId()).child(LectureNumber).child("topics");
                     databaseReference.setValue(lecture.getTopics());
                 }
             }
@@ -290,41 +338,49 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         youTubePlayerView.initialize("AIzaSyCwgouOE-EGANd6yUk8NxgJCag7may6Iqc", onInitializedListener);
     }
     private void setPager(){
-        DatabaseReference data = FirebaseDatabase.getInstance().getReference().child(Type).child(getEngineeringName()).child(CourseID).child(LectureNumber);
+        DatabaseReference data = FirebaseDatabase.getInstance().getReference().child(Type).child(getEngineeringName()).child(course.getId()).child(LectureNumber);
         data.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Lecture lecture1 = snapshot.getValue(Lecture.class);
-                topics.clear();
-                for(int i=0; i<lecture1.getTopics().size();i++)
-                    topics.add(lecture1.getTopics().get(i));
-                lecture.setTopics(lecture1.getTopics());
-                tabLayout.removeAllTabs();
-                for (int i = 0; i < lecture.getTopics().size(); i++) {
-                    tabLayout.addTab(tabLayout.newTab(), i);
-                    tabLayout.getTabAt(i).setText(lecture.getTopics().get(i).getTopic() + "\n" + lecture.getTopics().get(i).getStartTime() + " - " + lecture.getTopics().get(i).getEndTime());
-                }
-                context = getBaseContext();
-                setSendMessage();
-                setTabChat();
-                tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                    @Override
-                    public void onTabSelected(TabLayout.Tab tab) {
-                        TabPosition = tab.getPosition()+"";
-                        setTabChat();
+                if(lecture1 != null) {
+                    topics.clear();
+                    for (int i = 0; i < lecture1.getTopics().size(); i++) {
+                        Log.v("MyActivity", "Lecture  - " + LectureNumber);
+                        topics.add(lecture1.getTopics().get(i));
                     }
-                    @Override
-                    public void onTabUnselected(TabLayout.Tab tab) { }
-                    @Override
-                    public void onTabReselected(TabLayout.Tab tab) { }
-                });
+                    lecture.setTopics(lecture1.getTopics());
+                    tabLayout.removeAllTabs();
+                    for (int i = 0; i < lecture.getTopics().size(); i++) {
+                        tabLayout.addTab(tabLayout.newTab(), i);
+                        tabLayout.getTabAt(i).setText(lecture.getTopics().get(i).getTopic() + "\n" + lecture.getTopics().get(i).getStartTime() + " - " + lecture.getTopics().get(i).getEndTime());
+                    }
+                    context = getBaseContext();
+                    setSendMessage();
+                    setTabChat();
+                    tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                        @Override
+                        public void onTabSelected(TabLayout.Tab tab) {
+                            TabPosition = tab.getPosition() + "";
+                            setTabChat();
+                        }
+
+                        @Override
+                        public void onTabUnselected(TabLayout.Tab tab) {
+                        }
+
+                        @Override
+                        public void onTabReselected(TabLayout.Tab tab) {
+                        }
+                    });
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
     }
     private void setTabChat(){
-        DatabaseReference getData = FirebaseDatabase.getInstance().getReference().child(Type+" Chats").child(getEngineeringName()).child(CourseID).child(LectureNumber).child(TabPosition);
+        DatabaseReference getData = FirebaseDatabase.getInstance().getReference().child(Type+" Chats").child(getEngineeringName()).child(course.getId()).child(LectureNumber).child(TabPosition);
         getData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -350,7 +406,7 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
             public void onClick(View v) {
                 if(TextSend.getText().toString().length() > 0){
                     youTubeMessages.add(new YouTubeMessage(user.getFullName(), user.getImage(), TextSend.getText().toString()));
-                    DatabaseReference message = FirebaseDatabase.getInstance().getReference().child(Type+" Chats").child(getEngineeringName()).child(CourseID).child(LectureNumber).child(TabPosition);
+                    DatabaseReference message = FirebaseDatabase.getInstance().getReference().child(Type+" Chats").child(getEngineeringName()).child(course.getId()).child(LectureNumber).child(TabPosition);
                     message.setValue(youTubeMessages);
                     TextSend.setText("");
                 }
@@ -415,7 +471,7 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                new UserNavigationView(GenericYouTubePlayer.this, item.getItemId(), user);
+                new UserNavigationView(GenericYouTubePlayer.this, item.getItemId(), user, course);
                 return false;
             }
         });
@@ -432,7 +488,7 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         intent = new Intent(GenericYouTubePlayer.this, Destination);
         intent.putExtra("user", user);
         intent.putExtra("Course", user.getCourse());
-        intent.putExtra("CourseID", CourseID);
+        intent.putExtra("Course", course);
         startActivity(intent);
         finish();
     }
