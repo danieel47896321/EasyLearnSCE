@@ -4,11 +4,19 @@ public class YouTubeMessage {
     private String FullName;
     private String Image;
     private String Message;
+    private String Date;
     public YouTubeMessage(){}
-    public YouTubeMessage(String fullName, String image, String message) {
+    public YouTubeMessage(String fullName, String image, String message, String date) {
         FullName = fullName;
         Image = image;
         Message = message;
+        Date = date;
+    }
+    public String getDate() {
+        return Date;
+    }
+    public void setDate(String date) {
+        Date = date;
     }
     public String getFullName() {
         return FullName;

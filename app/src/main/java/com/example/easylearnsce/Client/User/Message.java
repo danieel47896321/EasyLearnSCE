@@ -34,7 +34,9 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -104,6 +106,7 @@ public class Message extends AppCompatActivity {
     private void sendMessage(String sender, String receiver, String message){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         try{
+            String currentDateandTime = new SimpleDateFormat("HH:mm dd-MM-yyyy").format(new Date());
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("sender", sender);
             hashMap.put("receiver", receiver);

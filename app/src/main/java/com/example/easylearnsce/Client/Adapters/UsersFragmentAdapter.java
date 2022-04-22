@@ -39,8 +39,8 @@ public class UsersFragmentAdapter extends RecyclerView.Adapter<UsersFragmentAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = users.get(position);
         int age = getYears(new Date(Integer.valueOf(user.getYear()),Integer.valueOf(user.getMonth()),Integer.valueOf(user.getDay())));
-        holder.UserName.setText(user.getFirstName()+" "+user.getLastName());
-        holder.UserInfo.setText(user.getGender()+", "+age+", "+user.getCity());
+        holder.UserName.setText(user.getFirstName() + " " + user.getLastName());
+        holder.UserInfo.setText(getGender(user.getGender()) + ", " + age + ", "+ getCity(user.getCity()));
         if(!user.getImage().equals("Image"))
             Glide.with(context).load(user.getImage()).into(holder.UserImage);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +52,40 @@ public class UsersFragmentAdapter extends RecyclerView.Adapter<UsersFragmentAdap
                 context.startActivity(intent);
             }
         });
+    }
+    private String getGender(String gender){
+        if(gender.equals("Male") || gender.equals("זכר"))
+            return context.getResources().getString(R.string.Male);
+        else if(gender.equals("Female") || gender.equals("נקבה"))
+            return context.getResources().getString(R.string.Female);
+        return context.getResources().getString(R.string.Other);
+    }
+    private String getCity(String city){
+        if(city.equals("Ashqelon") || city.equals("אשקלון"))
+            return context.getResources().getString(R.string.Ashqelon);
+        else if(city.equals("Beer Sheva") || city.equals("באר שבע"))
+            return context.getResources().getString(R.string.BeerSheva);
+        else if(city.equals("Bet Shean") || city.equals("בית שאן"))
+            return context.getResources().getString(R.string.BetShean);
+        else if(city.equals("Bet Shemesh") || city.equals("בית שמש"))
+            return context.getResources().getString(R.string.BetShemesh);
+        else if(city.equals("Bene Beraq") || city.equals("בני ברק"))
+            return context.getResources().getString(R.string.BeneBeraq);
+        else if(city.equals("Elat") || city.equals("אילת"))
+            return context.getResources().getString(R.string.Elat);
+        else if(city.equals("Givatayim") || city.equals("גבעתיים"))
+            return context.getResources().getString(R.string.Givatayim);
+        else if(city.equals("Ofaqim") || city.equals("אופקים"))
+            return context.getResources().getString(R.string.Ofaqim);
+        else if(city.equals("Petah Tiqwa") || city.equals("פתח תקווה"))
+            return context.getResources().getString(R.string.PetahTiqwa);
+        else if(city.equals("Tel Aviv") || city.equals("תל אביב"))
+            return context.getResources().getString(R.string.TelAviv);
+        else if(city.equals("Haifa") || city.equals("חיפה"))
+            return context.getResources().getString(R.string.Haifa);
+        else if(city.equals("Ashdod") || city.equals("אשדוד"))
+            return context.getResources().getString(R.string.Ashdod);
+        return context.getResources().getString(R.string.BeerSheva);
     }
     @Override
     public int getItemCount() { return users.size(); }

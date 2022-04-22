@@ -41,6 +41,7 @@ public class YouTubeTopicChatAdapter extends RecyclerView.Adapter<YouTubeTopicCh
         YouTubeMessage youTubeMessage = youTubeMessages.get(position);
         holder.FullName.setText(youTubeMessage.getFullName());
         holder.Message.setText(youTubeMessage.getMessage());
+        holder.Date.setText(youTubeMessage.getDate());
         if(!youTubeMessage.getImage().equals("Image"))
             Glide.with(context).load(youTubeMessage.getImage()).into(holder.ProfileImage);
         holder.ProfileImage.setOnClickListener(new View.OnClickListener() {
@@ -55,11 +56,13 @@ public class YouTubeTopicChatAdapter extends RecyclerView.Adapter<YouTubeTopicCh
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView FullName;
         public TextView Message;
+        public TextView Date;
         public ImageView ProfileImage;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             FullName = itemView.findViewById(R.id.FullName);
             Message = itemView.findViewById(R.id.Message);
+            Date = itemView.findViewById(R.id.Date);
             ProfileImage = itemView.findViewById(R.id.ProfileImage);
         }
     }

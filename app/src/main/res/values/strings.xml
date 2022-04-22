@@ -188,7 +188,7 @@
     <string name="BeneBeraq" translatable="true">Bene Beraq</string>
     <string name="Elat" translatable="true">Elat</string>
     <string name="Givatayim" translatable="true">Givatayim</string>
-    <string name="KafarQasem" translatable="true">Kafar Qasem</string>
+    <string name="Ashdod" translatable="true">Ashdod</string>
     <string name="Ofaqim" translatable="true">Ofaqim</string>
     <string name="PetahTiqwa" translatable="true">Petah Tiqwa</string>
     <string name="TelAviv" translatable="true">Tel Aviv</string>
@@ -268,7 +268,7 @@
         <item>@string/BeneBeraq</item>
         <item>@string/Elat</item>
         <item>@string/Givatayim</item>
-        <item>@string/KafarQasem</item>
+        <item>@string/Ashdod</item>
         <item>@string/Ofaqim</item>
         <item>@string/PetahTiqwa</item>
         <item>@string/TelAviv</item>

@@ -52,7 +52,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class GenericYouTubePlayer extends YouTubeBaseActivity {
     private User user = new User();
@@ -405,7 +408,9 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
             @Override
             public void onClick(View v) {
                 if(TextSend.getText().toString().length() > 0){
-                    youTubeMessages.add(new YouTubeMessage(user.getFullName(), user.getImage(), TextSend.getText().toString()));
+                    Calendar calendar = Calendar.getInstance();;
+                    String currentDateandTime = new SimpleDateFormat("HH:mm dd-MM-yyyy").format(new Date());
+                    youTubeMessages.add(new YouTubeMessage(user.getFullName(), user.getImage(), TextSend.getText().toString(),currentDateandTime));
                     DatabaseReference message = FirebaseDatabase.getInstance().getReference().child(Type+" Chats").child(getEngineeringName()).child(course.getId()).child(LectureNumber).child(TabPosition);
                     message.setValue(youTubeMessages);
                     TextSend.setText("");
