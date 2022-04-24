@@ -13,55 +13,51 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.easylearnsce.Client.Class.Course;
-import com.example.easylearnsce.Client.Class.Lecture;
 import com.example.easylearnsce.Client.Class.User;
-import com.example.easylearnsce.R;
 import com.example.easylearnsce.Client.User.GenericYouTubePlayer;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.easylearnsce.R;
 
-import java.util.List;
-
-public class LecturesFragmentAdapter extends RecyclerView.Adapter<LecturesFragmentAdapter.MyViewHolder>{
+public class ExercisesFragmentAdapter extends RecyclerView.Adapter<ExercisesFragmentAdapter.MyViewHolder>{
     private Context context;
     private User user;
     private Course course;
     private Intent intent;
-    public LecturesFragmentAdapter(Context context, User user, Course course) {
+    public ExercisesFragmentAdapter(Context context, User user, Course course) {
         this.context = context;
         this.user = user;
         this.course = course;
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView LectureName;
+        TextView ExerciseName;
         CardView cardView;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            LectureName = itemView.findViewById(R.id.LectureName);
+            ExerciseName = itemView.findViewById(R.id.LectureName);
             cardView = itemView.findViewById(R.id.cardView);
         }
     }
-    public LecturesFragmentAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ExercisesFragmentAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         view = layoutInflater.inflate(R.layout.lecture_and_exercise,parent,false);
-        return new LecturesFragmentAdapter.MyViewHolder(view);
+        return new ExercisesFragmentAdapter.MyViewHolder(view);
     }
-    public void onBindViewHolder(@NonNull LecturesFragmentAdapter.MyViewHolder holder, int position) {
-        holder.LectureName.setText(context.getResources().getString(R.string.Lecture) + " " +course.getLectures().get(position).getNumber());
-        holder.LectureName.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(@NonNull ExercisesFragmentAdapter.MyViewHolder holder, int position) {
+        holder.ExerciseName.setText(context.getResources().getString(R.string.Exercise) + " " +course.getExercises().get(position).getNumber());
+        holder.ExerciseName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.LectureName.setBackgroundColor(context.getResources().getColor(R.color.grey));
-                user.setLecture(course.getLectures().get(position).getLectureName());
+                holder.ExerciseName.setBackgroundColor(context.getResources().getColor(R.color.grey));
+                user.setLecture(course.getExercises().get(position).getLectureName());
                 intent = new Intent(context, GenericYouTubePlayer.class);
                 intent.putExtra("user", user);
-                intent.putExtra("Lecture", course.getLectures().get(position));
-                intent.putExtra("Type", "Lecture");
+                intent.putExtra("Lecture", course.getExercises().get(position));
+                intent.putExtra("Type", "Exercise");
                 intent.putExtra("Course", course);
                 context.startActivity(intent);
                 ((Activity) context).finish();
             }
         });
     }
-    public int getItemCount() { return course.getLectures().size(); }
+    public int getItemCount() { return course.getExercises().size(); }
 }

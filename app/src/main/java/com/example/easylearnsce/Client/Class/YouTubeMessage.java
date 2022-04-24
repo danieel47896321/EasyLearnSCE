@@ -5,13 +5,17 @@ public class YouTubeMessage {
     private String Image;
     private String Message;
     private String Date;
+    private String Uid;
     public YouTubeMessage(){}
-    public YouTubeMessage(String fullName, String image, String message, String date) {
+    public YouTubeMessage(String fullName, String image, String message, String date, String uid) {
         FullName = fullName;
         Image = image;
         Message = message;
         Date = date;
+        Uid = uid;
     }
+    public String getUid() { return Uid; }
+    public void setUid(String uid) { Uid = uid; }
     public String getDate() {
         return Date;
     }

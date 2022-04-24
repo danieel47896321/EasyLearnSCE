@@ -139,6 +139,7 @@
     <string name="StartTime" translatable="true">זמן התחלה</string>
     <string name="EndTime" translatable="true">זמן סיום</string>
     <string name="EditUrl" translatable="true">שינוי סרטון</string>
+    <string name="MessageError" translatable="true">לא ניתן לשלוח הודעה חדשה כאשר לא קיימים נושאים</string>
     <!-- EasyLearnChat Page -->
     <string name="Chats" translatable="true">"צ'אטים"</string>
     <string name="Users" translatable="true">משתמשים</string>

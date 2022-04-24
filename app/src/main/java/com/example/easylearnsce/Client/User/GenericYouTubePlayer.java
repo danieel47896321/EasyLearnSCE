@@ -26,11 +26,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.easylearnsce.Client.Adapters.TopicsAdapter;
 import com.example.easylearnsce.Client.Adapters.YouTubeTopicChatAdapter;
 import com.example.easylearnsce.Client.Class.Course;
 import com.example.easylearnsce.Client.Class.Lecture;
+import com.example.easylearnsce.Client.Class.PopUpMSG;
 import com.example.easylearnsce.Client.Class.Topic;
 import com.example.easylearnsce.Client.Class.User;
 import com.example.easylearnsce.Client.Class.UserMenuInfo;
@@ -59,7 +61,7 @@ import java.util.Date;
 
 public class GenericYouTubePlayer extends YouTubeBaseActivity {
     private User user = new User();
-    private TextView Title, EditTopics, EditURL, StartTime, EndTime;
+    private TextView Title,StartTime, EndTime;
     private EditText TextSend, LectureTopic, Seconds, Hours, Minutes;
     private RecyclerView recyclerView;
     private ImageView BackIcon, MenuIcon, ButtonSend, Add;
@@ -76,9 +78,11 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
     private Context context;
     private Intent intent;
     private String Video = "";
-    private String LectureNumber = "";
-    private String TabPosition = 0+"";
+    private String listType = "lectures";
+    private int LectureNumber;
+    private int messageID = 0;
     private String Type = "";
+    private String TabPosition = 0+"";
     private String lectureName = "Lecture";
     private YouTubePlayerView youTubePlayerView;
     private com.google.android.youtube.player.YouTubePlayer mYouTubePlayer;
@@ -107,19 +111,18 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         youTubeMessages = new ArrayList<>();
         intent = getIntent();
         user = (User)intent.getSerializableExtra("user");
-        Video = (String)intent.getSerializableExtra("Video");
         course = (Course)intent.getSerializableExtra("Course");
         lecture = (Lecture) intent.getSerializableExtra("Lecture");
+        Type = (String) intent.getSerializableExtra("Type");
+        Video = lecture.getUrl();
         floatingActionButtonOpen = findViewById(R.id.floatingActionButtonOpen);
         floatingActionButtonEditTopics = findViewById(R.id.floatingActionButtonEditTopics);
         floatingActionButtonEditUrl = findViewById(R.id.floatingActionButtonEditUrl);
-        if(lecture.getLectureName().equals("Lecture")) {
-            Type = "Lectures";
+        if(Type.equals("Lecture"))
             lectureName = getResources().getString(R.string.Lecture);
-        }
         else {
-            Type = "Exercises";
             lectureName = getResources().getString(R.string.Exercise);
+            listType = "exercises";
         }
         LectureNumber = lecture.getNumber();
         TextSend = findViewById(R.id.TextSend);
@@ -137,6 +140,54 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         tabLayout = findViewById(R.id.tabLayout);
         if(user.getType().equals("Admin") || user.getType().equals("אדמין") || (user.getType().equals("Teacher") && user.getFullName().equals(course.getTeacherName())) || (user.getType().equals("מרצה") && user.getFullName().equals(course.getTeacherName())))
             setAddAndEdit();
+    }
+    private void setYouTubePlayer(){
+        onInitializedListener = new com.google.android.youtube.player.YouTubePlayer.OnInitializedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onInitializationSuccess(com.google.android.youtube.player.YouTubePlayer.Provider provider, com.google.android.youtube.player.YouTubePlayer youTubePlayer, boolean b) {
+                mYouTubePlayer = youTubePlayer;
+                mYouTubePlayer.cueVideo(Video);
+                setPager();
+            }
+            @Override
+            public void onInitializationFailure(com.google.android.youtube.player.YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) { }
+        };
+        youTubePlayerView.initialize("AIzaSyCwgouOE-EGANd6yUk8NxgJCag7may6Iqc", onInitializedListener);
+    }
+    private void setPager(){
+        DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("Courses").child(getEngineeringName()).child(course.getId()).child(listType).child(lecture.getNumber()+"").child("topics");
+        data.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                topics.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Topic topic = dataSnapshot.getValue(Topic.class);
+                    topics.add(topic);
+                }
+                tabLayout.removeAllTabs();
+                for (int i = 0; i < topics.size(); i++) {
+                    tabLayout.addTab(tabLayout.newTab(), i);
+                    tabLayout.getTabAt(i).setText(topics.get(i).getTopic() + "\n" + topics.get(i).getStartTime() + " - " + topics.get(i).getEndTime());
+                }
+                context = getBaseContext();
+                setSendMessage();
+                setTabChat();
+                tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        TabPosition = tab.getPosition() + "";
+                        setTabChat();
+                    }
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {}
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {}
+                });
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
     }
     private void setAddAndEdit(){
         floatingActionButtonOpen.setVisibility(View.VISIBLE);
@@ -181,7 +232,6 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
             }
         });
     }
-
     private void TimePickerDialog(TextView Time){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -244,26 +294,10 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
                     TextInputLayoutLinkToVideo.setHelperText("");
                 if(!(TextInputLayoutLinkToVideo.getEditText().getText().toString().equals(""))){
                     alertDialog.cancel();
-                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                    DatabaseReference mUserRef = firebaseDatabase.getReference().child(Type).child(getEngineeringName()).child(course.getId());
-                    mUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            int counter = 1, index = 1 ;
-                            for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                                Lecture lecture2 = dataSnapshot.getValue(Lecture.class);
-                                if((lecture2.getLectureName() + " " + lecture2.getNumber()).equals(lecture.getLectureName() + " " + lecture.getNumber()))
-                                    index = counter;
-                                counter++;
-                            }
-                            Video = TextInputLayoutLinkToVideo.getEditText().getText().toString();
-                            mYouTubePlayer.cueVideo(Video);
-                            DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference(Type).child(getEngineeringName()).child(course.getId()).child(index+"").child("url");
-                            reference1.setValue(Video);
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) { }
-                    });
+                    Video = TextInputLayoutLinkToVideo.getEditText().getText().toString();
+                    mYouTubePlayer.cueVideo(Video);
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Courses").child(getEngineeringName()).child(course.getId()).child(listType).child(lecture.getNumber()+"").child("url");
+                    reference.setValue(Video);
                 }
             }
         });
@@ -283,21 +317,18 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
-        DatabaseReference data = FirebaseDatabase.getInstance().getReference().child(Type).child(getEngineeringName()).child(course.getId()).child(LectureNumber);
+        DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("Courses").child(getEngineeringName()).child(course.getId()).child(listType).child(lecture.getNumber()+"").child("topics");
         data.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Lecture lecture1 = snapshot.getValue(Lecture.class);
-                Log.v("MyActivity",lecture1 +"" );
-                if(lecture1 != null) {
-                    topics.clear();
-                    for (int i = 0; i < lecture1.getTopics().size(); i++)
-                        topics.add(lecture1.getTopics().get(i));
-                    lecture.setTopics(lecture1.getTopics());
-                    TopicsAdapter topicsAdapter = new TopicsAdapter(dialogView.getContext(), topics, course.getId(), LectureNumber, Type, getEngineeringName());
-                    recyclerView.setLayoutManager(new GridLayoutManager(dialogView.getContext(), 1));
-                    recyclerView.setAdapter(topicsAdapter);
+                topics.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Topic topic = dataSnapshot.getValue(Topic.class);
+                    topics.add(topic);
                 }
+                TopicsAdapter topicsAdapter = new TopicsAdapter(dialogView.getContext(), topics, course.getId(), LectureNumber+"", listType, getEngineeringName());
+                recyclerView.setLayoutManager(new GridLayoutManager(dialogView.getContext(), 1));
+                recyclerView.setAdapter(topicsAdapter);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
@@ -318,84 +349,34 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
             @Override
             public void onClick(View v) {
                 if(LectureTopic.getText().length() > 0 && StartTime.getText().length() > 0 && EndTime.getText().length() > 0) {
-                    Topic topic = new Topic(LectureTopic.getText().toString(), StartTime.getText().toString(), EndTime.getText().toString());
-                    lecture.AddTopic(topic);
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Type).child(getEngineeringName()).child(course.getId()).child(LectureNumber).child("topics");
-                    databaseReference.setValue(lecture.getTopics());
+                    int id = 0;
+                    for(int i=0;i<topics.size();i++)
+                        if(topics.get(i).getId().equals(id+""))
+                            id++;
+                    Topic topic = new Topic(LectureTopic.getText().toString(), StartTime.getText().toString(), EndTime.getText().toString(), id+"");
+                    DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("Courses").child(getEngineeringName()).child(course.getId()).child(listType).child(lecture.getNumber()+"").child("topics").child(id+"");
+                    data.setValue(topic);
                 }
             }
-        });
-    }
-    private void setYouTubePlayer(){
-        onInitializedListener = new com.google.android.youtube.player.YouTubePlayer.OnInitializedListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onInitializationSuccess(com.google.android.youtube.player.YouTubePlayer.Provider provider, com.google.android.youtube.player.YouTubePlayer youTubePlayer, boolean b) {
-                mYouTubePlayer = youTubePlayer;
-                mYouTubePlayer.cueVideo(Video);
-                setPager();
-            }
-            @Override
-            public void onInitializationFailure(com.google.android.youtube.player.YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) { }
-        };
-        youTubePlayerView.initialize("AIzaSyCwgouOE-EGANd6yUk8NxgJCag7may6Iqc", onInitializedListener);
-    }
-    private void setPager(){
-        DatabaseReference data = FirebaseDatabase.getInstance().getReference().child(Type).child(getEngineeringName()).child(course.getId()).child(LectureNumber);
-        data.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Lecture lecture1 = snapshot.getValue(Lecture.class);
-                if(lecture1 != null) {
-                    topics.clear();
-                    for (int i = 0; i < lecture1.getTopics().size(); i++) {
-                        Log.v("MyActivity", "Lecture  - " + LectureNumber);
-                        topics.add(lecture1.getTopics().get(i));
-                    }
-                    lecture.setTopics(lecture1.getTopics());
-                    tabLayout.removeAllTabs();
-                    for (int i = 0; i < lecture.getTopics().size(); i++) {
-                        tabLayout.addTab(tabLayout.newTab(), i);
-                        tabLayout.getTabAt(i).setText(lecture.getTopics().get(i).getTopic() + "\n" + lecture.getTopics().get(i).getStartTime() + " - " + lecture.getTopics().get(i).getEndTime());
-                    }
-                    context = getBaseContext();
-                    setSendMessage();
-                    setTabChat();
-                    tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                        @Override
-                        public void onTabSelected(TabLayout.Tab tab) {
-                            TabPosition = tab.getPosition() + "";
-                            setTabChat();
-                        }
-
-                        @Override
-                        public void onTabUnselected(TabLayout.Tab tab) {
-                        }
-
-                        @Override
-                        public void onTabReselected(TabLayout.Tab tab) {
-                        }
-                    });
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
         });
     }
     private void setTabChat(){
-        DatabaseReference getData = FirebaseDatabase.getInstance().getReference().child(Type+" Chats").child(getEngineeringName()).child(course.getId()).child(LectureNumber).child(TabPosition);
-        getData.addValueEventListener(new ValueEventListener() {
+        DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("Courses").child(getEngineeringName()).child(course.getId()).child(listType).child(LectureNumber+"").child("topics").child(TabPosition).child("messages");
+        data.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 youTubeMessages.clear();
+                messageID = 0;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     YouTubeMessage youTubeMessage = dataSnapshot.getValue(YouTubeMessage.class);
                     youTubeMessages.add(youTubeMessage);
+                    messageID++;
                 }
+                tabLayout.setScrollPosition(Integer.valueOf(TabPosition),0f,true);
                 ArrayList<YouTubeMessage> reverse = new ArrayList<>();
                 for(int i=0; i< youTubeMessages.size(); i++)
                     reverse.add(youTubeMessages.get(youTubeMessages.size()-i-1));
-                YouTubeTopicChatAdapter youTubeTopicChatAdapter = new YouTubeTopicChatAdapter(context, reverse);
+                YouTubeTopicChatAdapter youTubeTopicChatAdapter = new YouTubeTopicChatAdapter(context, reverse,user);
                 recyclerViewChat.setLayoutManager(new GridLayoutManager(context,1));
                 recyclerViewChat.setAdapter(youTubeTopicChatAdapter);
             }
@@ -407,14 +388,16 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         ButtonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextSend.getText().toString().length() > 0){
-                    Calendar calendar = Calendar.getInstance();;
-                    String currentDateandTime = new SimpleDateFormat("HH:mm dd-MM-yyyy").format(new Date());
-                    youTubeMessages.add(new YouTubeMessage(user.getFullName(), user.getImage(), TextSend.getText().toString(),currentDateandTime));
-                    DatabaseReference message = FirebaseDatabase.getInstance().getReference().child(Type+" Chats").child(getEngineeringName()).child(course.getId()).child(LectureNumber).child(TabPosition);
-                    message.setValue(youTubeMessages);
-                    TextSend.setText("");
+                if(tabLayout.getTabCount() > 0) {
+                    if (TextSend.getText().toString().length() > 0) {
+                        String currentDateandTime = new SimpleDateFormat("HH:mm dd-MM-yyyy").format(new Date());
+                        DatabaseReference message = FirebaseDatabase.getInstance().getReference().child("Courses").child(getEngineeringName()).child(course.getId()).child(listType).child(LectureNumber+"").child("topics").child(TabPosition).child("messages").child(messageID+"");
+                        message.setValue(new YouTubeMessage(user.getFullName(), user.getImage(), TextSend.getText().toString(), currentDateandTime, user.getUid()));
+                        TextSend.setText("");
+                    }
                 }
+                else
+                    new PopUpMSG(context,getResources().getString(R.string.TypeaMessage),getResources().getString(R.string.MessageError));
             }
         });
     }
@@ -492,7 +475,6 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
     private void StartActivity(Class Destination){
         intent = new Intent(GenericYouTubePlayer.this, Destination);
         intent.putExtra("user", user);
-        intent.putExtra("Course", user.getCourse());
         intent.putExtra("Course", course);
         startActivity(intent);
         finish();

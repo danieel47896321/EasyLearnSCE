@@ -138,6 +138,7 @@
     <string name="StartTime" translatable="true">Start Time</string>
     <string name="EndTime" translatable="true">End Time</string>
     <string name="EditUrl" translatable="true">Edit Url</string>
+    <string name="MessageError" translatable="true">It is not possible to send a new message when there are no topics</string>
     <!-- EasyLearnChat Page -->
     <string name="Chats" translatable="true">Chats</string>
     <string name="Users" translatable="true">Users</string>

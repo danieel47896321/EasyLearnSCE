@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -18,8 +19,11 @@ import com.example.easylearnsce.Client.Class.Topic;
 import com.example.easylearnsce.Client.Class.User;
 import com.example.easylearnsce.Client.User.Message;
 import com.example.easylearnsce.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,8 +56,8 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.ViewHolder
         holder.RemoveTopic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Type).child(Engineering).child(CourseID).child(LectureNumber).child("topics").child(position+"");
-                databaseReference.setValue(null);
+                DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("Courses").child(Engineering).child(CourseID).child(Type).child(LectureNumber).child("topics").child(position+"");
+                data.setValue(null);
             }
         });
     }

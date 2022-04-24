@@ -1,6 +1,7 @@
 package com.example.easylearnsce.Client.Class;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Course implements Serializable {
     private String CourseName = "name";
@@ -9,13 +10,32 @@ public class Course implements Serializable {
     private String CourseSemester = "semester";
     private String CourseEngineering = "Tag";
     private String Id = "1" ;
-    public Course() { }
+    private ArrayList<Lecture> lectures;
+    private ArrayList<Lecture> exercises;
+    public Course() {
+        lectures = new ArrayList<>();
+        exercises = new ArrayList<>();
+    }
     public Course(String courseName, String teacherName, String courseYear, String courseSemester, String courseEngineering) {
+        lectures = new ArrayList<>();
+        exercises = new ArrayList<>();
         CourseName = courseName;
         TeacherName = teacherName;
         CourseYear = courseYear;
         CourseSemester = courseSemester;
         CourseEngineering = courseEngineering;
+    }
+    public ArrayList<Lecture> getLectures() {
+        return lectures;
+    }
+    public void setLectures(ArrayList<Lecture> lectures) {
+        this.lectures = lectures;
+    }
+    public ArrayList<Lecture> getExercises() {
+        return exercises;
+    }
+    public void setExercises(ArrayList<Lecture> exercises) {
+        this.exercises = exercises;
     }
     public void setCourseName(String courseName) { CourseName = courseName; }
     public void setTeacherName(String teacherName) { TeacherName = teacherName; }

@@ -6,29 +6,28 @@ import java.util.ArrayList;
 public class Lecture implements Serializable {
     private String LectureName;
     private String Url;
-    private String Number;
-    private ArrayList<Topic> Topics;
-    private Lecture(){
-        Topics = new ArrayList<>();
-    }
-    public Lecture(String lectureName, String url, String number) {
-        Topics = new ArrayList<>();
+    private String Type;
+    private int Number;
+    private ArrayList<Topic> topics;
+    private Lecture(){ }
+    public Lecture(String lectureName, String url, int number, String type) {
+        topics = new ArrayList<>();
         LectureName = lectureName;
         Url = url;
         Number = number;
+        Type = type;
     }
-    public String getNumber() {
+    public String getType() {
+        return Type;
+    }
+    public void setType(String type) {
+        Type = type;
+    }
+    public int getNumber() {
         return Number;
     }
-    public void setNumber(String number) {
+    public void setNumber(int number) {
         Number = number;
-    }
-    public void AddTopic(Topic lectureTopic){ Topics.add(lectureTopic); }
-    public ArrayList<Topic> getTopics() {
-        return Topics;
-    }
-    public void setTopics(ArrayList<Topic> topics) {
-        this.Topics = topics;
     }
     public String getLectureName() {
         return LectureName;
