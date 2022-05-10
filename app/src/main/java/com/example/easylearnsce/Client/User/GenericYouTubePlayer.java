@@ -396,8 +396,6 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
                         TextSend.setText("");
                     }
                 }
-                else
-                    new PopUpMSG(context,getResources().getString(R.string.TypeaMessage),getResources().getString(R.string.MessageError));
             }
         });
     }

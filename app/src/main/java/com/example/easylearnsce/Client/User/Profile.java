@@ -166,12 +166,6 @@ public class Profile extends AppCompatActivity {
                     user.setFirstName(TextInputLayoutFirstName.getEditText().getText().toString());
                     user.setLastName(TextInputLayoutLastName.getEditText().getText().toString());
                     user.setGender(TextInputLayoutGender.getEditText().getText().toString());
-                    if(UserYear != 0) {
-                        user.setYear(UserYear + "");
-                        user.setMonth(UserMonth + "");
-                        user.setDay(UserDay + "");
-                        user.setBirthDay(UserDay + "/" + UserMonth + "/" + UserYear);
-                    }
                     user.setCity(TextInputLayoutCity.getEditText().getText().toString());
                     user.setFullName(user.getFirstName() + " " + user.getLastName());
                     if(uri != null) {
