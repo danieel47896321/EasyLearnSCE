@@ -12,7 +12,7 @@ i connected android studio project to Firebase server to save the registered ema
 # API
 i used youtube api and firebase api send reset password link to email.
 
-# Frontend
+# Backend
 Firebase used as a Backend-as-a-Service (BaaS).
 
 # Frontend
