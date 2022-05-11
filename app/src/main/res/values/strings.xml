@@ -64,8 +64,8 @@
     <string name="AboutInfo" translatable="true">The app was developed as part of a final project by Daniel Elmaliach with the goal of creating a comfortable environment for watching lectures and learning comfortably and providing feedback to lecturers about excerpts that were less clear by adding a comment while specifying the desired time segment for a particular recording</string>
     <!-- Contact Page -->
     <string name="ContactInfo" translatable="true">Have you meet any problem?\nThe development team is at your service</string>
-    <string name="ContactSubject" translatable="true">Contact - App EasyLearnSCE</string>
-    <string name="ContactText" translatable="true">Team EasyLearnSCE, </string>
+    <string name="ContactSubject" translatable="true">Contact - App EasyLearn</string>
+    <string name="ContactText" translatable="true">Team EasyLearn, </string>
     <string name="ContactEmailChooser" translatable="true">Choose an Email App</string>
     <!-- Home Page -->
     <string name="Home" translatable="true">Home</string>

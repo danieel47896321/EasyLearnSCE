@@ -65,8 +65,8 @@
     <string name="AboutInfo" translatable="true">האפליקציה פותחה במסגרת פרויקט גמר על ידי דניאל אלמליח כאשר המטרה ליצור סביבה נוחה לצפיה בהרצאות ולמידה נוחה ומתן פידבק למרצים לגבי קטעים שהיו פחות ברורים על ידי הוספת תגובה תוך ציון קטע הזמן הרצוי עבור הקלטה מסוימת </string>
     <!-- Contact Page -->
     <string name="ContactInfo" translatable="true">האם נתקלת בבעיה כלשהי?\n צוות הפיתוח זמין לשירותך</string>
-    <string name="ContactSubject" translatable="true">יצירת קשר - App EasyLearnSCE</string>
-    <string name="ContactText" translatable="true">צוות EasyLearnSCE, </string>
+    <string name="ContactSubject" translatable="true">יצירת קשר - App EasyLearn</string>
+    <string name="ContactText" translatable="true">צוות EasyLearn, </string>
     <string name="ContactEmailChooser" translatable="true">בחר אפליקציית דוא"ל</string>
     <!-- Home Page -->
     <string name="Home" translatable="true">ראשי</string>
