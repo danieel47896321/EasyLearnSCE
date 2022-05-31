@@ -85,7 +85,7 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
     private String TabPosition = 0+"";
     private String lectureName = "Lecture";
     private YouTubePlayerView youTubePlayerView;
-    private com.google.android.youtube.player.YouTubePlayer mYouTubePlayer;
+    private YouTubePlayer mYouTubePlayer;
     private TabLayout tabLayout;
     private ArrayList<Topic> topics;
     private LinearLayout linearLayout;
@@ -142,16 +142,18 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
             setAddAndEdit();
     }
     private void setYouTubePlayer(){
-        onInitializedListener = new com.google.android.youtube.player.YouTubePlayer.OnInitializedListener() {
+        onInitializedListener = new YouTubePlayer.OnInitializedListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
-            public void onInitializationSuccess(com.google.android.youtube.player.YouTubePlayer.Provider provider, com.google.android.youtube.player.YouTubePlayer youTubePlayer, boolean b) {
+            public void onInitializationSuccess(YouTubePlayer.Provider provider, com.google.android.youtube.player.YouTubePlayer youTubePlayer, boolean b) {
                 mYouTubePlayer = youTubePlayer;
                 mYouTubePlayer.cueVideo(Video);
                 setPager();
             }
             @Override
-            public void onInitializationFailure(com.google.android.youtube.player.YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) { }
+            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+                Toast.makeText(context, "failed " + youTubeInitializationResult.toString(), Toast.LENGTH_SHORT).show();
+            }
         };
         youTubePlayerView.initialize("AIzaSyCwgouOE-EGANd6yUk8NxgJCag7may6Iqc", onInitializedListener);
     }

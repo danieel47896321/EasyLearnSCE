@@ -95,6 +95,7 @@ tools:context=".Client.User.GenericYouTubePlayer">
                     android:id="@+id/youTubePlayerView"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
+                    android:contentDescription="@string/Loading"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/header" />
@@ -119,11 +120,12 @@ tools:context=".Client.User.GenericYouTubePlayer">
                     app:layout_constraintStart_toStartOf="@+id/youTubePlayerView"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout"
                     app:tabIndicatorColor="@color/blue2"
-                    app:tabMode="scrollable"
-                    app:tabTextAppearance="@style/TabLayout_Style"
                     app:tabIndicatorHeight="3dp"
+                    app:tabMode="scrollable"
                     app:tabSelectedTextColor="@color/blue2"
-                    app:tabTextColor="@color/default_color"></com.google.android.material.tabs.TabLayout>
+                    app:tabTextAppearance="@style/TabLayout_Style"
+                    app:tabTextColor="@color/default_color"
+                    tools:ignore="SpeakableTextPresentCheck"></com.google.android.material.tabs.TabLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -151,7 +153,8 @@ tools:context=".Client.User.GenericYouTubePlayer">
                         android:src="@drawable/send"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
                     <EditText
                         android:id="@+id/TextSend"
@@ -169,7 +172,8 @@ tools:context=".Client.User.GenericYouTubePlayer">
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/ButtonSend"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="TextContrastCheck" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>

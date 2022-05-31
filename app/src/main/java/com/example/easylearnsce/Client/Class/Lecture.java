@@ -17,6 +17,13 @@ public class Lecture implements Serializable {
         Number = number;
         Type = type;
     }
+
+    public ArrayList<Topic> getTopics() {
+        return topics;
+    }
+    public void setTopics(ArrayList<Topic> topics) {
+        this.topics = topics;
+    }
     public String getType() {
         return Type;
     }

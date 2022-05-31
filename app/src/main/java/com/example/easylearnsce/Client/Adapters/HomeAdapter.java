@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,7 +77,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.constraintLayout.setBackgroundColor(context.getResources().getColor(R.color.grey));
                 intent = new Intent(context, Home.class);
                  if(holder.TagName.getText().equals(context.getResources().getString(R.string.SelectEngineering)))
                     intent = new Intent(context, SelectEngineering.class);

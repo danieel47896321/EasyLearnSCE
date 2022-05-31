@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -57,10 +58,9 @@ public class ChatFragmentAdapter extends RecyclerView.Adapter<ChatFragmentAdapte
         if(!user.getImage().equals("Image"))
             Glide.with(context).load(user.getImage()).into(holder.UserImage);
         lastMsg(user.getUid(),holder.UserInfo);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.grey));
                 Intent intent = new Intent(context, Message.class);
                 intent.putExtra("user",user);
                 context.startActivity(intent);
@@ -73,8 +73,10 @@ public class ChatFragmentAdapter extends RecyclerView.Adapter<ChatFragmentAdapte
         public TextView UserName;
         public TextView UserInfo;
         public ImageView UserImage;
+        public ConstraintLayout constraintLayout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            constraintLayout = itemView.findViewById(R.id.constraintLayout);
             UserName = itemView.findViewById(R.id.UserName);
             UserInfo = itemView.findViewById(R.id.UserInfo);
             UserImage = itemView.findViewById(R.id.UserImage);

@@ -40,7 +40,6 @@ public class SelectEngineeringAdapter extends RecyclerView.Adapter<SelectEnginee
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.constraintLayout.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
                 Intent intent = new Intent(context, GenericEngineering.class);
                 intent.putExtra("title",holder.TagName.getText());
                 intent.putExtra("user", user);

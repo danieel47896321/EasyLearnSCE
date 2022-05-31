@@ -1,6 +1,8 @@
 package com.example.easylearnsce.Client.Class;
 
-public class YouTubeMessage {
+import java.io.Serializable;
+
+public class YouTubeMessage implements Serializable {
     private String FullName;
     private String Image;
     private String Message;

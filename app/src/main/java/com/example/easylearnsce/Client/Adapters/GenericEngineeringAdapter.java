@@ -86,7 +86,6 @@ public class GenericEngineeringAdapter extends RecyclerView.Adapter<GenericEngin
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.constraintLayout.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
                 Intent intent;
                 intent = new Intent(context, GenericCourse.class);
                 User.setCourseID(course.getId());

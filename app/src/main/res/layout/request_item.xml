@@ -16,6 +16,7 @@
         app:cardCornerRadius="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="10dp"
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -104,10 +105,8 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal"
                 android:gravity="center"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/TextInputLayoutAnswer">
@@ -118,7 +117,8 @@
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
-                    android:text="@string/Approved" />
+                    android:text="@string/Approved"
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/RequestDenied"
@@ -128,7 +128,8 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/button_background"
-                    android:text="@string/Denied" />
+                    android:text="@string/Denied"
+                    android:textSize="18sp" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.easylearnsce.Client.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -49,7 +50,7 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.ViewHolder
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void onBindViewHolder(@NonNull TopicsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TopicsAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Topic topic = topics.get(position);
         holder.Topic.setText(topic.getTopic());
         holder.Time.setText(topic.getEndTime() + " - " + topic.getStartTime());

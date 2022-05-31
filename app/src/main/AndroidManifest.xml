@@ -21,24 +21,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyLearnSCE"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Client.User.GenericYouTubePlayer" />
-        <activity android:name=".Client.User.AllRequests" />
-        <activity android:name=".Client.User.Requests" />
-        <activity android:name=".Client.User.Message" />
-        <activity android:name=".Client.User.EasyLearnChat" />
-        <activity android:name=".Client.User.Profile" />
-        <activity android:name=".Client.User.GenericCourse" />
-        <activity android:name=".Client.User.ChangePassword" />
-        <activity android:name=".Client.User.GenericEngineering" />
-        <activity android:name=".Client.User.SelectEngineering" />
-        <activity android:name=".Client.User.Home" />
-        <activity android:name=".Client.Guest.EasyLearnSCE" />
-        <activity android:name=".Client.Guest.Contact" />
-        <activity android:name=".Client.Guest.About" />
-        <activity android:name=".Client.Guest.CreateAccount" />
-        <activity android:name=".Client.Guest.SignIn" />
-        <activity android:name=".Client.Guest.ResetPassword" />
-        <activity android:name=".Client.Guest.OpenScreen">
+        <activity android:name=".Client.User.GenericYouTubePlayer" android:exported="true" />
+        <activity android:name=".Client.User.AllRequests" android:exported="true"/>
+        <activity android:name=".Client.User.Requests" android:exported="true"/>
+        <activity android:name=".Client.User.Message" android:exported="true"/>
+        <activity android:name=".Client.User.EasyLearnChat" android:exported="true"/>
+        <activity android:name=".Client.User.Profile" android:exported="true"/>
+        <activity android:name=".Client.User.GenericCourse" android:exported="true"/>
+        <activity android:name=".Client.User.ChangePassword" android:exported="true"/>
+        <activity android:name=".Client.User.GenericEngineering" android:exported="true"/>
+        <activity android:name=".Client.User.SelectEngineering" android:exported="true"/>
+        <activity android:name=".Client.User.Home" android:exported="true"/>
+        <activity android:name=".Client.Guest.EasyLearnSCE" android:exported="true"/>
+        <activity android:name=".Client.Guest.Contact" android:exported="true"/>
+        <activity android:name=".Client.Guest.About" android:exported="true"/>
+        <activity android:name=".Client.Guest.CreateAccount" android:exported="true"/>
+        <activity android:name=".Client.Guest.SignIn" android:exported="true"/>
+        <activity android:name=".Client.Guest.ResetPassword" android:exported="true"/>
+        <activity android:name=".Client.Guest.OpenScreen" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

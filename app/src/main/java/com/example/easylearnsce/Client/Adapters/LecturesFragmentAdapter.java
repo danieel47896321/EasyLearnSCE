@@ -1,5 +1,6 @@
 package com.example.easylearnsce.Client.Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.easylearnsce.Client.Class.Course;
@@ -33,11 +35,11 @@ public class LecturesFragmentAdapter extends RecyclerView.Adapter<LecturesFragme
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView LectureName;
-        CardView cardView;
+        ConstraintLayout constraintLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             LectureName = itemView.findViewById(R.id.LectureName);
-            cardView = itemView.findViewById(R.id.cardView);
+            constraintLayout = itemView.findViewById(R.id.constraintLayout);
         }
     }
     public LecturesFragmentAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -46,12 +48,11 @@ public class LecturesFragmentAdapter extends RecyclerView.Adapter<LecturesFragme
         view = layoutInflater.inflate(R.layout.lecture_and_exercise,parent,false);
         return new LecturesFragmentAdapter.MyViewHolder(view);
     }
-    public void onBindViewHolder(@NonNull LecturesFragmentAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull LecturesFragmentAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.LectureName.setText(context.getResources().getString(R.string.Lecture) + " " +course.getLectures().get(position).getNumber());
-        holder.LectureName.setOnClickListener(new View.OnClickListener() {
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.LectureName.setBackgroundColor(context.getResources().getColor(R.color.grey));
                 user.setLecture(course.getLectures().get(position).getLectureName());
                 intent = new Intent(context, GenericYouTubePlayer.class);
                 intent.putExtra("user", user);

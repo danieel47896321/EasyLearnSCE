@@ -52,7 +52,6 @@ public class EasyLearnAdapter extends RecyclerView.Adapter<EasyLearnAdapter.MyVi
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.constraintLayout.setBackgroundColor(context.getResources().getColor(R.color.PickColor));
                 if(holder.TagName.getText().equals(context.getResources().getString(R.string.ResetPassword)))
                     intent = new Intent(context, ResetPassword.class);
                 else if(holder.TagName.getText().equals(context.getResources().getString(R.string.SignIn)))

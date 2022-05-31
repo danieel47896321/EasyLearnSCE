@@ -13,6 +13,8 @@
     app:cardCornerRadius="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
