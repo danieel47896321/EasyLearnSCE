@@ -53,7 +53,8 @@ public class OpenScreen extends AppCompatActivity {
     private void Home(User user){
         Intent intent = new Intent(OpenScreen.this, Home.class);
         intent.putExtra("user", user);
-        loading.stop();
+        try {loading.stop();
+        }catch (Exception e){};
         startActivity(intent);
         finish();
     }

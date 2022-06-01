@@ -9,7 +9,6 @@
     tools:context=".Client.Fragments.ExercisesFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -18,46 +17,51 @@
                 style="@style/EditText_Style_Normal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:hint="@string/Search"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="7dp"
                 android:paddingStart="30dp"
                 android:paddingLeft="30dp"
                 android:paddingEnd="30dp"
                 android:paddingRight="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/header" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/floatingActionButtonAdd"
-                android:layout_width="220dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
+                android:layout_width="182dp"
+                android:layout_height="42dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/AddExercise"
+                android:textAlignment="viewStart"
                 android:textAllCaps="false"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 android:visibility="invisible"
                 app:icon="@drawable/add"
+                app:iconPadding="2dp"
+                app:iconSize="20dp"
                 app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonRemove"
                 app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonOpen" />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/floatingActionButtonRemove"
-                android:layout_width="220dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
+                android:layout_width="182dp"
+                android:layout_height="42dp"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="viewStart"
                 android:src="@drawable/remove"
                 android:text="@string/RemoveExercise"
                 android:textAllCaps="false"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:textSize="14sp"
                 android:visibility="invisible"
+                android:textStyle="bold"
                 app:icon="@drawable/remove"
+                app:iconPadding="2dp"
+                app:iconSize="20dp"
                 app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonOpen"
                 app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonAdd" />
 

@@ -49,25 +49,35 @@
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/drawable/button_effect.xml" value="0.2235" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/drawable/email.xml" value="0.1815" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/drawable/person.xml" value="0.1815" />
+        <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/activity_about.xml" value="0.33" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/activity_change_password.xml" value="0.1707193515704154" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/activity_create_account.xml" value="0.3129528985507246" />
+        <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/activity_easy_learn_chat.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/activity_easylearnsce.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/activity_generic_course.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/activity_generic_engineering.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/activity_generic_you_tube_player.xml" value="0.26313405797101447" />
+        <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/activity_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/activity_message.xml" value="0.2734375" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/activity_reset_password.xml" value="0.25729166666666664" />
+        <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/activity_select_engineering.xml" value="0.5" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/activity_sign_in.xml" value="0.3129528985507246" />
-        <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/course_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/course_item.xml" value="0.5" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/dialog_add_course.xml" value="0.2734375" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/dialog_add_topic.xml" value="0.2734375" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/dialog_remove_course.xml" value="0.2734375" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/dialog_remove_exercise.xml" value="0.2734375" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/dialog_remove_lecture.xml" value="0.2734375" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/dialog_search_spinner.xml" value="0.2734375" />
+        <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/fragment_chats.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/fragment_exercises.xml" value="0.25" />
+        <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/fragment_lectures.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/fragment_select_view.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/fragment_users.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/header.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/lecture_and_exercise.xml" value="0.2734375" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/request_item.xml" value="0.25729166666666664" />
-        <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/tag_view.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/tag_view.xml" value="0.25" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/topic_view.xml" value="0.5" />
         <entry key="..\:/Users/Daniel/AndroidStudioProjects/EasyLearnSCE/app/src/main/res/layout/userbar.xml" value="0.36666666666666664" />
       </map>

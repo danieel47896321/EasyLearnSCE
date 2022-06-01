@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -53,6 +54,7 @@ public class GenericEngineeringAdapter extends RecyclerView.Adapter<GenericEngin
     private String Engineering;
     private TextInputLayout TextInputLayoutCourse, TextInputLayoutTeacherName ,TextInputLayoutDepartment, TextInputLayoutYear, TextInputLayoutSemester;
     private Button ButtonAddCourse, ButtonCancel;
+    int last = -1;
     public GenericEngineeringAdapter(Context context, List<Course> course, String Engineering, User user) {
         this.context = context;
         this.courses = course;
