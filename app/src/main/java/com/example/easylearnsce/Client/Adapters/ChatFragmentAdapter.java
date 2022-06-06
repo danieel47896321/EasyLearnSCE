@@ -2,6 +2,7 @@ package com.example.easylearnsce.Client.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +31,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import javax.crypto.BadPaddingException;
@@ -51,6 +54,7 @@ public class ChatFragmentAdapter extends RecyclerView.Adapter<ChatFragmentAdapte
         View view = LayoutInflater.from(context).inflate(R.layout.fragment_select_view, parent, false);
         return new ChatFragmentAdapter.ViewHolder(view);
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull ChatFragmentAdapter.ViewHolder holder, int position) {
         User user = users.get(position);
@@ -82,17 +86,26 @@ public class ChatFragmentAdapter extends RecyclerView.Adapter<ChatFragmentAdapte
             UserImage = itemView.findViewById(R.id.UserImage);
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private String DecryptMessage(String EncryptMessage){
+        byte[] decodedByte = Base64.getDecoder().decode(EncryptMessage);
+        String decryptedMsg = "";
+        try { decryptedMsg = new String(decodedByte, "UTF-8"); }
+        catch (UnsupportedEncodingException e) {e.printStackTrace();}
+        return decryptedMsg;
+    }
     private void lastMsg(String userID, TextView lastMsg){
         LastMsg = "";
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chats");
         reference.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot temp : snapshot.getChildren()){
                     Chat chat = temp.getValue(Chat.class);
                     if( (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userID)) ||  (chat.getReceiver().equals(userID) && chat.getSender().equals(firebaseUser.getUid())))
-                        LastMsg = chat.getMessage();
+                        LastMsg = DecryptMessage(chat.getMessage());
                 }
                 lastMsg.setText(LastMsg);
             }

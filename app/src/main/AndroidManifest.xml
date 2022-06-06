@@ -27,7 +27,7 @@
         <activity android:name=".Client.User.Message" android:exported="true"/>
         <activity android:name=".Client.User.EasyLearnChat" android:exported="true"/>
         <activity android:name=".Client.User.Profile" android:exported="true"/>
-        <activity android:name=".Client.User.GenericCourse" android:exported="true"/>
+        <activity android:name=".Client.User.GenericCourse" android:exported="true" android:screenOrientation="portrait" />
         <activity android:name=".Client.User.ChangePassword" android:exported="true"/>
         <activity android:name=".Client.User.GenericEngineering" android:exported="true"/>
         <activity android:name=".Client.User.SelectEngineering" android:exported="true"/>

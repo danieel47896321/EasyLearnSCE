@@ -31,18 +31,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.PublicKey;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -58,6 +54,7 @@ public class Message extends AppCompatActivity {
     private List<Chat> chats;
     private RecyclerView recyclerView;
     private User user = new User();
+    private SecretKeySpec secretKeySpec;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,10 +107,26 @@ public class Message extends AppCompatActivity {
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("sender", sender);
             hashMap.put("receiver", receiver);
-            hashMap.put("message", message);
+            hashMap.put("message", EncryptMessage(message));
             databaseReference.child("Chats").push().setValue(hashMap);
         }
         catch (Exception ignored){}
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private String EncryptMessage(String msg){
+        byte[] encryptedMsgByte = new byte[0];
+        try { encryptedMsgByte = msg.getBytes("UTF-8"); }
+        catch (UnsupportedEncodingException e) {e.printStackTrace();}
+        String EncodedMsg = Base64.getEncoder().encodeToString(encryptedMsgByte);
+        return EncodedMsg;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private String DecryptMessage(String EncryptMessage){
+        byte[] decodedByte = Base64.getDecoder().decode(EncryptMessage);
+        String decryptedMsg = "";
+        try { decryptedMsg = new String(decodedByte, "UTF-8"); }
+        catch (UnsupportedEncodingException e) {e.printStackTrace();}
+        return decryptedMsg;
     }
     private void readMessage(String sender, String receiver, String imageUrl){
         chats = new ArrayList<>();
@@ -126,7 +139,7 @@ public class Message extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     Chat chat = dataSnapshot.getValue(Chat.class);
                     if(chat.getReceiver().equals(sender) && chat.getSender().equals(receiver) || chat.getReceiver().equals(receiver) && chat.getSender().equals(sender)) {
-                        chat.setMessage(chat.getMessage());
+                        chat.setMessage(DecryptMessage(chat.getMessage()));
                         chats.add(chat);
                     }
                     messageAdapter = new MessageAdapter(Message.this, chats, imageUrl);

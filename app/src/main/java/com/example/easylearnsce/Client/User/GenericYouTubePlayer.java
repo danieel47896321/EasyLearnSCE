@@ -471,7 +471,10 @@ public class GenericYouTubePlayer extends YouTubeBaseActivity {
         });
     }
     @Override
-    public void onBackPressed() { StartActivity(GenericCourse.class); }
+    public void onBackPressed() {
+        mYouTubePlayer.setFullscreen(false);
+        StartActivity(GenericCourse.class);
+    }
     private void StartActivity(Class Destination){
         intent = new Intent(GenericYouTubePlayer.this, Destination);
         intent.putExtra("user", user);
