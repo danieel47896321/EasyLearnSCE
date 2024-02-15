@@ -103,7 +103,7 @@ public class EasyLearnSCE extends AppCompatActivity {
         });
     }
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(EasyLearnSCE.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(EasyLearnSCE.this,R.style.AppCompatAlertDialogStyle);
         builder.setTitle(getResources().getString(R.string.Exit)).setMessage(getResources().getString(R.string.AreYouSureToExit)).setCancelable(true).setPositiveButton(getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
