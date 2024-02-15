@@ -8,6 +8,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
+        app:cardBackgroundColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginLeft="10dp"
@@ -41,6 +42,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@+id/TagImage"
                 android:textSize="26sp"
+                android:textColor="@color/default_color"
                 app:layout_constraintBottom_toBottomOf="@+id/TagImage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/TagImage"

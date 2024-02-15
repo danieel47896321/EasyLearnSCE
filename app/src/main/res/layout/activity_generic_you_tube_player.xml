@@ -128,7 +128,7 @@ tools:context=".Client.User.GenericYouTubePlayer">
                     app:tabSelectedTextColor="@color/blue2"
                     app:tabTextAppearance="@style/TabLayout_Style"
                     app:tabTextColor="@color/default_color"
-                    tools:ignore="SpeakableTextPresentCheck"></com.google.android.material.tabs.TabLayout>
+                    tools:ignore="SpeakableTextPresentCheck"/>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView

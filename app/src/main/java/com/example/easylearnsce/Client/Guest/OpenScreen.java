@@ -1,9 +1,7 @@
 package com.example.easylearnsce.Client.Guest;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import com.example.easylearnsce.Client.Class.Loading;
@@ -16,20 +14,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class OpenScreen extends AppCompatActivity {
     private Loading loading;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_screen);
         init();
     }
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void init(){ HomePage(); }
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void HomePage() {
        if(firebaseAuth.getCurrentUser() != null ) {
            if(firebaseAuth.getCurrentUser().isEmailVerified()) {

@@ -21,7 +21,6 @@ import com.example.easylearnsce.Client.Class.Tag;
 import com.example.easylearnsce.R;
 import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
-import java.util.List;
 
 public class EasyLearnSCE extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -90,6 +89,18 @@ public class EasyLearnSCE extends AppCompatActivity {
         EasyLearnAdapter easyLearnAdapter = new EasyLearnAdapter(this,EasyLearnList);
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
         recyclerView.setAdapter(easyLearnAdapter);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(EasyLearnSCE.this);
